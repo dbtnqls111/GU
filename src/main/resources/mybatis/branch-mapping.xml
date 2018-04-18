@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mybatis.branchMapper">
+
+	<insert id="insertBranch" parameterType="branchDTO">
+		insert into branch values(#{code}, #{name}, #{address}, #{ownerId})
+	</insert>
+	
+	<update id="updateBranch" parameterType="branchDTO">
+		update branch set name = #{name}, address = #{address},
+		ownerId = #{ownerId} where id = #{id}
+	</update>
+	
+	<delete id="deleteBranch" parameterType="String">
+		delete branch where code = #{code}
+	</delete>
+	
+	<select id="getBranch" parameterType="String" resultType="branchDTO">
+		select * from branch where code = #{code}
+	</select>
+	
+	<select id="getBranchList" resultType="branchDTO">
+		select * from branch order by code asc
+	</select>
+	
+	<select id="getSearchedBranchList" parameterType="String" resultType="branchDTO">
+		select * from branch where code like '%' ||  #{keyword} || '%' or name like '%' ||  #{keyword} || '%' 
+		or address like '%' ||  #{keyword} || '%' or ownerId like '%' ||  #{keyword} || '%' order by code asc
+	</select>
+
+</mapper>

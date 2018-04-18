@@ -1,0 +1,103 @@
+#footer{
+	width: 1560px;
+	height:60px;
+	position: fixed;	
+	left:4px;
+	bottom:0px;
+	background-color:#ffffff;
+}
+
+#unFolding{
+	width: 1560px;
+	height:60px;
+	position: fixed;	
+	left:4px;
+	bottom:3px;
+	background-color:rgba(176, 177, 178, 0.2);
+	display:none;
+}
+
+#footerField, #unFoldingField{
+	width: 100%;
+	height:60px;
+	margin-left:214px;
+	padding:0;
+	border:none;
+	box-sizing: border-box;
+}
+
+#footerUl, #unFoldingUl{
+	margin:0;
+	height:60px;
+}
+
+li{
+	list-style:none;	
+}
+
+#footerUl > li  {
+	padding:0;
+	margin:0;
+	float:left;
+	margin-right:30px;	
+	height:56px;	
+	line-height:60px;
+	box-sizing: border-box;
+}
+
+#unFoldingUl > li{
+	padding:0;
+	margin:0;
+	float:left;
+	margin-right:30px;	
+	height:60px;	
+	line-height:60px;
+	box-sizing: border-box;
+}
+
+#foldingLi, #unFoldingLi{
+	width:60px;
+	border:1px solid #b3b7c6;
+	background-color:#b3b7c6;
+}
+
+#homeIcon{
+	padding-top:11px;
+	width:40px;
+	height:40px;
+	padding-right:30px;
+}
+
+#topIcon{
+	padding-top:12px;
+	width:30px;
+	height:30px;
+	padding-left:30px;
+}
+
+#topBar{
+	border-left:2px solid #dee0e8;
+}
+
+#mainBar{
+	border-right:2px solid #dee0e8;
+}
+
+#searchBarIcon{
+	padding-top:12px;
+	width:40px;
+	height:40px;
+}
+
+#foldingIcon, #unfoldingIcon{
+	padding-top:15px;
+	padding-left:15px;
+	width:30px;
+	height:25px;
+}
+
+#orderBarIcon{
+	padding-top:5px;
+	width:60px;
+	height:50px;
+}

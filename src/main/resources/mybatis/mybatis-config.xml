@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 별명 -->
+	<typeAliases>
+		<typeAlias type="branch.bean.BranchDTO" alias="branchDTO" />
+		<typeAlias type="item.bean.ItemDTO" alias="itemDTO" />
+		<typeAlias type="member.bean.MemberDTO" alias="memberDTO" />
+		<typeAlias type="sales.bean.SalesDTO" alias="salesDTO" />
+		<typeAlias type="board.bean.BoardDTO" alias="boardDTO" />
+	</typeAliases>
+	<!-- SQL Mapper -->
+	<mappers>
+		<mapper resource="mybatis/branch-mapping.xml" />
+		<mapper resource="mybatis/item-mapping.xml" />
+		<mapper resource="mybatis/member-mapping.xml" />
+		<mapper resource="mybatis/sales-mapping.xml" />
+		<mapper resource="mybatis/board-mapping.xml"/>
+	</mappers>
+</configuration>
