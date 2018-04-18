@@ -16,9 +16,15 @@ $(function(){
 			for(var i = 0; i < itemBox_count; i++){
 				$("#content > ul").append("<span id='itemBox" + i +"' class='itemBoxes'>");
 				
-				$(data).find("divide" + i + " > *").each(function(){
-					var imgName = $(this).text();
-					$("#itemBox" + i).append("<li><img src='../img/" + imgName + ".jpg'></img></li>");
+				$(data).find("divide" + i + " > .item").each(function(){
+					var name = $(this).find("name").text();
+					var price = $(this).find("price").text();
+
+					$("#itemBox" + i).append("<li>" +
+															"<img src='../img/" + name + ".jpg'>" +
+															"<p id='name'><span>" + name + "</span></p>" +
+															"<p id='price'><span>" + price + "</span>원</p>" +
+													  "</li>");
 				});
 				
 				$("#content > ul").append("</span>");
@@ -50,7 +56,10 @@ $(function(){
 			$("#loader").fadeOut();
 		});
 		
-		$(this).css("background", "black")
+		$(this).addClass("selected");
+		$(this).css("background", "black");
+		
+		$(".type2").not(this).removeClass("selected");
 		$(".type2").not(this).css("background", "none");
 		
 		return false;
@@ -113,13 +122,13 @@ $(function(){
 	});
 	
 	// searchBtn 이벤트
-	$(document).on("mousedown", "#mj_searchBtn > img", function(){
+	$(document).on("mousedown", "#mj_btn_area > img", function(){
 		$(this).attr("src", "../img/searchBtn_down.png");
-	}).on("mouseup", "#mj_searchBtn > img", function(){
+	}).on("mouseup", "#mj_btn_area > img", function(){
 		$(this).attr("src", "../img/searchBtn_up.png");
-	}).on("mouseenter", "#mj_searchBtn > img", function(){
+	}).on("mouseenter", "#mj_btn_area > img", function(){
 		$(this).css("cursor", "pointer");
-	}).on("mouseleave", "#mj_searchBtn > img", function(){
+	}).on("mouseleave", "#mj_btn_area > img", function(){
 		$(this).attr("src", "../img/searchBtn_up.png");
 	});
 	// ---------------------------------------------------------------------------------------------------------------	

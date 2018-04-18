@@ -7,8 +7,8 @@ public class ItemDTO {
 	private String type2;
 	private String brand;
 	private String name;
-	private int wup; // 입고단가
-	private int uup; // 출고단가
+	private int wup; // 입고 단가
+	private int uup; // 출고 단가
 
 	public String getCode() {
 		return code;

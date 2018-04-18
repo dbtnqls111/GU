@@ -5,28 +5,32 @@
 <mapper namespace="mybatis.itemMapper">
 
 	<insert id="insertItem" parameterType="itemDTO">
-		insert into item values(#{code}, #{type1}, #{type2}, #{brand}, #{name}, #{wup}, #{uup})
+		insert into item values(#{ code }, #{ type1 }, #{ type2 }, #{ brand }, #{ name }, #{ wup }, #{ uup })
 	</insert>
 	
 	<update id="updateItem" parameterType="itemDTO">
-		update item set type1=#{type1}, type2=#{type2}, brand=#{brand},
-		name=#{name}, wup=#{wup}, uup=#{uup} where code=#{code}
+		update item set type1 = #{ type1 }, type2 = #{ type2 }, brand = #{ brand },
+		name = #{ name }, wup = #{ wup }, uup = #{ uup } where code = #{ code }
 	</update>
 	
 	<delete id="deleteItem" parameterType="String">
-		delete item where code=#{code}
+		delete item where code = #{ code }
 	</delete>
 	
 	<select id="getItem" parameterType="String" resultType="itemDTO">
-		select * from item where code=#{code}
+		select * from item where code = #{ code }
 	</select>
 	
 	<select id="getItemList" parameterType="String" resultType="itemDTO">
-		select * from item where type2=#{type2} order by code asc
+		select * from item where type2 = #{ type2 } order by code asc
 	</select>
 	
 	<select id="getItemListAll" resultType="itemDTO">
 		select * from item order by code asc
 	</select>
 	
+	<select id="search" parameterType="java.util.Map" resultType="itemDTO">
+		<!-- || : 문자열 연결 연산자 -->
+		select * from item where name like #{ keyword } || '%' and type2 like #{ type2 } and (uup >= #{ lowest_price } and uup <![CDATA[ <= ]]> #{ highest_price }) order by code asc
+	</select>
 </mapper>

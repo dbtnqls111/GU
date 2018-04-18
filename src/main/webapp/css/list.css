@@ -3,13 +3,8 @@
 div{ box-sizing:border-box; }
 
 
-/* -------------------------------------------- */
-#navigator{
-	width:65%;
-	margin:auto auto 40px auto;
-	border:1px solid black;
-}
-
+/* ---------------------------------------------------------------------- */
+#navigator{ width:65%; margin:auto auto 40px auto; border:1px solid black; }
 #navigator > ul{ margin:0px; padding:0px; overflow:hidden; }
 
 #navigator li{
@@ -22,13 +17,11 @@ div{ box-sizing:border-box; }
 }
 
 #nav0, #nav1, #nav2, #nav3{ border-right:1px solid black; }
-/* -------------------------------------------- */
+/* ---------------------------------------------------------------------- */
 
 
-/* -------------------------------------------- */
-#hot *{
-	box-sizing:border-box;
-}
+/* ---------------------------------------------------------------------- */
+#hot *{ box-sizing:border-box; }
 
 #hot{
 	width:65%; height:465px;
@@ -36,25 +29,14 @@ div{ box-sizing:border-box; }
 	border:1px solid black;
 }
 
-#hot > #left{
-	width:35%;
-	box-sizing:border-box;
-	border:1px solid black;
-}
-
+#hot > #left{ width:35%; box-sizing:border-box; border:1px solid black; }
 #hot > #right{ width:65%; height:100%; float:right; }
-
 #hot > #right > table{ width:100%; height:100%; }
-/* -------------------------------------------- */
+/* ---------------------------------------------------------------------- */
 
 
-/* -------------------------------------------- */
-#type2{
-	width:65%;
-	border:1px solid black;
-	margin:70px auto 20px auto;
-}
-
+/* ---------------------------------------------------------------------- */
+#type2{ width:65%; margin:70px auto 20px auto; border:1px solid black; }
 #type2 > ul{ margin:0px; padding:0px; overflow:hidden; }
 
 #type2 li{
@@ -66,10 +48,10 @@ div{ box-sizing:border-box; }
 	list-style:none;
 	border:1px solid black;
 }
-/* -------------------------------------------- */
+/* ---------------------------------------------------------------------- */
 
 
-/* -------------------------------------------- */
+/* ---------------------------------------------------------------------- */
 #mj_search *{ box-sizing:border-box; }
 
 #mj_search{
@@ -82,9 +64,8 @@ div{ box-sizing:border-box; }
 #mj_title01, #mj_title02{
 	width:12%;
 	float:left;
-    font-size:1.154em;
-    font-weight:bold;
-    margin:10px 0px 0px 10px;
+	margin:10px 0px 0px 10px;
+    font-size:1.154em; font-weight:bold;
 }
 
 #mj_input01, #mj_input02{
@@ -93,22 +74,18 @@ div{ box-sizing:border-box; }
 	overflow:hidden;
 }
 
-/*  */
-
-#mj_input{ width:88%; float:left; }
+#mj_input_area{ width:88%; float:left; }
 
 #mj_input01 ul{
 	width:57%;
 	float:left;
-	text-align:center;
 	overflow:hidden;
 	margin:15px -10px 0px 0px; padding:0px;
+	text-align:center;
 }
 
 #mj_input01 li{ width:32%; float:left; list-style:none; }
-
 #input_priceRange{ width:31%; float:left; margin:14px 0px 0px 0px; }
-
 #input_priceRange > input{ height:27px; }
 
 #mj_input02 > #search_text{
@@ -117,86 +94,87 @@ div{ box-sizing:border-box; }
 	margin:12px 0px 10px 30px;
 }
 
-/*  */
-
-#mj_searchBtn{ width:12%; float:left; }
-
-#mj_searchBtn img{ margin:0px 0px 0px 15px; }
-/* -------------------------------------------- */
+#mj_btn_area{ width:12%; float:left; }
+#mj_btn_area img{ margin:0px 0px 0px 15px; }
+/* ---------------------------------------------------------------------- */
 
 
-/* -------------------------------------------- */
+/* ---------------------------------------------------------------------- */
+#content *{
+	box-sizing:border-box;
+}
+
 #content{
 	width:65%;
-	border-left:1px solid #999999; border-bottom:1px solid #999999;
 	margin:auto;
+	border-left:1px solid #999999; border-bottom:1px solid #999999;
 }
 
-#content ul{
-	margin:0px; padding:0px;
-	overflow:hidden;
-}
+#content ul{ margin:0px; padding:0px; overflow:hidden; }
 
 #content li{
 	width:25%;
 	float:left;
 	box-sizing:border-box;
 	text-align:center;
+	padding:0px 0px 10px 0px;
 	border-top:1px solid #999999; border-right:1px solid #999999;
 	list-style:none;
 }
 
 #content img{ width:100%; }
-/* -------------------------------------------- */
+#content #name{ text-align:left; margin:-10px 0px 0px 25px; font-size:13px; }
+#content #price{ text-align:left; margin:5px 0px 0px 25px; }
+#content #price > span{ font-size:20px; }
+/* ---------------------------------------------------------------------- */
 
 
-/* -------------------------------------------- */
+/* ---------------------------------------------------------------------- */
 #viewMore{
 	width:65%; height:40px;
-	text-align:center;
 	padding:8px 0px 0px 0px; margin:auto auto 200px auto;
-	font-size:20px;
+	text-align:center;
 	border:1px solid black;
+	font-size:20px;
 }
-/* -------------------------------------------- */
+/* ---------------------------------------------------------------------- */
 
 
+/* ---------------------------------------------------------------------- */
 #list_footer{
 	width:100%; height:200px;
-	text-align:center;
 	padding:100px 0px 0px 0px; margin:50px 0px 0px 0px;
+	text-align:center;
 	border:1px solid black;
 }
+/* ---------------------------------------------------------------------- */
 
 
-/* -------------------------------------------- */
+/* ---------------------------------------------------------------------- */
 #moving_banner{
 	width:10%; height:70%;
 	position:absolute;
 	right:70px;
-	text-align:center;
 	padding:30px 0px 0px 0px;
-	font-size:30px; font-weight:bold;
+	text-align:center;
 	border:1px solid red;
+	font-size:30px; font-weight:bold;
 	background:#EEEEEE;
 }
-/* -------------------------------------------- */
+/* ---------------------------------------------------------------------- */
 
 
-/* -------------------------------------------- */
+/* ---------------------------------------------------------------------- */
 #loader_background{
-	background:black;
 	width:100%; height:100%;
 	display:none; position:fixed;
 	left:0; top:0;
+	background:black;
 	
 	/* 불투명도 조절 */
 	opacity:0.6; /* 값 범위 : 0 ~ 1 */
 	filter:alpha(opacity=60); /* For IE8 and earlier */
 }
 
-#loader{
-	display:none; position:fixed;
-	left:50%; top:50%;
-}
-/* -------------------------------------------- */
+#loader{ display:none; position:fixed; left:50%; top:50%; }
+/* ---------------------------------------------------------------------- */

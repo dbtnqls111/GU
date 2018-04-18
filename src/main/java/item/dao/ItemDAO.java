@@ -1,6 +1,8 @@
 package item.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +50,24 @@ public class ItemDAO {
 	
 	public String getType1(String type2) {
 		return sqlSession.selectOne("mybatis.itemMapper.getType1", type2);
+	}
+	
+	public List<ItemDTO> search(String keyword, String type2, int lowest_price, int highest_price){
+		System.out.println("keyword : " + keyword);
+		System.out.println("type2 : " + type2);
+		System.out.println("lowest_price : " + lowest_price);
+		System.out.println("highest_price : " + highest_price);
+		
+		if(type2.equals("전체")) {
+			type2 = "%";
+		}
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("keyword", keyword);
+		param.put("type2", type2);
+		param.put("lowest_price", lowest_price);
+		param.put("highest_price", highest_price);
+		
+		return sqlSession.selectList("mybatis.itemMapper.search", param);
 	}
 }

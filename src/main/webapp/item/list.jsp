@@ -15,12 +15,10 @@
 	<script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js?v=1"></script>
 	<script type="text/javascript" src="/GU/script/list.js?v=1" charset="UTF-8"></script>
 	<script type="text/javascript">
-		// type2 영역 관련 코드
 		$(function(){
-			// ----------------------------------------------------------------------------------------------------------
-			
+			// 																	◆ type2 ◆
+			// ---------------------------------------------------------------------------------------------------------
 			var target = "." + '${ type1 }' + " a";
-			
 			$.ajax({
 				url:"category/type2.html",
 				type:"get",
@@ -44,13 +42,31 @@
 				}
 			});
 			
+			$("#type2-0").trigger("click"); // trigger : 강제 이벤트 발생시키기	
+			// ---------------------------------------------------------------------------------------------------------
+
 			
-			// 첫 화면 '전체'' 메뉴 출력
-			$("#type2-0").trigger("click"); // trigger : 강제 이벤트 발생시키기
-			
-			
-			// hot 메인 이미지 출력
+			// 																	  ◆ hot ◆
+			// ---------------------------------------------------------------------------------------------------------
 			$("#hot img").attr("src", "../img/hot_img/" + "${ type1 }" + ".jpg");
+			// ---------------------------------------------------------------------------------------------------------
+			
+			
+			//																     ◆ search ◆
+			// ---------------------------------------------------------------------------------------------------------
+			$(document).on("click", "#mj_btn_area > img", function(){
+				var url = "ajax/search.jsp";
+				var type2 = $("#type2 li[class='type2 selected'] > a").text();
+				var lowest_price = $("#mj_input01 input[name='lowest']").val();
+				var highest_price = $("#mj_input01 input[name='highest']").val();
+				var keyword = $("#mj_input02 #search_text").val();
+				
+				// AJAX 처리...
+				$.get(url, { "keyword":keyword, "type2":type2, "lowest_price":lowest_price, "highest_price":highest_price }, function(data){
+					
+				});
+			});
+			// ---------------------------------------------------------------------------------------------------------
 		});
 	</script>
 	<link rel="stylesheet" type="text/css" href="/GU/css/list.css" />
@@ -59,6 +75,7 @@
 	<div id="wrapper">
 		<jsp:include page="../template/header.jsp" />
 		
+		<!-- ================================================================ -->
 		
 		<div id="navigator">
 			<ul>
@@ -70,6 +87,7 @@
 			</ul>
 		</div>
 		
+		<!-- ================================================================ -->
 		
 		<div id="hot">
 			<img id="left" width="100%" height="100%">
@@ -81,6 +99,7 @@
 			</div>
 		</div>
 		
+		<!-- ================================================================ -->
 		
 		<div id="type2">
 			<ul>
@@ -88,14 +107,16 @@
 			</ul>
 		</div>
 		
+		<!-- ================================================================ -->
+		
 		<div id="mj_search">
-			<div id="mj_input">
+			<div id="mj_input_area">
 				<div id="mj_input01">
 					<p id="mj_title01">가격대 검색</p>
 					<ul>
 						<li><input type="radio" name="price_range" id="price_range01">1500원 이하
 						<li><input type="radio" name="price_range" id="price_range02">1500원 ~ 3000원
-						<li><input type="radio" name="price_range" id="price_range03">5000원 이상
+						<li><input type="radio" name="price_range" id="price_range03">3000원 이상
 					</ul>
 					<div id="input_priceRange">
 						<input type="text" name="lowest" size="10">
@@ -111,26 +132,31 @@
 				</div>
 			</div>
 			
-			<div id="mj_searchBtn">
+			<div id="mj_btn_area">
 				<img src="../img/searchBtn_up.png" width="90px" height="90px">
 			</div>
 		</div>
 		
+		<!-- ================================================================ -->
 		
 		<div id="content">
 			<ul>
 			</ul>
 		</div>
 		
+		<!-- ================================================================ -->
 		
 		<div id="viewMore">더 보기</div>
 		 
+		 <!-- ================================================================ -->
 		 
 		<div id="list_footer">Copyright ⓒ</div>
 		
+		<!-- ================================================================ -->
 		
 		<jsp:include page="../template/footer.jsp" />
 		
+		<!-- ================================================================ -->
 		
 		<div id="moving_banner"></div>
 	</div>
