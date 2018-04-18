@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import branch.bean.BranchDTO;
 import item.bean.ItemDTO;
 
 @Controller
@@ -39,6 +40,14 @@ public class ItemController {
 		modelAndView.addObject("itemDTO", itemDTO);
 		modelAndView.setViewName("/item/itemView.jsp");
 		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/admin/itemList_admin.do")
+	public ModelAndView itemList_admin() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("register/itemList.jsp");
+
 		return modelAndView;
 	}
 }

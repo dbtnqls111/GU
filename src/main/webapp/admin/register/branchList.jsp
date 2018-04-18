@@ -4,90 +4,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<style type="text/css">
-.topMenu {
-	width: 850px;
-	height: 30px;
-	background-color: #c4c4c4;
-	border-bottom: 1px solid #aaaaaa;
-	border-right: 1px solid #aaaaaa;
-	box-sizing: border-box;
-}
-
-.topMenu p {
-	display: inline;
-	height: 100%;
-	padding: 2px 5px;
-	line-height: 2;
-	font-weight: bold;
-}
-
-.topMenu>div {
-	float: right;
-	padding: 2px 5px;
-}
-
-.paging {
-	width: 800px;
-	height: 30px;
-	line-height: 1.5;
-	margin-left: 10px;
-}
-
-.dataList {
-	width: 100%;
-	height: calc(100% - 60px);
-	margin: 0;
-	padding-left: 10px;
-	box-sizing: border-box;
-	overflow: auto;
-	margin: 0;
-}
-
-.dataList table {
-	width: 800px;
-	margin-left: 0;
-	margin-bottom: 50px;
-	border: 1px solid #aaaaaa;
-	border-collapse: collapse;
-}
-
-th, td {
-	border: 1px solid #aaaaaa;
-	padding: 5px;
-	text-align: center;
-	padding: 5px;
-}
-
-.trLabel {
-	background-color: #c4c4c4;
-}
-
-.trData {
-	background-color: white;
-}
-
-.trData:hover {
-	background-color: #e2e2e2;
-}
-
-.bottomMenu {
-	position: fixed;
-	background-color: #c4c4c4;
-	border-top: 1px solid #aaaaaa;
-	border-right: 1px solid #aaaaaa;
-	border-bottom: 1px solid #aaaaaa;
-	box-sizing: border-box;
-	bottom: 10px;
-	width: 850px;
-	height: 30px;
-	padding: 2px 5px;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="css/list.css">
+<script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		// 새로고침시 캐시 사용 안함
+		$.ajaxSetup({
+			cache : false
+		});
+		
 		$(".searchForm").submit(function() {
-			$(this).parents(".content").load("../branch/searchedBranchList_admin.do?keyword=" + $(".keyword").val());
+			$(this).parents(".content").load("searchedBranchList_admin.do?keyword=" + $(".keyword").val() + "&page=1");
 
 			return false;
 		});
@@ -117,7 +44,7 @@ th, td {
 			var ml = (cw - width) / 2;
 			var mt = (ch - height) / 2;
 
-			window.open("../branch/branchInsertForm_admin.do", "", "width=" + width + ",height=" + height + ",top=" + mt + ",left=" + ml);
+			window.open("branchInsertForm_admin.do", "", "width=" + width + ",height=" + height + ",top=" + mt + ",left=" + ml);
 		});
 
 		$(".delete").click(function() {
@@ -136,22 +63,56 @@ th, td {
 			}
 		});
 	});
+
+	function update(code) {
+		var cw = screen.availWidth;
+		var ch = screen.availHeight;
+
+		var width = 600;
+		var height = 600;
+
+		var ml = (cw - width) / 2;
+		var mt = (ch - height) / 2;
+
+		window.open("branchUpdateForm_admin.do?code=" + code, "", "width=" + width + ",height=" + height + ",top=" + mt + ",left=" + ml);
+	}
+	
+	function paging(page) {
+		$(".paging").parents(".content").load("searchedBranchList_admin.do?keyword=" + $(".keyword").val() + "&page=" + page);
+	}
 </script>
 </head>
 <body>
 	<div class="topMenu">
 		<p>☆ 지점 목록</p>
 		<div>
-			<form class="searchForm" action="../branch/searchedBranchList_admin.do" method="post">
+			<form class="searchForm" action="searchedBranchList_admin.do" method="post">
 				<input type="text" class="keyword" value="${keyword}">
 				<input type="submit" value="검색">
 			</form>
 		</div>
 	</div>
-	<div class="paging">[1][2][3]</div>
+	<div class="paging">
+		[<a class="otherPage" href="#" onclick="paging(1)">처음으로</a>]
+		<c:if test="${startPage > 5}">
+			[<a href="#" class="otherPage" onclick="paging(${startPage - 1})">이전</a>]
+		</c:if>
+		<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+			<c:if test="${i == page}">
+					[<a href="#" class="currentPage" onclick="paging(${i})">${i}</a>]
+				</c:if>
+			<c:if test="${i != page}">
+					[<a href="#" class="otherPage" onclick="paging(${i})">${i}</a>]
+				</c:if>
+		</c:forEach>
+		<c:if test="${endPage < maxPage}">
+			[<a href="#" class="otherPage" onclick="paging(${endPage + 1})">다음</a>]
+		</c:if>
+		[<a class="otherPage" href="#" onclick="paging(${maxPage})">끝으로</a>]
+	</div>
 	<div class="dataList">
-		<form class="tableForm" action="../branch/branchDelete_admin.do" method="post">
-			<table>
+		<form class="tableForm" action="branchDelete_admin.do" method="post">
+			<table class="branchTable">
 				<tr class="trLabel">
 					<th>
 						<input type="checkbox" class="check_all">
@@ -167,7 +128,7 @@ th, td {
 							<input type="checkbox" name="check_i" class="check_i">
 						</td>
 						<td>
-							<a href="#">${branchDTO.code}</a>
+							<a href="#" onclick="update('${branchDTO.code}')">${branchDTO.code}</a>
 						</td>
 						<td>${branchDTO.name}</td>
 						<td>${branchDTO.address}</td>

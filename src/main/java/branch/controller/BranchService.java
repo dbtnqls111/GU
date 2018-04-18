@@ -14,8 +14,12 @@ public interface BranchService {
 
 	BranchDTO getBranch(String code);
 
-	ArrayList<BranchDTO> getBranchList();
+	ArrayList<BranchDTO> getBranchList(int startNum, int endNum);
 
-	ArrayList<BranchDTO> getSearchedBranchList(String keyword);
+	ArrayList<BranchDTO> getSearchedBranchList(String keyword, int startNum, int endNum);
+
+	int getBranchListCount();
+	
+	int getSearchedBranchListCount(String keyword);
 
 }

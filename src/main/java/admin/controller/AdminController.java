@@ -10,7 +10,7 @@ public class AdminController {
 	@RequestMapping(value = "/admin/main.do")
 	public ModelAndView main() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("main.jsp");
+		modelAndView.setViewName("/admin/main.jsp");
 
 		return modelAndView;
 	}

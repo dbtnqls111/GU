@@ -27,11 +27,11 @@
 				return false;
 			}
 
-			$(".branchInsertForm").submit();
+			$(".branchUpdateForm").submit();
 		});
-		
+
 		$(".reset").click(function() {
-			$(".branchInsertForm").each(function() {
+			$(".branchUpdateForm").each(function() {
 				this.reset();
 			})
 		});
@@ -41,27 +41,33 @@
 <body>
 	<div class="wrapper">
 		<div class="header">
-			<p>지점 등록</p>
+			<p>지점 수정</p>
 		</div>
 		<div class="body">
-			<form action="branchInsert_admin.do" method="post" class="branchInsertForm">
+			<form action="branchUpdate_admin.do" method="post" class="branchUpdateForm">
 				<table>
 					<tr>
 						<td class="tdLabel">지점 코드</td>
 						<td class="tdData">
-							<input type="text" name="code">
+							<input type="text" name="code" value="${branchDTO.code}">
 						</td>
 					</tr>
 					<tr>
 						<td class="tdLabel">지점명</td>
 						<td class="tdData">
-							<input type="text" name="name">
+							<input type="text" name="name" value="${branchDTO.name}">
 						</td>
 					</tr>
 					<tr>
 						<td class="tdLabel">지점 주소</td>
 						<td class="tdData">
-							<input type="text" name="address">
+							<input type="text" name="address" value="${branchDTO.address}">
+						</td>
+					</tr>
+					<tr>
+						<td class="tdLabel">지점주 ID</td>
+						<td class="tdData">
+							<input type="text" name="ownerId" value="${branchDTO.ownerId}">
 						</td>
 					</tr>
 				</table>

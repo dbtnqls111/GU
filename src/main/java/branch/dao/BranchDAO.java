@@ -1,6 +1,8 @@
 package branch.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +32,29 @@ public class BranchDAO {
 		return sqlSession.selectOne("mybatis.branchMapper.getBranch", code);
 	}
 
-	public List<BranchDTO> getBranchList() {
-		return sqlSession.selectList("mybatis.branchMapper.getBranchList");
+	public List<BranchDTO> getBranchList(int startNum, int endNum) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+
+		return sqlSession.selectList("mybatis.branchMapper.getBranchList", map);
 	}
 
-	public List<BranchDTO> getSearchedBranchList(String keyword) {
-		return sqlSession.selectList("mybatis.branchMapper.getSearchedBranchList", keyword);
+	public List<BranchDTO> getSearchedBranchList(String keyword, int startNum, int endNum) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("keyword", (String) keyword);
+		map.put("startNum", (Integer) startNum);
+		map.put("endNum", (Integer) endNum);
+
+		return sqlSession.selectList("mybatis.branchMapper.getSearchedBranchList", map);
+	}
+
+	public int getBranchListCount() {
+		return sqlSession.selectOne("mybatis.branchMapper.getBranchListCount");
+	}
+
+	public int getSearchedBranchListCount(String keyword) {
+		return sqlSession.selectOne("mybatis.branchMapper.getSearchedBranchListCount", keyword);
 	}
 
 }

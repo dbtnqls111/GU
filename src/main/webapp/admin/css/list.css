@@ -1,0 +1,115 @@
+.topMenu {
+	width: 850px;
+	height: 30px;
+	background-color: #c4c4c4;
+	border-bottom: 1px solid #aaaaaa;
+	border-right: 1px solid #aaaaaa;
+	box-sizing: border-box;
+}
+
+.topMenu p {
+	display: inline;
+	height: 100%;
+	padding: 2px 5px;
+	line-height: 2;
+	font-weight: bold;
+}
+
+.topMenu>div {
+	float: right;
+	padding: 2px 5px;
+}
+
+.paging {
+	width: 800px;
+	height: 30px;
+	line-height: 1.5;
+	margin-left: 10px;
+}
+
+.paging .otherPage {
+	color: blue;
+	text-decoration: none;
+}
+
+.paging .currentPage {
+	color: red;
+	text-decoration: underline;
+}
+
+.dataList {
+	width: 100%;
+	height: calc(100% - 60px);
+	margin: 0;
+	padding-left: 10px;
+	box-sizing: border-box;
+	overflow: auto;
+	margin: 0;
+}
+
+.dataList table {
+	margin-left: 0;
+	margin-bottom: 50px;
+	border: 1px solid #aaaaaa;
+	border-collapse: collapse;
+}
+
+.dataList table.branchTable {
+	width: 800px;
+}
+
+.dataList table.itemTable {
+	width: 1000px;
+}
+
+th, td {
+	border: 1px solid #aaaaaa;
+	padding: 5px;
+	text-align: center;
+	padding: 5px;
+}
+
+.trLabel {
+	background-color: #c4c4c4;
+}
+
+.trData {
+	background-color: white;
+}
+
+.trData:hover {
+	background-color: #e2e2e2;
+}
+
+.trData a:link {
+	color: blue;
+	text-decoration: none;
+}
+
+.trData a:visited {
+	color: blue;
+	text-decoration: none;
+}
+
+.trData a:hover {
+	color: blue;
+	text-decoration: underline;
+}
+
+.trData a:active {
+	color: blue;
+	text-decoration: underline;
+}
+
+.bottomMenu {
+	position: fixed;
+	background-color: #c4c4c4;
+	border-top: 1px solid #aaaaaa;
+	border-right: 1px solid #aaaaaa;
+	border-bottom: 1px solid #aaaaaa;
+	box-sizing: border-box;
+	bottom: 10px;
+	width: 850px;
+	height: 30px;
+	padding: 2px 5px;
+}
