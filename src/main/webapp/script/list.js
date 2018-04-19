@@ -1,66 +1,91 @@
-$(function(){
-	//																		 ◆ content ◆ 
-	// ---------------------------------------------------------------------------------------------------------------
-	// type2 메뉴 클릭 시
-	$(document).on("click", ".type2", function(){
+﻿$.getScript("http://code.jquery.com/ui/1.10.2/jquery-ui.js"); // jQuery UI JavaScript file load
+
+
+function content_revalidate(url, param){
+	$.get(url, param, function(data){
 		$("#loader_background").fadeIn();
 		$("#loader").fadeIn();
 		
 		$("#content > ul > *").remove();
 		
+		var itemBox_count = parseInt($(data).find("itemBox_count").text());
+
+		for(var i = 0; i < itemBox_count; i++){
+			$("#content > ul").append("<span id='itemBox" + i +"' class='itemBoxes'>");
+			
+			$(data).find("divide" + i + " > .item").each(function(){
+				var name = $(this).find("name").text();
+				var price = $(this).find("price").text();
+
+				$("#itemBox" + i).append("<li>" +
+														"<img src='../img/" + name + ".jpg'>" +
+														"<p id='name'><span>" + name + "</span></p>" +
+														"<p id='price'><span>" + price + "</span>원</p>" +
+												  "</li>");
+			});
+			
+			$("#content > ul").append("</span>");
+		}
+		
+		// 첫 번째 덩어리만 출력
+		$(".itemBoxes").not("#itemBox0").hide();
+
+		// itemBox1이 존재한다는 것은 덩어리가 2개 이상이라는 의미이므로 '더 보기'를 출력
+		if($("#itemBox1").attr("class") != undefined){
+			$("#viewMore").show();
+		}else{
+			$("#viewMore").hide();
+		}
+		
+		// 상세보기
+		$("#content img").mouseenter(function(){
+			$(this).css("cursor", "pointer");
+		}).click(function(){
+			$("#dialog").dialog({
+				width:800,
+				height:500,
+                modal:true,
+                resizable:false,
+			});
+		});
+	}).always(function(){
+		$("#loader_background").fadeOut();
+		$("#loader").fadeOut();
+	}).fail(function(exception){
+		alert("잘못된 입력입니다.");
+	});
+}
+
+
+$(function(){
+	//																		 ◆ content ◆ 
+	// ---------------------------------------------------------------------------------------------------------------
+	// type2 메뉴 클릭 시
+	$(document).on("click", ".type2", function(){
 		var url = "../item/ajax/getItemList.jsp";
 		var type2 = $(this).find("a").html();
-		$.get(url, { "type2":type2 }, function(data){
-			var itemBox_count = parseInt($(data).find("itemBox_count").text());
-
-			for(var i = 0; i < itemBox_count; i++){
-				$("#content > ul").append("<span id='itemBox" + i +"' class='itemBoxes'>");
-				
-				$(data).find("divide" + i + " > .item").each(function(){
-					var name = $(this).find("name").text();
-					var price = $(this).find("price").text();
-
-					$("#itemBox" + i).append("<li>" +
-															"<img src='../img/" + name + ".jpg'>" +
-															"<p id='name'><span>" + name + "</span></p>" +
-															"<p id='price'><span>" + price + "</span>원</p>" +
-													  "</li>");
-				});
-				
-				$("#content > ul").append("</span>");
-			}
-			
-			// 첫 번째 덩어리만 출력
-			$(".itemBoxes").not("#itemBox0").hide();
-
-			// itemBox1이 존재한다는 것은 덩어리가 2개 이상이라는 의미이므로 '더 보기'를 출력
-			if($("#itemBox1").attr("class") != undefined){
-				$("#viewMore").show();
-			}else{
-				$("#viewMore").hide();
-			}
-			
-			// enter, leave style
-			$(".itemBoxes > li").mouseenter(function(){
-				$(this).css("border", "1px solid black");
-			}).mouseleave(function(){
-				$(this).css({
-					"border-top":"1px solid #999999",
-					"border-right":"1px solid #999999",
-					"border-left":"none",
-					"border-bottom":"none"
-				});
-			});
-		}).always(function(){
-			$("#loader_background").fadeOut();
-			$("#loader").fadeOut();
-		});
+		var param = { "url":url, "type2":type2 };
+		
+		content_revalidate(url, param);
+		
+		
+		$(".type2").not(this).removeClass("selected");
+		$(".type2").not(this).css("background", "none");
 		
 		$(this).addClass("selected");
 		$(this).css("background", "black");
 		
-		$(".type2").not(this).removeClass("selected");
-		$(".type2").not(this).css("background", "none");
+		
+		$(".itemBoxes > li").mouseenter(function(){
+			$(this).css("border", "1px solid black");
+		}).mouseleave(function(){
+			$(this).css({
+				"border-top":"1px solid #999999",
+				"border-right":"1px solid #999999",
+				"border-left":"none",
+				"border-bottom":"none"
+			});
+		});
 		
 		return false;
 	});

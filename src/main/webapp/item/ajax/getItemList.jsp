@@ -23,7 +23,7 @@
 	*/
 	itemDAO.setSqlSession(sessionTemplate);
 
-	ArrayList<ItemDTO> item_list = (ArrayList<ItemDTO>)itemDAO.getItemList("도시락");
+	ArrayList<ItemDTO> item_list = (ArrayList<ItemDTO>)itemDAO.getItemList(type2);
 	
 	
 	final int ROW_PER_ITEMCOUNT = 4; // 행당 아이템 개수
@@ -49,7 +49,7 @@
 	%>
 			<divide<%= i %>>
 	<%
-			for(int j = 0; j < 12; j++){
+			for(int j = 0; j < ITEMBOX_PER_ITEMCOUNT; j++){
 				try{
 					String name = item_list.get(index).getName();
 					int price = item_list.get(index).getUup();
@@ -62,7 +62,7 @@
 					</item<%= index %>>
 	<%	
 				}catch(IndexOutOfBoundsException e){
-					if(index % 4 == 0){
+					if(index % ROW_PER_ITEMCOUNT == 0){
 						break;
 					}
 	%>
