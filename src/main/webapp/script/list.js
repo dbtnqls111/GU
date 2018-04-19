@@ -1,6 +1,5 @@
 ﻿$.getScript("http://code.jquery.com/ui/1.10.2/jquery-ui.js"); // jQuery UI JavaScript file load
 
-
 function content_revalidate(url, param){
 	$.get(url, param, function(data){
 		$("#loader_background").fadeIn();
@@ -41,7 +40,14 @@ function content_revalidate(url, param){
 		$("#content img").mouseenter(function(){
 			$(this).css("cursor", "pointer");
 		}).click(function(){
+			$("#comment_regist_btn").button();
+			
 			$("#dialog").dialog({
+				open:function(){
+					$(this).parents(".ui-dialog").attr("tabindex", -1)[0].focus(); // 다이얼로그가 열렸을 때 X 버튼에 포커싱이 되는 현상을 해결
+					$(this).parents(".ui-dialog").find(".ui-dialog-title").css({ "width":"100%", "display":"block", "text-align":"center" }); // title 가운데 정렬
+				},
+				
 				width:800,
 				height:500,
                 modal:true,
