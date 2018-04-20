@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?> <!-- XML declaration allowed only at the start of the document -->
+<?xml version='1.0' encoding='UTF-8'?>
 
 <%@page import="org.mybatis.spring.SqlSessionTemplate"%>
 <%@page import="org.springframework.context.support.GenericXmlApplicationContext"%>
@@ -12,12 +12,10 @@
 	String type2 = request.getParameter("type2");
 	int lowest_price = 0;
 	int highest_price = 0;
-	try{
-		lowest_price = Integer.parseInt(request.getParameter("lowest_price"));
-		highest_price = Integer.parseInt(request.getParameter("highest_price"));
-	}catch(Exception e){
-		return;
-	}
+
+	System.out.println(request.getParameter("highest_price"));
+	lowest_price = Integer.parseInt(request.getParameter("lowest_price"));
+	highest_price = Integer.parseInt(request.getParameter("highest_price"));
 
 	ItemDAO itemDAO = new ItemDAO();
 	
@@ -56,22 +54,13 @@
 				try{
 					String name = item_list.get(index).getName();
 					int price = item_list.get(index).getUup();
-					
-					
 	%>
 					<item<%= index %> class="item">
 						<name><![CDATA[<%= name %>]]></name>
 						<price><%= price %></price>
 					</item<%= index %>>
 	<%	
-				}catch(IndexOutOfBoundsException e){
-					if(index % ROW_PER_ITEMCOUNT == 0){
-						break;
-					}
-	%>
-					<item<%= index %>>　</item<%= index %>>
-	<%				
-				}
+				}catch(IndexOutOfBoundsException e){ break; }
 				index++;
 			}
 	%>

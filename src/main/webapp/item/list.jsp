@@ -42,7 +42,7 @@
 					alert("Error...");
 				}
 			});
-			alert("test");
+
 			$("#type2-0").trigger("click"); // trigger : 강제 이벤트 발생시키기	
 			// -------------------------------------------------------------------------------------------------------------
 
@@ -69,7 +69,7 @@
 						return;
 					}
 				}else{
-					lowest_price = -1;
+					lowest_price = 0;
 				}
 				
 				if(highest_price != ""){
@@ -78,7 +78,7 @@
 						return;
 					}
 				}else{
-					highest_price = -1;
+					highest_price = 999999999;
 				}
 		
 				var param = { "keyword":keyword, "type2":type2, "lowest_price":lowest_price, "highest_price":highest_price };
@@ -139,9 +139,9 @@
 						<li><input type="radio" name="price_range" id="price_range03">3000원 이상
 					</ul>
 					<div id="input_priceRange">
-						<input type="text" name="lowest" size="10">
+						<input type="text" name="lowest" size="10" maxlength="9">
 						<label for="">원 ~</label> 
-						<input type="text" name="highest" size="10">
+						<input type="text" name="highest" size="10" maxlength="9">
 						<label for="">원</label>
 					</div>
 				</div>
@@ -181,22 +181,27 @@
 		<div id="moving_banner"></div>
 	</div>
 	
-	<div id="dialog" title="상세보기">
-		<div id="detail_main">
-			<div id="detail_img">
+	<div id="dialog" title="상세보기" style="display:none;">
+		<div id="detail">
+			<div id="detail_left">
 				<img src="../img/백종원 달콤 통돈까스 삼각김밥.jpg" width="100%" height="100%">
 			</div>
-			<div id="detail_description">
+			<div id="detail_right">
 				<h2>백종원 달콤 통돈까스 삼각김밥</h2>
 				<p>가격 : 1600원</p>
 				<p>상품 설명 : 맛있다.</p>
+				<p>주문 수량 :
+					<select>
+						<option>Test01</option>
+						<option>Test02</option>
+						<option>Test03</option>
+					</select>
+				</p>
 			</div>
-		</div>
-		
-		<div id="detail_commnet">
-			<div id="comment_img"><img src="../img/comment_img.png" width="100%" height="100%"></div>
-			<div id="comment_input"><textarea style="width:100%; height:100%; resize:none;"></textarea></div>
-			<div id="comment_btn"><button id="comment_regist_btn" style="width:100%; height:100%;">등록</button></div>
+			<div id="btn">
+				<button>장바구니</button> &nbsp;
+				<button>발주</button>
+			</div>
 		</div>
 	</div>
 	

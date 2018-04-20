@@ -54,8 +54,6 @@ public class ItemDAO {
 	
 	public List<ItemDTO> search(String keyword, String type2, int lowest_price, int highest_price){
 		if(type2.equals("전체")){ type2 = "%"; }
-		if(lowest_price == -1){ lowest_price = 0; }
-		if(highest_price == -1){ highest_price = 999999999; }
 		
 		System.out.println("keyword : " + keyword);
 		System.out.println("type2 : " + type2);

@@ -13,12 +13,15 @@ function content_revalidate(url, param){
 			$("#content > ul").append("<span id='itemBox" + i +"' class='itemBoxes'>");
 			
 			$(data).find("divide" + i + " > .item").each(function(){
-				var name = $(this).find("name").text();
+				var img_name = $(this).find("name").text();
+				var item_name = img_name;
+				if(img_name.length > 17){ item_name = img_name.substring(0, 17) + "..."; }
+				
 				var price = $(this).find("price").text();
 
 				$("#itemBox" + i).append("<li>" +
-														"<img src='../img/" + name + ".jpg'>" +
-														"<p id='name'><span>" + name + "</span></p>" +
+														"<p id='img'><img src='../img/" + img_name + ".jpg' width='100%'></p>" +
+														"<p id='name'><span>" + item_name + "</span></p>" +
 														"<p id='price'><span>" + price + "</span>원</p>" +
 												  "</li>");
 			});
@@ -36,15 +39,20 @@ function content_revalidate(url, param){
 			$("#viewMore").hide();
 		}
 		
+		// mouseenter 이벤트 처리
+		$(".itemBoxes > li").mouseenter(function(){
+			$(this).css({ "border":"2px solid black", "cursor":"pointer" });
+		}).mouseleave(function(){
+			$(this).css("border", "1px solid #999999");
+		});
+		
 		// 상세보기
-		$("#content img").mouseenter(function(){
-			$(this).css("cursor", "pointer");
-		}).click(function(){
-			$("#comment_regist_btn").button();
+		$("#content img").click(function(){
+			$("#detail #btn > button").button();
 			
 			$("#dialog").dialog({
 				open:function(){
-					$(this).parents(".ui-dialog").attr("tabindex", -1)[0].focus(); // 다이얼로그가 열렸을 때 X 버튼에 포커싱이 되는 현상을 해결
+					$(this).parents(".ui-dialog").attr("tabindex", -1)[0].focus(); // 다이얼로그 창이 열렸을 때 X 버튼에 포커싱이 되는 현상을 해결; // 다이얼로그 창이 열렸을 때 X 버튼에 포커싱이 되는 현상을 해결
 					$(this).parents(".ui-dialog").find(".ui-dialog-title").css({ "width":"100%", "display":"block", "text-align":"center" }); // title 가운데 정렬
 				},
 				
@@ -57,8 +65,6 @@ function content_revalidate(url, param){
 	}).always(function(){
 		$("#loader_background").fadeOut();
 		$("#loader").fadeOut();
-	}).fail(function(exception){
-		alert("잘못된 입력입니다.");
 	});
 }
 
@@ -80,18 +86,6 @@ $(function(){
 		
 		$(this).addClass("selected");
 		$(this).css("background", "black");
-		
-		
-		$(".itemBoxes > li").mouseenter(function(){
-			$(this).css("border", "1px solid black");
-		}).mouseleave(function(){
-			$(this).css({
-				"border-top":"1px solid #999999",
-				"border-right":"1px solid #999999",
-				"border-left":"none",
-				"border-bottom":"none"
-			});
-		});
 		
 		return false;
 	});

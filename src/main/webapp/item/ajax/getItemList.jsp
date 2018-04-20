@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?> <!-- XML declaration allowed only at the start of the document -->
+<?xml version='1.0' encoding='UTF-8'?>
 
 <%@page import="org.mybatis.spring.SqlSessionTemplate"%>
 <%@page import="org.springframework.context.support.GenericXmlApplicationContext"%>
@@ -53,22 +53,13 @@
 				try{
 					String name = item_list.get(index).getName();
 					int price = item_list.get(index).getUup();
-					
-					
 	%>
 					<item<%= index %> class="item">
 						<name><![CDATA[<%= name %>]]></name>
 						<price><%= price %></price>
 					</item<%= index %>>
 	<%	
-				}catch(IndexOutOfBoundsException e){
-					if(index % ROW_PER_ITEMCOUNT == 0){
-						break;
-					}
-	%>
-					<item<%= index %>>　</item<%= index %>>
-	<%				
-				}
+				}catch(IndexOutOfBoundsException e){ break; }
 				index++;
 			}
 	%>
