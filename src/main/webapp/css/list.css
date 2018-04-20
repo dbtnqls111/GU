@@ -107,7 +107,6 @@ div{ box-sizing:border-box; }
 #content{
 	width:65%;
 	margin:auto;
-	border-left:1px solid #999999; border-bottom:1px solid #999999;
 }
 
 #content ul{ margin:0px; padding:0px; overflow:hidden; }
@@ -115,16 +114,15 @@ div{ box-sizing:border-box; }
 #content li{
 	width:25%;
 	float:left;
-	box-sizing:border-box;
 	text-align:center;
-	padding:0px 0px 10px 0px;
-	border-top:1px solid #999999; border-right:1px solid #999999;
+	border:1px solid #999999;
 	list-style:none;
+	overflow:hidden;
 }
 
-#content img{ width:100%; }
-#content #name{ text-align:left; margin:-10px 0px 0px 25px; font-size:13px; }
-#content #price{ text-align:left; margin:5px 0px 0px 25px; }
+#content #img{ width:100%; float:left; margin-bottom:0px; }
+#content #name{ width:100%; float:left; text-align:left; margin:0px 0px 0px 25px; font-size:13px; }
+#content #price{ width:100%; float:left; text-align:left; margin:0px 0px 10px 25px; }
 #content #price > span{ font-size:20px; }
 /* ---------------------------------------------------------------------- */
 
@@ -147,6 +145,15 @@ div{ box-sizing:border-box; }
 	text-align:center;
 	border:1px solid black;
 }
+/* ---------------------------------------------------------------------- */
+
+
+/* ---------------------------------------------------------------------- */
+#detail{ width:100%; overflow:hidden; }
+#detail_left{ width:30%; float:left; margin-right:40px; }
+#detail_right{ width:60%; float:left; }
+#detail > #btn{ width:100%; float:left; }
+#detail > #btn{ text-align:center; }
 /* ---------------------------------------------------------------------- */
 
 

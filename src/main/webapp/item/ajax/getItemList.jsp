@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?> <!-- XML declaration allowed only at the start of the document -->
+<?xml version='1.0' encoding='UTF-8'?>
 
 <%@page import="org.mybatis.spring.SqlSessionTemplate"%>
 <%@page import="org.springframework.context.support.GenericXmlApplicationContext"%>
@@ -23,7 +23,7 @@
 	*/
 	itemDAO.setSqlSession(sessionTemplate);
 
-	ArrayList<ItemDTO> item_list = (ArrayList<ItemDTO>)itemDAO.getItemList("도시락");
+	ArrayList<ItemDTO> item_list = (ArrayList<ItemDTO>)itemDAO.getItemList(type2);
 	
 	
 	final int ROW_PER_ITEMCOUNT = 4; // 행당 아이템 개수
@@ -49,26 +49,17 @@
 	%>
 			<divide<%= i %>>
 	<%
-			for(int j = 0; j < 12; j++){
+			for(int j = 0; j < ITEMBOX_PER_ITEMCOUNT; j++){
 				try{
 					String name = item_list.get(index).getName();
 					int price = item_list.get(index).getUup();
-					
-					
 	%>
 					<item<%= index %> class="item">
 						<name><![CDATA[<%= name %>]]></name>
 						<price><%= price %></price>
 					</item<%= index %>>
 	<%	
-				}catch(IndexOutOfBoundsException e){
-					if(index % 4 == 0){
-						break;
-					}
-	%>
-					<item<%= index %>>　</item<%= index %>>
-	<%				
-				}
+				}catch(IndexOutOfBoundsException e){ break; }
 				index++;
 			}
 	%>

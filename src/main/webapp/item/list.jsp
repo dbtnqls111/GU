@@ -1,4 +1,4 @@
-<%@page import="item.bean.ItemDTO"%>
+﻿<%@page import="item.bean.ItemDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -12,12 +12,13 @@
 <html>
 <head>
 	<title></title>
-	<script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js?v=1"></script>
-	<script type="text/javascript" src="/GU/script/list.js?v=1" charset="UTF-8"></script>
+	<script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css"> <!-- jQuery UI CSS file load -->
+	<script type="text/javascript" src="/GU/script/list.js" charset="UTF-8"></script>
 	<script type="text/javascript">
 		$(function(){
-			// 																	◆ type2 ◆
-			// ---------------------------------------------------------------------------------------------------------
+			// 																		◆ type2 ◆
+			// -------------------------------------------------------------------------------------------------------------
 			var target = "." + '${ type1 }' + " a";
 			$.ajax({
 				url:"category/type2.html",
@@ -41,32 +42,51 @@
 					alert("Error...");
 				}
 			});
-			
+
 			$("#type2-0").trigger("click"); // trigger : 강제 이벤트 발생시키기	
-			// ---------------------------------------------------------------------------------------------------------
+			// -------------------------------------------------------------------------------------------------------------
 
 			
-			// 																	  ◆ hot ◆
-			// ---------------------------------------------------------------------------------------------------------
+			// 																	  	   ◆ hot ◆
+			// -------------------------------------------------------------------------------------------------------------
 			$("#hot img").attr("src", "../img/hot_img/" + "${ type1 }" + ".jpg");
-			// ---------------------------------------------------------------------------------------------------------
+			// -------------------------------------------------------------------------------------------------------------
 			
 			
-			//																     ◆ search ◆
-			// ---------------------------------------------------------------------------------------------------------
+			//																             ◆ search ◆
+			// -------------------------------------------------------------------------------------------------------------
 			$(document).on("click", "#mj_btn_area > img", function(){
 				var url = "ajax/search.jsp";
+				var keyword = $("#mj_input02 #search_text").val();
 				var type2 = $("#type2 li[class='type2 selected'] > a").text();
+				
 				var lowest_price = $("#mj_input01 input[name='lowest']").val();
 				var highest_price = $("#mj_input01 input[name='highest']").val();
-				var keyword = $("#mj_input02 #search_text").val();
 				
-				// AJAX 처리...
-				$.get(url, { "keyword":keyword, "type2":type2, "lowest_price":lowest_price, "highest_price":highest_price }, function(data){
-					
-				});
+				if(lowest_price != ""){
+					if(isNaN(parseInt(lowest_price))){
+						alert("숫자만 입력해주세요.");
+						return;
+					}
+				}else{
+					lowest_price = 0;
+				}
+				
+				if(highest_price != ""){
+					if(isNaN(parseInt(highest_price))){
+						alert("숫자만 입력해주세요.")
+						return;
+					}
+				}else{
+					highest_price = 999999999;
+				}
+		
+				var param = { "keyword":keyword, "type2":type2, "lowest_price":lowest_price, "highest_price":highest_price };
+				content_revalidate(url, param);
+				
+				return false;
 			});
-			// ---------------------------------------------------------------------------------------------------------
+			// -------------------------------------------------------------------------------------------------------------
 		});
 	</script>
 	<link rel="stylesheet" type="text/css" href="/GU/css/list.css" />
@@ -119,9 +139,9 @@
 						<li><input type="radio" name="price_range" id="price_range03">3000원 이상
 					</ul>
 					<div id="input_priceRange">
-						<input type="text" name="lowest" size="10">
+						<input type="text" name="lowest" size="10" maxlength="9">
 						<label for="">원 ~</label> 
-						<input type="text" name="highest" size="10">
+						<input type="text" name="highest" size="10" maxlength="9">
 						<label for="">원</label>
 					</div>
 				</div>
@@ -161,7 +181,32 @@
 		<div id="moving_banner"></div>
 	</div>
 	
+	<div id="dialog" title="상세보기" style="display:none;">
+		<div id="detail">
+			<div id="detail_left">
+				<img src="../img/백종원 달콤 통돈까스 삼각김밥.jpg" width="100%" height="100%">
+			</div>
+			<div id="detail_right">
+				<h2>백종원 달콤 통돈까스 삼각김밥</h2>
+				<p>가격 : 1600원</p>
+				<p>상품 설명 : 맛있다.</p>
+				<p>주문 수량 :
+					<select>
+						<option>Test01</option>
+						<option>Test02</option>
+						<option>Test03</option>
+					</select>
+				</p>
+			</div>
+			<div id="btn">
+				<button>장바구니</button> &nbsp;
+				<button>발주</button>
+			</div>
+		</div>
+	</div>
+	
 	<div id="loader_background"></div>
+	
 	<img id="loader" src="../img/loader.gif" />
 </body>
 </html>

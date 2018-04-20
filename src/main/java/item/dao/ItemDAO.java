@@ -1,4 +1,4 @@
-package item.dao;
+﻿package item.dao;
 
 import java.util.HashMap;
 import java.util.List;
@@ -50,8 +50,8 @@ public class ItemDAO {
 	public String getType1(String type2) {
 		return sqlSession.selectOne("mybatis.itemMapper.getType1", type2);
 	}
-
-	public List<ItemDTO> search(String keyword, String type2, int lowest_price, int highest_price) {
+	
+	public List<ItemDTO> search(String keyword, String type2, int lowest_price, int highest_price){
 		System.out.println("keyword : " + keyword);
 		System.out.println("type2 : " + type2);
 		System.out.println("lowest_price : " + lowest_price);

@@ -1,66 +1,91 @@
-$(function(){
-	//																		 ◆ content ◆ 
-	// ---------------------------------------------------------------------------------------------------------------
-	// type2 메뉴 클릭 시
-	$(document).on("click", ".type2", function(){
+﻿$.getScript("http://code.jquery.com/ui/1.10.2/jquery-ui.js"); // jQuery UI JavaScript file load
+
+function content_revalidate(url, param){
+	$.get(url, param, function(data){
 		$("#loader_background").fadeIn();
 		$("#loader").fadeIn();
 		
 		$("#content > ul > *").remove();
 		
-		var url = "../item/ajax/getItemList.jsp";
-		var type2 = $(this).find("a").html();
-		$.get(url, { "type2":type2 }, function(data){
-			var itemBox_count = parseInt($(data).find("itemBox_count").text());
+		var itemBox_count = parseInt($(data).find("itemBox_count").text());
 
-			for(var i = 0; i < itemBox_count; i++){
-				$("#content > ul").append("<span id='itemBox" + i +"' class='itemBoxes'>");
-				
-				$(data).find("divide" + i + " > .item").each(function(){
-					var name = $(this).find("name").text();
-					var price = $(this).find("price").text();
-
-					$("#itemBox" + i).append("<li>" +
-															"<img src='../img/" + name + ".jpg'>" +
-															"<p id='name'><span>" + name + "</span></p>" +
-															"<p id='price'><span>" + price + "</span>원</p>" +
-													  "</li>");
-				});
-				
-				$("#content > ul").append("</span>");
-			}
+		for(var i = 0; i < itemBox_count; i++){
+			$("#content > ul").append("<span id='itemBox" + i +"' class='itemBoxes'>");
 			
-			// 첫 번째 덩어리만 출력
-			$(".itemBoxes").not("#itemBox0").hide();
+			$(data).find("divide" + i + " > .item").each(function(){
+				var img_name = $(this).find("name").text();
+				var item_name = img_name;
+				if(img_name.length > 17){ item_name = img_name.substring(0, 17) + "..."; }
+				
+				var price = $(this).find("price").text();
 
-			// itemBox1이 존재한다는 것은 덩어리가 2개 이상이라는 의미이므로 '더 보기'를 출력
-			if($("#itemBox1").attr("class") != undefined){
-				$("#viewMore").show();
-			}else{
-				$("#viewMore").hide();
-			}
-			
-			// enter, leave style
-			$(".itemBoxes > li").mouseenter(function(){
-				$(this).css("border", "1px solid black");
-			}).mouseleave(function(){
-				$(this).css({
-					"border-top":"1px solid #999999",
-					"border-right":"1px solid #999999",
-					"border-left":"none",
-					"border-bottom":"none"
-				});
+				$("#itemBox" + i).append("<li>" +
+														"<p id='img'><img src='../img/" + img_name + ".jpg' width='100%'></p>" +
+														"<p id='name'><span>" + item_name + "</span></p>" +
+														"<p id='price'><span>" + price + "</span>원</p>" +
+												  "</li>");
 			});
-		}).always(function(){
-			$("#loader_background").fadeOut();
-			$("#loader").fadeOut();
+			
+			$("#content > ul").append("</span>");
+		}
+		
+		// 첫 번째 덩어리만 출력
+		$(".itemBoxes").not("#itemBox0").hide();
+
+		// itemBox1이 존재한다는 것은 덩어리가 2개 이상이라는 의미이므로 '더 보기'를 출력
+		if($("#itemBox1").attr("class") != undefined){
+			$("#viewMore").show();
+		}else{
+			$("#viewMore").hide();
+		}
+		
+		// mouseenter 이벤트 처리
+		$(".itemBoxes > li").mouseenter(function(){
+			$(this).css({ "border":"2px solid black", "cursor":"pointer" });
+		}).mouseleave(function(){
+			$(this).css("border", "1px solid #999999");
 		});
 		
-		$(this).addClass("selected");
-		$(this).css("background", "black");
+		// 상세보기
+		$("#content img").click(function(){
+			$("#detail #btn > button").button();
+			
+			$("#dialog").dialog({
+				open:function(){
+					$(this).parents(".ui-dialog").attr("tabindex", -1)[0].focus(); // 다이얼로그 창이 열렸을 때 X 버튼에 포커싱이 되는 현상을 해결; // 다이얼로그 창이 열렸을 때 X 버튼에 포커싱이 되는 현상을 해결
+					$(this).parents(".ui-dialog").find(".ui-dialog-title").css({ "width":"100%", "display":"block", "text-align":"center" }); // title 가운데 정렬
+				},
+				
+				width:800,
+				height:500,
+                modal:true,
+                resizable:false,
+			});
+		});
+	}).always(function(){
+		$("#loader_background").fadeOut();
+		$("#loader").fadeOut();
+	});
+}
+
+
+$(function(){
+	//																		 ◆ content ◆ 
+	// ---------------------------------------------------------------------------------------------------------------
+	// type2 메뉴 클릭 시
+	$(document).on("click", ".type2", function(){
+		var url = "../item/ajax/getItemList.jsp";
+		var type2 = $(this).find("a").html();
+		var param = { "url":url, "type2":type2 };
+		
+		content_revalidate(url, param);
+		
 		
 		$(".type2").not(this).removeClass("selected");
 		$(".type2").not(this).css("background", "none");
+		
+		$(this).addClass("selected");
+		$(this).css("background", "black");
 		
 		return false;
 	});
