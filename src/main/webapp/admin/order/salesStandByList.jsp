@@ -14,7 +14,7 @@
 		});
 		
 		$(".searchForm").submit(function() {
-			$(this).parents(".content").load("searchedBranchList_admin.do?keyword=" + encodeURI($(".keyword").val()) + "&page=1");
+			$(this).parents(".content").load("searchedSalesStandByList_admin.do?keyword=" + encodeURI($(".keyword").val()) + "&page=1");
 
 			return false;
 		});
@@ -34,19 +34,6 @@
 			}
 		});
 
-		$(".insert").click(function() {
-			var cw = screen.availWidth;
-			var ch = screen.availHeight;
-
-			var width = 600;
-			var height = 600;
-
-			var ml = (cw - width) / 2;
-			var mt = (ch - height) / 2;
-
-			window.open("branchInsertForm_admin.do", "", "width=" + width + ",height=" + height + ",top=" + mt + ",left=" + ml);
-		});
-
 		$(".delete").click(function() {
 			var checked = $(".check_i:checked").length;
 
@@ -64,7 +51,7 @@
 		});
 	});
 
-	function update(code) {
+	function detail(code) {
 		var cw = screen.availWidth;
 		var ch = screen.availHeight;
 
@@ -74,19 +61,19 @@
 		var ml = (cw - width) / 2;
 		var mt = (ch - height) / 2;
 
-		window.open("branchUpdateForm_admin.do?code=" + code, "", "width=" + width + ",height=" + height + ",top=" + mt + ",left=" + ml);
+		window.open("salesStandBy_admin.do?code=" + code, "", "width=" + width + ",height=" + height + ",top=" + mt + ",left=" + ml);
 	}
 	
 	function paging(page) {
-		$(".paging").parents(".content").load("searchedBranchList_admin.do?keyword=" + encodeURI($(".keyword").val()) + "&page=" + page);
+		$(".paging").parents(".content").load("searchedSalesStandByList_admin.do?keyword=" + encodeURI($(".keyword").val()) + "&page=" + page);
 	}
 </script>
 </head>
 <body>
 	<div class="topMenu">
-		<p>☆ 지점 목록</p>
+		<p>☆ 발주 대기 목록</p>
 		<div>
-			<form class="searchForm" action="searchedBranchList_admin.do" method="post">
+			<form class="searchForm" action="searchedSalesStandByList_admin.do" method="post">
 				<input type="text" class="keyword" value="${keyword}">
 				<input type="submit" value="검색">
 			</form>
@@ -94,7 +81,7 @@
 	</div>
 	<div class="paging">
 		[<a class="otherPage" href="#" onclick="paging(1)">처음으로</a>]
-		<c:if test="${startPage > 5}">
+		<c:if test="${startPage > 3}">
 			[<a href="#" class="otherPage" onclick="paging(${startPage - 1})">이전</a>]
 		</c:if>
 		<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
@@ -111,37 +98,31 @@
 		[<a class="otherPage" href="#" onclick="paging(${maxPage})">끝으로</a>]
 	</div>
 	<div class="dataList">
-		<form class="tableForm" action="branchDelete_admin.do" method="post">
-			<table class="branchTable">
-				<tr class="trLabel">
-					<th>
-						<input type="checkbox" class="check_all">
-					</th>
-					<th width="15%">지점 코드</th>
-					<th width="30%">지점명</th>
-					<th width="40%">지점 주소</th>
-					<th width="15%">지점주 ID</th>
+		<table class="salesStandByTable">
+			<tr class="trLabel">
+				<th>
+					<input type="checkbox" class="check_all">
+				</th>
+				<th width="20%">발주 코드</th>
+				<th width="60%">발주 내용</th>
+				<th width="20%">지점명</th>
+			</tr>
+			<c:forEach var="salesStandBy" items="${salesStandByList}">
+				<tr class="trData">
+					<td>
+						<input type="checkbox" name="check_i" class="check_i">
+					</td>
+					<td>
+						<a href="#" onclick="detail('${salesStandBy['salesCode']}')">${salesStandBy['salesCode']}</a>
+					</td>
+					<td></td>
+					<td>${salesStandBy['branchName']}</td>
 				</tr>
-				<c:forEach var="branchDTO" items="${branchList}">
-					<tr class="trData">
-						<td>
-							<input type="checkbox" name="check_i" class="check_i">
-						</td>
-						<td>
-							<a href="#" onclick="update('${branchDTO.code}')">${branchDTO.code}</a>
-						</td>
-						<td>${branchDTO.name}</td>
-						<td>${branchDTO.address}</td>
-						<td>${branchDTO.ownerId}</td>
-					</tr>
-				</c:forEach>
-			</table>
-		</form>
+			</c:forEach>
+		</table>
 	</div>
 	<div class="bottomMenu">
-		<input type="button" value="신규입력" class="insert">
-		<input type="button" value="Excel입력">
-		<input type="button" value="선택삭제" class="delete">
+		<input type="button" value="일괄 판매처리" class="sales">
 	</div>
 </body>
 </html>

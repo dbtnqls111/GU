@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>지점 등록</title>
-<link rel="stylesheet" type="text/css" href="css/insertForm.css">
+<link rel="stylesheet" type="text/css" href="css/register_form.css">
 <script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	$(function() {

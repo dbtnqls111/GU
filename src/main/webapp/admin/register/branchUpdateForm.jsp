@@ -3,8 +3,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>지점 등록</title>
-<link rel="stylesheet" type="text/css" href="css/insertForm.css">
+<title>지점 수정</title>
+<link rel="stylesheet" type="text/css" href="css/register_form.css">
 <script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	$(function() {
@@ -49,7 +49,8 @@
 					<tr>
 						<td class="tdLabel">지점 코드</td>
 						<td class="tdData">
-							<input type="text" name="code" value="${branchDTO.code}">
+							<input type="text" name="code" value="${branchDTO.code}" disabled="disabled">
+							<input type="hidden" name="code" value="${branchDTO.code}">
 						</td>
 					</tr>
 					<tr>

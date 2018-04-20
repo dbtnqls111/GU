@@ -1,6 +1,8 @@
 package sales.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +24,70 @@ public class SalesDAO {
 		return sqlSession.update("mybatis.salesMapper.updateSales", salesDTO);
 	}
 
-	public int deleteSales(String code) {
-		return sqlSession.delete("mybatis.salesMapper.deleteSales", code);
+	public int deleteSales(int seq) {
+		return sqlSession.delete("mybatis.salesMapper.deleteSales", seq);
 	}
 
-	public SalesDTO getSales(String code) {
-		return sqlSession.selectOne("mybatis.salesMapper.getSales", code);
+	public SalesDTO getSales(int seq) {
+		return sqlSession.selectOne("mybatis.salesMapper.getSales", seq);
 	}
 
-	public List<SalesDTO> getSalesList() {
-		return sqlSession.selectList("mybatis.salesMapper.getSalesList");
+	public List<SalesDTO> getSalesStandBy(String code) {
+		return sqlSession.selectList("mybatis.salesMapper.getSalesStandBy", code);
+	}
+	
+	public List<SalesDTO> getSalesComplete(String code) {
+		return sqlSession.selectList("mybatis.salesMapper.getSalesComplete", code);
+	}
+
+	public List<HashMap<String, String>> getSalesStandByList(int startNum, int endNum) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+
+		return sqlSession.selectList("mybatis.salesMapper.getSalesStandByList", map);
+	}
+
+	public List<HashMap<String, String>> getSalesCompleteList(int startNum, int endNum) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+
+		return sqlSession.selectList("mybatis.salesMapper.getSalesCompleteList", map);
+	}
+
+	public int getSalesStandByListCount() {
+		return sqlSession.selectOne("mybatis.salesMapper.getSalesStandByListCount");
+	}
+
+	public int getSalesCompleteListCount() {
+		return sqlSession.selectOne("mybatis.salesMapper.getSalesCompleteListCount");
+	}
+
+	public List<HashMap<String, String>> getSearchedSalesStandByList(String keyword, int startNum, int endNum) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("keyword", (String) keyword);
+		map.put("startNum", (Integer) startNum);
+		map.put("endNum", (Integer) endNum);
+
+		return sqlSession.selectList("mybatis.salesMapper.getSearchedSalesStandByList", map);
+	}
+
+	public List<HashMap<String, String>> getSearchedSalesCompleteList(String keyword, int startNum, int endNum) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("keyword", (String) keyword);
+		map.put("startNum", (Integer) startNum);
+		map.put("endNum", (Integer) endNum);
+
+		return sqlSession.selectList("mybatis.salesMapper.getSearchedSalesCompleteList", map);
+	}
+
+	public int getSearchedSalesStandByListCount(String keyword) {
+		return sqlSession.selectOne("mybatis.salesMapper.getSearchedSalesStandByListCount", keyword);
+	}
+
+	public int getSearchedSalesCompleteListCount(String keyword) {
+		return sqlSession.selectOne("mybatis.salesMapper.getSearchedSalesCompleteListCount", keyword);
 	}
 
 }

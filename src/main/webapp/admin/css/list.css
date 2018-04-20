@@ -62,11 +62,14 @@
 	width: 1000px;
 }
 
+.dataList table.salesStandByTable {
+	width: 600px;
+}
+
 th, td {
 	border: 1px solid #aaaaaa;
 	padding: 5px;
 	text-align: center;
-	padding: 5px;
 }
 
 .trLabel {

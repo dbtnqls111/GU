@@ -17,6 +17,7 @@ public class BranchController {
 	@Autowired
 	private BranchService branchService;
 
+	// 지점 목록 요청
 	@RequestMapping(value = "/admin/branchList_admin.do")
 	public ModelAndView branchList_admin(HttpServletRequest request) {
 		int page = Integer.parseInt(request.getParameter("page"));
@@ -46,6 +47,7 @@ public class BranchController {
 		return modelAndView;
 	}
 
+	// 검색된 지점 목록 요청
 	@RequestMapping(value = "/admin/searchedBranchList_admin.do")
 	public ModelAndView searchedBranchList_admin(HttpServletRequest request) {
 		String keyword = request.getParameter("keyword");
@@ -77,6 +79,7 @@ public class BranchController {
 		return modelAndView;
 	}
 
+	// 지점 입력 양식 요청
 	@RequestMapping(value = "/admin/branchInsertForm_admin.do")
 	public ModelAndView branchInsertForm_admin() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -85,6 +88,7 @@ public class BranchController {
 		return modelAndView;
 	}
 
+	// 지점 입력 요청
 	@RequestMapping(value = "/admin/branchInsert_admin.do")
 	public ModelAndView branchInsert_admin(HttpServletRequest request) {
 		String code = request.getParameter("code");
@@ -111,6 +115,7 @@ public class BranchController {
 		return modelAndView;
 	}
 
+	// 지점 삭제 요청
 	@RequestMapping(value = "/admin/branchDelete_admin.do")
 	public ModelAndView branchDelete_admin(HttpServletRequest request) {
 		String[] codes = request.getParameterValues("check_i");
@@ -128,6 +133,7 @@ public class BranchController {
 		return modelAndView;
 	}
 
+	// 지점 수정 양식 요청
 	@RequestMapping(value = "/admin/branchUpdateForm_admin.do")
 	public ModelAndView branchUpdateForm_admin(HttpServletRequest request) {
 		String code = request.getParameter("code");
@@ -141,6 +147,7 @@ public class BranchController {
 		return modelAndView;
 	}
 
+	// 지점 수정 요청
 	@RequestMapping(value = "/admin/branchUpdate_admin.do")
 	public ModelAndView branchUpdate_admin(HttpServletRequest request) {
 		String code = request.getParameter("code");

@@ -29,7 +29,7 @@
 	<select id="getSearchedBranchList" parameterType="java.util.Map" resultType="branchDTO">
 		<![CDATA[select * from (select rownum rn, tt.* from 
 		(select * from branch where code like '%' || #{keyword} || '%' or name like '%' || #{keyword} || '%' 
-		or address like '%' || #{keyword} || '%' or ownerId like '%' ||  #{keyword} || '%' order by code asc) tt)
+		or address like '%' || #{keyword} || '%' or ownerId like '%' || #{keyword} || '%' order by code asc) tt)
 		where rn >= #{startNum} and rn <= #{endNum}]]>
 	</select>
 	
@@ -39,7 +39,7 @@
 	
 	<select id="getSearchedBranchListCount"  parameterType="String" resultType="int">
 		select count(*) from branch where code like '%' || #{keyword} || '%' or name like '%' || #{keyword} || '%' 
-		or address like '%' || #{keyword} || '%' or ownerId like '%' ||  #{keyword} || '%'
+		or address like '%' || #{keyword} || '%' or ownerId like '%' || #{keyword} || '%'
 	</select>
 
 </mapper>

@@ -33,4 +33,27 @@
 		<!-- || : 문자열 연결 연산자 -->
 		select * from item where name like #{ keyword } || '%' and type2 like #{ type2 } and (uup >= #{ lowest_price } and uup <![CDATA[ <= ]]> #{ highest_price }) order by code asc
 	</select>
+	
+	<select id="getItemList_admin" parameterType="java.util.Map" resultType="itemDTO">
+		<![CDATA[select * from (select rownum rn, tt.* from 
+		(select * from item order by code asc) tt) where rn >= #{startNum} and rn <= #{endNum}]]>
+	</select>
+	
+	<select id="getSearchedItemList" parameterType="java.util.Map" resultType="itemDTO">
+		<![CDATA[select * from (select rownum rn, tt.* from 
+		(select * from item where code like '%' || #{keyword} || '%' or type1 like '%' || #{keyword} || '%' 
+		or type2 like '%' || #{keyword} || '%' or brand like '%' ||  #{keyword} || '%' 
+		or name like '%' || #{keyword} || '%' order by code asc) tt)
+		where rn >= #{startNum} and rn <= #{endNum}]]>
+	</select>
+	
+	<select id="getItemListCount" resultType="int">
+		select count(*) from item
+	</select>
+	
+	<select id="getSearchedItemListCount"  parameterType="String" resultType="int">
+		select count(*) from item where code like '%' || #{keyword} || '%' or type1 like '%' || #{keyword} || '%' 
+		or type2 like '%' || #{keyword} || '%' or brand like '%' ||  #{keyword} || '%' or name like '%' ||  #{keyword} || '%'
+	</select>
+	
 </mapper>

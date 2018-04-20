@@ -38,4 +38,25 @@ public class ItemServiceImpl implements ItemService {
 	public ArrayList<ItemDTO> getItemList(String type2) {
 		return (ArrayList<ItemDTO>) itemDAO.getItemList(type2);
 	}
+
+	@Override
+	public ArrayList<ItemDTO> getItemList_admin(int startNum, int endNum) {
+		return (ArrayList<ItemDTO>) itemDAO.getItemList_admin(startNum, endNum);
+	}
+
+	@Override
+	public ArrayList<ItemDTO> getSearchedItemList(String keyword, int startNum, int endNum) {
+		return (ArrayList<ItemDTO>) itemDAO.getSearchedItemList(keyword, startNum, endNum);
+	}
+
+	@Override
+	public int getItemListCount() {
+		return itemDAO.getItemListCount();
+	}
+
+	@Override
+	public int getSearchedItemListCount(String keyword) {
+		return itemDAO.getSearchedItemListCount(keyword);
+	}
+
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@	taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,7 @@
 		});
 		
 		$(".searchForm").submit(function() {
-			$(this).parents(".content").load("searchedItemList_admin.do?keyword=" + $(".keyword").val() + "&page=1");
+			$(this).parents(".content").load("searchedItemList_admin.do?keyword=" + encodeURI($(".keyword").val()) + "&page=1");
 
 			return false;
 		});
@@ -55,7 +56,7 @@
 				return false;
 			}
 
-			if (confirm("정말로 삭제하시겠습니까?")) {
+			if (confirm("(" + checked + "건 선택)\n정말로 삭제하시겠습니까?")) {
 				$(".check_i:checked").each(function() {
 					$(this).attr("value", $(this).parents(".trData").children("td:eq(1)").children("a").html());
 				});
@@ -78,7 +79,7 @@
 	}
 	
 	function paging(page) {
-		$(".paging").parents(".content").load("searchedItemList_admin.do?keyword=" + $(".keyword").val() + "&page=" + page);
+		$(".paging").parents(".content").load("searchedItemList_admin.do?keyword=" + encodeURI($(".keyword").val()) + "&page=" + page);
 	}
 </script>
 </head>
@@ -94,16 +95,16 @@
 	</div>
 	<div class="paging">
 		[<a class="otherPage" href="#" onclick="paging(1)">처음으로</a>]
-		<c:if test="${startPage > 5}">
+		<c:if test="${startPage > 10}">
 			[<a href="#" class="otherPage" onclick="paging(${startPage - 1})">이전</a>]
 		</c:if>
 		<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
 			<c:if test="${i == page}">
-					[<a href="#" class="currentPage" onclick="paging(${i})">${i}</a>]
-				</c:if>
+				[<a href="#" class="currentPage" onclick="paging(${i})">${i}</a>]
+			</c:if>
 			<c:if test="${i != page}">
-					[<a href="#" class="otherPage" onclick="paging(${i})">${i}</a>]
-				</c:if>
+				[<a href="#" class="otherPage" onclick="paging(${i})">${i}</a>]
+			</c:if>
 		</c:forEach>
 		<c:if test="${endPage < maxPage}">
 			[<a href="#" class="otherPage" onclick="paging(${endPage + 1})">다음</a>]
@@ -137,8 +138,12 @@
 						<td>${itemDTO.type2}</td>
 						<td>${itemDTO.brand}</td>
 						<td>${itemDTO.name}</td>
-						<td>${itemDTO.wup}</td>
-						<td>${itemDTO.uup}</td>
+						<td>
+							<fmt:formatNumber value="${itemDTO.wup}" />
+						</td>
+						<td>
+							<fmt:formatNumber value="${itemDTO.uup}" />
+						</td>
 					</tr>
 				</c:forEach>
 			</table>

@@ -1,6 +1,7 @@
 package sales.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import sales.bean.SalesDTO;
 
@@ -10,10 +11,28 @@ public interface SalesService {
 
 	int updateSales(SalesDTO salesDTO);
 
-	int deleteSales(String code);
+	int deleteSales(int seq);
 
-	SalesDTO getSales(String code);
+	SalesDTO getSales(int seq);
 
-	ArrayList<SalesDTO> getSalesList();
+	ArrayList<SalesDTO> getSalesStandBy(String code);
+
+	ArrayList<SalesDTO> getSalesComplete(String code);
+
+	ArrayList<HashMap<String, String>> getSalesStandByList(int startNum, int endNum);
+
+	ArrayList<HashMap<String, String>> getSalesCompleteList(int startNum, int endNum);
+
+	int getSalesStandByListCount();
+
+	int getSalesCompleteListCount();
+
+	ArrayList<HashMap<String, String>> getSearchedSalesStandByList(String keyword, int startNum, int endNum);
+
+	ArrayList<HashMap<String, String>> getSearchedSalesCompleteList(String keyword, int startNum, int endNum);
+
+	int getSearchedSalesStandByListCount(String keyword);
+
+	int getSearchedSalesCompleteListCount(String keyword);
 
 }
