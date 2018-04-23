@@ -26,6 +26,16 @@ public class SalesServiceImpl implements SalesService {
 	}
 
 	@Override
+	public int updateSalesDateByCode(String salesDate, String code) {
+		return salesDAO.updateSalesDateByCode(salesDate, code);
+	}
+
+	@Override
+	public int updateSalesDateBySeq(String salesDate, int seq) {
+		return salesDAO.updateSalesDateBySeq(salesDate, seq);
+	}
+
+	@Override
 	public int deleteSales(int seq) {
 		return salesDAO.deleteSales(seq);
 	}

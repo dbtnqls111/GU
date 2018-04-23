@@ -26,7 +26,14 @@ html, body {
 	margin-bottom: -10px;
 }
 
-.body table {
+.body table.etcInfo {
+	width: 100%;
+	margin-bottom: 10px;
+	border: 1px solid #aaaaaa;
+	border-collapse: collapse;
+}
+
+.body table.orderItem {
 	width: 100%;
 	margin: auto;
 	border: 1px solid #aaaaaa;
@@ -39,14 +46,18 @@ th, td {
 	text-align: center;
 }
 
-.trLabel {
+.trLabel, .tdLabel {
 	background-color: #c4c4c4;
 	font-weight: bold;
 }
 
-.trData {
+.trData, .tdData {
 	background-color: white;
 	padding: 0;
+}
+
+.trData:hover {
+	background-color: #e2e2e2;
 }
 
 .footer {

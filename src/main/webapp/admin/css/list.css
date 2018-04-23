@@ -63,7 +63,11 @@
 }
 
 .dataList table.salesStandByTable {
-	width: 600px;
+	width: 650px;
+}
+
+.dataList table.salesCompleteTable {
+	width: 650px;
 }
 
 th, td {

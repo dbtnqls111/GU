@@ -13,6 +13,14 @@
 		quantity = #{quantity}, price = #{price}, salesDate = #{salesDate} where seq = #{seq}
 	</update>
 	
+	<update id="updateSalesDateByCode" parameterType="java.util.Map">
+		update sales set salesDate = #{salesDate} where code = #{code}
+	</update>
+	
+	<update id="updateSalesDateBySeq" parameterType="java.util.Map">
+		update sales set salesDate = #{salesDate} where seq = #{seq}
+	</update>
+	
 	<delete id="deleteSales" parameterType="int">
 		delete sales where seq = #{seq}
 	</delete>
@@ -22,11 +30,11 @@
 	</select>
 	
 	<select id="getSalesStandBy" parameterType="String" resultType="salesDTO">
-		select * from sales where code = #{code} and salesDate is null
+		select * from sales where code = #{code} and salesDate is null order by seq asc
 	</select>
 	
 	<select id="getSalesComplete" parameterType="String" resultType="salesDTO">
-		select * from sales where code = #{code} and salesDate is not null
+		select * from sales where code = #{code} and salesDate is not null order by seq asc
 	</select>
 
 	<resultMap type="java.util.Map" id="sales">
@@ -47,7 +55,7 @@
 		(select distinct salesCode, branchName from 
 		(select sales.code salesCode, item.name itemName, branch.name branchName 
 		from sales, item, branch where sales.salesDate is not null and sales.itemCode = item.code and sales.branchCode = branch.code) 
-		order by salesCode asc) tt) where rn >= #{startNum} and rn <= #{endNum}]]>
+		order by salesCode desc) tt) where rn >= #{startNum} and rn <= #{endNum}]]>
 	</select>
 	
 	<select id="getSalesStandByListCount" resultType="int">
@@ -81,7 +89,7 @@
 		and (sales.code like '%' || #{keyword} || '%' or item.type1 like '%' || #{keyword} || '%' 
 		or item.type2 like '%' || #{keyword} || '%' or item.name like '%' || #{keyword} || '%' 
 		or item.brand like '%' || #{keyword} || '%' or branch.name like '%' || #{keyword} || '%')) 
-		order by salesCode asc) tt) where rn >= #{startNum} and rn <= #{endNum}]]>
+		order by salesCode desc) tt) where rn >= #{startNum} and rn <= #{endNum}]]>
 	</select>
 	
 	<select id="getSearchedSalesStandByListCount" parameterType="String" resultType="int">

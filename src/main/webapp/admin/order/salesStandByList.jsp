@@ -34,15 +34,15 @@
 			}
 		});
 
-		$(".delete").click(function() {
+		$(".sales").click(function() {
 			var checked = $(".check_i:checked").length;
 
 			if (checked < 1) {
-				alert("삭제할 항목을 선택하세요.");
+				alert("판매 처리할 항목을 선택하세요.");
 				return false;
 			}
 
-			if (confirm("(" + checked + "건 선택)\n정말로 삭제하시겠습니까?")) {
+			if (confirm("(" + checked + "건 선택)\n선택한 항목의 하위 항목들이 모두 판매 처리됩니다.\n정말로 판매 처리하시겠습니까?")) {
 				$(".check_i:checked").each(function() {
 					$(this).attr("value", $(this).parents(".trData").children("td:eq(1)").children("a").html());
 				});
@@ -55,7 +55,7 @@
 		var cw = screen.availWidth;
 		var ch = screen.availHeight;
 
-		var width = 600;
+		var width = 1000;
 		var height = 600;
 
 		var ml = (cw - width) / 2;
@@ -98,31 +98,37 @@
 		[<a class="otherPage" href="#" onclick="paging(${maxPage})">끝으로</a>]
 	</div>
 	<div class="dataList">
-		<table class="salesStandByTable">
-			<tr class="trLabel">
-				<th>
-					<input type="checkbox" class="check_all">
-				</th>
-				<th width="20%">발주 코드</th>
-				<th width="60%">발주 내용</th>
-				<th width="20%">지점명</th>
-			</tr>
-			<c:forEach var="salesStandBy" items="${salesStandByList}">
-				<tr class="trData">
-					<td>
-						<input type="checkbox" name="check_i" class="check_i">
-					</td>
-					<td>
-						<a href="#" onclick="detail('${salesStandBy['salesCode']}')">${salesStandBy['salesCode']}</a>
-					</td>
-					<td></td>
-					<td>${salesStandBy['branchName']}</td>
+		<form class="tableForm" action="salesStandByToComplete_admin.do" method="post">
+			<table class="salesStandByTable">
+				<tr class="trLabel">
+					<th>
+						<input type="checkbox" class="check_all">
+					</th>
+					<th width="20%">발주 코드</th>
+					<th width="60%">발주 내용</th>
+					<th width="20%">지점명</th>
 				</tr>
-			</c:forEach>
-		</table>
+				<c:forEach var="salesStandBy" items="${salesStandByList}">
+					<tr class="trData">
+						<td>
+							<input type="checkbox" name="check_i_code" class="check_i">
+						</td>
+						<td>
+							<a href="#" onclick="detail('${salesStandBy['salesCode']}')">${salesStandBy['salesCode']}</a>
+						</td>
+						<td>${salesStandBy['firstItemName']}
+							<c:if test="${salesStandBy['orderNumber'] > 0}">
+								&nbsp;외&nbsp;${salesStandBy['orderNumber']}건
+							</c:if>
+						</td>
+						<td>${salesStandBy['branchName']}</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</form>
 	</div>
 	<div class="bottomMenu">
-		<input type="button" value="일괄 판매처리" class="sales">
+		<input type="button" value="선택 판매처리" class="sales">
 	</div>
 </body>
 </html>

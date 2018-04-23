@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상세 발주 대기 목록</title>
+<title>상세 판매 완료 목록</title>
 <link rel="stylesheet" type="text/css" href="css/order_form.css">
 <script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
@@ -32,11 +32,11 @@
 			var checked = $(".check_i:checked").length;
 
 			if (checked < 1) {
-				alert("판매 처리할 항목을 선택하세요.");
+				alert("판매 처리를 취소할 항목을 선택하세요.");
 				return false;
 			}
 
-			if (confirm("(" + checked + "건 선택)\n정말로 판매 처리하시겠습니까?")) {
+			if (confirm("(" + checked + "건 선택)\n정말로 판매 처리를 취소하시겠습니까?")) {
 				$(".check_i:checked").each(function() {
 					$(this).attr("value", $(this).parents(".trData").children("td:eq(0)").children("input[type='hidden']").val());
 				});
@@ -49,10 +49,10 @@
 <body>
 	<div class="wrapper">
 		<div class="header">
-			<p>상세 발주 대기 목록</p>
+			<p>상세 판매 완료 목록</p>
 		</div>
 		<div class="body">
-			<form class="tableForm" action="salesStandByToComplete_admin.do" method="post">
+			<form class="tableForm" action="salesCompleteToStandBy_admin.do" method="post">
 				<table class="etcInfo">
 					<tr>
 						<th width="20%" class="tdLabel">발주 코드</th>
@@ -66,15 +66,16 @@
 						<th>
 							<input type="checkbox" class="check_all">
 						</th>
-						<th width="15%">품목 타입1</th>
-						<th width="15%">품목 타입2</th>
-						<th width="15%">품목 브랜드</th>
-						<th width="25%">품목명</th>
+						<th width="12%">품목 타입1</th>
+						<th width="12%">품목 타입2</th>
+						<th width="12%">품목 브랜드</th>
+						<th width="20%">품목명</th>
 						<th width="10%">수량</th>
 						<th width="10%">판매 단가</th>
 						<th width="10%">총액</th>
+						<th width="14%">판매처리 날짜</th>
 					</tr>
-					<c:forEach var="map" items="${salesStandByMap}">
+					<c:forEach var="map" items="${salesCompleteMap}">
 						<tr class="trData">
 							<td>
 								<input type="checkbox" name="check_i_seq" class="check_i">
@@ -91,6 +92,7 @@
 							<td>
 								<fmt:formatNumber value="${map['salesPrice']}" />
 							</td>
+							<td>${map['salesDate']}</td>
 						</tr>
 					</c:forEach>
 					<tr class="trData">
@@ -104,12 +106,13 @@
 						<th>
 							<fmt:formatNumber value="${totalSalesPrice}" />
 						</th>
+						<td></td>
 					</tr>
 				</table>
 			</form>
 		</div>
 		<div class="footer">
-			<input type="button" value="선택 판매처리" class="sales">
+			<input type="button" value="선택 판매처리 취소" class="sales">
 			<input type="button" value="닫기" onclick="window.close()">
 		</div>
 	</div>
