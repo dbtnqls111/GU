@@ -15,14 +15,6 @@ public class ItemDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public void setSqlSession(SqlSessionTemplate sqlSession) {
-		this.sqlSession = sqlSession;
-	}
-
-	public SqlSessionTemplate getSqlSession() {
-		return sqlSession;
-	}
-
 	public int insertItem(ItemDTO itemDTO) {
 		return sqlSession.insert("mybatis.itemMapper.insertItem", itemDTO);
 	}
