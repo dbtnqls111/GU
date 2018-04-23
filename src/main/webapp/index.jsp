@@ -11,17 +11,16 @@
 
 <title>GU</title>
 
-<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script type="text/javascript">
 </script>
 
 <script type="text/javascript">
 	function encode(type1, type2){
-		location.href = "item/list.do?type1=" + encodeURI(type1, "UTF-8") + "&type2=" + encodeURI(type2, "UTF-8");
+		location.href = "item/list.do?type1=" + encodeURI(type1, "UTF-8");
 	}
 	
-
 	$(document).ready(function() {
 		var listCount = $("#boxDiv > ul > li").length;
 		var i = 0;
@@ -53,7 +52,7 @@
 			var id = "#type2_category" + $(this).index();
 			
 			$(this).css("background-color", "blue");
-			$("#boxDiv").load("item/category/type2.html " + id, function(){
+			$("#boxDiv").load("item/ajax/type2.html " + id, function(){
 				$(id).css("color", "red");
 			});
 		}, function(){

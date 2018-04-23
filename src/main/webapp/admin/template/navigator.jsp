@@ -39,6 +39,14 @@
 	color: white;
 }
 </style>
+<script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$(".navigator ul li a").click(function() {
+			sessionStorage.setItem("menuIndex", 0);
+		});
+	});
+</script>
 </head>
 <body>
 	<ul>

@@ -5,24 +5,109 @@
 <mapper namespace="mybatis.salesMapper">
 
 	<insert id="insertSales" parameterType="salesDTO">
-		insert into sales values(#{code}, #{itemCode}, #{branchCode}, #{quantity}, #{price})
+		insert into sales values(seq_sales.nextval, #{code}, #{itemCode}, #{branchCode}, #{quantity}, #{price}, #{salesDate})
 	</insert>
 	
 	<update id="updateSales" parameterType="salesDTO">
 		update sales set itemCode = #{itemCode}, branchCode = #{branchCode},
-		quantity = #{quantity}, price = #{price} where code = #{code}
+		quantity = #{quantity}, price = #{price}, salesDate = #{salesDate} where seq = #{seq}
 	</update>
 	
-	<delete id="deleteSales" parameterType="String">
-		delete sales where code = #{code}
+	<update id="updateSalesDateByCode" parameterType="java.util.Map">
+		update sales set salesDate = #{salesDate} where code = #{code}
+	</update>
+	
+	<update id="updateSalesDateBySeq" parameterType="java.util.Map">
+		update sales set salesDate = #{salesDate} where seq = #{seq}
+	</update>
+	
+	<delete id="deleteSales" parameterType="int">
+		delete sales where seq = #{seq}
 	</delete>
 	
-	<select id="getSales" parameterType="String" resultType="salesDTO">
-		select * from sales where code = #{code}
+	<select id="getSales" parameterType="int" resultType="salesDTO">
+		select * from sales where seq = #{seq}
 	</select>
 	
-	<select id="getSalesList" resultType="salesDTO">
-		select * from sales order by code asc;
+	<select id="getSalesStandBy" parameterType="String" resultType="salesDTO">
+		select * from sales where code = #{code} and salesDate is null order by seq asc
+	</select>
+	
+	<select id="getSalesComplete" parameterType="String" resultType="salesDTO">
+		select * from sales where code = #{code} and salesDate is not null order by seq asc
+	</select>
+
+	<resultMap type="java.util.Map" id="sales">
+		<result javaType="String" column="salesCode" property="salesCode" />
+		<result javaType="String" column="branchName" property="branchName" />
+	</resultMap>
+	
+	<select id="getSalesStandByList" parameterType="java.util.Map" resultMap="sales">
+		<![CDATA[select * from (select rownum rn, tt.* from 
+		(select distinct salesCode, branchName from 
+		(select sales.code salesCode, item.name itemName, branch.name branchName 
+		from sales, item, branch where sales.salesDate is null and sales.itemCode = item.code and sales.branchCode = branch.code) 
+		order by salesCode asc) tt) where rn >= #{startNum} and rn <= #{endNum}]]>
+	</select>
+	
+	<select id="getSalesCompleteList" parameterType="java.util.Map" resultMap="sales">
+		<![CDATA[select * from (select rownum rn, tt.* from 
+		(select distinct salesCode, branchName from 
+		(select sales.code salesCode, item.name itemName, branch.name branchName 
+		from sales, item, branch where sales.salesDate is not null and sales.itemCode = item.code and sales.branchCode = branch.code) 
+		order by salesCode desc) tt) where rn >= #{startNum} and rn <= #{endNum}]]>
+	</select>
+	
+	<select id="getSalesStandByListCount" resultType="int">
+		select count(*) from (select distinct salesCode from 
+		(select sales.code salesCode from sales, item, branch 
+		where sales.salesDate is null and sales.itemCode = item.code and sales.branchCode = branch.code))
+	</select>
+	
+	<select id="getSalesCompleteListCount" resultType="int">
+		select count(*) from (select distinct salesCode from 
+		(select sales.code salesCode from sales, item, branch 
+		where sales.salesDate is not null and sales.itemCode = item.code and sales.branchCode = branch.code))
+	</select>
+	
+	<select id="getSearchedSalesStandByList" parameterType="java.util.Map" resultMap="sales">
+		<![CDATA[select * from (select rownum rn, tt.* from 
+		(select distinct salesCode, branchName from 
+		(select sales.code salesCode, item.name itemName, branch.name branchName 
+		from sales, item, branch where (sales.salesDate is null and sales.itemCode = item.code and sales.branchCode = branch.code)
+		and (sales.code like '%' || #{keyword} || '%' or item.type1 like '%' || #{keyword} || '%' 
+		or item.type2 like '%' || #{keyword} || '%' or item.name like '%' || #{keyword} || '%' 
+		or item.brand like '%' || #{keyword} || '%' or branch.name like '%' || #{keyword} || '%')) 
+		order by salesCode asc) tt) where rn >= #{startNum} and rn <= #{endNum}]]>
+	</select>
+	
+	<select id="getSearchedSalesCompleteList" parameterType="java.util.Map" resultMap="sales">
+		<![CDATA[select * from (select rownum rn, tt.* from 
+		(select distinct salesCode, branchName from 
+		(select sales.code salesCode, item.name itemName, branch.name branchName 
+		from sales, item, branch where (sales.salesDate is not null and sales.itemCode = item.code and sales.branchCode = branch.code)
+		and (sales.code like '%' || #{keyword} || '%' or item.type1 like '%' || #{keyword} || '%' 
+		or item.type2 like '%' || #{keyword} || '%' or item.name like '%' || #{keyword} || '%' 
+		or item.brand like '%' || #{keyword} || '%' or branch.name like '%' || #{keyword} || '%')) 
+		order by salesCode desc) tt) where rn >= #{startNum} and rn <= #{endNum}]]>
+	</select>
+	
+	<select id="getSearchedSalesStandByListCount" parameterType="String" resultType="int">
+		select count(*) from (select distinct salesCode from 
+		(select sales.code salesCode from sales, item, branch 
+		where (sales.salesDate is null and sales.itemCode = item.code and sales.branchCode = branch.code)
+		and (sales.code like '%' || #{keyword} || '%' or item.type1 like '%' || #{keyword} || '%' 
+		or item.type2 like '%' || #{keyword} || '%' or item.name like '%' || #{keyword} || '%' 
+		or item.brand like '%' || #{keyword} || '%' or branch.name like '%' || #{keyword} || '%')))
+	</select>
+	
+	<select id="getSearchedSalesCompleteListCount" parameterType="String" resultType="int">
+		select count(*) from (select distinct salesCode from 
+		(select sales.code salesCode from sales, item, branch 
+		where (sales.salesDate is not null and sales.itemCode = item.code and sales.branchCode = branch.code)
+		and (sales.code like '%' || #{keyword} || '%' or item.type1 like '%' || #{keyword} || '%' 
+		or item.type2 like '%' || #{keyword} || '%' or item.name like '%' || #{keyword} || '%' 
+		or item.brand like '%' || #{keyword} || '%' or branch.name like '%' || #{keyword} || '%')))
 	</select>
 
 </mapper>

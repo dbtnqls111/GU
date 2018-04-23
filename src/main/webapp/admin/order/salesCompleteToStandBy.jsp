@@ -3,11 +3,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>지점 삭제 결과</title>
+<title>판매 처리 취소 결과</title>
 <script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		alert("${total}건 중 ${result}건 삭제 성공!");
+		alert("${result}건 판매 처리 취소 완료!");
 		history.back();
 	});
 </script>

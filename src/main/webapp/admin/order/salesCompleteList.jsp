@@ -14,7 +14,7 @@
 		});
 		
 		$(".searchForm").submit(function() {
-			$(this).parents(".content").load("searchedBranchList_admin.do?keyword=" + encodeURI($(".keyword").val()) + "&page=1");
+			$(this).parents(".content").load("searchedSalesCompleteList_admin.do?keyword=" + encodeURI($(".keyword").val()) + "&page=1");
 
 			return false;
 		});
@@ -34,28 +34,15 @@
 			}
 		});
 
-		$(".insert").click(function() {
-			var cw = screen.availWidth;
-			var ch = screen.availHeight;
-
-			var width = 600;
-			var height = 600;
-
-			var ml = (cw - width) / 2;
-			var mt = (ch - height) / 2;
-
-			window.open("branchInsertForm_admin.do", "", "width=" + width + ",height=" + height + ",top=" + mt + ",left=" + ml);
-		});
-
-		$(".delete").click(function() {
+		$(".sales").click(function() {
 			var checked = $(".check_i:checked").length;
 
 			if (checked < 1) {
-				alert("삭제할 항목을 선택하세요.");
+				alert("판매 처리를 취소할 항목을 선택하세요.");
 				return false;
 			}
 
-			if (confirm("(" + checked + "건 선택)\n정말로 삭제하시겠습니까?")) {
+			if (confirm("(" + checked + "건 선택)\n선택한 항목의 하위 항목들의 판매 처리가 모두 취소됩니다.\n정말로 판매 처리를 취소하시겠습니까?")) {
 				$(".check_i:checked").each(function() {
 					$(this).attr("value", $(this).parents(".trData").children("td:eq(1)").children("a").html());
 				});
@@ -64,29 +51,29 @@
 		});
 	});
 
-	function update(code) {
+	function detail(code) {
 		var cw = screen.availWidth;
 		var ch = screen.availHeight;
 
-		var width = 600;
+		var width = 1100;
 		var height = 600;
 
 		var ml = (cw - width) / 2;
 		var mt = (ch - height) / 2;
 
-		window.open("branchUpdateForm_admin.do?code=" + code, "", "width=" + width + ",height=" + height + ",top=" + mt + ",left=" + ml);
+		window.open("salesComplete_admin.do?code=" + code, "", "width=" + width + ",height=" + height + ",top=" + mt + ",left=" + ml);
 	}
 	
 	function paging(page) {
-		$(".paging").parents(".content").load("searchedBranchList_admin.do?keyword=" + encodeURI($(".keyword").val()) + "&page=" + page);
+		$(".paging").parents(".content").load("searchedSalesCompleteList_admin.do?keyword=" + encodeURI($(".keyword").val()) + "&page=" + page);
 	}
 </script>
 </head>
 <body>
 	<div class="topMenu">
-		<p>☆ 지점 목록</p>
+		<p>☆ 판매 완료 목록</p>
 		<div>
-			<form class="searchForm" action="searchedBranchList_admin.do" method="post">
+			<form class="searchForm" action="searchedSalesCompleteList_admin.do" method="post">
 				<input type="text" class="keyword" value="${keyword}">
 				<input type="submit" value="검색">
 			</form>
@@ -94,7 +81,7 @@
 	</div>
 	<div class="paging">
 		[<a class="otherPage" href="#" onclick="paging(1)">처음으로</a>]
-		<c:if test="${startPage > 5}">
+		<c:if test="${startPage > 3}">
 			[<a href="#" class="otherPage" onclick="paging(${startPage - 1})">이전</a>]
 		</c:if>
 		<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
@@ -111,37 +98,37 @@
 		[<a class="otherPage" href="#" onclick="paging(${maxPage})">끝으로</a>]
 	</div>
 	<div class="dataList">
-		<form class="tableForm" action="branchDelete_admin.do" method="post">
-			<table class="branchTable">
+		<form class="tableForm" action="salesCompleteToStandBy_admin.do" method="post">
+			<table class="salesCompleteTable">
 				<tr class="trLabel">
 					<th>
 						<input type="checkbox" class="check_all">
 					</th>
-					<th width="15%">지점 코드</th>
-					<th width="30%">지점명</th>
-					<th width="40%">지점 주소</th>
-					<th width="15%">지점주 ID</th>
+					<th width="20%">발주 코드</th>
+					<th width="60%">판매 내용</th>
+					<th width="20%">지점명</th>
 				</tr>
-				<c:forEach var="branchDTO" items="${branchList}">
+				<c:forEach var="salesComplete" items="${salesCompleteList}">
 					<tr class="trData">
 						<td>
-							<input type="checkbox" name="check_i" class="check_i">
+							<input type="checkbox" name="check_i_code" class="check_i">
 						</td>
 						<td>
-							<a href="#" onclick="update('${branchDTO.code}')">${branchDTO.code}</a>
+							<a href="#" onclick="detail('${salesComplete['salesCode']}')">${salesComplete['salesCode']}</a>
 						</td>
-						<td>${branchDTO.name}</td>
-						<td>${branchDTO.address}</td>
-						<td>${branchDTO.ownerId}</td>
+						<td>${salesComplete['firstItemName']}
+							<c:if test="${salesComplete['orderNumber'] > 0}">
+								&nbsp;외&nbsp;${salesComplete['orderNumber']}건
+							</c:if>
+						</td>
+						<td>${salesComplete['branchName']}</td>
 					</tr>
 				</c:forEach>
 			</table>
 		</form>
 	</div>
 	<div class="bottomMenu">
-		<input type="button" value="신규입력" class="insert">
-		<input type="button" value="Excel입력">
-		<input type="button" value="선택삭제" class="delete">
+		<input type="button" value="선택 판매처리 취소" class="sales">
 	</div>
 </body>
 </html>

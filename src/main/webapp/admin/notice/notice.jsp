@@ -34,6 +34,7 @@
 		<div class="navigator">
 			<%@ include file="../template/navigator.jsp"%>
 		</div>
+		<div class="sub_nav"></div>
 		<div class="body">
 			<div class="menu">
 				<ul>

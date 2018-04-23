@@ -6,7 +6,7 @@
 <script type="text/javascript">
 	function checkLogout() {
 		if (confirm("로그아웃하시겠습니까?")) {
-			location.href = "../member/logout.do";
+			location.href = "../logout.do";
 		}
 	}
 </script>

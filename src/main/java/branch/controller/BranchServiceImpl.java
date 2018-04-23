@@ -35,13 +35,23 @@ public class BranchServiceImpl implements BranchService {
 	}
 
 	@Override
-	public ArrayList<BranchDTO> getBranchList() {
-		return (ArrayList<BranchDTO>) branchDAO.getBranchList();
+	public ArrayList<BranchDTO> getBranchList(int startNum, int endNum) {
+		return (ArrayList<BranchDTO>) branchDAO.getBranchList(startNum, endNum);
 	}
 
 	@Override
-	public ArrayList<BranchDTO> getSearchedBranchList(String keyword) {
-		return (ArrayList<BranchDTO>) branchDAO.getSearchedBranchList(keyword);
+	public ArrayList<BranchDTO> getSearchedBranchList(String keyword, int startNum, int endNum) {
+		return (ArrayList<BranchDTO>) branchDAO.getSearchedBranchList(keyword, startNum, endNum);
+	}
+
+	@Override
+	public int getBranchListCount() {
+		return branchDAO.getBranchListCount();
+	}
+
+	@Override
+	public int getSearchedBranchListCount(String keyword) {
+		return branchDAO.getSearchedBranchListCount(keyword);
 	}
 
 }

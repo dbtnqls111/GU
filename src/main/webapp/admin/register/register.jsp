@@ -19,11 +19,15 @@
 		$(".navigator ul li a.register").css("background-color", "#66aaff");
 		$(".navigator ul li a.register").css("color", "white");
 
-		$(".register_menu:eq(0) a").addClass("selected");
-		$(".content").load($(".register_menu:eq(0) a").attr("href"));
+		var menuIndex = sessionStorage.getItem("menuIndex");
+
+		$(".register_menu:eq(" + menuIndex + ") a").addClass("selected");
+		$(".content").load($(".register_menu:eq(" + menuIndex + ") a").attr("href"));
 
 		$(".register_menu a").click(function() {
 			$(this).addClass("selected");
+			// 현재 페이지의 메뉴 인덱스 저장(새로고침 시 메뉴가 초기화되지 않도록)
+			sessionStorage.setItem("menuIndex", $(this).parent(".register_menu").index());
 
 			$(".register_menu a").not(this).removeClass("selected");
 
@@ -42,14 +46,15 @@
 		<div class="navigator">
 			<%@ include file="../template/navigator.jsp"%>
 		</div>
+		<div class="sub_nav"></div>
 		<div class="body">
 			<div class="menu">
 				<ul>
 					<li class="register_menu">
-						<a href="../branch/branchList_admin.do">지점 등록</a>
+						<a href="branchList_admin.do?page=1">지점 등록</a>
 					</li>
 					<li class="register_menu">
-						<a href="../item/itemList_admin.do">품목 등록</a>
+						<a href="itemList_admin.do?page=1">품목 등록</a>
 					</li>
 				</ul>
 			</div>

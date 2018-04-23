@@ -48,7 +48,7 @@ public class MemberController {
 			session.setAttribute("memId", memberDTO.getId());
 
 			if (memberDTO.getBranchCode() == null) {
-				modelAndView.setViewName("redirect:/admin/main.jsp");
+				modelAndView.setViewName("redirect:/admin/main.do");
 			} else {
 				modelAndView.setViewName("redirect:../index.jsp");
 			}

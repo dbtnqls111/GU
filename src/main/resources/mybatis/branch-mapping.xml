@@ -10,7 +10,7 @@
 	
 	<update id="updateBranch" parameterType="branchDTO">
 		update branch set name = #{name}, address = #{address},
-		ownerId = #{ownerId} where id = #{id}
+		ownerId = #{ownerId} where code = #{code}
 	</update>
 	
 	<delete id="deleteBranch" parameterType="String">
@@ -21,13 +21,25 @@
 		select * from branch where code = #{code}
 	</select>
 	
-	<select id="getBranchList" resultType="branchDTO">
-		select * from branch order by code asc
+	<select id="getBranchList" parameterType="java.util.Map" resultType="branchDTO">
+		<![CDATA[select * from (select rownum rn, tt.* from 
+		(select * from branch order by code asc) tt) where rn >= #{startNum} and rn <= #{endNum}]]>
 	</select>
 	
-	<select id="getSearchedBranchList" parameterType="String" resultType="branchDTO">
-		select * from branch where code like '%' ||  #{keyword} || '%' or name like '%' ||  #{keyword} || '%' 
-		or address like '%' ||  #{keyword} || '%' or ownerId like '%' ||  #{keyword} || '%' order by code asc
+	<select id="getSearchedBranchList" parameterType="java.util.Map" resultType="branchDTO">
+		<![CDATA[select * from (select rownum rn, tt.* from 
+		(select * from branch where code like '%' || #{keyword} || '%' or name like '%' || #{keyword} || '%' 
+		or address like '%' || #{keyword} || '%' or ownerId like '%' || #{keyword} || '%' order by code asc) tt)
+		where rn >= #{startNum} and rn <= #{endNum}]]>
+	</select>
+	
+	<select id="getBranchListCount" resultType="int">
+		select count(*) from branch
+	</select>
+	
+	<select id="getSearchedBranchListCount"  parameterType="String" resultType="int">
+		select count(*) from branch where code like '%' || #{keyword} || '%' or name like '%' || #{keyword} || '%' 
+		or address like '%' || #{keyword} || '%' or ownerId like '%' || #{keyword} || '%'
 	</select>
 
 </mapper>
