@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>지점 등록</title>
+<link rel="stylesheet" type="text/css" href="css/register_form.css">
 <script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	$(function() {
@@ -36,75 +37,6 @@
 		});
 	});
 </script>
-<style type="text/css">
-html, body {
-	height: 100%;
-	margin: 0;
-	padding: 0;
-}
-
-.header {
-	height: 5%;
-	background-color: #c4c4c4;
-	border-bottom: 1px solid #aaaaaa;
-	box-sizing: border-box;
-}
-
-.header p {
-	display: inline;
-	height: 100%;
-	padding: 2px 5px;
-	line-height: 2;
-	font-weight: bold;
-}
-
-.body {
-	height: 90%;
-	background-color: #e2e2e2;
-	padding: 10px 10px 0;
-	margin-bottom: -10px;
-}
-
-.body table {
-	width: 100%;
-	margin: auto;
-	border: 1px solid #aaaaaa;
-	border-collapse: collapse;
-}
-
-th, td {
-	border: 1px solid #aaaaaa;
-	padding: 5px;
-	text-align: center;
-	padding: 5px;
-}
-
-.tdLabel {
-	background-color: #c4c4c4;
-	font-weight: bold;
-}
-
-.tdData {
-	background-color: white;
-	padding: 0;
-}
-
-.tdData input {
-	width: calc(100% - 10px);
-	margin-left: 5px;
-	margin-right: 5px;
-	box-sizing: border-box;
-	/* border-radius: 5px; */
-}
-
-.footer {
-	height: 5%;
-	background-color: #c4c4c4;
-	border-top: 1px solid #aaaaaa;
-	box-sizing: border-box;
-	padding: 2px 5px;
-}
-</style>
 </head>
 <body>
 	<div class="wrapper">
@@ -112,7 +44,7 @@ th, td {
 			<p>지점 등록</p>
 		</div>
 		<div class="body">
-			<form action="../branch/branchInsert_admin.do" method="post" class="branchInsertForm">
+			<form action="branchInsert_admin.do" method="post" class="branchInsertForm">
 				<table>
 					<tr>
 						<td class="tdLabel">지점 코드</td>

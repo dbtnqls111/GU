@@ -67,9 +67,9 @@ $(function(){
 
 				<ul id="memberUl">
 					<li id="userLi"><a href="#"><img alt="user" src="${pageContext.request.contextPath}/img/user.png" id = "userIcon"><br>${memName}님</a></li>
-					<li id="loginLi"><a href="loginForm.do" id="login"><img alt="login" src="${pageContext.request.contextPath}/img/login.png" id="loginIcon" title="로그인"></a></li>
+					<li id="loginLi"><a href="member/loginForm.do" id="login"><img alt="login" src="${pageContext.request.contextPath}/img/login.png" id="loginIcon" title="로그인"></a></li>
 					<li id="logoutLi"><a href="logout.do" id="logout"><img alt="logout" src="${pageContext.request.contextPath}/img/logout.png" id="logoutIcon"></a></li>
-					<li><a href="#" id="join"><img alt="join" src="${pageContext.request.contextPath}/img/join.png" id="joinIcon" title="회원가입"></a></li>
+					<li><a href="member/joinForm.do" id="join"><img alt="join" src="${pageContext.request.contextPath}/img/join.png" id="joinIcon" title="회원가입"></a></li>
 					<li><a href="#" id="order"><img alt="order" src="${pageContext.request.contextPath}/img/order.png" id="orderIcon" title="발주대기목록"></a></li>					
 				</ul>
 			</fieldset>

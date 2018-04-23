@@ -5,7 +5,7 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디 찾기 화면</title>
+<title>아이디 찾기</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
 var selectValue = "phone";
@@ -251,8 +251,9 @@ var selectValue = "phone";
 		display:inline;
 	}
 	.footer{
-		width:1500px;
+		width:100%;
 		margin:400px auto 0 auto;
+		min-width:1300px;
 	}
 	.footer_top{
 		border-top:1px solid #D8D8D8;
@@ -275,19 +276,19 @@ var selectValue = "phone";
 		float:left;
 		margin-left:100px;
 		margin-top:40px;
-		width:700px;
+		width:500px;
 	}
 	.footer_bottom2{
 		border-left:2px solid #D8D8D8;
 		float:left;
 		margin-top:30px;
-		margin-left:60px;
-		padding-left:5%;
+		margin-left:170px;
+		padding-left:100px;
 	}
 	.footer_bottom3{
 		width:100px;
 		margin-top:35px;
-		margin-left:60px;
+		margin-left:80px;
 		float:left;
 	}
 	.footer_bottom1 .sns_div a{
@@ -309,8 +310,8 @@ var selectValue = "phone";
 	</div>
 	<div class="header_right">
 		<p>
-			<a href="#">로그인</a>&nbsp;｜&nbsp;
-			<a href="#">회원가입</a>&nbsp;｜&nbsp;
+			<a href="loginForm.do">로그인</a>&nbsp;｜&nbsp;
+			<a href="joinForm.do">회원가입</a>&nbsp;｜&nbsp;
 			<a href="#">장바구니</a>&nbsp;｜&nbsp;
 			<a href="#">고객센터</a>
 		</p>

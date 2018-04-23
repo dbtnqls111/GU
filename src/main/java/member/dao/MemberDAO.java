@@ -37,9 +37,9 @@ public class MemberDAO {
 
 	public boolean isExistId(String id) {
 		if (sqlSession.selectOne("mybatis.memberMapper.isExistId", id) == null) {
-			return false;
-		} else {
 			return true;
+		} else {
+			return false;
 		}
 	}
 	

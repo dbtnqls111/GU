@@ -7,7 +7,7 @@
 <script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		alert("${total}개 중 ${result}개 삭제 성공!");
+		alert("${total}건 중 ${result}건 삭제 성공!");
 		history.back();
 	});
 </script>
