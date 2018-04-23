@@ -7,7 +7,7 @@
 <script type="text/javascript">
 	window.onload = function() {
 		alert("아이디나 비밀번호가 틀렸습니다.");
-		location.href = "index.jsp";
+		location.href = "../index.jsp";
 	}
 </script>
 </head>

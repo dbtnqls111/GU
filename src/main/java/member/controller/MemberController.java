@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import member.bean.MemberDTO;
@@ -16,7 +17,7 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
-	@RequestMapping(value = "loginForm.do")
+	@RequestMapping(value = "/member/loginForm.do")
 	public ModelAndView loginForm() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("/member/loginForm.jsp");
@@ -24,8 +25,8 @@ public class MemberController {
 		return modelAndView;
 	}
 
-	/* 회원가입화면이동 추가 */
-	@RequestMapping(value = "joinForm.do")
+	/* 회원가입화면이동 */
+	@RequestMapping(value = "/member/joinForm.do")
 	public ModelAndView joinForm() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("/member/joinForm.jsp");
@@ -33,7 +34,7 @@ public class MemberController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "login.do")
+	@RequestMapping(value = "/member/login.do")
 	public ModelAndView login(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
@@ -49,7 +50,7 @@ public class MemberController {
 			if (memberDTO.getBranchCode() == null) {
 				modelAndView.setViewName("redirect:/admin/main.jsp");
 			} else {
-				modelAndView.setViewName("redirect:index.jsp");
+				modelAndView.setViewName("redirect:../index.jsp");
 			}
 		} else {
 			modelAndView.setViewName("/member/loginFail.jsp");
@@ -69,5 +70,16 @@ public class MemberController {
 		modelAndView.setViewName("redirect:index.jsp");
 		return modelAndView;
 	}
-
+	
+	/*회원가입  아이디 중복 여부*/
+	@RequestMapping(value = "/member/isExistId.do" )
+	public @ResponseBody String isExistId(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView();
+		String id = request.getParameter("id");
+		String str = "";
+		boolean idChk = memberService.isExistId(id);
+		modelAndView.addObject("idChk", idChk);
+		str="{\"idChk\":\""+idChk+"\"}";
+		return str;
+	}
 }

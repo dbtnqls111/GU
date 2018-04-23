@@ -9,14 +9,14 @@
 	$(function(){
 		var num = Math.ceil(Math.random()*3);
 		
-		$("#banner").attr("src", "./img/banner" + num + ".JPG");
+		$("#banner").attr("src", "../img/banner" + num + ".JPG");
 		
 		$(".header_left a:eq(0)").click(function(){
 			$(".category").toggle();
 		});	
 	});
 </script>
-<link rel="stylesheet" type="text/css" href="css/loginForm.css"/>
+<link rel="stylesheet" type="text/css" href="../css/loginForm.css"/>
 </head>
 <body>
 <div class="category">
@@ -83,30 +83,30 @@
 	<div class="header_right">
 		<p>
 			<a href="#">로그인</a>&nbsp;｜&nbsp;
-			<a href="#">회원가입</a>&nbsp;｜&nbsp;
+			<a href="joinForm.do">회원가입</a>&nbsp;｜&nbsp;
 			<a href="#">장바구니</a>&nbsp;｜&nbsp;
 			<a href="#">고객센터</a>
 		</p>
 	</div>
 </div>
 <div class="logo_div">
-	<input type="image" src="./img/logo.PNG">
+	<input type="image" src="../img/logo.PNG">
 </div>
 <div class="location_div">
-	<a href="http://www.naver.com">홈</a> &gt; <strong>로그인</strong>
+	<a href="../index.jsp">홈</a> &gt; <strong>로그인</strong>
 </div>
 <div class="login_logo_div">
-	<input type="image" src="./img/login_logo.PNG">
+	<input type="image" src="../img/login_logo.PNG">
 </div>
 <div class="body">
 <form method="post" action="login.do">
 	<div class="loginBox">
 		<div class="login_div">
-			<label for="id"><img src="./img/id.PNG"></label><input type="text" name="id" id="id_input"><br>
-			<label for="pwd"><img src="./img/pw.PNG"></label><input type="password" name="pw" id="pw_input" size="18px">
+			<label for="id"><img src="../img/id.PNG"></label><input type="text" name="id" id="id_input" style="width:153px;"><br>
+			<label for="pwd"><img src="../img/pw.PNG"></label><input type="password" name="pw" id="pw_input" size="18px">
 		</div>
 		<div class="loginbt_div">
-			<input type="image" src="./img/loginbt.PNG" id="loginbt" title="로그인">
+			<input type="image" src="../img/loginbt.PNG" id="loginbt" title="로그인">
 		</div>
 		<div class="option">
 			<label for="saveid">
@@ -114,12 +114,12 @@
 			</label>
 		</div>
 		<div class="menu">
-			<p><a href="#">아이디찾기</a>&nbsp;｜&nbsp;<a href="#">비밀번호찾기</a>&nbsp;｜&nbsp;<a href="joinForm.do">회원가입</a>
+			<p><a href="find_id.jsp">아이디찾기</a>&nbsp;｜&nbsp;<a href="find_pw.jsp">비밀번호찾기</a>&nbsp;｜&nbsp;<a href="joinForm.do">회원가입</a>
 		</div>
 	</div>
 </form>
 	<div class="bannerBox">
-		<a href="#"><input type="image" id="banner"></a>
+		<a href="#"><img src="../img/banner1.JPG" id="banner"></a>
 	</div>
 </div>
 
@@ -144,9 +144,9 @@
 			<p>서울시 강남구 테헤란로 000동(ㅁㄴㅇ)&nbsp;｜&nbsp;TEL : 1234-1234</p>
 			<p style="line-height:2px;">COPYRIGHT © BGFretail ALL RIGHT RESERVED.</p>
 			<div class="sns_div">
-				<a href="http://blog.bgfcu.com/"><img src="./img/footer_blog.gif"></a>
-				<a href="https://www.facebook.com/CU.BGFretail.cvs/"><img src="./img/footer_facebook.gif"></a>
-				<a href="https://twitter.com/BGFretail"><img src="./img/footer_twitter.gif"></a>
+				<a href="http://blog.bgfcu.com/"><img src="../img/footer_blog.gif"></a>
+				<a href="https://www.facebook.com/CU.BGFretail.cvs/"><img src="../img/footer_facebook.gif"></a>
+				<a href="https://twitter.com/BGFretail"><img src="../img/footer_twitter.gif"></a>
 			</div>
 		</div>
 		<div class="footer_bottom2">
@@ -155,9 +155,9 @@
 			<p class="footer_bottom2_p" style="line-height:50px; color:#848484; font-size:15px;">365일 24시간 연중무휴</p>
 		</div>
 		<div class="footer_bottom3">
-				<a href="#"><img src="./img/footer_faq.gif" title="자주묻는질문"></a>
-				<a href="#"><img src="./img/footer_1x1.gif" title="1:1문의"></a>
-				<a href="#"><img src="./img/footer_notice.gif" title="공지사항"></a>
+				<a href="#"><img src="../img/footer_faq.gif" title="자주묻는질문"></a>
+				<a href="#"><img src="../img/footer_1x1.gif" title="1:1문의"></a>
+				<a href="#"><img src="../img/footer_notice.gif" title="공지사항"></a>
 		</div>
 	</div>
 </div>

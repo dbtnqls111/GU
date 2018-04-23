@@ -5,7 +5,7 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디 찾기 화면</title>
+<title>아이디 찾기</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
@@ -224,8 +224,9 @@ pageEncoding="UTF-8"%>
 		display:inline;
 	}
 	.footer{
-		width:1500px;
+		width:100%;
 		margin:400px auto 0 auto;
+		min-width:1300px;
 	}
 	.footer_top{
 		border-top:1px solid #D8D8D8;
@@ -248,19 +249,19 @@ pageEncoding="UTF-8"%>
 		float:left;
 		margin-left:100px;
 		margin-top:40px;
-		width:700px;
+		width:500px;
 	}
 	.footer_bottom2{
 		border-left:2px solid #D8D8D8;
 		float:left;
 		margin-top:30px;
-		margin-left:60px;
-		padding-left:5%;
+		margin-left:170px;
+		padding-left:100px;
 	}
 	.footer_bottom3{
 		width:100px;
 		margin-top:35px;
-		margin-left:60px;
+		margin-left:80px;
 		float:left;
 	}
 	.footer_bottom1 .sns_div a{
@@ -282,8 +283,8 @@ pageEncoding="UTF-8"%>
 	</div>
 	<div class="header_right">
 		<p>
-			<a href="#">로그인</a>&nbsp;｜&nbsp;
-			<a href="#">회원가입</a>&nbsp;｜&nbsp;
+			<a href="loginForm.do">로그인</a>&nbsp;｜&nbsp;
+			<a href="joinForm.do">회원가입</a>&nbsp;｜&nbsp;
 			<a href="#">장바구니</a>&nbsp;｜&nbsp;
 			<a href="#">고객센터</a>
 		</p>
@@ -299,7 +300,7 @@ pageEncoding="UTF-8"%>
 		<div class="tab_container">
 			<div id="tab1" class="tab_content">
 				<p>회원정보에 등록되어있는 정보 중 1가지를 택하여 입력해 주세요.</p>
-				<div class="radio"><input type="radio" name="info" value="phone" checked="checked">휴대폰<input type="radio" name="info" value="email">이메일<input type="radio" name="info" value="birth">생년월일</div>
+				<div class="radio"><input type="radio" name="info" value="phone" checked="checked">휴대폰<input type="radio" name="info" value="email">이메일<input type="radio" name="info" value="birth">외국인등록번호</div>
 				<div class="phone">
 					<div class="name1">이름&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" size="15px"></div>
 					<div class="tel">휴대폰&nbsp; &nbsp;<select>

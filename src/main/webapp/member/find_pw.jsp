@@ -167,16 +167,19 @@ pageEncoding="UTF-8"%>
 		border-bottom:1px solid #D8D8D8;
 		background-color:#FAFAFA;
 		font-size:10px;
+		min-width:600px;
 	}
 	.header_left{
 		float:left;
 		padding:10px;
 		margin-left:180px;
+		width:100px;
 	}
 	.header_right{
 		float:right;
 		padding:8px;
 		margin-right:20px;
+		width:210px;
 	}
 	a:link{color:black; text-decoration:none;}
 	a:visited{color:black; text-decoration:none;}
@@ -211,6 +214,7 @@ pageEncoding="UTF-8"%>
 	.footer{
 		width:100%;
 		margin:400px auto 0 auto;
+		min-width:1300px;
 	}
 	.footer_top{
 		border-top:1px solid #D8D8D8;
@@ -235,23 +239,24 @@ pageEncoding="UTF-8"%>
 	}
 	.footer_bottom1{
 		float:left;
-		margin-left:100px;
-		margin-top:40px;
-		width:50%;
+		margin-left:190px;
+		margin-top:20px;
+		width:500px;
 	}
 	.footer_bottom2{
 		border-left:2px solid #D8D8D8;
 		float:left;
 		margin-top:30px;
-		margin-left:60px;
-		padding-left:5%;
-		width:30%;
+		margin-left:160px;
+		padding-left:100px;
+		width:300px;
 	}
 	.footer_bottom3{
-		width:20%;
-		margin-top:35px;
-		margin-left:60px;
+		width:95px;
 		float:left;
+		position:relative;
+		top:35px;
+		left:80px;
 	}
 	.footer_bottom1 .sns_div a{
 		margin-left:9px;
@@ -272,14 +277,14 @@ pageEncoding="UTF-8"%>
 	</div>
 	<div class="header_right">
 		<p>
-			<a href="#">로그인</a>&nbsp;｜&nbsp;
+			<a href="loginForm.do">로그인</a>&nbsp;｜&nbsp;
 			<a href="#">회원가입</a>&nbsp;｜&nbsp;
 			<a href="#">장바구니</a>&nbsp;｜&nbsp;
 			<a href="#">고객센터</a>
 		</p>
 	</div>
 </div>
-<div class="logo_div_top"><img src="../img/find_id.PNG"></div>
+<div class="logo_div_top"><img src="../img/find_pw.gif"></div>
 <div class="logo_div_bottom"><img src="../img/faq-icon.png"><img src="../img/txt_id_find.gif" id="txt_id_find"></div>
 <div class="tab_wrap">
 		<ul class="tabs">
