@@ -21,18 +21,15 @@
 		select * from item where code = #{ code }
 	</select>
 	
-	<select id="getItemList" parameterType="String" resultType="itemDTO">
-		select * from item where type2 = #{ type2 } order by code asc
+	<select id="getItemList" parameterType="java.util.Map" resultType="itemDTO">
+		<!-- || : 문자열 연결 연산자 -->
+		select * from item where name like #{ keyword } || '%' and type2 like #{ type2 } and (uup >= #{ lowest_price } and uup <![CDATA[ <= ]]> #{ highest_price }) order by code asc
 	</select>
 	
 	<select id="getItemListAll" resultType="itemDTO">
 		select * from item order by code asc
 	</select>
-	
-	<select id="search" parameterType="java.util.Map" resultType="itemDTO">
-		<!-- || : 문자열 연결 연산자 -->
-		select * from item where name like #{ keyword } || '%' and type2 like #{ type2 } and (uup >= #{ lowest_price } and uup <![CDATA[ <= ]]> #{ highest_price }) order by code asc
-	</select>
+
 	
 	<select id="getItemList_admin" parameterType="java.util.Map" resultType="itemDTO">
 		<![CDATA[select * from (select rownum rn, tt.* from 

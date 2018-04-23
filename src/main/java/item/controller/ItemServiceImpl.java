@@ -35,8 +35,8 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public ArrayList<ItemDTO> getItemList(String type2) {
-		return (ArrayList<ItemDTO>) itemDAO.getItemList(type2);
+	public ArrayList<ItemDTO> getItemList(String type2, String keyword, int lowest_price, int highest_price) {
+		return (ArrayList<ItemDTO>) itemDAO.getItemList(type2, keyword, lowest_price, highest_price);
 	}
 
 	@Override

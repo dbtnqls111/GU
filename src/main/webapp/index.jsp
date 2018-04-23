@@ -18,10 +18,9 @@
 
 <script type="text/javascript">
 	function encode(type1, type2){
-		location.href = "item/list.do?type1=" + encodeURI(type1, "UTF-8") + "&type2=" + encodeURI(type2, "UTF-8");
+		location.href = "item/list.do?type1=" + encodeURI(type1, "UTF-8");
 	}
 	
-
 	$(document).ready(function() {
 		var listCount = $("#boxDiv > ul > li").length;
 		var i = 0;

@@ -5,18 +5,17 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
-<%
-	ArrayList<ItemDTO> item_list = (ArrayList<ItemDTO>)request.getAttribute("item_list");
-%>
-
 <html>
 <head>
 	<title></title>
 	<script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css"> <!-- jQuery UI CSS file load -->
+    <link rel="stylesheet" href="/GU/css/normalize.css"> <!-- http://webdir.tistory.com/455 참고 -->
 	<script type="text/javascript" src="/GU/script/list.js" charset="UTF-8"></script>
 	<script type="text/javascript">
 		$(function(){
+			$("#type2-0").trigger("click"); // trigger : 강제 이벤트 발생시키기
+			
 			// 																		◆ type2 ◆
 			// -------------------------------------------------------------------------------------------------------------
 			var target = "." + '${ type1 }' + " a";
@@ -42,50 +41,12 @@
 					alert("Error...");
 				}
 			});
-
-			$("#type2-0").trigger("click"); // trigger : 강제 이벤트 발생시키기	
 			// -------------------------------------------------------------------------------------------------------------
 
 			
 			// 																	  	   ◆ hot ◆
 			// -------------------------------------------------------------------------------------------------------------
 			$("#hot img").attr("src", "../img/hot_img/" + "${ type1 }" + ".jpg");
-			// -------------------------------------------------------------------------------------------------------------
-			
-			
-			//																             ◆ search ◆
-			// -------------------------------------------------------------------------------------------------------------
-			$(document).on("click", "#mj_btn_area > img", function(){
-				var url = "ajax/search.jsp";
-				var keyword = $("#mj_input02 #search_text").val();
-				var type2 = $("#type2 li[class='type2 selected'] > a").text();
-				
-				var lowest_price = $("#mj_input01 input[name='lowest']").val();
-				var highest_price = $("#mj_input01 input[name='highest']").val();
-				
-				if(lowest_price != ""){
-					if(isNaN(parseInt(lowest_price))){
-						alert("숫자만 입력해주세요.");
-						return;
-					}
-				}else{
-					lowest_price = 0;
-				}
-				
-				if(highest_price != ""){
-					if(isNaN(parseInt(highest_price))){
-						alert("숫자만 입력해주세요.")
-						return;
-					}
-				}else{
-					highest_price = 999999999;
-				}
-		
-				var param = { "keyword":keyword, "type2":type2, "lowest_price":lowest_price, "highest_price":highest_price };
-				content_revalidate(url, param);
-				
-				return false;
-			});
 			// -------------------------------------------------------------------------------------------------------------
 		});
 	</script>
@@ -134,14 +95,22 @@
 				<div id="mj_input01">
 					<p id="mj_title01">가격대 검색</p>
 					<ul>
-						<li><input type="radio" name="price_range" id="price_range01">1500원 이하
-						<li><input type="radio" name="price_range" id="price_range02">1500원 ~ 3000원
-						<li><input type="radio" name="price_range" id="price_range03">3000원 이상
+						<li id="price_li01"><input type="radio" name="price_range" id="price_range01">1500원 이하
+						<li id="price_li02"><input type="radio" name="price_range" id="price_range02">1500원 ~ 3000원
+						<li id="price_li03"><input type="radio" name="price_range" id="price_range03">3000원 이상
 					</ul>
 					<div id="input_priceRange">
-						<input type="text" name="lowest" size="10" maxlength="9">
+						<!--
+							몇몇 브라우저에서는 input type="number"를 지원하지 않으므로 실제 서비스를 할 땐 다음 방법을 이용해야 한다.
+							http://webskills.kr/archives/310 참고
+						-->
+						
+						<!-- onpaste="javascript:return false" : 복사 방지 -->
+						<input type="text" name="lowest_price" size="10" onpaste="javascript:return false" onfocusout="removeChar(event)"
+								  onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)" style="ime-mode:disabled">
 						<label for="">원 ~</label> 
-						<input type="text" name="highest" size="10" maxlength="9">
+						<input type="text" name="highest_price" size="10" onpaste="javascript:return false" onfocusout="removeChar(event)"
+								  onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)" style="ime-mode:disabled">
 						<label for="">원</label>
 					</div>
 				</div>
@@ -153,7 +122,7 @@
 			</div>
 			
 			<div id="mj_btn_area">
-				<img src="../img/searchBtn_up.png" width="90px" height="90px">
+				<img src="../img/searchBtn_up.png" width="80px" height="80px">
 			</div>
 		</div>
 		
@@ -187,10 +156,10 @@
 				<img src="../img/백종원 달콤 통돈까스 삼각김밥.jpg" width="100%" height="100%">
 			</div>
 			<div id="detail_right">
-				<h2>백종원 달콤 통돈까스 삼각김밥</h2>
-				<p>가격 : 1600원</p>
-				<p>상품 설명 : 맛있다.</p>
-				<p>주문 수량 :
+				<h2 id="d_itemName"></h2>
+				<p id="d_itemPrice"></p>
+				<p id="d_itemDescription">상품 설명 : 맛있다.</p>
+				<p id="d_itemQuantity">수량 :
 					<select>
 						<option>Test01</option>
 						<option>Test02</option>

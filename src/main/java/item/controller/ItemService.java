@@ -14,7 +14,7 @@ public interface ItemService {
 
 	ItemDTO getItem(String code);
 
-	ArrayList<ItemDTO> getItemList(String type2);
+	ArrayList<ItemDTO> getItemList(String type2, String keyword, int lowest_price, int highest_price);
 
 	ArrayList<ItemDTO> getItemList_admin(int startNum, int endNum);
 

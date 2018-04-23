@@ -1,10 +1,33 @@
 ﻿$.getScript("http://code.jquery.com/ui/1.10.2/jquery-ui.js"); // jQuery UI JavaScript file load
 
+
+function onlyNumber(event){
+	event = event || window.event;
+	var keyID = (event.which) ? event.which : event.keyCode;
+	if((keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39){
+		return;
+	}else{
+		return false;
+	}
+}
+
+function removeChar(event) {
+	event = event || window.event;
+	var keyID = (event.which) ? event.which : event.keyCode;
+	if(keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39){
+		return;
+	}else{
+		event.target.value = event.target.value.replace(/[^0-9]/g, "");
+	}
+}
+
 function content_revalidate(url, param){
+	$("html").css("overflow", "hidden"); // 콘텐츠가 전부 채워질 때까지 페이지 스크롤을 못하게 금지(제거)
+	
+	$("#loader_background").fadeIn();
+	$("#loader").fadeIn();
+	
 	$.get(url, param, function(data){
-		$("#loader_background").fadeIn();
-		$("#loader").fadeIn();
-		
 		$("#content > ul > *").remove();
 		
 		var itemBox_count = parseInt($(data).find("itemBox_count").text());
@@ -15,13 +38,13 @@ function content_revalidate(url, param){
 			$(data).find("divide" + i + " > .item").each(function(){
 				var img_name = $(this).find("name").text();
 				var item_name = img_name;
-				if(img_name.length > 17){ item_name = img_name.substring(0, 17) + "..."; }
+				if(img_name.length > 14){ item_name = img_name.substring(0, 14) + "..."; }
 				
 				var price = $(this).find("price").text();
 
 				$("#itemBox" + i).append("<li>" +
 														"<p id='img'><img src='../img/" + img_name + ".jpg' width='100%'></p>" +
-														"<p id='name'><span>" + item_name + "</span></p>" +
+														"<p id='name'><span realName='" + img_name + "'>" + item_name + "</span></p>" +
 														"<p id='price'><span>" + price + "</span>원</p>" +
 												  "</li>");
 			});
@@ -47,12 +70,20 @@ function content_revalidate(url, param){
 		});
 		
 		// 상세보기
-		$("#content img").click(function(){
+		$("#content li").click(function(){
+			// 다이얼로그 콘텐츠 구성
+			var itemName = $(this).find("#name > span").attr("realName");
+			var itemPrice = $(this).find("#price > span").html();
+			
+			$("#d_itemName").html(itemName);
+			$("#d_itemPrice").html("가격 : " + itemPrice);
+			
+			// 다이얼로그 구성
 			$("#detail #btn > button").button();
 			
 			$("#dialog").dialog({
 				open:function(){
-					$(this).parents(".ui-dialog").attr("tabindex", -1)[0].focus(); // 다이얼로그 창이 열렸을 때 X 버튼에 포커싱이 되는 현상을 해결; // 다이얼로그 창이 열렸을 때 X 버튼에 포커싱이 되는 현상을 해결
+					$(this).parents(".ui-dialog").attr("tabindex", -1)[0].focus(); // 다이얼로그 창이 열렸을 때 X 버튼에 포커싱이 되는 현상을 해결
 					$(this).parents(".ui-dialog").find(".ui-dialog-title").css({ "width":"100%", "display":"block", "text-align":"center" }); // title 가운데 정렬
 				},
 				
@@ -65,6 +96,8 @@ function content_revalidate(url, param){
 	}).always(function(){
 		$("#loader_background").fadeOut();
 		$("#loader").fadeOut();
+		
+		$("html").css("overflow", "auto"); // 페이지 스크롤 원상복구
 	});
 }
 
@@ -72,20 +105,29 @@ function content_revalidate(url, param){
 $(function(){
 	//																		 ◆ content ◆ 
 	// ---------------------------------------------------------------------------------------------------------------
-	// type2 메뉴 클릭 시
-	$(document).on("click", ".type2", function(){
+	// 'type2 메뉴 클릭' 및 '검색 시'
+	$(document).on("click", ".type2, #mj_btn_area > img", function(){
+		if($(this).attr("class") == "type2"){ // class 속성값이 type2이면 type2 메뉴 중 하나를 클릭한 것이니 클릭된 메뉴의 css를 처리
+			$(".type2").not(this).removeClass("selected");
+			$(".type2").not(this).css("background", "none");
+			
+			$(this).addClass("selected");
+			$(this).css("background", "black");
+		}
+		
 		var url = "../item/ajax/getItemList.jsp";
-		var type2 = $(this).find("a").html();
-		var param = { "url":url, "type2":type2 };
+		var keyword = $("#mj_input02 #search_text").val();
+		var type2 = $("#type2 li[class='type2 selected'] > a").text();
+		var lowest_price = $("#mj_input01 input[name='lowest_price']").val();
+		var highest_price = $("#mj_input01 input[name='highest_price']").val();
+		
+		if(type2 == "전체"){ type2 = "%"; }
+		if(lowest_price == ""){ lowest_price = 0; }
+		if(highest_price == ""){ highest_price = 999999999; }
+		
+		var param = { "keyword":keyword, "type2":type2, "lowest_price":lowest_price, "highest_price":highest_price };
 		
 		content_revalidate(url, param);
-		
-		
-		$(".type2").not(this).removeClass("selected");
-		$(".type2").not(this).css("background", "none");
-		
-		$(this).addClass("selected");
-		$(this).css("background", "black");
 		
 		return false;
 	});
@@ -129,20 +171,20 @@ $(function(){
 	
 	
 	//																		 ◆ search ◆
-	// ---------------------------------------------------------------------------------------------------------------
-	// 검색
-	$(document).on("change", "#mj_input01 input[name='price_range']", function(){
+	// ---------------------------------------------------------------------------------------------------------------	
+	// 라디오 버튼 이벤트 처리
+	$(document).on("change", "input[name='price_range']", function(){
 		var price_range = $(this).attr("id");
 		
 		if(price_range == "price_range01"){
-			$("#mj_input01 input[name='lowest']").val(0);
-			$("#mj_input01 input[name='highest']").val(1500);
+			$("input[name='lowest_price']").val(0);
+			$("input[name='highest_price']").val(1500);
 		}else if(price_range == "price_range02"){
-			$("#mj_input01 input[name='lowest']").val(1500);
-			$("#mj_input01 input[name='highest']").val(3000);
+			$("input[name='lowest_price']").val(1500);
+			$("input[name='highest_price']").val(3000);
 		}else if(price_range == "price_range03"){
-			$("#mj_input01 input[name='lowest']").val(5000);
-			$("#mj_input01 input[name='highest']").val("");
+			$("input[name='lowest_price']").val(3000);
+			$("input[name='highest_price']").val("");
 		}
 	});
 	
