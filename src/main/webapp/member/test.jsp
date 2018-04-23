@@ -7,23 +7,15 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		var idOk = null;
-		var pwOk1 = null;
-		var pwOk2 = null;
-		var phoneOk1 = null;
-		var phoneOk2 = null;
-		var emailOk = null;
 		var ph = null;
-		
 		$("input").focus(function(){
 			var select = $(this).attr("id");
 			if(select=='phone'){
 				$("label[for="+select+"]").hide();
 				$("div#phone_div span").html("&nbsp;&nbsp;-");
-				$("input#phone").css("width", "70px");
 			}else if(select=='email'){
 				$("label[for="+select+"]").hide();
-				$(this).css("width", "120px");
+				$("div#email_div span").html("&nbsp;&nbsp;@&nbsp;&nbsp;");
 			}else{
 				ph = $(this).attr("placeholder");
 				$(this).attr("placeholder", "");
@@ -34,19 +26,14 @@
 		$("input").blur(function(){
 			var select = $(this).attr("id");
 			if(select=='phone'){
-				if($(this).val()==""){
-					$("label[for="+select+"]").show();
-					$(this).css("width", "150px");
-					$("div#phone_div span").html("");
-					$("."+select+"_p").html("필수 입력 항목입니다").css("color", "red");	
-				}
+				$("label[for="+select+"]").show();
+				$(this).css("width", "150px");
+				$("div#phone_div span").html("");
+				$("."+select+"_p").html("필수 입력 항목입니다").css("color", "red");
 			}else if(select=='email'){
-				if($(this).val()==""){
-					$("label[for="+select+"]").show();
-					$("div#email_div span").html("@");
-					$(this).css("width", "120px");
-					$("."+select+"_p").html("필수 입력 항목입니다").css("color", "red");
-				}
+				$("label[for="+select+"]").show();
+				$("div#email_div span").html("");
+				$("."+select+"_p").html("필수 입력 항목입니다").css("color", "red");
 			}else{
 				if($(this).val()==""){
 					$("."+select+"_p").html("필수 입력 항목입니다").css("color", "red");
@@ -56,17 +43,7 @@
 				}
 			}
 		});
-		$("#select_email").change(function(){
-			var select = $(this).val();
-			
-			if(select==" "){
-				$(".email2").val(select);
-				$(".email_p").html("필수 입력 항목입니다").css("color", "red");
-			}else{
-				$(".email2").val(select);
-				$(".email_p").html("");
-			}	
-		});
+		
 	});
 	
 		function checkId(){
@@ -79,13 +56,8 @@
 				success : function(data){
 					if(input==""){
 						$(".id_p").html();
-					}else if(input=="">0){
-						$(".id_p").html("공백문자는 사용할 수 없습니다").css("color", "red");
-					}else if(input.length<8){
-						$(".id_p").html("8자 이상 입력해주세요").css("color", "red");
 					}else if(data.idChk=="true"){
 						$(".id_p").html("사용가능한 아이디입니다").css("color", "blue");
-						
 					}else if(data.idChk=="false"){
 						$(".id_p").html("이미 사용중인 아이디입니다").css("color", "red");
 					}
@@ -97,7 +69,7 @@
 		function checkPw(){
 			var pw = $("#pw1").val();
 			var repw = $("#pw2").val();
-			var reg_pw = /^.*(?=.{8,15})(?=.*[0-9])(?=.*[a-zA-Z])(?=.*?[#?!@$%^&*-]).*$/;
+			var reg_pw = /^.*(?=.{8,15})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
 			if(pw==""){
 				$(".pw1_p").html();
 			}else if(!reg_pw.test(pw)){
@@ -123,26 +95,7 @@
 				$(".pw2_p").html("비밀번호가 일치합니다").css("color", "blue");
 			}
 		}
-		
-		function maxLengthCheck1(object){
-			if(object.value.length < 3){
-				$(".phone_p").html("3자이상").css("color", "red");
-			}else if(object.value.length > 2){
-				$(".phone_p").html(" ");
-			}
-		    if (object.value.length > object.maxLength)
-		      object.value = object.value.slice(0, object.maxLength);
-		  }
-		function maxLengthCheck2(object){
-			if(object.value.length < 3){
-				$(".phone_p").html("휴대폰 정보를 정확히 입력해주세요").css("color", "red");
-			}else if(object.value.length > 3){
-				$(".phone_p").html(" ");
-			}
-		    if (object.value.length > object.maxLength)
-		      object.value = object.value.slice(0, object.maxLength);
-		  }
-
+	
 </script>
 <style type="text/css">
 	@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
@@ -160,10 +113,10 @@
 	.input{padding:15px 10px 5px 10px; border:1px solid #cbccd6; border-bottom:none;}
 	input#id, input#pw1, input#pw2{height:25px; width:250px; margin-left:10px; border:none;}
 	input#pw1, input#pw2{font-family:sans-serif;}
-	input#phone{height:25px; width:150px; margin-left:10px; border:none; text-align:center;}
-	input#email{height:25px; width:120px; margin-left:10px; border:none;}
+	input#phone{height:25px; width:150px; margin-left:10px; border:none;}
+	input#email{height:25px; width:150px; margin-left:10px; border:none;}
 	label{color:#babec4;}
-	div.phone_div select{height:25px; vertical-align:middle; margin-right:10px; margin-bottom:5px;}
+	select{height:25px; vertical-align:middle; margin-right:10px; margin-bottom:5px;}
 	input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
 		-webkit-appearance: none;
 		margin: 0;
@@ -223,14 +176,14 @@
 			<li>
 				<div id="id_div" class="input">
 					<label for="id">ID를 만들어주세요</label>
-					<input type="text" id="id" placeholder="띄어쓰기 없이 영/숫자 8-12자" maxlength="12" oninput="javascript:checkId()">
+					<input type="text" id="id" placeholder="띄어쓰기 없이 영/숫자 6-10자" oninput="javascript:checkId()">
 					<p class="id_p"></p>
 				</div>
 			</li>
 			<li>
 				<div id="pw1_div" class="input">
 					<label for="pw1">비밀번호 입력</label>
-					<input type="password" id="pw1" placeholder="8-15자의 숫자 및 특수문자 조합" oninput="javascript:checkPw()">
+					<input type="password" id="pw1" placeholder="6-15자의 영문 대소문자, 숫자 및 특수문자 조합" oninput="javascript:checkPw()">
 					<p class="pw1_p"></p>
 				</div>
 			</li>
@@ -251,17 +204,16 @@
 						<option value="018">018
 					</select>
 					<label for="phone">휴대폰번호 입력</label>
-					<input type="number" id="phone" maxlength="4" oninput="maxLengthCheck1(this)"><span></span>
-					<input type="number" id="phone" maxlength="4" oninput="maxLengthCheck2(this)">
+					<input type="number" pattern="[0-9]" id="phone"><span></span><input type="number" pattern="[0-9]" id="phone">
 					<p class="phone_p"></p>
 				</div>
 			</li>
 			<li>
 				<div id="email_div" class="input">
 					<label for="email">이메일</label>
-					<input type="email" id="email"><span>@</span><input type="email" class="email2" id="email">
-					<select id="select_email" style="margin-left:15px;">
-						<option value=" ">직접입력
+					<input type="email" id="email" style="width:250px;"><span></span><input type="email" id="email" style="width:100px;">
+					<select>
+						<option value="">직접입력
 						<option value="naver.com">naver.com
 						<option value="daum.net">daum.net
 						<option value="nate.com">nate.com
@@ -270,7 +222,7 @@
 				</div>
 			</li>
 			<li>
-				<div id="branch_div" class="input" style="border-bottom:1px solid #cbccd6;">
+				<div id="branch_div" class="input">
 					<label for="branch">지점선택</label>
 					<select>
 						<option></option>

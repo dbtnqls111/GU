@@ -11,4 +11,5 @@ public interface BoardService {
 	public int deleteBoard(int seq);
 	public int updateBoard(int seq);
 	public int getTotal();
+	public void updatHit(int seq);
 }

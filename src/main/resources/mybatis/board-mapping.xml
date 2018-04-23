@@ -16,5 +16,9 @@
 	<select id="getTotal" resultType="int">
 		select count(*) from board
 	</select>
+	
+	<update id="updateHit" parameterType="int">
+		update board set hit=hit+1 where seq=#{seq}
+	</update>
 
 </mapper>

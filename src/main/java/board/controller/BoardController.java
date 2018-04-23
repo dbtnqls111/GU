@@ -21,9 +21,15 @@ public class BoardController {
 	public ModelAndView getBoard(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
 		int seq = Integer.parseInt(request.getParameter("seq"));
+		int pg = Integer.parseInt(request.getParameter("pg"));
+		
+		boardService.updatHit(seq);
 		BoardDTO boardDTO = boardService.getBoard(seq);
+		String logtime = boardDTO.getLogtime();
+		boardDTO.setLogtime(logtime.substring(0, logtime.indexOf(" ")));
 		
 		modelAndView.addObject("boardDTO", boardDTO);
+		modelAndView.addObject("pg", pg);
 		modelAndView.setViewName("/board/boardView.jsp");
 		
 		return modelAndView;
@@ -39,7 +45,7 @@ public class BoardController {
 		ArrayList<BoardDTO> boardList = boardService.getBoardList(startNum, endNum);
 		
 		int total = boardService.getTotal();
-		int totalPage = (total+4)/15;
+		int totalPage = (total+4)/15;		
 		
 		int startPage = (pg-1)/10*10+1;
 		int endPage = startPage + 9;

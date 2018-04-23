@@ -42,4 +42,9 @@ public class BoardServiceImpl implements BoardService{
 	public int getTotal() {
 		return boardDAO.getTotal();
 	}
+
+	@Override
+	public void updatHit(int seq) {
+		boardDAO.updateHit(seq);
+	}
 }
