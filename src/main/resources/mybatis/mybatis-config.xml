@@ -10,6 +10,7 @@
 		<typeAlias type="member.bean.MemberDTO" alias="memberDTO" />
 		<typeAlias type="sales.bean.SalesDTO" alias="salesDTO" />
 		<typeAlias type="board.bean.BoardDTO" alias="boardDTO" />
+		<typeAlias type="order.bean.OrderDTO" alias="orderDTO" />
 	</typeAliases>
 	<!-- SQL Mapper -->
 	<mappers>
@@ -18,5 +19,6 @@
 		<mapper resource="mybatis/member-mapping.xml" />
 		<mapper resource="mybatis/sales-mapping.xml" />
 		<mapper resource="mybatis/board-mapping.xml"/>
+		<mapper resource="mybatis/order-mapping.xml"/>
 	</mappers>
 </configuration>

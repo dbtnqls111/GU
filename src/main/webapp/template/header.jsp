@@ -11,7 +11,11 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
+
+
+
 $(function(){
+	
 	var session = "${memName}";
 	
 	if(session!=""){
@@ -24,10 +28,20 @@ $(function(){
 		$("#loginLi").css("display", "block");	
 	}
 	
-	$("#boardLi").click(function(){
+	$("#boardLi").click(function(){		
 		location.href="boardList.do?pg=1";
 	});
+	
+	$("#order").click(function(){
+		if(session==""){
+			alert("로그인 먼저 해주세요.");
+			history.go(-1);
+		}else{
+			location.href="orderList.do";
+		}
+	})
 });
+
 </script>
 
 </head>

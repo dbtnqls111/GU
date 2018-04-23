@@ -45,6 +45,7 @@ public class MemberController {
 			HttpSession session = request.getSession();
 			session.setAttribute("memName", memberDTO.getName());
 			session.setAttribute("memId", memberDTO.getId());
+			session.setAttribute("branchCode", memberDTO.getBranchCode());
 
 			if (memberDTO.getBranchCode() == null) {
 				modelAndView.setViewName("redirect:/admin/main.jsp");
@@ -67,6 +68,28 @@ public class MemberController {
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("redirect:index.jsp");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/member/find_idSuccess.do")
+	public ModelAndView findId(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView();
+		String id = null;
+		String type = request.getParameter("type");
+		
+		if(type.equals("phone")) {
+			String name = request.getParameter("name");
+			String phone = request.getParameter("phone");
+			id = memberService.findId_phone(name, phone);
+		}else if(type.equals("email")){
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			id = memberService.findId_email(name, email);
+		}
+		
+		modelAndView.addObject("id", id);
+		modelAndView.setViewName("/member/find_idSuccess.jsp");
+		
 		return modelAndView;
 	}
 

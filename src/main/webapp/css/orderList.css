@@ -1,0 +1,184 @@
+#top {
+	height: 150px;
+}
+
+#top_head {
+	height: 35px;
+	border-bottom: 1px solid #bababa;
+	padding-left: 10px;
+	font-size: 20px;
+	font-weight: bold;
+	color: #013282;
+}
+
+#home {
+	cursor: pointer;
+	margin-left: 265px;
+}
+
+#top_body {
+	height: 110px;
+}
+
+#top_bodyImg {
+	height: 110px;
+	width: 100%;
+	min-width: 1400px;
+}
+
+#body {
+	margin-top: 30px;
+	margin-left: 280px;
+	width: 68%;
+}
+
+#bodyFont {
+	font-size: 25px;
+	margin-bottom: 15px;
+}
+
+#orderTable {
+	width: 100%;
+	border-top: 3px solid #4286f4;
+	border-collapse: collapse;
+	width: 100%;
+	min-width: 1000px;
+}
+
+#th_tr>th {
+	border-bottom: 2px solid #cecccc;
+	color: #5D6775;
+	height: 30px;
+}
+
+th, td {
+	border-bottom: 1px solid #cecccc;
+	padding: 10px;
+}
+
+.thWidth_1{
+	width:20%;
+}
+
+.thWidth_2{
+	width:18%;
+}
+
+.thWidth_3{
+	width:10%;
+}
+
+.thWidth_4{
+	width:10%;
+}
+
+#countTable{
+	width:70px;	
+	padding:0;
+	margin:0;
+	border-collapse:collapse;
+	text-align:center;
+}
+
+#countTable tr td{
+	border:none;
+	padding:0;
+	margin:0;
+}
+
+#countButton, #countTd{
+	margin:0;
+	padding:0;
+}
+
+.td_border {
+	border-right: 1px solid #cecccc;
+}
+
+#table_right{
+	text-align:right;	
+}
+
+#table_center{
+	text-align:center;
+	width:50px;
+}
+
+.countText{
+	width:40px;
+	height:20px;
+	text-align:right;
+	padding:0;
+	margin:0;
+}
+
+.countButton{
+	width:10px;
+	heigt:10px;
+	display: block;
+}
+
+.buttonImg{
+	padding:0;
+	margin-top:1px;
+	border:1px solid;
+	width:10px;
+	height:10px;
+	align-items:center;
+	cursor:pointer;
+}
+
+#bottom {
+	margin-top: 50px;
+	margin-left: 280px;
+	height: 330px;
+	width: 68%;
+}
+
+#orderPrice {
+	height: 100px;
+	border: 3px solid #adadad;
+	width: 100%;
+	min-width: 1000px;
+	text-align: center;
+}
+
+#allPriceText {
+	font-size: 25px;
+	font-weight: bold;
+	color: #424242;
+	line-height: 100px;
+}
+
+#allPrice {
+	font-size: 25px;
+	font-weight: bold;
+	color: #4286f4;
+	margin-left: 30px;
+	line-height: 100px;
+}
+
+#allPrice_colon {
+	font-size: 25px;
+	font-weight: bold;
+	color: #424242;
+	margin-left: 30px;
+	line-height: 100px;
+}
+
+#orderButtonList {
+	margin-top: 30px;
+	height: 100px;
+	text-align: center;
+}
+
+#orderButton {
+	width: 150px;
+	height: 50px;
+	font-size: 20px;
+	font-weight: bold;
+	background-color: #4286f4;
+	border: none;
+	color: #ffffff;
+	cursor: pointer;
+}

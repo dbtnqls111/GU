@@ -14,65 +14,44 @@
 	$(function(){
 		<c:forEach var="boardDTO" items="${boardList}">			
 			$("#boardTbody").append($('<tr><td class="tableAlignCenter">' + "${boardDTO.seq}" + '</td>' 
-					+ '<td><a href="boardView.do?seq=${boardDTO.seq}&pg=${pg}">' + "${boardDTO.subject}" + '</a></td>'
+					+ '<td id="subjectTd"><a href="boardView.do?seq=${boardDTO.seq}&pg=${pg}" class="aTag">' + "${boardDTO.subject}" + '</a></td>'
 					+ '<td class="tableAlignCenter">' + "${boardDTO.logtime}" 
 					+ '</td>' + '<td class="tableAlignCenter">' + "${boardDTO.hit}" + '</td></tr>'));
 		</c:forEach>
 		
-		<c:forEach var="i" begin="${startPage}" end="${endPage+1}" step="1">
-			$("#pageSpan").append($('<a href="boardList.do?pg=${i}" class="pageLink">' + "${i}" + '</a>'));
+		<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
+			$("#pageSpan").append($('<a href="boardList.do?pg=${i}" class="aTag" id="pageLink">' + "${i}" + '</a>'));
 		</c:forEach>
+		
+		$("#pageStart").click(function(){
+			location.href="boardList.do?pg=${startPage}";
+		});
+		
+		$("#pagePre").click(function(){
+			<c:if test="${pg>1}">
+				location.href="boardList.do?pg=${pg-1}";
+			</c:if>
+			<c:if test="${pg==1}">
+				location.href="boardList.do?pg=${pg}";
+			</c:if>
+		});
+		
+		$("#pageAfter").click(function(){
+			<c:if test="${pg<endPage}">
+				location.href="boardList.do?pg=${pg+1}";
+			</c:if>
+			<c:if test="${pg==endPage}">
+				location.href="boardList.do?pg=${pg}";
+			</c:if>
+		});
+		
+		$("#pageEnd").click(function(){
+			location.href="boardList.do?pg=${endPage}";
+		});
 	});
 </script>
 
-<style type="text/css">
-#wrapper{
-	width:1050px;
-	height:1500px;
-	margin-left:250px;
-}
-
-#pageNavigator{
-	text-align:center;
-	padding-top:20px;
-}
-
-table {
-    width: 100%;
-    border-top: 1px solid #444444;
-    border-collapse: collapse;
- }
- 
- #th_tr > th{
- 	border-bottom: 4px double #444444;
- }
- 
- th, td {
-    border-bottom: 1px solid #444444;
-    padding: 10px;
- }
- 
- .tableAlignCenter{
- 	text-align:center;
- }
- 
- .pageNaviIcon{
- 	width:20px;
- 	height:20px;
- 	vertical-align:middle;
- 	cursor:pointer;
- }
- 
- .pageText{
- 	padding-left:8px;
- 	padding-right:8px;
- }
- 
-.pageLink{
-	padding-left:8px;
-	padding-right:8px;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="css/boardList.css">
 
 </head>
 
@@ -93,11 +72,11 @@ table {
 	</tbody>
 </table>
 <div id="pageNavigator">
-	<img alt="맨 앞으로" src="${pageContext.request.contextPath}/img/start_page.png" class="pageNaviIcon">
-	<img alt="이전" src="${pageContext.request.contextPath}/img/pre_arrow.png" class="pageNaviIcon"><span class="pageText">이전</span>
+	<img alt="맨 앞으로" src="${pageContext.request.contextPath}/img/start_page.png" class="pageNaviIcon" id="pageStart">
+	<img alt="이전" src="${pageContext.request.contextPath}/img/pre_arrow.png" class="pageNaviIcon" id="pagePre"><span class="pageText">이전</span>
 	<span id="pageSpan"></span>	
-	<span class="pageText">다음</span><img alt="다음" src="${pageContext.request.contextPath}/img/after_arrow.png" class="pageNaviIcon">
-	<img alt="맨 뒤로" src="${pageContext.request.contextPath}/img/end_page.png" class="pageNaviIcon">
+	<span class="pageText">다음</span><img alt="다음" src="${pageContext.request.contextPath}/img/after_arrow.png" class="pageNaviIcon" id="pageAfter">
+	<img alt="맨 뒤로" src="${pageContext.request.contextPath}/img/end_page.png" class="pageNaviIcon" id="pageEnd">
 </div>
 </div>
 </body>
