@@ -37,9 +37,35 @@ public class MemberDAO {
 
 	public boolean isExistId(String id) {
 		if (sqlSession.selectOne("mybatis.memberMapper.isExistId", id) == null) {
-			return false;
-		} else {
 			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public String findId_phone(String name, String phone) {
+		Map<String, String> map  = new HashMap<>();
+		map.put("name", name);
+		map.put("phone", phone);
+		
+		String id = sqlSession.selectOne("mybatis.memberMapper.findId_phone", map);
+		if (id == null) {
+			return null;
+		} else {
+			return id;
+		}
+	}
+	
+	public String findId_email(String name, String email) {
+		Map<String, String> map  = new HashMap<>();
+		map.put("name", name);
+		map.put("email", email);
+		
+		String id = sqlSession.selectOne("mybatis.memberMapper.findId_email", map);
+		if (id == null) {
+			return null;
+		} else {
+			return id;
 		}
 	}
 }

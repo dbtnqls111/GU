@@ -5,9 +5,10 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디 찾기 화면</title>
+<title>아이디 찾기</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
+var selectValue = "phone";
 	$(function(){
 		$(".tab_content").hide();
 		$(".tab_content:first").show();
@@ -24,7 +25,7 @@ pageEncoding="UTF-8"%>
 		
 		$("input[type=radio]").click(function(){
 			var select = $(this).attr("value");
-			
+			selectValue = select;
 			if(select=='phone'){
 				$("div.email").hide();
 				$("div.phone").show();
@@ -46,6 +47,32 @@ pageEncoding="UTF-8"%>
 			$("#a").show();
 		});
 	});
+	
+	function confirm(){
+		var name;
+		var phone;
+		var email;
+		var type;
+		
+		if( $("#tab1").css("display") != "none" ) {
+			
+			if(selectValue=="phone"){
+				type = "phone";
+				var tel1 = $("select[id=tel1]").val();
+				name = $("#phone_name").val();
+				phone = tel1 + "-" + $("#tel2").val() + "-" + $("#tel3").val();
+				
+				location.href = "find_idSuccess.do?type="+type+"&name="+name+"&phone="+phone;
+			}else{
+				type="email";
+				name = $("#email_name").val();
+				email = $("#email").val();
+				location.href = "find_idSuccess.do?type="+type+"&name="+name+"&email="+email;
+			}
+		}else{
+			
+		}
+	}
 </script>
 <style type="text/css">
 	@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
@@ -224,8 +251,9 @@ pageEncoding="UTF-8"%>
 		display:inline;
 	}
 	.footer{
-		width:1500px;
+		width:100%;
 		margin:400px auto 0 auto;
+		min-width:1300px;
 	}
 	.footer_top{
 		border-top:1px solid #D8D8D8;
@@ -248,19 +276,19 @@ pageEncoding="UTF-8"%>
 		float:left;
 		margin-left:100px;
 		margin-top:40px;
-		width:700px;
+		width:500px;
 	}
 	.footer_bottom2{
 		border-left:2px solid #D8D8D8;
 		float:left;
 		margin-top:30px;
-		margin-left:60px;
-		padding-left:5%;
+		margin-left:170px;
+		padding-left:100px;
 	}
 	.footer_bottom3{
 		width:100px;
 		margin-top:35px;
-		margin-left:60px;
+		margin-left:80px;
 		float:left;
 	}
 	.footer_bottom1 .sns_div a{
@@ -282,8 +310,8 @@ pageEncoding="UTF-8"%>
 	</div>
 	<div class="header_right">
 		<p>
-			<a href="#">로그인</a>&nbsp;｜&nbsp;
-			<a href="#">회원가입</a>&nbsp;｜&nbsp;
+			<a href="loginForm.do">로그인</a>&nbsp;｜&nbsp;
+			<a href="joinForm.do">회원가입</a>&nbsp;｜&nbsp;
 			<a href="#">장바구니</a>&nbsp;｜&nbsp;
 			<a href="#">고객센터</a>
 		</p>
@@ -299,21 +327,21 @@ pageEncoding="UTF-8"%>
 		<div class="tab_container">
 			<div id="tab1" class="tab_content">
 				<p>회원정보에 등록되어있는 정보 중 1가지를 택하여 입력해 주세요.</p>
-				<div class="radio"><input type="radio" name="info" value="phone" checked="checked">휴대폰<input type="radio" name="info" value="email">이메일<input type="radio" name="info" value="birth">생년월일</div>
+				<div class="radio"><input type="radio" name="info" value="phone" checked="checked">휴대폰<input type="radio" name="info" value="email">이메일<input type="radio" name="info" value="birth">외국인등록번호</div>
 				<div class="phone">
-					<div class="name1">이름&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" size="15px"></div>
-					<div class="tel">휴대폰&nbsp; &nbsp;<select>
+					<div class="name1">이름&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" size="15px" id="phone_name"></div>
+					<div class="tel">휴대폰&nbsp; &nbsp;<select id="tel1">
 						<option value="010">010
 						<option value="011">011
 						<option value="016">016
 						<option value="017">017
 						<option value="018">018
 						<option value="019">019
-					</select> - <input type="text" size="10px"> - <input type="text" size="10px"></div>
+					</select> - <input type="text" size="10px" id="tel2"> - <input type="text" size="10px" id="tel3"></div>
 				</div>
 				<div class="email">
-					<div class="name2">이름&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" size="15px"></div>
-					<div class="input_email">이메일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" size="20px"></div>
+					<div class="name2">이름&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" size="15px" id="email_name"></div>
+					<div class="input_email">이메일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" size="20px" id="email"></div>
 				</div>
 			</div>
 			<div id="tab2" class="tab_content">
@@ -332,7 +360,7 @@ pageEncoding="UTF-8"%>
 				</div>
 				<p id="a" style="display:none;"><input type="text" placeholder="인증번호를 입력해 주세요." id="input_code"><input type="button" value="인증" id="code_confirm"></p>
 			</div>
-			<div class="next"><input type="image" src="../img/confirm.PNG"></div>
+			<div class="next"><input type="image" src="../img/confirm.PNG" onClick="javascript:confirm()"></div>
 		</div>
 </div>
 <div class="footer">

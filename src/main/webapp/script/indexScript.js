@@ -1,4 +1,4 @@
-	var index = 0;
+	var index = 0;	
 	
 	function banner(){
 		var listCount = $("#boxDiv > ul > li").length;

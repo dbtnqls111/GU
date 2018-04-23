@@ -31,11 +31,9 @@ public class ItemController {
 	private ItemService itemService;
 
 	@RequestMapping(value = "/item/list.do")
-	public ModelAndView loginForm(HttpServletRequest req) {
+	public ModelAndView getItemList(HttpServletRequest req) {
 		ModelAndView modelAndView = new ModelAndView();
-		ArrayList<ItemDTO> item_list = itemService.getItemList(req.getParameter("type2"));
-
-		modelAndView.addObject("item_list", item_list);
+		
 		modelAndView.addObject("type1", req.getParameter("type1"));
 		modelAndView.setViewName("/item/list.jsp");
 

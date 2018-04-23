@@ -30,36 +30,16 @@ public class ItemDAO {
 	public ItemDTO getItem(String code) {
 		return sqlSession.selectOne("mybatis.itemMapper.getItem", code);
 	}
-
-	public List<ItemDTO> getItemList(String type2) {
-		if (type2.equals("전체")) {
-			return sqlSession.selectList("mybatis.itemMapper.getItemListAll");
-		} else {
-			return sqlSession.selectList("mybatis.itemMapper.getItemList", type2);
-		}
-	}
-
-	public String getType1(String type2) {
-		return sqlSession.selectOne("mybatis.itemMapper.getType1", type2);
-	}
 	
-	public List<ItemDTO> search(String keyword, String type2, int lowest_price, int highest_price){
-		System.out.println("keyword : " + keyword);
-		System.out.println("type2 : " + type2);
-		System.out.println("lowest_price : " + lowest_price);
-		System.out.println("highest_price : " + highest_price);
-
-		if (type2.equals("전체")) {
-			type2 = "%";
-		}
-
+	public List<ItemDTO> getItemList(String type1, String keyword, String type2, int lowest_price, int highest_price) {
 		Map<String, Object> param = new HashMap<>();
+		param.put("type1", type1);
 		param.put("keyword", keyword);
 		param.put("type2", type2);
 		param.put("lowest_price", lowest_price);
 		param.put("highest_price", highest_price);
 
-		return sqlSession.selectList("mybatis.itemMapper.search", param);
+		return sqlSession.selectList("mybatis.itemMapper.getItemList", param);
 	}
 
 	public List<ItemDTO> getItemList_admin(int startNum, int endNum) {

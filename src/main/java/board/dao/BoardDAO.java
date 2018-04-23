@@ -29,4 +29,8 @@ public class BoardDAO {
 	public int getTotal() {
 		return sqlSession.selectOne("mybatis.boardMapper.getTotal");
 	}
+	
+	public void updateHit(int seq) {
+		sqlSession.update("mybatis.boardMapper.updateHit", seq);
+	}
 }

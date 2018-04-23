@@ -4,39 +4,21 @@ div{ box-sizing:border-box; }
 
 
 /* ---------------------------------------------------------------------- */
-#navigator{ width:65%; margin:auto auto 40px auto; border:1px solid black; }
-#navigator > ul{ margin:0px; padding:0px; overflow:hidden; }
-
-#navigator li{
-	width:20%;
-	float:left;
-	box-sizing:border-box;
-	text-align:center;
-	line-height:50px;
-	list-style:none;
-}
-
-#nav0, #nav1, #nav2, #nav3{ border-right:1px solid black; }
-/* ---------------------------------------------------------------------- */
-
-
-/* ---------------------------------------------------------------------- */
 #hot *{ box-sizing:border-box; }
 
 #hot{
 	width:65%; height:465px;
 	margin:auto;
-	border:1px solid black;
 }
 
-#hot > #left{ width:35%; box-sizing:border-box; border:1px solid black; }
-#hot > #right{ width:65%; height:100%; float:right; }
+#hot > #left{ width:35%; box-sizing:border-box; border:1px solid #999999; }
+#hot > #right{ width:65%; height:100%; float:right; border:1px solid #999999; }
 #hot > #right > table{ width:100%; height:100%; }
 /* ---------------------------------------------------------------------- */
 
 
 /* ---------------------------------------------------------------------- */
-#type2{ width:65%; margin:70px auto 20px auto; border:1px solid black; }
+#type2{ width:65%; margin:70px auto 20px auto; }
 #type2 > ul{ margin:0px; padding:0px; overflow:hidden; }
 
 #type2 li{
@@ -46,7 +28,7 @@ div{ box-sizing:border-box; }
 	text-align:center;
 	line-height:40px;
 	list-style:none;
-	border:1px solid black;
+	border:1px solid #999999;
 }
 /* ---------------------------------------------------------------------- */
 
@@ -58,15 +40,17 @@ div{ box-sizing:border-box; }
 	width:65%;
 	margin:0px auto 40px auto;
 	overflow:hidden;
-	border:1px solid black;
+	border:1px solid #999999;
 }
 
 #mj_title01, #mj_title02{
-	width:12%;
+	width:100px;
 	float:left;
-	margin:10px 0px 0px 10px;
+	margin:10px 0px 0px 5px;
     font-size:1.154em; font-weight:bold;
 }
+
+#mj_input_area{ width:90%; float:left; }
 
 #mj_input01, #mj_input02{
 	width:100%;
@@ -74,28 +58,27 @@ div{ box-sizing:border-box; }
 	overflow:hidden;
 }
 
-#mj_input_area{ width:88%; float:left; }
-
 #mj_input01 ul{
-	width:57%;
 	float:left;
 	overflow:hidden;
-	margin:15px -10px 0px 0px; padding:0px;
+	margin:14px -10px 0px 0px; padding:0px;
 	text-align:center;
 }
 
-#mj_input01 li{ width:32%; float:left; list-style:none; }
-#input_priceRange{ width:31%; float:left; margin:14px 0px 0px 0px; }
+#mj_input01 li{ float:left; list-style:none; margin-left:7px; }
+#price_li01, #price_li03{ width:110px; }
+#price_li02{ width:150px; }
+#input_priceRange{ width:270px; float:left; margin:11px 0px 0px 20px; }
 #input_priceRange > input{ height:27px; }
 
 #mj_input02 > #search_text{
-	width:83%; height:27px;
+	width:655px; height:27px;
 	float:left;
-	margin:12px 0px 10px 30px;
+	margin:12px 0px 10px 9px;
 }
 
-#mj_btn_area{ width:12%; float:left; }
-#mj_btn_area img{ margin:0px 0px 0px 15px; }
+#mj_btn_area{ width:10%; float:left; }
+#mj_btn_area img{ margin-top:5px; }
 /* ---------------------------------------------------------------------- */
 
 
@@ -121,7 +104,7 @@ div{ box-sizing:border-box; }
 }
 
 #content #img{ width:100%; float:left; margin-bottom:0px; }
-#content #name{ width:100%; float:left; text-align:left; margin:0px 0px 0px 25px; font-size:13px; }
+#content #name{ width:100%; float:left; text-align:left; margin-left:25px; font-size:13px; }
 #content #price{ width:100%; float:left; text-align:left; margin:0px 0px 10px 25px; }
 #content #price > span{ font-size:20px; }
 /* ---------------------------------------------------------------------- */
@@ -130,7 +113,7 @@ div{ box-sizing:border-box; }
 /* ---------------------------------------------------------------------- */
 #viewMore{
 	width:65%; height:40px;
-	padding:8px 0px 0px 0px; margin:auto auto 200px auto;
+	padding-top:8px; margin:auto auto 200px auto;
 	text-align:center;
 	border:1px solid black;
 	font-size:20px;
@@ -141,7 +124,7 @@ div{ box-sizing:border-box; }
 /* ---------------------------------------------------------------------- */
 #list_footer{
 	width:100%; height:200px;
-	padding:100px 0px 0px 0px; margin:50px 0px 0px 0px;
+	padding-top:100px; margin-top:50px;
 	text-align:center;
 	border:1px solid black;
 }
@@ -162,10 +145,8 @@ div{ box-sizing:border-box; }
 	width:10%; height:70%;
 	position:absolute;
 	right:70px;
-	padding:30px 0px 0px 0px;
-	text-align:center;
+	padding-top:30px;
 	border:1px solid red;
-	font-size:30px; font-weight:bold;
 	background:#EEEEEE;
 }
 /* ---------------------------------------------------------------------- */

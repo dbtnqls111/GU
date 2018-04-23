@@ -13,5 +13,8 @@ public interface MemberService {
 	MemberDTO login(String id, String pw);
 
 	boolean isExistId(String id);
-
+	
+	String findId_phone(String name, String phone);
+	
+	String findId_email(String name, String email);
 }

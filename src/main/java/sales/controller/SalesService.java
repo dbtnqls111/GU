@@ -11,6 +11,10 @@ public interface SalesService {
 
 	int updateSales(SalesDTO salesDTO);
 
+	int updateSalesDateByCode(String salesDate, String code);
+
+	int updateSalesDateBySeq(String salesDate, int seq);
+
 	int deleteSales(int seq);
 
 	SalesDTO getSales(int seq);
