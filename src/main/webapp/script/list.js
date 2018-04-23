@@ -36,14 +36,16 @@ function content_revalidate(url, param){
 			$("#content > ul").append("<span id='itemBox" + i +"' class='itemBoxes'>");
 			
 			$(data).find("divide" + i + " > .item").each(function(){
+				var code = $(this).find("code").text();
+				
 				var img_name = $(this).find("name").text();
 				var item_name = img_name;
 				if(img_name.length > 14){ item_name = img_name.substring(0, 14) + "..."; }
 				
 				var price = $(this).find("price").text();
 
-				$("#itemBox" + i).append("<li>" +
-														"<p id='img'><img src='../img/" + img_name + ".jpg' width='100%'></p>" +
+				$("#itemBox" + i).append("<li code='" + code + "'>" +
+														"<p id='img'><img src='../img/item/" + code + ".jpg' width='100%'></p>" +
 														"<p id='name'><span realName='" + img_name + "'>" + item_name + "</span></p>" +
 														"<p id='price'><span>" + price + "</span>원</p>" +
 												  "</li>");
@@ -72,25 +74,31 @@ function content_revalidate(url, param){
 		// 상세보기
 		$("#content li").click(function(){
 			// 다이얼로그 콘텐츠 구성
+			var itemCode = $(this).attr("code");
 			var itemName = $(this).find("#name > span").attr("realName");
 			var itemPrice = $(this).find("#price > span").html();
 			
-			$("#d_itemName").html(itemName);
-			$("#d_itemPrice").html("가격 : " + itemPrice);
-			
-			// 다이얼로그 구성
-			$("#detail #btn > button").button();
-			
-			$("#dialog").dialog({
-				open:function(){
-					$(this).parents(".ui-dialog").attr("tabindex", -1)[0].focus(); // 다이얼로그 창이 열렸을 때 X 버튼에 포커싱이 되는 현상을 해결
-					$(this).parents(".ui-dialog").find(".ui-dialog-title").css({ "width":"100%", "display":"block", "text-align":"center" }); // title 가운데 정렬
-				},
+			// 상품 설명 불러오기
+			$("#d_itemDescription").load("../item/ajax/item_description.html #" + itemCode, function(){
+				$("#detail_left img").attr("src", "../img/item/" + itemCode + ".jpg");
+				$("#d_itemName").html(itemName);
+				$("#d_itemPrice").html("가격 : " + itemPrice);
 				
-				width:800,
-				height:500,
-                modal:true,
-                resizable:false,
+				// 다이얼로그 구성
+				$("#detail #btn > button").button();
+				
+				$("#dialog").dialog({
+					open:function(){
+						$(this).parents(".ui-dialog").attr("tabindex", -1)[0].focus(); // 다이얼로그 창이 열렸을 때 X 버튼에 포커싱이 되는 현상을 해결
+						$(this).parents(".ui-dialog").find(".ui-dialog-title").css({ "width":"100%", "display":"block", "text-align":"center" }); // title 가운데 정렬
+					},
+					
+					width:750,
+					height:400,
+					
+	                modal:true,
+	                resizable:false,
+				});
 			});
 		});
 	}).always(function(){
@@ -109,13 +117,14 @@ $(function(){
 	$(document).on("click", ".type2, #mj_btn_area > img", function(){
 		if($(this).attr("class") == "type2"){ // class 속성값이 type2이면 type2 메뉴 중 하나를 클릭한 것이니 클릭된 메뉴의 css를 처리
 			$(".type2").not(this).removeClass("selected");
-			$(".type2").not(this).css("background", "none");
+			$(".type2").not(this).css("border", "1px solid #999999");
 			
 			$(this).addClass("selected");
-			$(this).css("background", "black");
+			$(this).css("border", "2px solid black");
 		}
 		
 		var url = "../item/ajax/getItemList.jsp";
+		var type1 = $("#wrapper").attr("type1");
 		var keyword = $("#mj_input02 #search_text").val();
 		var type2 = $("#type2 li[class='type2 selected'] > a").text();
 		var lowest_price = $("#mj_input01 input[name='lowest_price']").val();
@@ -125,7 +134,7 @@ $(function(){
 		if(lowest_price == ""){ lowest_price = 0; }
 		if(highest_price == ""){ highest_price = 999999999; }
 		
-		var param = { "keyword":keyword, "type2":type2, "lowest_price":lowest_price, "highest_price":highest_price };
+		var param = { "type1":type1, "keyword":keyword, "type2":type2, "lowest_price":lowest_price, "highest_price":highest_price };
 		
 		content_revalidate(url, param);
 		
@@ -203,13 +212,13 @@ $(function(){
 
 	//																		 ◆ moving_banner ◆
 	// ---------------------------------------------------------------------------------------------------------------
-	var navigator_top = $("#navigator").offset().top; // http://cofs.tistory.com/197 참고
+	var navigator_top = $("#hot").offset().top; // http://cofs.tistory.com/197 참고
 	$("#moving_banner").css("top", navigator_top);
 	
 	$(window).scroll(function( ){  // scroll 이벤트
-	      var position = $(document).scrollTop() + 150; // scrollTop : scroll 상단 위치
-	      $("#moving_banner").animate({ top:position + "px" }, 30);
-	 });
+		var position = $(document).scrollTop() + 150; // scrollTop : scroll 상단 위치
+		$("#moving_banner").animate({ top:position + "px" }, 30);
+	});
 	// ---------------------------------------------------------------------------------------------------------------
 	
 	

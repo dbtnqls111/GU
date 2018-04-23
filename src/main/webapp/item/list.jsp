@@ -20,7 +20,7 @@
 			// -------------------------------------------------------------------------------------------------------------
 			var target = "." + '${ type1 }' + " a";
 			$.ajax({
-				url:"category/type2.html",
+				url:"ajax/type2.html",
 				type:"get",
 				dataType:"html",
 				timeout:10000,
@@ -46,27 +46,15 @@
 			
 			// 																	  	   ◆ hot ◆
 			// -------------------------------------------------------------------------------------------------------------
-			$("#hot img").attr("src", "../img/hot_img/" + "${ type1 }" + ".jpg");
+			$("#hot img").attr("src", "../img/hot/" + "${ type1 }" + ".jpg");
 			// -------------------------------------------------------------------------------------------------------------
 		});
 	</script>
 	<link rel="stylesheet" type="text/css" href="/GU/css/list.css" />
 </head>
 <body>
-	<div id="wrapper">
+	<div id="wrapper" type1="${ type1 }">
 		<jsp:include page="../template/header.jsp" />
-		
-		<!-- ================================================================ -->
-		
-		<div id="navigator">
-			<ul>
-				<li id="nav0" class="nav"><a href="#">^^</a></li>
-				<li id="nav1" class="nav"><a href="#">^^</a></li>
-				<li id="nav2" class="nav"><a href="#">^^</a></li>
-				<li id="nav3" class="nav"><a href="#">^^</a></li>
-				<li id="nav4" class="nav"><a href="#">^^</a></li>
-			</ul>
-		</div>
 		
 		<!-- ================================================================ -->
 		
@@ -106,10 +94,10 @@
 						-->
 						
 						<!-- onpaste="javascript:return false" : 복사 방지 -->
-						<input type="text" name="lowest_price" size="10" onpaste="javascript:return false" onfocusout="removeChar(event)"
+						<input type="text" name="lowest_price" size="10" maxlength="9" onpaste="javascript:return false" onfocusout="removeChar(event)"
 								  onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)" style="ime-mode:disabled">
 						<label for="">원 ~</label> 
-						<input type="text" name="highest_price" size="10" onpaste="javascript:return false" onfocusout="removeChar(event)"
+						<input type="text" name="highest_price" size="10" maxlength="9" onpaste="javascript:return false" onfocusout="removeChar(event)"
 								  onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)" style="ime-mode:disabled">
 						<label for="">원</label>
 					</div>
@@ -153,18 +141,15 @@
 	<div id="dialog" title="상세보기" style="display:none;">
 		<div id="detail">
 			<div id="detail_left">
-				<img src="../img/백종원 달콤 통돈까스 삼각김밥.jpg" width="100%" height="100%">
+				<img src="" width="100%" height="100%">
 			</div>
 			<div id="detail_right">
 				<h2 id="d_itemName"></h2>
 				<p id="d_itemPrice"></p>
-				<p id="d_itemDescription">상품 설명 : 맛있다.</p>
+				<p id="d_itemDescription"></p>
 				<p id="d_itemQuantity">수량 :
-					<select>
-						<option>Test01</option>
-						<option>Test02</option>
-						<option>Test03</option>
-					</select>
+					<input type="text" size="3" maxlength="3" onpaste="javascript:return false" onfocusout="removeChar(event)"
+							  onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)" style="ime-mode:disabled">
 				</p>
 			</div>
 			<div id="btn">

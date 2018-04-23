@@ -39,8 +39,9 @@ public class ItemDAO {
 		return sqlSession.selectOne("mybatis.itemMapper.getItem", code);
 	}
 	
-	public List<ItemDTO> getItemList(String keyword, String type2, int lowest_price, int highest_price) {
+	public List<ItemDTO> getItemList(String type1, String keyword, String type2, int lowest_price, int highest_price) {
 		Map<String, Object> param = new HashMap<>();
+		param.put("type1", type1);
 		param.put("keyword", keyword);
 		param.put("type2", type2);
 		param.put("lowest_price", lowest_price);

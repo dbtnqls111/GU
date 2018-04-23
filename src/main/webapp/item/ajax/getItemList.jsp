@@ -8,11 +8,13 @@
 <%@page language="java" contentType="text/xml; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
+	String type1 = request.getParameter("type1");
 	String keyword = request.getParameter("keyword");
 	String type2 = request.getParameter("type2");
 	int lowest_price = Integer.parseInt(request.getParameter("lowest_price"));
 	int highest_price = Integer.parseInt(request.getParameter("highest_price"));
 
+	System.out.println("type1 : " + type1);
 	System.out.println("keyword : " + keyword);
 	System.out.println("type2 : " + type2);
 	System.out.println("lowest_price : " + lowest_price);
@@ -30,7 +32,7 @@
 	*/
 	itemDAO.setSqlSession(sessionTemplate);
 
-	ArrayList<ItemDTO> item_list = (ArrayList<ItemDTO>)itemDAO.getItemList(keyword, type2, lowest_price, highest_price);
+	ArrayList<ItemDTO> item_list = (ArrayList<ItemDTO>)itemDAO.getItemList(type1, keyword, type2, lowest_price, highest_price);
 	
 	
 	final int ROW_PER_ITEMCOUNT = 4; // 행당 아이템 개수
@@ -58,10 +60,12 @@
 	<%
 			for(int j = 0; j < ITEMBOX_PER_ITEMCOUNT; j++){
 				try{
+					String code = item_list.get(index).getCode();
 					String name = item_list.get(index).getName();
 					int price = item_list.get(index).getUup();
 	%>
 					<item<%= index %> class="item">
+						<code><%= code %></code>
 						<name><![CDATA[<%= name %>]]></name>
 						<price><%= price %></price>
 					</item<%= index %>>

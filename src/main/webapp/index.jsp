@@ -52,7 +52,7 @@
 			var id = "#type2_category" + $(this).index();
 			
 			$(this).css("background-color", "blue");
-			$("#boxDiv").load("item/category/type2.html " + id, function(){
+			$("#boxDiv").load("item/ajax/type2.html " + id, function(){
 				$(id).css("color", "red");
 			});
 		}, function(){

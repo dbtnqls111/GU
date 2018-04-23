@@ -4,39 +4,21 @@ div{ box-sizing:border-box; }
 
 
 /* ---------------------------------------------------------------------- */
-#navigator{ width:65%; margin:auto auto 40px auto; border:1px solid black; }
-#navigator > ul{ margin:0px; padding:0px; overflow:hidden; }
-
-#navigator li{
-	width:20%;
-	float:left;
-	box-sizing:border-box;
-	text-align:center;
-	line-height:50px;
-	list-style:none;
-}
-
-#nav0, #nav1, #nav2, #nav3{ border-right:1px solid black; }
-/* ---------------------------------------------------------------------- */
-
-
-/* ---------------------------------------------------------------------- */
 #hot *{ box-sizing:border-box; }
 
 #hot{
 	width:65%; height:465px;
 	margin:auto;
-	border:1px solid black;
 }
 
-#hot > #left{ width:35%; box-sizing:border-box; border:1px solid black; }
-#hot > #right{ width:65%; height:100%; float:right; }
+#hot > #left{ width:35%; box-sizing:border-box; border:1px solid #999999; }
+#hot > #right{ width:65%; height:100%; float:right; border:1px solid #999999; }
 #hot > #right > table{ width:100%; height:100%; }
 /* ---------------------------------------------------------------------- */
 
 
 /* ---------------------------------------------------------------------- */
-#type2{ width:65%; margin:70px auto 20px auto; border:1px solid black; }
+#type2{ width:65%; margin:70px auto 20px auto; }
 #type2 > ul{ margin:0px; padding:0px; overflow:hidden; }
 
 #type2 li{
@@ -46,7 +28,7 @@ div{ box-sizing:border-box; }
 	text-align:center;
 	line-height:40px;
 	list-style:none;
-	border:1px solid black;
+	border:1px solid #999999;
 }
 /* ---------------------------------------------------------------------- */
 
@@ -58,7 +40,7 @@ div{ box-sizing:border-box; }
 	width:65%;
 	margin:0px auto 40px auto;
 	overflow:hidden;
-	border:1px solid black;
+	border:1px solid #999999;
 }
 
 #mj_title01, #mj_title02{
@@ -164,9 +146,7 @@ div{ box-sizing:border-box; }
 	position:absolute;
 	right:70px;
 	padding-top:30px;
-	text-align:center;
 	border:1px solid red;
-	font-size:30px; font-weight:bold;
 	background:#EEEEEE;
 }
 /* ---------------------------------------------------------------------- */

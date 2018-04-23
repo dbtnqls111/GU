@@ -23,7 +23,8 @@
 	
 	<select id="getItemList" parameterType="java.util.Map" resultType="itemDTO">
 		<!-- || : 문자열 연결 연산자 -->
-		select * from item where name like #{ keyword } || '%' and type2 like #{ type2 } and (uup >= #{ lowest_price } and uup <![CDATA[ <= ]]> #{ highest_price }) order by code asc
+		select * from item where type1 = #{ type1 } and name like #{ keyword } || '%' and type2 like #{ type2 } and
+		(uup >= #{ lowest_price } and uup <![CDATA[ <= ]]> #{ highest_price }) order by code asc
 	</select>
 	
 	<select id="getItemListAll" resultType="itemDTO">
