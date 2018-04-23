@@ -24,6 +24,22 @@ public class SalesDAO {
 		return sqlSession.update("mybatis.salesMapper.updateSales", salesDTO);
 	}
 
+	public int updateSalesDateByCode(String salesDate, String code) {
+		Map<String, String> map = new HashMap<>();
+		map.put("salesDate", salesDate);
+		map.put("code", code);
+
+		return sqlSession.update("mybatis.salesMapper.updateSalesDateByCode", map);
+	}
+
+	public int updateSalesDateBySeq(String salesDate, int seq) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("salesDate", (String) salesDate);
+		map.put("seq", (Integer) seq);
+
+		return sqlSession.update("mybatis.salesMapper.updateSalesDateBySeq", map);
+	}
+
 	public int deleteSales(int seq) {
 		return sqlSession.delete("mybatis.salesMapper.deleteSales", seq);
 	}
@@ -35,7 +51,7 @@ public class SalesDAO {
 	public List<SalesDTO> getSalesStandBy(String code) {
 		return sqlSession.selectList("mybatis.salesMapper.getSalesStandBy", code);
 	}
-	
+
 	public List<SalesDTO> getSalesComplete(String code) {
 		return sqlSession.selectList("mybatis.salesMapper.getSalesComplete", code);
 	}
