@@ -1,5 +1,6 @@
 ﻿$.getScript("http://code.jquery.com/ui/1.10.2/jquery-ui.js"); // jQuery UI JavaScript file load
 
+var view_level; // 더 보기 level
 
 function onlyNumber(event){
 	event = event || window.event;
@@ -33,7 +34,7 @@ function content_revalidate(url, param){
 		var itemBox_count = parseInt($(data).find("itemBox_count").text());
 
 		for(var i = 0; i < itemBox_count; i++){
-			$("#content > ul").append("<span id='itemBox" + i +"' class='itemBoxes'>");
+			$("#content > ul").append("<span id='itemBox" + i + "' class='itemBoxes'>");
 			
 			$(data).find("divide" + i + " > .item").each(function(){
 				var code = $(this).find("code").text();
@@ -53,6 +54,8 @@ function content_revalidate(url, param){
 			
 			$("#content > ul").append("</span>");
 		}
+		
+		view_level = 1; // view_level 초기화
 		
 		// 첫 번째 덩어리만 출력
 		$(".itemBoxes").not("#itemBox0").hide();
@@ -155,7 +158,6 @@ $(function(){
 	});
 	
 	
-	var view_level = 1;
 	$("#viewMore").click(function(){
 		var cur_itemBox = "#itemBox" + view_level;
 		var next_itemBox = "#itemBox" + (view_level + 1);
