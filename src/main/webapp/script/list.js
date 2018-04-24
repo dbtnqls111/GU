@@ -45,7 +45,7 @@ function content_revalidate(url, param){
 				var price = $(this).find("price").text();
 
 				$("#itemBox" + i).append("<li code='" + code + "'>" +
-														"<p id='img'><img src='../img/item/" + code + ".jpg' width='100%'></p>" +
+														"<p id='img'><img src='../img/item/" + code + ".PNG' width='100%' height='230px'></p>" +
 														"<p id='name'><span realName='" + img_name + "'>" + item_name + "</span></p>" +
 														"<p id='price'><span>" + price + "</span>원</p>" +
 												  "</li>");
@@ -80,7 +80,7 @@ function content_revalidate(url, param){
 			
 			// 상품 설명 불러오기
 			$("#d_itemDescription").load("../item/ajax/item_description.html #" + itemCode, function(){
-				$("#detail_left img").attr("src", "../img/item/" + itemCode + ".jpg");
+				$("#detail_left img").attr("src", "../img/item/" + itemCode + ".PNG");
 				$("#d_itemName").html(itemName);
 				$("#d_itemPrice").html("가격 : " + itemPrice);
 				
