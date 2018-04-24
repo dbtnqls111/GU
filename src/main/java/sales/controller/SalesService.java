@@ -39,4 +39,6 @@ public interface SalesService {
 
 	int getSearchedSalesCompleteListCount(String keyword);
 
+	ArrayList<String> getCodeList(String today);
+
 }

@@ -95,4 +95,11 @@ public class SalesServiceImpl implements SalesService {
 		return salesDAO.getSearchedSalesCompleteListCount(keyword);
 	}
 
+	@Override
+	public ArrayList<String> getCodeList(String today) {
+		return (ArrayList<String>) salesDAO.getCodeList(today);
+	}
+	
+	
+
 }

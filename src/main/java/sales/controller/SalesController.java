@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import branch.controller.BranchService;
 import item.bean.ItemDTO;
 import item.controller.ItemService;
+import order.bean.OrderDTO;
 import sales.bean.SalesDTO;
 
 @Controller
@@ -336,9 +337,45 @@ public class SalesController {
 	// 발주 대기 입력 요청
 	@RequestMapping(value = "/admin/salesInsert_admin.do")
 	public ModelAndView salesInsert_admin(HttpServletRequest request) {
-		
-		
-		return null;
+		@SuppressWarnings("unchecked")
+		ArrayList<OrderDTO> orderList = (ArrayList<OrderDTO>) request.getAttribute("orderList");
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		Date currentTime = new Date();
+		String today = sdf.format(currentTime);
+
+		ArrayList<String> codes = salesService.getCodeList(today);
+		String code = null;
+		int total = 0;
+
+		if (!codes.isEmpty()) {
+			int index = codes.get(0).indexOf("-");
+			String lastNumber = codes.get(0).substring(index + 1).trim();
+			code = today + " - " + (Integer.parseInt(lastNumber) + 1);
+			total = codes.size();
+		} else {
+			code = today + " - 1";
+		}
+
+		int result = 0;
+		for (OrderDTO orderDTO : orderList) {
+			SalesDTO salesDTO = new SalesDTO();
+			salesDTO.setCode(code);
+			salesDTO.setItemCode(orderDTO.getItemCode());
+			salesDTO.setBranchCode(orderDTO.getBranchCode());
+			salesDTO.setQuantity(orderDTO.getQuantity());
+			salesDTO.setPrice(orderDTO.getPrice());
+			salesDTO.setSalesDate("");
+
+			result += salesService.insertSales(salesDTO);
+		}
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("total", total);
+		modelAndView.addObject("result", result);
+		modelAndView.setViewName("order/salesInsert.jsp");
+
+		return modelAndView;
 	}
 
 }

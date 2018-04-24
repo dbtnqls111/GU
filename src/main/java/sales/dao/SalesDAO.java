@@ -106,4 +106,8 @@ public class SalesDAO {
 		return sqlSession.selectOne("mybatis.salesMapper.getSearchedSalesCompleteListCount", keyword);
 	}
 
+	public List<String> getCodeList(String today) {
+		return sqlSession.selectList("mybatis.salesMapper.getCodeList", today);
+	}
+
 }
