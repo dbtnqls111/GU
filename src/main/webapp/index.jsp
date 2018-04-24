@@ -126,6 +126,10 @@
 		</div>
 
 		<div id="best">
+			<div id="title">
+				<div><img src="img/hot.gif" width="60px" height="60px"></div>
+				<div id="title_text"><span>Best 상품</span></div>
+			</div>
 			<ul id="BestImg">
 				<li id="bestItem0"></li>
 				<li id="bestItem1"></li>
