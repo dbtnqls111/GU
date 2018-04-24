@@ -19,7 +19,6 @@
 <script type="text/javascript" src="script/indexScript.js"></script>
 
 <script type="text/javascript">
-
 	function encode(type1, type2) {
 		location.href = "item/list.do?type1=" + encodeURI(type1, "UTF-8") + "&type2=" + encodeURI(type2, "UTF-8");
 	}
@@ -29,17 +28,42 @@
 		$.ajaxSetup({
 			cache : false
 		});
+		
+		// Best 상품 리스트 불러오기
+		$.get("item/ajax/getBestItemList.jsp", function(data){
+			$(data).find("item").each(function(){
+				var code = $(this).find("code").text();
+				
+				var img_name = $(this).find("name").text();
+				var item_name = img_name;
+				if(img_name.length > 14){ item_name = img_name.substring(0, 14) + "..."; }
+				
+				var price = $(this).find("price").text();
 
-		$(".buttonMenu").hover(function(){
+				$("#bestItem" + $(this).index()).append("<p id='img'><img src='img/item/" + code + ".PNG' width='100%' height='230px'></p>" +
+																	  "<p id='name'><span realName='" + img_name + "'>" + item_name + "</span></p>" +
+																	  "<p id='price'><span>" + price + "</span>원</p>");
+			});
+		});
+
+		// 메뉴 이벤트
+		$(".buttonMenu").mouseenter(function(){
+			$("#boxDiv").hide();
+			$("#boxDiv2").show();
 			var id = "#type2_category" + $(this).index();
 
 			$(this).css("background-color", "#2e4ea5");
-			$("#boxDiv").load("item/ajax/type2.html " + id, function(){
+			$("#boxDiv2").load("item/ajax/type2.html " + id, function(){
 				$(id).css("color", "red");
 			});
-		}, function(){
+		}).mouseleave(function(){
 			$(this).css("background-color", "#013282");
 		});
+		
+		$("#bannerWrapper").mouseleave(function(){
+			$("#boxDiv2").hide();
+			$("#boxDiv").show();
+		})
 	});
 </script>
 
@@ -73,7 +97,7 @@
 					<img alt="생활용품" src="img/daily.png" id="dailyIcon">생활용퓸
 				</div>
 			</div>
-
+			
 			<div id="boxDiv">
 				<div id="left">
 					<img alt="leftButton" src="img/bannerLeftButton.png"
@@ -97,28 +121,20 @@
 				</div>
 
 			</div>
-
+			
+			<div id="boxDiv2" hidden="hidden"></div>
 		</div>
 
 		<div id="best">
-			<div id="BestTitle">Best 상품</div>
 			<ul id="BestImg">
-				<li><a href="getItem.do?code=best1"><img alt="베스트 상품1"
-						src="img/best1.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best2"><img alt="베스트 상품2"
-						src="img/best2.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best3"><img alt="베스트 상품3"
-						src="img/best3.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best4"><img alt="베스트 상품4"
-						src="img/best4.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best5"><img alt="베스트 상품5"
-						src="img/best5.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best6"><img alt="베스트 상품6"
-						src="img/best6.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best7"><img alt="베스트 상품7"
-						src="img/best7.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best8"><img alt="베스트 상품8"
-						src="img/best8.jpg" class="best"></a></li>
+				<li id="bestItem0"></li>
+				<li id="bestItem1"></li>
+				<li id="bestItem2"></li>
+				<li id="bestItem3"></li>
+				<li id="bestItem4"></li>
+				<li id="bestItem5"></li>
+				<li id="bestItem6"></li>
+				<li id="bestItem7"></li>
 			</ul>
 		</div>
 	</div>

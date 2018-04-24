@@ -7,11 +7,11 @@ a {
 }
 
 #bannerWrapper{
-	width:1500px;	
+	width:1500px;
+	margin-left:250px;
 }
 
 .buttonMenu {
-	margin-left: 250px;
 	padding-left: 25px;
 	width: 202px;
 	height: 60px;
@@ -36,7 +36,7 @@ a {
 	margin-top: 2px;
 }
 
-#boxDiv {
+#boxDiv, #boxDiv2 {
 	float: left;
 	margin-top: 3px;
 	width: 800px;
@@ -104,33 +104,28 @@ a {
 	display: none;
 }
 
-#best{	
-	padding:0;
-	margin:0;
-	padding-top:15px;
-	clear: both;
-	margin-left: 250px;
-	width:1200px;
-}
+/* ------------------------------------------------------------------------------------ */
+#best *{ box-sizing:border-box; }
 
-#BestTitle{
-	font-size:20px;
-	font-weight:bold;
-}
+#best{ width:65%; margin:auto; }
 
-.best{
-	width:250px;
-	height:250px;
-	border:1px solid #d4d5d6;
-}
+#BestTitle{ font-size:20px; font-weight:bold; }
 
-#BestImg{
-	padding:0;
-	margin:0;
-	padding-top:15px;
-}
+#best ul{ margin:0px; padding:0px; overflow:hidden; }
 
-#best ul li{
+#best li{ 
+	/* 너비와 높이를 지정해주어야만 box-sizing 속성이 적용된다. */
+	width:25%;
+	height:325px;
+	
+	float:left;
+	text-align:center;
+	border:1px solid #999999;
 	list-style:none;
-	display:inline;	
+	overflow:hidden;
 }
+
+#best #img{ width:100%; float:left; margin-bottom:0px; }
+#best #name{ width:100%; float:left; text-align:left; margin-left:25px; font-size:13px; }
+#best #price{ width:100%; float:left; text-align:left; margin:0px 0px 10px 25px; }
+#best #price > span{ font-size:20px; }
