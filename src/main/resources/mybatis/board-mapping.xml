@@ -4,17 +4,42 @@
 
 <mapper namespace="mybatis.boardMapper">
 
+	<insert id="insertBoard" parameterType="boardDTO">
+		insert into board values(seq_board.nextval, #{id}, #{name}, #{subject}, #{content}, 0, sysdate, #{img})
+	</insert>
+	
+	<update id="updateBoard" parameterType="boardDTO">
+		update board set subject = #{subject}, content = #{content}, img = #{img} where seq = #{seq}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete board where seq = #{seq}
+	</delete>
+
 	<select id="getBoard" parameterType="int" resultType="boardDTO">
-		select * from board where seq=#{seq}
+		select * from board where seq = #{seq}
 	</select>
 	
 	<select id="getBoardList" parameterType="java.util.Map" resultType="boardDTO">
-		<![CDATA[select seq, id, name, subject, content, hit, to_char(logtime, 'YYYY.MM.DD')as logtime 
+		<![CDATA[select seq, id, name, subject, content, hit, to_char(logtime, 'YYYY.MM.DD')as logtime, img 
 		from (select rownum rn, tt.* from (select * from board order by seq desc) tt) where rn>=#{startNum} and rn<=#{endNum}]]>		
+	</select>
+	
+	<select id="getSearchedBoardList" parameterType="java.util.Map" resultType="boardDTO">
+		<![CDATA[select seq, id, name, subject, content, hit, to_char(logtime, 'YYYY.MM.DD')as logtime, img 
+		from (select rownum rn, tt.* from (select * from board where id like '%' || #{keyword} || '%' 
+		or name like '%' || #{keyword} || '%' or subject like '%' || #{keyword} || '%' 
+		or content like '%' || #{keyword} || '%' order by seq desc) tt) where rn>=#{startNum} and rn<=#{endNum}]]>		
 	</select>
 	
 	<select id="getTotal" resultType="int">
 		select count(*) from board
+	</select>
+	
+	<select id="getSearchedTotal" parameterType="String" resultType="int">
+		select count(*) from board where id like '%' || #{keyword} || '%' 
+		or name like '%' || #{keyword} || '%' or subject like '%' || #{keyword} || '%' 
+		or content like '%' || #{keyword} || '%'
 	</select>
 	
 	<update id="updateHit" parameterType="int">

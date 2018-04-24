@@ -54,6 +54,10 @@
 	border-collapse: collapse;
 }
 
+.dataList table.boardTable {
+	width: 650px;
+}
+
 .dataList table.branchTable {
 	width: 800px;
 }
