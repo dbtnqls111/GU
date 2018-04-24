@@ -33,7 +33,7 @@ public class ItemController {
 	@RequestMapping(value = "/item/list.do")
 	public ModelAndView getItemList(HttpServletRequest req) {
 		ModelAndView modelAndView = new ModelAndView();
-		
+
 		modelAndView.addObject("type1", req.getParameter("type1"));
 		modelAndView.setViewName("/item/list.jsp");
 
@@ -212,7 +212,7 @@ public class ItemController {
 			e.printStackTrace();
 		} finally {
 			if (file != null) {
-				file.delete();
+				// file.delete();
 			}
 		}
 

@@ -333,4 +333,12 @@ public class SalesController {
 		return modelAndView;
 	}
 
+	// 발주 대기 입력 요청
+	@RequestMapping(value = "/admin/salesInsert_admin.do")
+	public ModelAndView salesInsert_admin(HttpServletRequest request) {
+		
+		
+		return null;
+	}
+
 }

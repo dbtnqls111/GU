@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import branch.bean.BranchDTO;
@@ -113,6 +114,22 @@ public class BranchController {
 		modelAndView.setViewName("register/branchInsert.jsp");
 
 		return modelAndView;
+	}
+
+	// 지점 엑셀 입력 양식 요청
+	@RequestMapping(value = "/admin/branchExcelInsertForm_admin.do")
+	public ModelAndView branchExcelInsertForm_admin() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("register/branchExcelInsertForm.jsp");
+
+		return modelAndView;
+	}
+
+	// 품목 엑셀 입력 요청
+	@RequestMapping(value = "/admin/branchExcelInsert_admin.do")
+	public ModelAndView branchExcelInsert_admin(HttpServletRequest request, MultipartFile upload) {
+
+		return null;
 	}
 
 	// 지점 삭제 요청
