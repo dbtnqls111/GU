@@ -22,7 +22,7 @@ div{ box-sizing:border-box; }
 #type2 > ul{ margin:0px; padding:0px; overflow:hidden; }
 
 #type2 li{
-	width:25%; height:100%;
+	width:25%; height:45px;
 	float:left;
 	box-sizing:border-box;
 	text-align:center;
@@ -96,6 +96,7 @@ div{ box-sizing:border-box; }
 
 #content li{
 	width:25%;
+	height:325px;
 	float:left;
 	text-align:center;
 	border:1px solid #999999;
