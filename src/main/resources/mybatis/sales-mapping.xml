@@ -109,5 +109,9 @@
 		or item.type2 like '%' || #{keyword} || '%' or item.name like '%' || #{keyword} || '%' 
 		or item.brand like '%' || #{keyword} || '%' or branch.name like '%' || #{keyword} || '%')))
 	</select>
+	
+	<select id="getCodeList" parameterType="String" resultType="String">
+		select distinct code from sales where code like #{today} || '%' and salesDate is null order by code desc
+	</select>
 
 </mapper>

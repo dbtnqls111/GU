@@ -24,7 +24,6 @@
 	
 	GenericXmlApplicationContext context = new GenericXmlApplicationContext("spring/application-config.xml");
 	SqlSessionTemplate sessionTemplate = (SqlSessionTemplate)context.getBean("sessionTemplate");
-	context.close();
 	
 	/*
 		스프링 컨테이너를 통해 얻은 객체가 아닌 직접 생성한 객체이기 때문에
@@ -48,6 +47,8 @@
 	}else{
 		itemBox_count = total_count / ITEMBOX_PER_ITEMCOUNT + 1;
 	}
+	
+	context.close();
 %>
 
 <root>
