@@ -94,9 +94,11 @@ div{ box-sizing:border-box; }
 
 #content ul{ margin:0px; padding:0px; overflow:hidden; }
 
-#content li{
+#content li{ 
+	/* 너비와 높이를 지정해주어야만 box-sizing 속성이 적용된다. */
 	width:25%;
 	height:325px;
+	
 	float:left;
 	text-align:center;
 	border:1px solid #999999;
