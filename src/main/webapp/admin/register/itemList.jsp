@@ -8,6 +8,16 @@
 <link rel="stylesheet" type="text/css" href="css/list.css">
 <script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
+	//자식 윈도우 전역 변수
+	var cw = screen.availWidth;
+	var ch = screen.availHeight;
+	
+	var width = 600;
+	var height = 600;
+	
+	var ml = (cw - width) / 2;
+	var mt = (ch - height) / 2;
+
 	$(function() {
 		// 새로고침시 캐시 사용 안함
 		$.ajaxSetup({
@@ -36,16 +46,11 @@
 		});
 
 		$(".insert").click(function() {
-			var cw = screen.availWidth;
-			var ch = screen.availHeight;
-
-			var width = 600;
-			var height = 600;
-
-			var ml = (cw - width) / 2;
-			var mt = (ch - height) / 2;
-
 			window.open("itemInsertForm_admin.do", "", "width=" + width + ",height=" + height + ",top=" + mt + ",left=" + ml);
+		});
+		
+		$(".excelInsert").click(function() {
+			window.open("itemExcelInsertForm_admin.do", "", "width=" + width + ",height=" + height + ",top=" + mt + ",left=" + ml);
 		});
 
 		$(".delete").click(function() {
@@ -66,15 +71,6 @@
 	});
 
 	function update(code) {
-		var cw = screen.availWidth;
-		var ch = screen.availHeight;
-
-		var width = 600;
-		var height = 600;
-
-		var ml = (cw - width) / 2;
-		var mt = (ch - height) / 2;
-
 		window.open("itemUpdateForm_admin.do?code=" + code, "", "width=" + width + ",height=" + height + ",top=" + mt + ",left=" + ml);
 	}
 	
@@ -151,7 +147,7 @@
 	</div>
 	<div class="bottomMenu">
 		<input type="button" value="신규입력" class="insert">
-		<input type="button" value="Excel입력">
+		<input type="button" value="Excel입력" class="excelInsert">
 		<input type="button" value="선택삭제" class="delete">
 	</div>
 </body>

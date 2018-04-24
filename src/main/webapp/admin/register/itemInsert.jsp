@@ -8,7 +8,7 @@
 <script type="text/javascript">
 	$(function() {
 		if ("${result > 0}") {
-			alert("품목 등록 성공!");
+			alert("${total}건 중 ${result}건 등록 성공!");
 		} else {
 			alert("품목 등록 실패...");
 		}

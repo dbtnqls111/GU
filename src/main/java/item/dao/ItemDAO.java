@@ -15,12 +15,12 @@ public class ItemDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public void setSqlSession(SqlSessionTemplate sqlSession) {
-		this.sqlSession = sqlSession;
-	}
-
 	public SqlSessionTemplate getSqlSession() {
 		return sqlSession;
+	}
+
+	public void setSqlSession(SqlSessionTemplate sqlSession) {
+		this.sqlSession = sqlSession;
 	}
 
 	public int insertItem(ItemDTO itemDTO) {
