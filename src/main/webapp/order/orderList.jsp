@@ -15,8 +15,8 @@
 		<c:forEach var="orderDTO" items="${orderList}">
 			i= i + 1;
 			$("#orderTbody").append($('<tr><td class="td_border">' + "${orderDTO.itemCode}" + '</td>'
-					+ '<td class="td_border">' + "${orderDTO.itemName}" + '</td>'
-					+ '<td class="td_border" id="price_'+i+'" align="right">' + "${orderDTO.price}" + '</td>'
+					+ '<td class="td_border">' + "${orderDTO.name}" + '</td>'
+					+ '<td class="td_border" id="price_'+i+'" align="right">' + "${orderDTO.uup}" + '</td>'
 					+ '<td class="td_border" id="table_center">'				
 					+ '<table id="countTable"><tr><td id="countTd"><input type="text" class="countText" id="countText_' + i + '" onkeydown="javascript:onlyNumber(this)" value="${orderDTO.quantity}"></td>'
 					+ '<td id="countButton">'
@@ -24,8 +24,8 @@
 					+ '<div class="buttonImg"><img src="${pageContext.request.contextPath}/img/downButton.png" class="countButton" id="down_"'+i+' onclick="javascript:down('+i+')"></div>'
 					+ '</td></tr></table>'
 					+ '</td>'
-					+ '<td class="td_border" id="allPrice_'+i+'" align="right">' + "${orderDTO.price * orderDTO.quantity}" + '</td>'
-					+ '<td align="center"><input type="checkbox"></td></tr>'
+					+ '<td class="td_border" id="allPrice_'+i+'" align="right">' + "${orderDTO.uup * orderDTO.quantity}" + '</td>'
+					+ '<td align="center"><input type="checkbox" id="check_${orderDTO.seq}"></td></tr>'
 				));
 			count = count + parseInt($("#allPrice_"+i).text());
 		</c:forEach>
@@ -43,6 +43,34 @@
 		$("#orderButton").click(function(){
 			var session = "${branchCode}";
 			alert(session);
+		});
+		
+		$("#deleteOrder").click(function(){
+			if (confirm("선택하신 상품을 삭제하시겠습니까?") == true){
+				for(var i=$('input:checkbox').length-1; i>=0; i--){
+				 	if($('input:checkbox:eq('+i+')').prop("checked")){	 		
+				 		var seq = $('input:checkbox:eq('+i+')').attr('id').split("_")[1];
+				 		$.ajax({
+				 	        url:"deleteOrder.do",
+				 	        type:"post",
+				 	        data:{"seq":seq},
+				 	        dataType:"json",
+				 	        success:function(data){
+				 	          	alert("정상적으로 상품이 삭제되었습니다.");
+				 	        },
+				 	        error:function(jqXHR, textStatus, errorThrown){
+				 	        	alert("상품 삭제 실패");
+				 	        }
+				 	    });
+				 		var all =  parseInt($("#allPrice").text());
+				 		all = all - parseInt($("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(4)").text());
+				 		$("#allPrice").html(all+"원");
+				 		$('#orderTable > tbody > tr:eq('+(i-1)+')').remove();				 			 		
+					}
+				 }
+			}else{ 
+			    return;
+			}		 
 		});
 	});
 	
@@ -104,6 +132,12 @@
 			
 			<tbody id="orderTbody">
 			</tbody>
+			
+			<tfoot>
+				<tr id="deleteOrderTr">
+					<td colspan="6" id="deleteOrderTd"><input type="button" value="삭제" id="deleteOrder"></td>
+				</tr>
+			</tfoot>
 		</table>
 	</div>
 	

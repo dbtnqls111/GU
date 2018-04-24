@@ -212,7 +212,7 @@ public class ItemController {
 			e.printStackTrace();
 		} finally {
 			if (file != null) {
-				file.delete();
+				// file.delete();
 			}
 		}
 

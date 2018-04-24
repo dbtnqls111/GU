@@ -20,38 +20,32 @@
 
 <script type="text/javascript">
 
-	function encode(type1, type2) {
-		location.href = "item/list.do?type1=" + encodeURI(type1, "UTF-8") + "&type2=" + encodeURI(type2, "UTF-8");
-	}
+function encode(type1, type2) {
+	location.href = "item/list.do?type1=" + encodeURI(type1, "UTF-8") + "&type2=" + encodeURI(type2, "UTF-8");
+}
 
-	$(document).ready(function() {		
-
+$(document).ready(function() {		
 	function encode(type1, type2){
-		location.href = "item/list.do?type1=" + encodeURI(type1, "UTF-8");
+		location.href = "item/list.do?type1="+encodeURI(type1, "UTF-8");
 	}
 	
-
-		// ----------------------------------- buttonMenu -----------------------------------
-		$.ajaxSetup({
-			cache : false
-		});
-
-		$(".buttonMenu").hover(function() {
-			var id = "#type2_category" + $(this).index();
-
-
-			$(this).css("background-color", "#2e4ea5");
-			$("#boxDiv").load("item/category/type2.html " + id, function() {
-	
-			$(this).css("background-color", "blue");
-			$("#boxDiv").load("item/ajax/type2.html " + id, function(){
-				$(id).css("color", "red");
-			});
-		}, function() {
-			$(this).css("background-color", "#013282");
-		}
-		});
+	// ----------------------------------- buttonMenu -----------------------------------
+	$.ajaxSetup({
+		cache : false
 	});
+
+	$(".buttonMenu").hover(function() {
+		var id = "#type2_category" + $(this).index();
+
+		$(this).css("background-color", "#2e4ea5");
+		$("#boxDiv").load("item/category/type2.html " + id, function() {
+			$(id).css("color", "red");
+		});
+	}, function() {
+		$(this).css("background-color", "#013282");
+	});
+});
+		
 </script>
 
 <link rel="stylesheet" type="text/css" href="css/index.css">

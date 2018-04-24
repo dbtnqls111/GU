@@ -18,4 +18,9 @@ public class OrderServiceImpl implements OrderService{
 	public ArrayList<OrderDTO> orderList() {		
 		return (ArrayList<OrderDTO>)orderDAO.orderList();
 	}
+
+	@Override
+	public int deleteOrder(int seq) {
+		return orderDAO.deleteOrder(seq);
+	}
 }

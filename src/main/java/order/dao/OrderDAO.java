@@ -16,4 +16,8 @@ public class OrderDAO {
 	public List<OrderDTO> orderList(){
 		return sqlSession.selectList("mybatis.orderMapper.orderList");
 	}
+	
+	public int deleteOrder(int seq) {
+		return sqlSession.delete("mybatis.orderMapper.deleteOrder", seq);
+	}
 }

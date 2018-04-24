@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import member.dao.MemberDAO;
@@ -34,5 +35,19 @@ public class OrderController {
 		
 		return modelAndView;
 	}
-
+	
+	@RequestMapping(value = "deleteOrder.do")
+	public @ResponseBody String deleteOrder(HttpServletRequest request) {
+		int seq = Integer.parseInt(request.getParameter("seq"));
+		String str;
+		int result = orderService.deleteOrder(seq);
+		
+		if(result>0) {
+			str =  "{\"result\":\""+"성공"+"\"}";
+			return str;
+		}else {
+			str = "{\"result\":\""+"실패"+"\"}";
+			return str;
+		}
+	}
 }
