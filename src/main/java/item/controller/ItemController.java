@@ -35,6 +35,7 @@ public class ItemController {
 		ModelAndView modelAndView = new ModelAndView();
 
 		modelAndView.addObject("type1", req.getParameter("type1"));
+		modelAndView.addObject("type2", req.getParameter("type2"));
 		modelAndView.setViewName("/item/list.jsp");
 
 		return modelAndView;
