@@ -44,22 +44,58 @@
 		</div>
 	</div>
 	<div class="paging">
-		[<a class="otherPage" href="#" onclick="paging(1)">처음으로</a>]
+		<c:if test="${page > 1}">
+			<span>
+				<a href="#" class="otherPage" onclick="paging(1)"><img src="img/start_page.png"></a>
+			</span>
+		</c:if>
+		<c:if test="${page == 1}">
+			<span>
+				<a href="#" class="disable"><img src="img/start_page_disable.png"></a>
+			</span>
+		</c:if>
 		<c:if test="${startPage > 10}">
-			[<a href="#" class="otherPage" onclick="paging(${startPage - 1})">이전</a>]
+			<span>
+				<a href="#" class="otherPage" onclick="paging(${startPage - 1})"><img src="img/pre_arrow.png"></a>
+			</span>
+		</c:if>
+		<c:if test="${startPage <= 10}">
+			<span>
+				<a href="#" class="disable"><img src="img/pre_arrow_disable.png"></a>
+			</span>
 		</c:if>
 		<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
 			<c:if test="${i == page}">
-				[<a href="#" class="currentPage" onclick="paging(${i})">${i}</a>]
+				<span>
+					<a href="#" class="currentPage" onclick="paging(${i})">${i}</a>
+				</span>
 			</c:if>
 			<c:if test="${i != page}">
-				[<a href="#" class="otherPage" onclick="paging(${i})">${i}</a>]
+				<span>
+					<a href="#" class="otherPage" onclick="paging(${i})">${i}</a>
+				</span>
 			</c:if>
 		</c:forEach>
 		<c:if test="${endPage < maxPage}">
-			[<a href="#" class="otherPage" onclick="paging(${endPage + 1})">다음</a>]
+			<span>
+				<a href="#" class="otherPage" onclick="paging(${endPage + 1})"><img src="img/after_arrow.png"></a>
+			</span>
 		</c:if>
-		[<a class="otherPage" href="#" onclick="paging(${maxPage})">끝으로</a>]
+		<c:if test="${endPage >= maxPage}">
+			<span>
+				<a href="#" class="disable"><img src="img/after_arrow_disable.png"></a>
+			</span>
+		</c:if>
+		<c:if test="${page < maxPage}">
+			<span>
+				<a href="#" class="otherPage" onclick="paging(${maxPage})"><img src="img/end_page.png"></a>
+			</span>
+		</c:if>
+		<c:if test="${page >= maxPage}">
+			<span>
+				<a href="#" class="disable"><img src="img/end_page_disable.png"></a>
+			</span>
+		</c:if>
 	</div>
 	<div class="dataList">
 		<table class="boardTable">

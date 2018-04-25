@@ -18,12 +18,12 @@
 			}
 
 			if (!$("input[name='type1']").val()) {
-				alert("품목 타입1을 입력하세요.");
+				alert("품목 타입을 입력하세요.");
 				return false;
 			}
 
 			if (!$("input[name='type2']").val()) {
-				alert("품목 타입2를 입력하세요.");
+				alert("세부 타입을 입력하세요.");
 				return false;
 			}
 
@@ -74,13 +74,13 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="tdLabel">품목 타입1</td>
+						<td class="tdLabel">품목 타입</td>
 						<td class="tdData">
 							<input type="text" name="type1" value="${itemDTO.type1}">
 						</td>
 					</tr>
 					<tr>
-						<td class="tdLabel">품목 타입2</td>
+						<td class="tdLabel">세부 타입</td>
 						<td class="tdData">
 							<input type="text" name="type2" value="${itemDTO.type2}">
 						</td>
