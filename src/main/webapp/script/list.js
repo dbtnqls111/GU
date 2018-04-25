@@ -1,6 +1,4 @@
-﻿$.getScript("http://code.jquery.com/ui/1.10.2/jquery-ui.js"); // jQuery UI JavaScript file load
-
-var view_level; // 더 보기 level
+﻿var view_level; // 더 보기 level
 
 function onlyNumber(event){
 	event = event || window.event;
@@ -83,11 +81,19 @@ function content_revalidate(url, param){
 			
 			// 상품 설명 불러오기
 			$("#d_itemDescription").load("../item/ajax/item_description.html #" + itemCode, function(){
+				if($("#d_itemDescription").html() == ""){
+					$("#d_itemDescription").html("설명 : ...");
+				}
+				
 				$("#detail_left img").attr("src", "../img/item/" + itemCode + ".PNG");
 				$("#d_itemName").html(itemName);
 				$("#d_itemPrice").html("가격 : " + itemPrice);
 				
 				// 다이얼로그 구성
+				/*
+					만약 'is not a function' 오류가 발생한다면 jQuery 라이브러리가 중복 include되어 그런 것일 확률이 많으므로
+					include하여 사용 중인 페이지(header, footer 등)들 중에서 jQuery 라이브러리를 include 중인지 확인해보길 바란다.
+				*/
 				$("#detail #btn > button").button();
 				
 				$("#dialog").dialog({

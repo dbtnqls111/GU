@@ -3,19 +3,22 @@
 <%@page import="java.net.URLEncoder"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="/template/header.jsp"%>
 <!DOCTYPE html>
 
 <html>
 <head>
 	<title></title>
-	<script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css"> <!-- jQuery UI CSS file load -->
+	
+	<!-- jQuery UI -->
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
+	
     <link rel="stylesheet" href="/GU/css/normalize.css"> <!-- http://webdir.tistory.com/455 참고 -->
+    
 	<script type="text/javascript" src="/GU/script/list.js" charset="UTF-8"></script>
 	<script type="text/javascript">
 		$(function(){
-			$("#type2-0").trigger("click"); // trigger : 강제 이벤트 발생시키기
-			
 			// 																		◆ type2 ◆
 			// -------------------------------------------------------------------------------------------------------------
 			var target = "." + '${ type1 }' + " a";
@@ -35,6 +38,9 @@
 						$("#type2 > ul").append("<li id='type2-" + index + "' class='type2'><a href='#'>" + type2 + "</a></li>");
 						index++;
 					});
+					
+					var type2_num = ${ type2 };
+					$("#type2-" + type2_num).trigger("click"); // trigger : 강제 이벤트 발생시키기
 				},
 
 				error:function(xhr, textStatus, errorThrown){
@@ -46,7 +52,7 @@
 			
 			// 																	  	   ◆ hot ◆
 			// -------------------------------------------------------------------------------------------------------------
-			$("#hot img").attr("src", "../img/hot/" + "${ type1 }" + ".jpg");
+			$("#hot > #left").attr("src", "../img/hot/" + "${ type1 }" + ".jpg");
 			// -------------------------------------------------------------------------------------------------------------
 		});
 	</script>
@@ -54,19 +60,53 @@
 </head>
 <body>
 	<div id="wrapper" type1="${ type1 }">
-		<jsp:include page="../template/header.jsp" />
+		
 		
 		<!-- ================================================================ -->
 		
 		<div id="hot">
 			<img id="left" width="100%" height="100%">
 			<div id="right">
-				<table>
-					<tr><td></td> <td></td></tr>
-					<tr><td></td> <td></td></tr>
-				</table>
+				<div id="title">간편식사 Best 상품</div>
+				<div id="iist">
+					<ul>
+						<li id="b_item0">
+							<div class="b_itemImg"><img src="../img/best1.jpg" width="100%" height="100%"></div>
+							<div class="b_itemDescription">
+								<div style="font-size:14px;">맛있는 아이스크림...</div>
+								<p style="fone-size:21px; font-weight:bold;">1200원</p>
+							</div>
+						</li>
+						
+						<li id="b_item1">
+							<div class="b_itemImg"><img src="../img/best1.jpg" width="100%" height="100%"></div>
+							<div class="b_itemDescription">
+								<div style="font-size:14px;">맛있는 아이스크림...</div>
+								<p style="fone-size:21px; font-weight:bold;">1200원</p>
+							</div>
+						</li>
+						
+						<li id="b_item2">
+							<div class="b_itemImg"><img src="../img/best1.jpg" width="100%" height="100%"></div>
+							<div class="b_itemDescription">
+								<div style="font-size:14px;">맛있는 아이스크림...</div>
+								<p style="fone-size:21px; font-weight:bold;">1200원</p>
+							</div>
+						</li>
+						
+						<li id="b_item3">
+							<div class="b_itemImg"><img src="../img/best1.jpg" width="100%" height="100%"></div>
+							<div class="b_itemDescription">
+								<div style="font-size:14px;">맛있는 아이스크림...</div>
+								<p style="fone-size:21px; font-weight:bold;">1200원</p>
+							</div>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
+		
+		<div id="underline"><img src="../img/hot/hot_underline.png" width="100%"></div>
 		
 		<!-- ================================================================ -->
 		
