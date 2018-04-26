@@ -13,10 +13,9 @@
 
 <title>GU</title>
 
-<script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
 <script type="text/javascript" src="script/indexScript.js"></script>
+
 
 <script type="text/javascript">
 
@@ -43,6 +42,9 @@
 	});
 		
 </script>
+
+<script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
 
 <link rel="stylesheet" type="text/css" href="css/index.css">
 
@@ -74,7 +76,7 @@
 					<img alt="생활용품" src="img/daily.png" id="dailyIcon">생활용퓸
 				</div>
 			</div>
-
+			
 			<div id="boxDiv">
 				<div id="left">
 					<img alt="leftButton" src="img/bannerLeftButton.png"
@@ -98,32 +100,50 @@
 				</div>
 
 			</div>
-
+			
+			<div id="boxDiv2" hidden="hidden"></div>
 		</div>
 
 		<div id="best">
-			<div id="BestTitle">Best 상품</div>
-			<ul id="BestImg">
-				<li><a href="getItem.do?code=best1"><img alt="베스트 상품1"
-						src="img/best1.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best2"><img alt="베스트 상품2"
-						src="img/best2.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best3"><img alt="베스트 상품3"
-						src="img/best3.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best4"><img alt="베스트 상품4"
-						src="img/best4.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best5"><img alt="베스트 상품5"
-						src="img/best5.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best6"><img alt="베스트 상품6"
-						src="img/best6.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best7"><img alt="베스트 상품7"
-						src="img/best7.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best8"><img alt="베스트 상품8"
-						src="img/best8.jpg" class="best"></a></li>
+			<div id="title">
+				<div><img src="img/hot.gif" width="70px" height="70px"></div>
+				<div id="title_text"><span>Best 상품</span></div>
+			</div>
+			<ul id="bestItem">
+				<li id="bestItem0"></li>
+				<li id="bestItem1"></li>
+				<li id="bestItem2"></li>
+				<li id="bestItem3"></li>
+				<li id="bestItem4"></li>
+				<li id="bestItem5"></li>
+				<li id="bestItem6"></li>
+				<li id="bestItem7"></li>
 			</ul>
 		</div>
 	</div>
 
+	
+	<!-- 다이얼로그 -->
+	<div id="dialog" title="상세보기" style="display:none;">
+		<div id="detail">
+			<div id="detail_left">
+				<img src="" width="100%" height="100%">
+			</div>
+			<div id="detail_right">
+				<h2 id="d_itemName"></h2>
+				<p id="d_itemPrice"></p>
+				<p id="d_itemDescription"></p>
+				<p id="d_itemQuantity">수량 :
+					<input type="text" size="3" maxlength="3" onpaste="javascript:return false" onfocusout="removeChar(event)"
+							  onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)" style="ime-mode:disabled">
+				</p>
+			</div>
+			<div id="btn">
+				<button>장바구니</button> &nbsp;
+				<button>발주</button>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>

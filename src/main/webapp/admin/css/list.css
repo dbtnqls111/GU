@@ -27,14 +27,39 @@
 	margin-left: 10px;
 }
 
+.paging span {
+	margin-right: -4px;
+}
+
+.paging span a {
+	padding: 0 3px 0;
+}
+
+.paging span img {
+	width: auto;
+	height: 15px;
+	margin-bottom: -2px;
+}
+
 .paging .otherPage {
-	color: blue;
+	color: black;
+	text-decoration: none;
+}
+
+.paging .disable {
+	cursor: default;
+}
+
+.paging .otherPage:hover {
+	background-color: #c9e1ff;
+	color: black;
 	text-decoration: none;
 }
 
 .paging .currentPage {
-	color: red;
-	text-decoration: underline;
+	background-color: #66aaff;
+	color: white;
+	text-decoration: none;
 }
 
 .dataList {
@@ -54,6 +79,10 @@
 	border-collapse: collapse;
 }
 
+.dataList table.boardTable {
+	width: 650px;
+}
+
 .dataList table.branchTable {
 	width: 800px;
 }
@@ -70,6 +99,10 @@
 	width: 650px;
 }
 
+th {
+	height: 30px;
+}
+
 th, td {
 	border: 1px solid #aaaaaa;
 	padding: 5px;
@@ -82,10 +115,6 @@ th, td {
 
 .trData {
 	background-color: white;
-}
-
-.trData:hover {
-	background-color: #e2e2e2;
 }
 
 .trData a:link {
@@ -119,4 +148,32 @@ th, td {
 	width: 850px;
 	height: 30px;
 	padding: 2px 5px;
+}
+
+input[type='text'] {
+	border: 1px solid #aaaaaa;
+	border-radius: 5px;
+}
+
+input[type='text']:hover {
+	border: 2px solid #66aaff;
+	box-sizing: border-box;
+}
+
+input[type='text']:focus {
+	border: 2px solid #66aaff;
+	box-sizing: border-box;
+}
+
+input[type='submit'], input[type='button'] {
+	border: 1px solid #aaaaaa;
+	border-radius: 5px;
+	padding: 2px 10px;
+	background-color: #c9e1ff;
+	height: 24px;
+}
+
+input[type='submit']:hover, input[type='button']:hover {
+	background-color: #66aaff;
+	color: white;
 }
