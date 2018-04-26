@@ -7,6 +7,7 @@ public class OrderDTO {
 	private String branchCode;
 	private int quantity;
 	private int uup;
+	private int price;
 	private String orderDate;
 	public int getSeq() {
 		return seq;
@@ -51,4 +52,11 @@ public class OrderDTO {
 	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	
 }

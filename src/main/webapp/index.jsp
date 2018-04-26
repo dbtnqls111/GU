@@ -40,10 +40,7 @@
 		}, function(){
 			$(this).css("background-color", "#013282");
 		});
-	}, function() {
-		$(this).css("background-color", "#013282");
 	});
-});
 		
 </script>
 
@@ -126,6 +123,7 @@
 			</ul>
 		</div>
 	</div>
+
 </body>
 
 </html>

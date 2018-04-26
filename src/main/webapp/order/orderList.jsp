@@ -14,7 +14,7 @@
 		var count = 0;
 		<c:forEach var="orderDTO" items="${orderList}">
 			i= i + 1;
-			$("#orderTbody").append($('<tr><td class="td_border">' + "${orderDTO.itemCode}" + '</td>'
+			$("#orderTbody").append($('<tr><td class="td_border" id="${orderDTO.seq}">' + "${orderDTO.itemCode}" + '</td>'
 					+ '<td class="td_border">' + "${orderDTO.name}" + '</td>'
 					+ '<td class="td_border" id="price_'+i+'" align="right">' + "${orderDTO.uup}" + '</td>'
 					+ '<td class="td_border" id="table_center">'				
@@ -38,11 +38,6 @@
 		$("#allSelect").click(function() {
 			var check = $("#allSelect").prop("checked");
 			$("input[type='checkbox']").prop("checked", check);
-		});
-		
-		$("#orderButton").click(function(){
-			var session = "${branchCode}";
-			alert(session);
 		});
 		
 		$("#deleteOrder").click(function(){
@@ -71,6 +66,43 @@
 			}else{ 
 			    return;
 			}		 
+		});
+		
+		$("#orderButton").click(function(){
+			  var orderArray = new Array(); // 배열 생성
+	         
+	          var totalOrderList = new Object(); // 배열을 담을 객체
+	          var stringJsonOrder;  // 스트링형태로 바꾼 배열 저장
+	          for(var i=1; i<$('input:checkbox').length; i++){				
+				 	if($('input:checkbox:eq('+i+')').prop("checked")){
+				 		var orderObj = new Object(); // 객체 생성
+				 		orderObj.seq=$("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(0)").attr("id");
+				 		orderObj.itemCode=$("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(0)").text();
+				 		orderObj.name=$("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(1)").text();
+				 		orderObj.uup=$("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(2)").text();
+				 		orderObj.quantity=$(".countText:eq("+(i-1)+")").val();
+				 		orderObj.price=$("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(4)").text();
+				 		
+				 		orderArray.push(orderObj);
+				 	}
+	          }
+	          
+	          totalOrderList.order = orderArray ;
+	          stringJsonOrder = JSON.stringify(totalOrderList);
+	          
+	          var form = document.createElement('form');
+	          
+	          var objs = document.createElement('input');
+	          objs.setAttribute('type', 'hidden');
+	          objs.setAttribute('name', 'orderList');
+	          objs.setAttribute('value', stringJsonOrder);
+	          form.appendChild(objs);
+	          
+	          form.setAttribute('method', 'post');
+	          form.setAttribute('action', 'order.do');
+	          document.body.appendChild(form);
+	          form.submit();
+	          
 		});
 	});
 	
@@ -111,7 +143,7 @@
 <body>
 <div id="orderWrap">
 	<div id="top">
-		<div id="top_head"><span id="home">GU</span></div>
+		<div id="top_head"><div id="home">GU</div></div>
 		<div id="top_body"><img src="${pageContext.request.contextPath}/img/top_body.png" id="top_bodyImg"></div>
 	</div>
 	
