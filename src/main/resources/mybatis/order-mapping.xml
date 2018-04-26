@@ -4,6 +4,10 @@
 
 <mapper namespace="mybatis.orderMapper">
 	<select id="orderList" resultType="orderDTO">
-		select * from orderlist order by seq asc
+		select od.seq, od.itemCode, od.quantity, od.orderDate, it.name, it.uup from orderlist od, item it where od.itemCode = it.code order by od.seq asc
 	</select>
+	
+	<delete id="deleteOrder" parameterType="int">
+		delete orderlist where seq=#{seq}
+	</delete>
 </mapper>

@@ -81,7 +81,14 @@ a {
 	padding: 5px;
 	width: 75px;
 	height: 55px;
-	margin-right: 260px;
+	margin-right: 270px;
+}
+
+#orderCurrentIcon {
+	padding: 5px;
+	padding-top:10px;
+	width: 54px;
+	height: 49px;
 }
 
 #userIcon{

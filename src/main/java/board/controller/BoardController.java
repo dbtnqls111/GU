@@ -45,9 +45,10 @@ public class BoardController {
 		ArrayList<BoardDTO> boardList = boardService.getBoardList(startNum, endNum);
 
 		int total = boardService.getTotal();
-		int totalPage = (total + 4) / 15;
 
-		int startPage = (pg - 1) / 10 * 10 + 1;
+		int totalPage = (total+14)/15;		
+		
+		int startPage = (pg-1)/10*10+1;
 		int endPage = startPage + 9;
 
 		if (totalPage < endPage)

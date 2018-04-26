@@ -14,9 +14,9 @@
 		var count = 0;
 		<c:forEach var="orderDTO" items="${orderList}">
 			i= i + 1;
-			$("#orderTbody").append($('<tr><td class="td_border">' + "${orderDTO.itemCode}" + '</td>'
-					+ '<td class="td_border">' + "${orderDTO.itemName}" + '</td>'
-					+ '<td class="td_border" id="price_'+i+'" align="right">' + "${orderDTO.price}" + '</td>'
+			$("#orderTbody").append($('<tr><td class="td_border" id="${orderDTO.seq}">' + "${orderDTO.itemCode}" + '</td>'
+					+ '<td class="td_border">' + "${orderDTO.name}" + '</td>'
+					+ '<td class="td_border" id="price_'+i+'" align="right">' + "${orderDTO.uup}" + '</td>'
 					+ '<td class="td_border" id="table_center">'				
 					+ '<table id="countTable"><tr><td id="countTd"><input type="text" class="countText" id="countText_' + i + '" onkeydown="javascript:onlyNumber(this)" value="${orderDTO.quantity}"></td>'
 					+ '<td id="countButton">'
@@ -24,8 +24,8 @@
 					+ '<div class="buttonImg"><img src="${pageContext.request.contextPath}/img/downButton.png" class="countButton" id="down_"'+i+' onclick="javascript:down('+i+')"></div>'
 					+ '</td></tr></table>'
 					+ '</td>'
-					+ '<td class="td_border" id="allPrice_'+i+'" align="right">' + "${orderDTO.price * orderDTO.quantity}" + '</td>'
-					+ '<td align="center"><input type="checkbox"></td></tr>'
+					+ '<td class="td_border" id="allPrice_'+i+'" align="right">' + "${orderDTO.uup * orderDTO.quantity}" + '</td>'
+					+ '<td align="center"><input type="checkbox" id="check_${orderDTO.seq}"></td></tr>'
 				));
 			count = count + parseInt($("#allPrice_"+i).text());
 		</c:forEach>
@@ -40,9 +40,69 @@
 			$("input[type='checkbox']").prop("checked", check);
 		});
 		
+		$("#deleteOrder").click(function(){
+			if (confirm("선택하신 상품을 삭제하시겠습니까?") == true){
+				for(var i=$('input:checkbox').length-1; i>=0; i--){
+				 	if($('input:checkbox:eq('+i+')').prop("checked")){	 		
+				 		var seq = $('input:checkbox:eq('+i+')').attr('id').split("_")[1];
+				 		$.ajax({
+				 	        url:"deleteOrder.do",
+				 	        type:"post",
+				 	        data:{"seq":seq},
+				 	        dataType:"json",
+				 	        success:function(data){
+				 	          	alert("정상적으로 상품이 삭제되었습니다.");
+				 	        },
+				 	        error:function(jqXHR, textStatus, errorThrown){
+				 	        	alert("상품 삭제 실패");
+				 	        }
+				 	    });
+				 		var all =  parseInt($("#allPrice").text());
+				 		all = all - parseInt($("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(4)").text());
+				 		$("#allPrice").html(all+"원");
+				 		$('#orderTable > tbody > tr:eq('+(i-1)+')').remove();				 			 		
+					}
+				 }
+			}else{ 
+			    return;
+			}		 
+		});
+		
 		$("#orderButton").click(function(){
-			var session = "${branchCode}";
-			alert(session);
+			  var orderArray = new Array(); // 배열 생성
+	         
+	          var totalOrderList = new Object(); // 배열을 담을 객체
+	          var stringJsonOrder;  // 스트링형태로 바꾼 배열 저장
+	          for(var i=1; i<$('input:checkbox').length; i++){				
+				 	if($('input:checkbox:eq('+i+')').prop("checked")){
+				 		var orderObj = new Object(); // 객체 생성
+				 		orderObj.seq=$("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(0)").attr("id");
+				 		orderObj.itemCode=$("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(0)").text();
+				 		orderObj.name=$("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(1)").text();
+				 		orderObj.uup=$("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(2)").text();
+				 		orderObj.quantity=$(".countText:eq("+(i-1)+")").val();
+				 		orderObj.price=$("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(4)").text();
+				 		
+				 		orderArray.push(orderObj);
+				 	}
+	          }
+	          
+	          totalOrderList.order = orderArray ;
+	          stringJsonOrder = JSON.stringify(totalOrderList);
+	          
+	          var form = document.createElement('form');
+	          
+	          var objs = document.createElement('input');
+	          objs.setAttribute('type', 'hidden');
+	          objs.setAttribute('name', 'orderList');
+	          objs.setAttribute('value', stringJsonOrder);
+	          form.appendChild(objs);
+	          
+	          form.setAttribute('method', 'post');
+	          form.setAttribute('action', 'order.do');
+	          document.body.appendChild(form);
+	          form.submit();
+	          
 		});
 	});
 	
@@ -83,7 +143,7 @@
 <body>
 <div id="orderWrap">
 	<div id="top">
-		<div id="top_head"><span id="home">GU</span></div>
+		<div id="top_head"><div id="home">GU</div></div>
 		<div id="top_body"><img src="${pageContext.request.contextPath}/img/top_body.png" id="top_bodyImg"></div>
 	</div>
 	
@@ -104,6 +164,12 @@
 			
 			<tbody id="orderTbody">
 			</tbody>
+			
+			<tfoot>
+				<tr id="deleteOrderTr">
+					<td colspan="6" id="deleteOrderTd"><input type="button" value="삭제" id="deleteOrder"></td>
+				</tr>
+			</tfoot>
 		</table>
 	</div>
 	
