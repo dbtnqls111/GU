@@ -53,5 +53,5 @@
 		select count(*) from item where code like '%' || #{keyword} || '%' or type1 like '%' || #{keyword} || '%' 
 		or type2 like '%' || #{keyword} || '%' or brand like '%' ||  #{keyword} || '%' or name like '%' ||  #{keyword} || '%'
 	</select>
-	
+		
 </mapper>
