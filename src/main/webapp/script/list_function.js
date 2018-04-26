@@ -13,6 +13,7 @@ function make_dialog(target){
 		$("#detail_left img").attr("src", "/GU/img/item/" + itemCode + ".PNG");
 		$("#d_itemName").html(itemName);
 		$("#d_itemPrice").html("가격 : " + itemPrice);
+		$("#itemCode").attr("code", itemCode);
 		
 		// 다이얼로그 구성
 		/*

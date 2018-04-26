@@ -15,6 +15,11 @@ public class OrderServiceImpl implements OrderService{
 	private OrderDAO orderDAO;
 
 	@Override
+	public int put(String itemCode, int quantity) {
+		return orderDAO.put(itemCode, quantity);
+	}
+	
+	@Override
 	public ArrayList<OrderDTO> orderList() {		
 		return (ArrayList<OrderDTO>)orderDAO.orderList();
 	}

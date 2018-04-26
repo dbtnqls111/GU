@@ -1,6 +1,8 @@
 package order.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,14 @@ import order.bean.OrderDTO;
 public class OrderDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	public int put(String itemCode, int quantity) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("itemCode", itemCode);
+		param.put("quantity", quantity);
+		
+		return sqlSession.insert("mybatis.orderMapper.put", param);
+	}
 	
 	public List<OrderDTO> orderList(){
 		return sqlSession.selectList("mybatis.orderMapper.orderList");

@@ -2,7 +2,6 @@ package order.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,12 +19,25 @@ import org.springframework.web.servlet.ModelAndView;
 import order.bean.OrderDTO;
 
 
-
 @Controller
 public class OrderController {
 	
 	@Autowired
 	private OrderService orderService;
+	
+	// 장바구니 요청 처리
+	@RequestMapping(value = "/shoppingBasket.do")
+	public String shoppingBasket(HttpServletRequest req) {
+		String itemCode = req.getParameter("itemCode");
+		int quantity = Integer.parseInt(req.getParameter("quantity"));
+		
+		int result = orderService.put(itemCode, quantity);
+		if(result > 0){ System.out.println("장바구니 담기 성공!"); }
+		else{ System.out.println("장바구니 담기 실패..."); }
+		
+		return "redirect:" + "/orderList.do";
+	}
+	
 	
 	@RequestMapping(value = "orderList.do")
 	public ModelAndView getOrderList(HttpServletRequest request) {
