@@ -15,13 +15,13 @@ public class OrderServiceImpl implements OrderService{
 	private OrderDAO orderDAO;
 
 	@Override
-	public int put(String itemCode, int quantity) {
-		return orderDAO.put(itemCode, quantity);
+	public int put(String itemCode, int quantity, String memId) {
+		return orderDAO.put(itemCode, quantity, memId);
 	}
 	
 	@Override
-	public ArrayList<OrderDTO> orderList() {		
-		return (ArrayList<OrderDTO>)orderDAO.orderList();
+	public ArrayList<OrderDTO> orderList(String memId) {		
+		return (ArrayList<OrderDTO>)orderDAO.orderList(memId);
 	}
 
 	@Override

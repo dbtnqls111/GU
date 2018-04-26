@@ -15,16 +15,17 @@ public class OrderDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public int put(String itemCode, int quantity) {
+	public int put(String itemCode, int quantity, String memId) {
 		Map<String, Object> param = new HashMap<>();
 		param.put("itemCode", itemCode);
 		param.put("quantity", quantity);
+		param.put("memId", memId);
 		
 		return sqlSession.insert("mybatis.orderMapper.put", param);
 	}
 	
-	public List<OrderDTO> orderList(){
-		return sqlSession.selectList("mybatis.orderMapper.orderList");
+	public List<OrderDTO> orderList(String memId){
+		return sqlSession.selectList("mybatis.orderMapper.orderList", memId);
 	}
 	
 	public int deleteOrder(int seq) {
