@@ -14,6 +14,7 @@
 <title>GU</title>
 
 
+<script type="text/javascript" src="script/list_function.js"></script>
 <script type="text/javascript" src="script/indexScript.js"></script>
 
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
