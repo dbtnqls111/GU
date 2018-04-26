@@ -8,19 +8,19 @@ div{ box-sizing:border-box; }
 
 #hot{ width:65%; height:480px; margin:auto; overflow:hidden; }
 
-#hot > #left{ width:35%; height:100%; float:left; box-sizing:border-box; }
+#hot > #left{ width:35%; height:100%; float:left; }
 #hot > #right{ width:65%; height:100%; float:left; }
 
-#hot #title{ width:100%; height:10%; margin:15px; font-size:20px; font-weight:bold; }
-#hot #list{ width:100%; height:90%; border:1px solid red; }
+#hot #title{ width:100%; height:10%; margin:15px 0px -7px 15px; font-size:20px; font-weight:bold; }
+#hot #list{ width:100%; height:90%; }
 #hot ul{ width:100%; height:100%; margin:0px; padding:0px; overflow:hidden; }
 #hot ul > li{ float:left; width:50%; height:50%; }
 
 #b_item0, #b_item1{ border-bottom:1px solid #DCDCDC; }
 #hot .b_itemImg{ width:60%; height:100%; float:left; }
-#hot .b_itemDescription{ width:40%; height:100%; margin-top:70px; float:left; }
+#hot .b_itemDescription{ width:40%; height:100%; margin-left:-7px; margin-top:70px; float:left; }
 
-#hot #underline{ width:65%; height:10px; }
+#underline{ width:65%; margin:-13px auto auto auto; }
 /* ---------------------------------------------------------------------- */
 
 
@@ -107,10 +107,10 @@ div{ box-sizing:border-box; }
 	overflow:hidden;
 }
 
-#content #img{ width:100%; float:left; margin-bottom:0px; }
-#content #name{ width:100%; float:left; text-align:left; margin-left:25px; font-size:13px; }
-#content #price{ width:100%; float:left; text-align:left; margin:0px 0px 10px 25px; }
-#content #price > span{ font-size:20px; }
+#content .img{ width:100%; float:left; margin-bottom:0px; }
+#content .name{ width:100%; float:left; text-align:left; margin-left:25px; font-size:13px; }
+#content .price{ width:100%; float:left; text-align:left; margin:0px 0px 10px 25px; }
+#content .price > span{ font-size:20px; }
 /* ---------------------------------------------------------------------- */
 
 

@@ -38,6 +38,11 @@ public class ItemServiceImpl implements ItemService {
 	public ArrayList<ItemDTO> getItemList(String type1, String keyword, String type2, int lowest_price, int highest_price) {
 		return (ArrayList<ItemDTO>) itemDAO.getItemList(type1, keyword, type2, lowest_price, highest_price);
 	}
+	
+	@Override
+	public ArrayList<ItemDTO> getItemList(String type1, int start, int end){
+		return (ArrayList<ItemDTO>) itemDAO.getItemList(type1, start, end); 
+	}
 
 	@Override
 	public ArrayList<ItemDTO> getItemList_admin(int startNum, int endNum) {
@@ -52,6 +57,11 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public int getItemListCount() {
 		return itemDAO.getItemListCount();
+	}
+	
+	@Override
+	public int getItemListCount(String type1) {
+		return itemDAO.getItemListCount(type1);
 	}
 
 	@Override

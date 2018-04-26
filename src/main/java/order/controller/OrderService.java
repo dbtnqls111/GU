@@ -6,4 +6,5 @@ import order.bean.OrderDTO;
 
 public interface OrderService {
 	public ArrayList<OrderDTO> orderList();
+	public int deleteOrder(int seq);
 }

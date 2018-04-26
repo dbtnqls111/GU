@@ -49,6 +49,19 @@ public class ItemDAO {
 
 		return sqlSession.selectList("mybatis.itemMapper.getItemList", param);
 	}
+	
+	public List<ItemDTO> getItemList(String type1, int start, int end){
+		System.out.println("[type1 : " + type1 + "]");
+		System.out.println("[start : " + start + "]");
+		System.out.println("[end : " + end + "]");
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("type1", type1);
+		param.put("start", start);
+		param.put("end", end);
+		
+		return sqlSession.selectList("mybatis.itemMapper.getItemList02", param);
+	}
 
 	public List<ItemDTO> getItemList_admin(int startNum, int endNum) {
 		Map<String, Integer> map = new HashMap<>();
@@ -69,6 +82,10 @@ public class ItemDAO {
 
 	public int getItemListCount() {
 		return sqlSession.selectOne("mybatis.itemMapper.getItemListCount");
+	}
+	
+	public int getItemListCount(String type1) {
+		return sqlSession.selectOne("mybatis.itemMapper.getItemListCount02", type1);
 	}
 
 	public int getSearchedItemListCount(String keyword) {

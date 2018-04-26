@@ -14,10 +14,12 @@
 <title>GU</title>
 
 
+<script type="text/javascript" src="script/list_function.js"></script>
 <script type="text/javascript" src="script/indexScript.js"></script>
 
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
+
 <link rel="stylesheet" type="text/css" href="css/index.css">
 
 </head>
@@ -93,6 +95,7 @@
 			</ul>
 		</div>
 	</div>
+
 	
 	<!-- 다이얼로그 -->
 	<div id="dialog" title="상세보기" style="display:none;">

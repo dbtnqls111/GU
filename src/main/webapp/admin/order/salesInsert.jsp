@@ -6,12 +6,7 @@
 <title>발주 등록 결과</title>
 <script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
-	$(function() {
-		$(function() {
-			alert("${total}건 중 ${result}건 등록 성공!");
-			history.back();
-		});
-	});
+
 </script>
 </head>
 <body>

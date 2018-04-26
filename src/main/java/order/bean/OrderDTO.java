@@ -3,11 +3,12 @@ package order.bean;
 public class OrderDTO {
 	private int seq;
 	private String itemCode;
-	private String itemName;
+	private String name;
 	private String branchCode;
 	private int quantity;
+	private int uup;
 	private int price;
-	private String salesDate;
+	private String orderDate;
 	public int getSeq() {
 		return seq;
 	}
@@ -20,12 +21,7 @@ public class OrderDTO {
 	public void setItemCode(String itemCode) {
 		this.itemCode = itemCode;
 	}
-	public String getItemName() {
-		return itemName;
-	}
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
+	
 	public String getBranchCode() {
 		return branchCode;
 	}
@@ -38,17 +34,29 @@ public class OrderDTO {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getUup() {
+		return uup;
+	}
+	public void setUup(int uup) {
+		this.uup = uup;
+	}
+	public String getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
 	public int getPrice() {
 		return price;
 	}
 	public void setPrice(int price) {
 		this.price = price;
-	}
-	public String getSalesDate() {
-		return salesDate;
-	}
-	public void setSalesDate(String salesDate) {
-		this.salesDate = salesDate;
 	}
 	
 }

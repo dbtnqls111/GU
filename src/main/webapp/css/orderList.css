@@ -128,6 +128,19 @@ th, td {
 	cursor:pointer;
 }
 
+#deleteOrderTd{
+	text-align:right;
+}
+
+#deleteOrder{
+	margin-right:20px;
+	color:#333435;
+ 	outline:none;
+ 	background-color:#ffffff;
+ 	border:2px ridge;
+ 	cursor:pointer;
+}
+
 #bottom {
 	margin-top: 50px;
 	margin-left: 280px;
