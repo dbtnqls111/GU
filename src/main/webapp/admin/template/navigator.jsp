@@ -60,10 +60,7 @@
 			<a href="order.do" class="order">발주 관리</a>
 		</li>
 		<li>
-			<a href="statsByBranch.do" class="statsByBranch">지점별 통계</a>
-		</li>
-		<li>
-			<a href="statsByItem.do" class="statsByItem">품목별 통계</a>
+			<a href="stats.do" class="stats">판매 통계</a>
 		</li>
 	</ul>
 </body>

@@ -1,0 +1,83 @@
+.topMenu {
+	width: 850px;
+	height: 30px;
+	background-color: #c4c4c4;
+	border-bottom: 1px solid #aaaaaa;
+	border-right: 1px solid #aaaaaa;
+	box-sizing: border-box;
+}
+
+.topMenu p {
+	display: inline;
+	height: 100%;
+	padding: 2px 5px;
+	line-height: 2;
+	font-weight: bold;
+}
+
+.topMenu>div {
+	float: right;
+	padding: 2px 5px;
+}
+
+.statsResult {
+	visibility: hidden;
+}
+
+.statsResult {
+	width: 100%;
+	height: calc(100% - 60px);
+	padding-left: 10px;
+	box-sizing: border-box;
+	overflow: auto;
+	margin: 30px 0 0 0;
+}
+
+.statsResult table {
+	margin-left: 0;
+	margin-bottom: 50px;
+	border: 1px solid #aaaaaa;
+	border-collapse: collapse;
+}
+
+.statsResult table.statsTable {
+	width: 650px;
+}
+
+th {
+	height: 30px;
+}
+
+th, td {
+	border: 1px solid #aaaaaa;
+	padding: 5px;
+	text-align: center;
+}
+
+.trLabel {
+	background-color: #c4c4c4;
+}
+
+.trData {
+	background-color: white;
+}
+
+.trData a:link {
+	color: blue;
+	text-decoration: none;
+}
+
+.trData a:visited {
+	color: blue;
+	text-decoration: none;
+}
+
+.trData a:hover {
+	color: blue;
+	text-decoration: underline;
+}
+
+.trData a:active {
+	color: blue;
+	text-decoration: underline;
+}
