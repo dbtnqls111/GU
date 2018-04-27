@@ -8,7 +8,7 @@
 <script type="text/javascript">
 	$(function() {
 		if ("${result > 0}") {
-			alert("지점 등록 성공!");
+			alert("${result}건 등록 성공!");
 		} else {
 			alert("지점 등록 실패...");
 		}

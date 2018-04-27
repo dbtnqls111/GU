@@ -67,5 +67,5 @@
 	<select id="getSearchedItemList02" parameterType="String" resultType="itemDTO">
 		select * from item where type1 like '%식빵%' or type2 like '%식%' or brand like '%식%' or name like '%식%';
 	</select>
-	
+		
 </mapper>

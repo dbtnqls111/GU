@@ -301,4 +301,23 @@ public class ItemController {
 		return modelAndView;
 	}
 
+	// 품목 코드 중복 체크
+	@RequestMapping(value = "/admin/itemCodeCheck_admin.do")
+	public ModelAndView itemCodeCheck_admin(HttpServletRequest request) {
+		String code = request.getParameter("code");
+		boolean isExist = false;
+
+		ItemDTO itemDTO = itemService.getItem(code);
+		if (itemDTO != null) {
+			isExist = true;
+		}
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("isExist", isExist);
+		modelAndView.addObject("code", code);
+		modelAndView.setViewName("register/itemCodeCheck.jsp");
+
+		return modelAndView;
+	}
+
 }

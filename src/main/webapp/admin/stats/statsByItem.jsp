@@ -3,20 +3,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>품목 등록 결과</title>
+<title>품목별 통계</title>
 <script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		if ("${result > 0}") {
-			alert("${result}건 등록 성공!");
-		} else {
-			alert("품목 등록 실패...");
-		}
-		opener.location.reload(true);
-		window.close();
 	});
 </script>
+<style type="text/css">
+</style>
 </head>
-<body>
+<body>품목별 통계
 </body>
 </html>

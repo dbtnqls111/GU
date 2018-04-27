@@ -113,6 +113,31 @@
 	<select id="getCodeList" parameterType="String" resultType="String">
 		select distinct code from sales where code like #{today} || '%' and salesDate is null order by code desc
 	</select>
+	
+	<resultMap type="java.util.Map" id="stats">
+		<result javaType="String" column="salesCode" property="salesCode" />
+		<result javaType="int" column="salesQuantity" property="salesQuantity" />
+		<result javaType="int" column="salesPrice" property="salesPrice" />
+		<result javaType="String" column="itemType1" property="itemType1" />
+		<result javaType="String" column="itemType2" property="itemType2" />
+		<result javaType="String" column="itemBrand" property="itemBrand" />
+		<result javaType="String" column="itemName" property="itemName" />
+		<result javaType="String" column="branchName" property="branchName" />
+	</resultMap>
+	
+	<select id="getStatsByBranchList" parameterType="String" resultMap="stats">
+		select sales.code salesCode, sales.quantity salesQuantity, sales.price salesPrice, 
+		item.type1 itemType1, item.type2 itemType2, item.brand itemBrand, item.name itemName, branch.name branchName 
+		from sales, item, branch where sales.code like #{date} || '%' and sales.salesDate is not null 
+		and sales.itemCode = item.code and sales.branchCode = branch.code
+	</select>
+	
+	<select id="getStatsByBranchList_branchName" parameterType="java.util.Map" resultMap="stats">
+		select sales.code salesCode, sales.quantity salesQuantity, sales.price salesPrice, 
+		item.type1 itemType1, item.type2 itemType2, item.brand itemBrand, item.name itemName, branch.name branchName 
+		from sales, item, branch where sales.code like #{date} || '%' and sales.salesDate is not null 
+		and sales.itemCode = item.code and sales.branchCode = branch.code and branch.name = #{branchName}
+	</select>
 
 	<select id=""></select>
 </mapper>

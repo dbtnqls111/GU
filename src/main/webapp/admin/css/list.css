@@ -65,7 +65,6 @@
 .dataList {
 	width: 100%;
 	height: calc(100% - 60px);
-	margin: 0;
 	padding-left: 10px;
 	box-sizing: border-box;
 	overflow: auto;
