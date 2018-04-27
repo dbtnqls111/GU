@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -339,7 +340,8 @@ public class SalesController {
 	public ModelAndView salesInsert_admin(HttpServletRequest request) {
 		@SuppressWarnings("unchecked")
 		ArrayList<OrderDTO> orderList = (ArrayList<OrderDTO>) request.getAttribute("orderList");
-
+		int i=0;
+		Map<Integer, Integer> orderSeq = new HashMap<>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		Date currentTime = new Date();
 		String today = sdf.format(currentTime);
@@ -366,16 +368,23 @@ public class SalesController {
 			salesDTO.setQuantity(orderDTO.getQuantity());
 			salesDTO.setPrice(orderDTO.getPrice());
 			salesDTO.setSalesDate("");
-
+			
+			orderSeq.put(i, orderDTO.getSeq());
+			i++;
+			
 			result += salesService.insertSales(salesDTO);
 		}
-
+		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("total", total);
-		modelAndView.addObject("result", result);
-		modelAndView.setViewName("order/salesInsert.jsp");
+		modelAndView.addObject("orderSeq", orderSeq);
+		modelAndView.setViewName("../orderSuccess.do");
 
 		return modelAndView;
 	}
-
+	
+	@RequestMapping(value = "/order/getsalesCurrentList.do")
+	public void getsalesCurrentList(HttpServletRequest request) {
+		String branchCode = request.getParameter("branchCode");
+		
+	}
 }

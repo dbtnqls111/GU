@@ -7,53 +7,166 @@
 .header_wrapper {
 	width: 100%;
 	height: 100%;
+	position: relative;
 }
 
-.home {
-	float: left;
-	width: 20%;
-	height: 100%;
-	border: 1px solid blue;
-	box-sizing: border-box;
+.leftMenu {
+	position: absolute;
+	left: 5px;
+	bottom: 10px;
 }
 
-.home .logo {
+.leftMenu>span.logo {
+	position: relative;
+}
+
+.leftMenu>span:hover .tooltip_logo {
+	visibility: visible;
+}
+
+.leftMenu .img_logo {
 	width: auto;
-	height: 90%;
-	border: 1px solid red;
-	box-sizing: border-box;
+	height: 50px;
 }
 
-.account {
-	float: right;
-	width: 30%;
-	height: 100%;
-	border: 1px solid blue;
-	box-sizing: border-box;
+.leftMenu .tooltip_logo {
+	visibility: hidden;
+	background-color: black;
+	color: white;
+	text-align: center;
+	border-radius: 5px;
+	padding: 5px 10px;
+	position: absolute;
+	left: 120%;
+	top: -50%;
+	margin-top: -15px;
 }
 
-.account .myPage {
-	display: inline;
+.leftMenu .tooltip_logo::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: -50%;
+	margin-left: 2px;
+	margin-bottom: 6px;
+	border-width: 8px;
+	border-style: solid;
+	border-color: transparent black transparent transparent;
+}
+
+.rightMenu {
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
+}
+
+.rightMenu>span.myPage {
+	position: relative;
+}
+
+.rightMenu>span:hover .tooltip_myPage {
+	visibility: visible;
+}
+
+.rightMenu .img_myPage {
 	width: auto;
-	height: 90%;
-	border: 1px solid red;
-	box-sizing: border-box;
+	height: 30px;
+	margin-right: 5px;
 }
 
-.account .logout {
+.rightMenu .tooltip_myPage {
+	visibility: hidden;
+	width: 80px;
+	background-color: black;
+	color: white;
+	text-align: center;
+	border-radius: 5px;
+	padding: 5px 10px;
+	position: absolute;
+	right: 120%;
+	top: -50%;
+	margin-top: -5px;
+}
+
+.rightMenu .tooltip_myPage::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 100%;
+	margin-bottom: 6px;
+	border-width: 8px;
+	border-style: solid;
+	border-color: transparent transparent transparent black;
+}
+
+.rightMenu>span.logout {
+	position: relative;
+}
+
+.rightMenu>span:hover .tooltip_logout {
+	visibility: visible;
+}
+
+.rightMenu .img_logout {
 	width: auto;
-	height: 90%;
-	border: 1px solid red;
-	box-sizing: border-box;
+	height: 30px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.rightMenu .tooltip_logout {
+	visibility: hidden;
+	width: 80px;
+	background-color: black;
+	color: white;
+	text-align: center;
+	border-radius: 5px;
+	padding: 5px 10px;
+	position: absolute;
+	right: 120%;
+	top: -50%;
+	margin-top: -5px;
+}
+
+.rightMenu .tooltip_logout::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 100%;
+	margin-bottom: 6px;
+	border-width: 8px;
+	border-style: solid;
+	border-color: transparent transparent transparent black;
 }
 </style>
 <script type="text/javascript">
 	$(function() {
-		$(".logo").click(function() {
+		$(".img_logo").hover(function() {
+			$(this).attr("src", "img/home_active.png");
+			$(this).css("cursor", "pointer");
+		}, function() {
+			$(this).attr("src", "img/home_inactive.png");
+		});
+
+		$(".img_logo").click(function() {
 			location.href = "main.do";
 		});
 
-		$(".logout").click(function() {
+		$(".img_myPage").hover(function() {
+			$(this).attr("src", "img/user_active.png");
+			$(this).css("cursor", "pointer");
+		}, function() {
+			$(this).attr("src", "img/user_inactive.png");
+		});
+
+		$(".img_logout").hover(function() {
+			$(this).attr("src", "img/logout_active.png");
+			$(this).css("cursor", "pointer");
+		}, function() {
+			$(this).attr("src", "img/logout_inactive.png");
+		});
+
+		$(".img_logout").click(function() {
 			if (confirm("로그아웃하시겠습니까?")) {
 				location.href = "../logout.do";
 			}
@@ -63,11 +176,21 @@
 </head>
 <body>
 	<div class="header_wrapper">
-		<div class="home">
-			<img src="img/home.png" class="logo">
+		<div class="leftMenu">
+			<span class="logo">
+				<img src="img/home_inactive.png" class="img_logo">
+				<span class="tooltip_logo">홈</span>
+			</span>
 		</div>
-		<div class="account">
-			<img src="img/user.png" class="myPage"> <img src="img/logout.png" class="logout">
+		<div class="rightMenu">
+			<span class="myPage">
+				<img src="img/user_inactive.png" class="img_myPage">
+				<span class="tooltip_myPage">마이페이지</span>
+			</span>
+			<span class="logout">
+				<img src="img/logout_inactive.png" class="img_logout">
+				<span class="tooltip_logout">로그아웃</span>
+			</span>
 		</div>
 	</div>
 </body>

@@ -22,7 +22,7 @@
 			<%@ include file="template/navigator.jsp"%>
 		</div>
 		<div class="sub_nav"></div>
-		<div class="body">새로운 소식 알림!</div>
+		<div class="body">환영합니다!</div>
 	</div>
 </body>
 </html>

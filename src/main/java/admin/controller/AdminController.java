@@ -39,18 +39,10 @@ public class AdminController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/admin/statsByBranch.do")
+	@RequestMapping(value = "/admin/stats.do")
 	public ModelAndView statsByBranch() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("statsByBranch/statsByBranch.jsp");
-
-		return modelAndView;
-	}
-
-	@RequestMapping(value = "/admin/statsByItem.do")
-	public ModelAndView statsByItem() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("statsByItem/statsByItem.jsp");
+		modelAndView.setViewName("stats/stats.jsp");
 
 		return modelAndView;
 	}

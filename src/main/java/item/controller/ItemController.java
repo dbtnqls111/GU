@@ -30,15 +30,31 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 
+	// list
 	@RequestMapping(value = "/item/list.do")
 	public ModelAndView getItemList(HttpServletRequest req) {
 		ModelAndView modelAndView = new ModelAndView();
 
 		modelAndView.addObject("type1", req.getParameter("type1"));
+		modelAndView.addObject("type2", req.getParameter("type2"));
 		modelAndView.setViewName("/item/list.jsp");
 
 		return modelAndView;
 	}
+	
+	// search
+	@RequestMapping(value = "/item/search.do")
+	public ModelAndView getSearchedItemList(HttpServletRequest req) {
+		ModelAndView modelAndView = new ModelAndView();
+
+		String keyword = req.getParameter("keyword");
+		
+		
+
+		return modelAndView;
+	}
+	
+	// ------------------------------------------------------------
 
 	@RequestMapping(value = "getItem.do")
 	public ModelAndView getItem(HttpServletRequest req) {
@@ -281,6 +297,25 @@ public class ItemController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("result", result);
 		modelAndView.setViewName("register/itemUpdate.jsp");
+
+		return modelAndView;
+	}
+
+	// 품목 코드 중복 체크
+	@RequestMapping(value = "/admin/itemCodeCheck_admin.do")
+	public ModelAndView itemCodeCheck_admin(HttpServletRequest request) {
+		String code = request.getParameter("code");
+		boolean isExist = false;
+
+		ItemDTO itemDTO = itemService.getItem(code);
+		if (itemDTO != null) {
+			isExist = true;
+		}
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("isExist", isExist);
+		modelAndView.addObject("code", code);
+		modelAndView.setViewName("register/itemCodeCheck.jsp");
 
 		return modelAndView;
 	}

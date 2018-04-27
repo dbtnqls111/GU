@@ -11,19 +11,49 @@
 		$(".wrapper").css("width", $(window).width());
 		$(".wrapper").css("height", $(window).height());
 
+		$(".duplCheck").click(function() {
+			if (!$("input[name='code']").val()) {
+				alert("품목 코드를 입력하세요.");
+				return false;
+			}
+			var cw = screen.availWidth;
+			var ml = (cw - 600) / 2 + 600;
+			window.open("itemCodeCheck_admin.do?code=" + $(".code").val(), "", "width=250,height=100,left=" + ml);
+		});
+
+		$(".code").change(function() {
+			$(".isValid").attr("value", "no");
+			$(".duplCheck").attr("value", "중복 검사");
+			$(".duplCheck").css("background-color", "#c9e1ff");
+			$(".duplCheck").css("color", "black");
+			$(".duplCheck").removeAttr("disabled");
+			$(".duplCheck").hover(function() {
+				$(this).css("background-color", "#66aaff");
+				$(this).css("color", "white");
+			}, function() {
+				$(this).css("background-color", "#c9e1ff");
+				$(this).css("color", "black");
+			});
+		});
+
 		$(".submit").click(function() {
+			if ($(".isValid").val() == "no") {
+				alert("코드 중복 검사를 하세요.");
+				return false;
+			}
+
 			if (!$("input[name='code']").val()) {
 				alert("품목 코드를 입력하세요.");
 				return false;
 			}
 
 			if (!$("input[name='type1']").val()) {
-				alert("품목 타입1을 입력하세요.");
+				alert("품목 타입을 입력하세요.");
 				return false;
 			}
 
 			if (!$("input[name='type2']").val()) {
-				alert("품목 타입2를 입력하세요.");
+				alert("세부 타입을 입력하세요.");
 				return false;
 			}
 
@@ -69,17 +99,19 @@
 					<tr>
 						<td class="tdLabel">품목 코드</td>
 						<td class="tdData">
-							<input type="text" name="code">
+							<input type="text" name="code" class="code">
+							<input type="button" value="중복 검사" class="duplCheck">
+							<input type="hidden" class="isValid" value="no">
 						</td>
 					</tr>
 					<tr>
-						<td class="tdLabel">품목 타입1</td>
+						<td class="tdLabel">품목 타입</td>
 						<td class="tdData">
 							<input type="text" name="type1">
 						</td>
 					</tr>
 					<tr>
-						<td class="tdLabel">품목 타입2</td>
+						<td class="tdLabel">세부 타입</td>
 						<td class="tdData">
 							<input type="text" name="type2">
 						</td>

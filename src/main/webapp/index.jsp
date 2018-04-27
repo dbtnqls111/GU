@@ -13,59 +13,12 @@
 
 <title>GU</title>
 
-<script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
+<script type="text/javascript" src="script/list_function.js"></script>
 <script type="text/javascript" src="script/indexScript.js"></script>
 
-<script type="text/javascript">
-	function encode(type1, type2) {
-		location.href = "item/list.do?type1=" + encodeURI(type1, "UTF-8") + "&type2=" + encodeURI(type2, "UTF-8");
-	}
-
-	$(document).ready(function(){
-		// ----------------------------------- buttonMenu -----------------------------------
-		$.ajaxSetup({
-			cache : false
-		});
-		
-		// Best 상품 리스트 불러오기
-		$.get("item/ajax/getBestItemList.jsp", function(data){
-			$(data).find("item").each(function(){
-				var code = $(this).find("code").text();
-				
-				var img_name = $(this).find("name").text();
-				var item_name = img_name;
-				if(img_name.length > 14){ item_name = img_name.substring(0, 14) + "..."; }
-				
-				var price = $(this).find("price").text();
-
-				$("#bestItem" + $(this).index()).append("<p id='img'><img src='img/item/" + code + ".PNG' width='100%' height='230px'></p>" +
-																	  "<p id='name'><span realName='" + img_name + "'>" + item_name + "</span></p>" +
-																	  "<p id='price'><span>" + price + "</span>원</p>");
-			});
-		});
-
-		// 메뉴 이벤트
-		$(".buttonMenu").mouseenter(function(){
-			$("#boxDiv").hide();
-			$("#boxDiv2").show();
-			var id = "#type2_category" + $(this).index();
-
-			$(this).css("background-color", "#2e4ea5");
-			$("#boxDiv2").load("item/ajax/type2.html " + id, function(){
-				$(id).css("color", "red");
-			});
-		}).mouseleave(function(){
-			$(this).css("background-color", "#013282");
-		});
-		
-		$("#bannerWrapper").mouseleave(function(){
-			$("#boxDiv2").hide();
-			$("#boxDiv").show();
-		})
-	});
-</script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
 
 <link rel="stylesheet" type="text/css" href="css/index.css">
 
@@ -122,11 +75,18 @@
 
 			</div>
 			
-			<div id="boxDiv2" hidden="hidden"></div>
+			<div id="boxDiv2" hidden="hidden">
+				<div id="box2_left"></div>
+				<div id="box2_right"></div>
+			</div>
 		</div>
 
 		<div id="best">
-			<ul id="BestImg">
+			<div id="title">
+				<div><img src="img/hot.gif" width="70px" height="70px"></div>
+				<div id="title_text"><span>Best 상품</span></div>
+			</div>
+			<ul id="bestItem">
 				<li id="bestItem0"></li>
 				<li id="bestItem1"></li>
 				<li id="bestItem2"></li>
@@ -136,6 +96,34 @@
 				<li id="bestItem6"></li>
 				<li id="bestItem7"></li>
 			</ul>
+		</div>
+	</div>
+
+	
+	<!-- 다이얼로그 -->
+	<div id="dialog" title="상세보기" style="display:none;">
+		<div id="detail">
+			<div id="detail_left">
+				<img src="" width="100%" height="100%">
+			</div>
+			<div id="detail_right">
+				<h2 id="d_itemName"></h2>
+				<div id="d_itemPrice">
+					<strong>가격</strong> : <span style="font-family:-webkit-body;"></span>
+				</div><br>
+				<div id="d_itemDescription">
+					<strong>설명</strong> : <span style="font-family:-webkit-body;"></span>
+				</div><br>
+				<div id="d_itemQuantity"><strong>수량</strong> :
+					<input type="text" size="3" maxlength="3" onpaste="javascript:return false" onfocusout="removeChar(event)"
+							  onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)" style="ime-mode:disabled">
+				</div><br>
+			</div>
+			<div id="btn">
+				<button id="basket">장바구니</button> &nbsp;
+				<button id="order">발주</button>
+				<span id="hiddenInfo" memId=<%= session.getAttribute("memId") %>></span>
+			</div>
 		</div>
 	</div>
 </body>

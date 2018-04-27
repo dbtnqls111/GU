@@ -66,8 +66,8 @@
 						<th>
 							<input type="checkbox" class="check_all">
 						</th>
-						<th width="15%">품목 타입1</th>
-						<th width="15%">품목 타입2</th>
+						<th width="15%">품목 타입</th>
+						<th width="15%">세부 타입</th>
 						<th width="15%">품목 브랜드</th>
 						<th width="25%">품목명</th>
 						<th width="10%">수량</th>

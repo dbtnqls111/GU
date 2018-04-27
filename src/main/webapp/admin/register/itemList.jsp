@@ -29,14 +29,14 @@
 
 			return false;
 		});
-
+		
 		$(".check_all").change(function() {
 			var is_check = $(this).is(":checked");
 
 			$(".check_i").prop("checked", is_check);
 			$(".check_i").trigger("change");
 		});
-
+		
 		$(".check_i").change(function() {
 			if ($(this).is(":checked")) {
 				$(this).parents(".trData").css("background-color", "#e2e2e2");
@@ -105,39 +105,64 @@
 		<p>☆ 품목 목록</p>
 		<div>
 			<form class="searchForm" action="searchedItemList_admin.do" method="post">
-				<input type="text" class="keyword" value="${keyword}"> <input type="submit" value="검색">
+				<input type="text" class="keyword" value="${keyword}">
+				<input type="submit" value="검색">
 			</form>
 		</div>
 	</div>
 	<div class="paging">
-		<div>
-			<a class="otherPage" href="#" onclick="paging(1)"><img src="../img/start_page.png"></a>
-		</div>
+		<c:if test="${page > 1}">
+			<span>
+				<a href="#" class="otherPage" onclick="paging(1)"><img src="img/start_page.png"></a>
+			</span>
+		</c:if>
+		<c:if test="${page == 1}">
+			<span>
+				<a href="#" class="disable"><img src="img/start_page_disable.png"></a>
+			</span>
+		</c:if>
 		<c:if test="${startPage > 10}">
-			<div>
-				<a href="#" class="otherPage" onclick="paging(${startPage - 1})"><img src="../img/pre_arrow.png"></a>
-			</div>
+			<span>
+				<a href="#" class="otherPage" onclick="paging(${startPage - 1})"><img src="img/pre_arrow.png"></a>
+			</span>
+		</c:if>
+		<c:if test="${startPage <= 10}">
+			<span>
+				<a href="#" class="disable"><img src="img/pre_arrow_disable.png"></a>
+			</span>
 		</c:if>
 		<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
 			<c:if test="${i == page}">
-				<div>
+				<span>
 					<a href="#" class="currentPage" onclick="paging(${i})">${i}</a>
-				</div>
+				</span>
 			</c:if>
 			<c:if test="${i != page}">
-				<div>
+				<span>
 					<a href="#" class="otherPage" onclick="paging(${i})">${i}</a>
-				</div>
+				</span>
 			</c:if>
 		</c:forEach>
 		<c:if test="${endPage < maxPage}">
-			<div>
-				<a href="#" class="otherPage" onclick="paging(${endPage + 1})"><img src="../img/after_arrow.png"></a>
-			</div>
+			<span>
+				<a href="#" class="otherPage" onclick="paging(${endPage + 1})"><img src="img/after_arrow.png"></a>
+			</span>
 		</c:if>
-		<div>
-			<a class="otherPage" href="#" onclick="paging(${maxPage})"><img src="../img/end_page.png"></a>
-		</div>
+		<c:if test="${endPage >= maxPage}">
+			<span>
+				<a href="#" class="disable"><img src="img/after_arrow_disable.png"></a>
+			</span>
+		</c:if>
+		<c:if test="${page < maxPage}">
+			<span>
+				<a href="#" class="otherPage" onclick="paging(${maxPage})"><img src="img/end_page.png"></a>
+			</span>
+		</c:if>
+		<c:if test="${page >= maxPage}">
+			<span>
+				<a href="#" class="disable"><img src="img/end_page_disable.png"></a>
+			</span>
+		</c:if>
 	</div>
 	<div class="dataList">
 		<form class="tableForm" action="itemDelete_admin.do" method="post">
@@ -147,8 +172,8 @@
 						<input type="checkbox" class="check_all">
 					</th>
 					<th width="10%">품목 코드</th>
-					<th width="15%">품목 타입1</th>
-					<th width="15%">품목 타입2</th>
+					<th width="15%">품목 타입</th>
+					<th width="15%">세부 타입</th>
 					<th width="15%">품목 브랜드</th>
 					<th width="25%">품목명</th>
 					<th width="10%">입고단가</th>
@@ -178,7 +203,9 @@
 		</form>
 	</div>
 	<div class="bottomMenu">
-		<input type="button" value="신규입력" class="insert"> <input type="button" value="Excel입력" class="excelInsert"> <input type="button" value="선택삭제" class="delete">
+		<input type="button" value="신규입력" class="insert">
+		<input type="button" value="Excel입력" class="excelInsert">
+		<input type="button" value="선택삭제" class="delete">
 	</div>
 </body>
 </html>
