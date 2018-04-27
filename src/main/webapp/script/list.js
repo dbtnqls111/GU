@@ -113,7 +113,24 @@ $(function(){
 	});
 	// ---------------------------------------------------------------------------------------------------------------	
 	
-
+	
+	//	 																		    ◆ dialog ◆
+	// ---------------------------------------------------------------------------------------------------------------
+	$("#dialog #basket").click(function(){
+		var memId = $("#dialog #hiddenInfo").attr("memId");
+		if(memId == "null"){
+			alert("로그인 후 이용해주세요.");
+			location.replace("/GU/member/loginForm.do");
+		}else{
+			var itemCode = $("#dialog #hiddenInfo").attr("itemCode");
+			var quantity = $("#dialog #d_itemQuantity > input").val();
+				
+			location.replace("/GU/shoppingBasket.do?itemCode=" + itemCode + "&quantity=" + quantity + "&memId=" + memId);
+		}
+	});
+	// ---------------------------------------------------------------------------------------------------------------
+	
+	
 	//																		 ◆ moving_banner ◆
 	// ---------------------------------------------------------------------------------------------------------------
 	var navigator_top = $("#hot").offset().top; // http://cofs.tistory.com/197 참고

@@ -139,4 +139,5 @@
 		and sales.itemCode = item.code and sales.branchCode = branch.code and branch.name = #{branchName}
 	</select>
 
+	<select id=""></select>
 </mapper>

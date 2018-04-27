@@ -190,8 +190,9 @@
 				</p>
 			</div>
 			<div id="btn">
-				<button>장바구니</button> &nbsp;
+				<button id="basket">장바구니</button> &nbsp;
 				<button>발주</button>
+				<span id="hiddenInfo" memId=<%= session.getAttribute("memId") %>></span>
 			</div>
 		</div>
 	</div>

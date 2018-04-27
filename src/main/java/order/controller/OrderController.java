@@ -2,7 +2,6 @@ package order.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,21 +19,35 @@ import org.springframework.web.servlet.ModelAndView;
 import order.bean.OrderDTO;
 
 
-
 @Controller
 public class OrderController {
 	
 	@Autowired
 	private OrderService orderService;
 	
+	// 장바구니 요청 처리
+	@RequestMapping(value = "/shoppingBasket.do")
+	public String shoppingBasket(HttpServletRequest req) {
+		String itemCode = req.getParameter("itemCode");
+		int quantity = Integer.parseInt(req.getParameter("quantity"));
+		String memId = req.getParameter("memId");
+		
+		int result = orderService.put(itemCode, quantity, memId);
+		if(result > 0){ System.out.println("장바구니 담기 성공!"); }
+		else{ System.out.println("장바구니 담기 실패..."); }
+		
+		return "redirect:" + "/orderList.do";
+	}
+	
+	
 	@RequestMapping(value = "orderList.do")
 	public ModelAndView getOrderList(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
-		
-		ArrayList<OrderDTO> orderList =  orderService.orderList();
-		
+
 		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("memId");
+		String branchCode = (String) session.getAttribute("branchCode");
+		
+		ArrayList<OrderDTO> orderList =  orderService.orderList(branchCode);
 		
 		modelAndView.addObject("orderList", orderList);
 		modelAndView.setViewName("/order/orderList.jsp");
@@ -137,6 +150,22 @@ public class OrderController {
 		}		
 		
 		modelAndView.setViewName("/order/orderSuccess.jsp");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "orderCurrent.do")
+	public ModelAndView orderCurrent(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/order/orderCurrent.jsp");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/order/orderCurrentListView.do")
+	public ModelAndView orderCurrentListView(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView();
+		System.out.println(request.getParameter("date"));
+		modelAndView.addObject("date",request.getParameter("date"));
+		modelAndView.setViewName("orderCurrentListView.jsp");
 		return modelAndView;
 	}
 }

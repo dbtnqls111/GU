@@ -44,7 +44,7 @@ $(function(){
 			alert("로그인 먼저 해주세요.");
 			location.href="${pageContext.request.contextPath}/index.jsp";
 		}else{
-			location.href="${pageContext.request.contextPath}/orderList.do";
+			location.href="orderCurrent.do";
 		}
 	});
 });
