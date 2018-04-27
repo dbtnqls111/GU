@@ -112,21 +112,15 @@ $(function(){
 		$(this).attr("src", "../img/searchBtn_up.png");
 	});
 	// ---------------------------------------------------------------------------------------------------------------	
-	
-	
-	//	 																		    ◆ dialog ◆
+
+	//																		          ◆ dialog ◆
 	// ---------------------------------------------------------------------------------------------------------------
 	$("#dialog #basket").click(function(){
-		var memId = $("#dialog #hiddenInfo").attr("memId");
-		if(memId == "null"){
-			alert("로그인 후 이용해주세요.");
-			location.replace("/GU/member/loginForm.do");
-		}else{
-			var itemCode = $("#dialog #hiddenInfo").attr("itemCode");
-			var quantity = $("#dialog #d_itemQuantity > input").val();
-				
-			location.replace("/GU/shoppingBasket.do?itemCode=" + itemCode + "&quantity=" + quantity + "&memId=" + memId);
-		}
+		shoppingBasket_request();
+	});
+	
+	$("#dialog #order").click(function(){
+		order_request();
 	});
 	// ---------------------------------------------------------------------------------------------------------------
 	
@@ -143,7 +137,7 @@ $(function(){
 	// ---------------------------------------------------------------------------------------------------------------
 	
 	
-	//																		 ◆ fixed_bar ◆
+	//																		       ◆ fixed_bar ◆
 	// ---------------------------------------------------------------------------------------------------------------
 	$("#fixed_bar").hover(function(){
 		$("#fixed_bar").css("cursor", "pointer")

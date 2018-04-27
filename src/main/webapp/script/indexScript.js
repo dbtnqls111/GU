@@ -133,7 +133,7 @@ $(function(){
 		var id = "#type2_category" + $(this).index();
 
 		$(this).css("background-color", "#2e4ea5");
-		$("#boxDiv2").load("/GU/item/ajax/type2.html " + id, function(){
+		$("#boxDiv2 #box2_left").load("/GU/item/ajax/type2.html " + id, function(){
 			$(id).css("color", "red");
 		});
 	}).mouseleave(function(){
@@ -146,17 +146,12 @@ $(function(){
 	})
 	
 	
-	// 장바구니 처리
+	// dialog 버튼 이벤트 처리
 	$("#dialog #basket").click(function(){
-		var memId = $("#dialog #hiddenInfo").attr("memId");
-		if(memId == "null"){
-			alert("로그인 후 이용해주세요.");
-			location.replace("/GU/member/loginForm.do");
-		}else{
-			var itemCode = $("#dialog #hiddenInfo").attr("itemCode");
-			var quantity = $("#dialog #d_itemQuantity > input").val();
-				
-			location.replace("/GU/shoppingBasket.do?itemCode=" + itemCode + "&quantity=" + quantity + "&memId=" + memId);
-		}
+		shoppingBasket_request();
+	});
+	
+	$("#dialog #order").click(function(){
+		order_request();
 	});
 });

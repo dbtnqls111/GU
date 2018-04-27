@@ -35,6 +35,23 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
+	public ArrayList<ItemDTO> getItemList_admin(int startNum, int endNum) {
+		return (ArrayList<ItemDTO>) itemDAO.getItemList_admin(startNum, endNum);
+	}
+
+	@Override
+	public ArrayList<ItemDTO> getSearchedItemList(String keyword, int startNum, int endNum) {
+		return (ArrayList<ItemDTO>) itemDAO.getSearchedItemList(keyword, startNum, endNum);
+	}
+
+	@Override
+	public int getSearchedItemListCount(String keyword) {
+		return itemDAO.getSearchedItemListCount(keyword);
+	}
+	
+	// ---------------------------------------------------------------------------------------------
+	
+	@Override
 	public ArrayList<ItemDTO> getItemList(String type1, String keyword, String type2, int lowest_price, int highest_price) {
 		return (ArrayList<ItemDTO>) itemDAO.getItemList(type1, keyword, type2, lowest_price, highest_price);
 	}
@@ -43,15 +60,10 @@ public class ItemServiceImpl implements ItemService {
 	public ArrayList<ItemDTO> getItemList(String type1, int start, int end){
 		return (ArrayList<ItemDTO>) itemDAO.getItemList(type1, start, end); 
 	}
-
+	
 	@Override
-	public ArrayList<ItemDTO> getItemList_admin(int startNum, int endNum) {
-		return (ArrayList<ItemDTO>) itemDAO.getItemList_admin(startNum, endNum);
-	}
-
-	@Override
-	public ArrayList<ItemDTO> getSearchedItemList(String keyword, int startNum, int endNum) {
-		return (ArrayList<ItemDTO>) itemDAO.getSearchedItemList(keyword, startNum, endNum);
+	public ArrayList<ItemDTO> getSearchedItemList(String keyword){
+		return (ArrayList<ItemDTO>) itemDAO.getSearchedItemList(keyword);
 	}
 
 	@Override
@@ -63,10 +75,4 @@ public class ItemServiceImpl implements ItemService {
 	public int getItemListCount(String type1) {
 		return itemDAO.getItemListCount(type1);
 	}
-
-	@Override
-	public int getSearchedItemListCount(String keyword) {
-		return itemDAO.getSearchedItemListCount(keyword);
-	}
-
 }

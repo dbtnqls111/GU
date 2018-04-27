@@ -10,6 +10,7 @@
 <title>GU</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript" src="/GU/script/header.js"></script>
 <script type="text/javascript">
 $(function(){
 	var session = "${memName}";
@@ -47,6 +48,13 @@ $(function(){
 			location.href="orderCurrent.do";
 		}
 	});
+	
+	
+	// 검색 처리
+	$("#searchField > #searchIcon").click(function(){
+		var keyword = $("#searchField > #search").val();
+		location.href = "/GU/item/search.do?keyword=" + keyword;
+	});
 });
 
 </script>
@@ -60,7 +68,7 @@ $(function(){
 			</h1>
 			<fieldset id="searchField">
 				<input type="text" id="search" />
-				<a href=""><img src="${pageContext.request.contextPath}/img/search_top.png" id="searchIcon"></a>
+				<img src="${pageContext.request.contextPath}/img/search_top.png" id="searchIcon">
 			</fieldset>
 		</div>
 		<div id="menuWrap">

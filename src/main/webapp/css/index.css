@@ -46,6 +46,25 @@ a {
 	cursor:pointer;
 }
 
+#boxDiv2, #boxDiv2 *{ box-sizing:border-box; }
+
+#boxDiv2{
+	overflow:hidden;
+	border-bottom:1px solid #999999;
+	border-right:1px solid #999999;
+}
+
+#boxDiv2 > #box2_left{
+	width:60%; height:100%;
+	float:left;
+}
+
+#boxDiv2 > #box2_right{
+	width:40%; height:100%;
+	float:left;
+	border:1px solid black;
+}
+
 #right, #left{	
 	width: 7%;
     position: absolute; 

@@ -30,6 +30,7 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 
+	// list
 	@RequestMapping(value = "/item/list.do")
 	public ModelAndView getItemList(HttpServletRequest req) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -40,6 +41,20 @@ public class ItemController {
 
 		return modelAndView;
 	}
+	
+	// search
+	@RequestMapping(value = "/item/search.do")
+	public ModelAndView getSearchedItemList(HttpServletRequest req) {
+		ModelAndView modelAndView = new ModelAndView();
+
+		String keyword = req.getParameter("keyword");
+		
+		
+
+		return modelAndView;
+	}
+	
+	// ------------------------------------------------------------
 
 	@RequestMapping(value = "getItem.do")
 	public ModelAndView getItem(HttpServletRequest req) {

@@ -33,11 +33,12 @@
 					
 					var price = $(this).find("price").text();
 
+					$("#hot #title").html("오늘의 " + type1 + " 추천 상품");
 					$("#b_item" + $(this).index()).attr("code", code);
 					$("#b_item" + $(this).index()).append("<div class='b_itemImg'><img src='../img/item/" + code + ".PNG' class='img' width='100%' height='90%'></div>" +
 																		"<div class='b_itemDescription'>" +
-																			"<div class='name'><span realName='" + realName + "' style='font-size:14px;'>" + name + "</span></div>" +
-																			"<p class='price'><span style='font-size:18px; font-weight:bold;'>" + price + "원</span></p>" +
+																			"<div class='name'><span realName='" + realName + "' style='font-size:14px;'>" + name + "</span></div><br>" +
+																			"<div class='price' style='font-size:18px; font-weight:bold;'><span>" + price + "</span>원</div>" +
 																		"<div>");
 				});
 			});
@@ -92,7 +93,7 @@
 		<div id="hot">
 			<img id="left" width="100%" height="100%">
 			<div id="right">
-				<div id="title">간편식사 Best 상품</div>
+				<div id="title"></div>
 				<div id="list">
 					<ul>
 						<li id="b_item0"></li>
@@ -182,16 +183,20 @@
 			</div>
 			<div id="detail_right">
 				<h2 id="d_itemName"></h2>
-				<p id="d_itemPrice"></p>
-				<p id="d_itemDescription"></p>
-				<p id="d_itemQuantity">수량 :
+				<div id="d_itemPrice">
+					<strong>가격</strong> : <span style="font-family:-webkit-body;"></span>
+				</div><br>
+				<div id="d_itemDescription">
+					<strong>설명</strong> : <span style="font-family:-webkit-body;"></span>
+				</div><br>
+				<div id="d_itemQuantity"><strong>수량</strong> :
 					<input type="text" size="3" maxlength="3" onpaste="javascript:return false" onfocusout="removeChar(event)"
 							  onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)" style="ime-mode:disabled">
-				</p>
+				</div><br>
 			</div>
 			<div id="btn">
 				<button id="basket">장바구니</button> &nbsp;
-				<button>발주</button>
+				<button id="order">발주</button>
 				<span id="hiddenInfo" memId=<%= session.getAttribute("memId") %>></span>
 			</div>
 		</div>

@@ -1,18 +1,18 @@
+// 다이얼로그 콘텐츠 구성
 function make_dialog(target){
-	// 다이얼로그 콘텐츠 구성
 	var itemCode = $(target).attr("code");
 	var itemName = $(target).find(".name > span").attr("realName");
 	var itemPrice = $(target).find(".price > span").html();
 	
 	// 상품 설명 불러오기
-	$("#d_itemDescription").load("/GU/item/ajax/item_description.html #" + itemCode, function(){
-		if($("#d_itemDescription").html() == ""){
-			$("#d_itemDescription").html("설명 : ...");
+	$("#d_itemDescription > span").load("/GU/item/ajax/item_description.html #" + itemCode, function(){
+		if($("#d_itemDescription > span").html() == ""){
+			$("#d_itemDescription > span").html("...");
 		}
 		
 		$("#detail_left img").attr("src", "/GU/img/item/" + itemCode + ".PNG");
 		$("#d_itemName").html(itemName);
-		$("#d_itemPrice").html("가격 : " + itemPrice);
+		$("#d_itemPrice > span").html(itemPrice);
 		$("#hiddenInfo").attr("itemCode", itemCode);
 		
 		// 다이얼로그 구성
@@ -35,6 +35,47 @@ function make_dialog(target){
             resizable:false,
 		});
 	});
+}
+
+// 장바구니 버튼 이벤트 처리
+function shoppingBasket_request(){
+	var memId = $("#dialog #hiddenInfo").attr("memId");
+	
+	if(memId == "null"){
+		alert("로그인 후 이용해주세요.");
+		location.replace("/GU/member/loginForm.do");
+	}else{
+		var itemCode = $("#dialog #hiddenInfo").attr("itemCode");
+		var quantity = $("#dialog #d_itemQuantity > input").val();
+		if(quantity == ""){
+			alert("수량을 입력해주세요.");
+			$("#dialog #d_itemQuantity > input").focus();
+			return;
+		}
+			
+		location.replace("/GU/order/shoppingBasket.do?itemCode=" + itemCode + "&quantity=" + quantity + "&memId=" + memId);
+	}
+}
+
+//발주 버튼 이벤트 처리
+function order_request(){
+	var memId = $("#dialog #hiddenInfo").attr("memId");
+	if(memId == "null"){
+		alert("로그인 후 이용해주세요.");
+		location.replace("/GU/member/loginForm.do");
+	}else{
+		var code = $("#dialog #hiddenInfo").attr("itemCode");
+		var name = $("#dialog #d_itemName").text();
+		var quantity = $("#dialog #d_itemQuantity > input").val();
+		var price = $("#dialog #d_itemPrice > span").text();
+		if(quantity == ""){
+			alert("수량을 입력해주세요.");
+			$("#dialog #d_itemQuantity > input").focus();
+			return;
+		}
+		
+		location.replace("/GU/order/orderDecision.do?code=" + code + "&name=" + name + "&quantity=" + quantity + "&price=" + price);
+	} 
 }
 
 

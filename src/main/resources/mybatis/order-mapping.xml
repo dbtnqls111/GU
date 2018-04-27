@@ -3,16 +3,21 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mybatis.orderMapper">
+	<insert id="put" parameterType="java.util.Map">
+		insert into orderlist values(orderlist_seq.nextval, #{ itemCode }, #{ quantity }, (select branchCode from member where id = #{ memId }), sysdate)
+	</insert>
+	
+	<select id="getMaxSeq" resultType="int">
+		select max(seq) from orderlist
+	</select>
+
+
 	<select id="orderList" parameterType="String" resultType="orderDTO">
 		select od.seq, od.itemCode, od.quantity, od.orderDate, it.name, it.uup 
 		from orderlist od, item it
 		where od.itemCode = it.code and od.branchCode=#{branchCode}
 		order by od.seq asc
 	</select>
-	
-	<insert id="put" parameterType="java.util.Map">
-		insert into orderlist values(orderlist_seq.nextval, #{ itemCode }, #{ quantity }, (select branchCode from member where id = #{ memId }), sysdate)
-	</insert>
 		
 	<delete id="deleteOrder" parameterType="int">
 		delete orderlist where seq=#{seq}

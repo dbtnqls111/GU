@@ -26,7 +26,7 @@ public class OrderController {
 	private OrderService orderService;
 	
 	// 장바구니 요청 처리
-	@RequestMapping(value = "/shoppingBasket.do")
+	@RequestMapping(value = "/order/shoppingBasket.do")
 	public String shoppingBasket(HttpServletRequest req) {
 		String itemCode = req.getParameter("itemCode");
 		int quantity = Integer.parseInt(req.getParameter("quantity"));
@@ -39,6 +39,34 @@ public class OrderController {
 		return "redirect:" + "/orderList.do";
 	}
 	
+	// 발주 요청 처리
+	@RequestMapping(value = "/order/orderDecision.do")
+	public ModelAndView orderRequest(HttpServletRequest req) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		// int seq = orderService.getMaxSeq() + 1;
+		String code = req.getParameter("code");
+		String name = req.getParameter("name");
+		int quantity = Integer.parseInt(req.getParameter("quantity"));
+		int price = Integer.parseInt(req.getParameter("price"));
+		
+		OrderDTO orderDTO = new OrderDTO();
+		orderDTO.setItemCode(code);
+		// orderDTO.setSeq(seq);
+		orderDTO.setName(name);
+		orderDTO.setQuantity(quantity);
+		orderDTO.setUup(price);
+		
+		ArrayList<OrderDTO> orderList = new ArrayList<>();
+		orderList.add(orderDTO);
+		
+		modelAndView.addObject("orderList", orderList);
+		modelAndView.setViewName("/order/order.jsp");
+		
+		return modelAndView; 
+	}
+	
+	// ------------------------------------------------------------------------
 	
 	@RequestMapping(value = "orderList.do")
 	public ModelAndView getOrderList(HttpServletRequest request) {

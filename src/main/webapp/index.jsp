@@ -75,7 +75,10 @@
 
 			</div>
 			
-			<div id="boxDiv2" hidden="hidden"></div>
+			<div id="boxDiv2" hidden="hidden">
+				<div id="box2_left"></div>
+				<div id="box2_right"></div>
+			</div>
 		</div>
 
 		<div id="best">
@@ -105,16 +108,20 @@
 			</div>
 			<div id="detail_right">
 				<h2 id="d_itemName"></h2>
-				<p id="d_itemPrice"></p>
-				<p id="d_itemDescription"></p>
-				<p id="d_itemQuantity">수량 :
+				<div id="d_itemPrice">
+					<strong>가격</strong> : <span style="font-family:-webkit-body;"></span>
+				</div><br>
+				<div id="d_itemDescription">
+					<strong>설명</strong> : <span style="font-family:-webkit-body;"></span>
+				</div><br>
+				<div id="d_itemQuantity"><strong>수량</strong> :
 					<input type="text" size="3" maxlength="3" onpaste="javascript:return false" onfocusout="removeChar(event)"
 							  onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)" style="ime-mode:disabled">
-				</p>
+				</div><br>
 			</div>
 			<div id="btn">
 				<button id="basket">장바구니</button> &nbsp;
-				<button>발주</button>
+				<button id="order">발주</button>
 				<span id="hiddenInfo" memId=<%= session.getAttribute("memId") %>></span>
 			</div>
 		</div>
