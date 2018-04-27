@@ -5,6 +5,6 @@ import java.util.ArrayList;
 import order.bean.OrderDTO;
 
 public interface OrderService {
-	public ArrayList<OrderDTO> orderList();
+	public ArrayList<OrderDTO> orderList(String branchCode);
 	public int deleteOrder(int seq);
 }

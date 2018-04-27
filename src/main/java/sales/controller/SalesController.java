@@ -381,5 +381,10 @@ public class SalesController {
 
 		return modelAndView;
 	}
-
+	
+	@RequestMapping(value = "/order/getsalesCurrentList.do")
+	public void getsalesCurrentList(HttpServletRequest request) {
+		String branchCode = request.getParameter("branchCode");
+		
+	}
 }

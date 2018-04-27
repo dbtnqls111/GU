@@ -13,8 +13,8 @@ public class OrderDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public List<OrderDTO> orderList(){
-		return sqlSession.selectList("mybatis.orderMapper.orderList");
+	public List<OrderDTO> orderList(String branchCode){
+		return sqlSession.selectList("mybatis.orderMapper.orderList", branchCode);
 	}
 	
 	public int deleteOrder(int seq) {

@@ -3,10 +3,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mybatis.orderMapper">
-	<select id="orderList" resultType="orderDTO">
-		select od.seq, od.itemCode, od.quantity, od.orderDate, it.name, it.uup from orderlist od, item it where od.itemCode = it.code order by od.seq asc
+	<select id="orderList" parameterType="String" resultType="orderDTO">
+		select od.seq, od.itemCode, od.quantity, od.orderDate, it.name, it.uup 
+		from orderlist od, item it
+		where od.itemCode = it.code and od.branchCode=#{branchCode}
+		order by od.seq asc
 	</select>
-	
+		
 	<delete id="deleteOrder" parameterType="int">
 		delete orderlist where seq=#{seq}
 	</delete>

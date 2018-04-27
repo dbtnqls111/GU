@@ -30,10 +30,34 @@
     jQuery(document).ready(function() {
     	
     	jQuery("#calendar").fullCalendar({
-    		locale:'ko',
-    		buttonIcons: false
+    		 header:{
+    			left:'',
+    			center:'prev, title, next',
+    			right:'today'
+    		 },
+    		 locale:'ko',
+    		 buttonIcons: true,
+    		 eventLimit: true,
+    		 events: function(start, end, callback) {
+    			 $.ajax({ 
+    				 url: 'getsalesCurrentList.do',
+    				 
+    				 dataType: 'json', 
+    				 success: function(data, text, request) { 
+    					 var events = eval(data.jsonTxt); 
+    					 callback(events); 
+    				 }
+    			 });
+    		 },
+    		 eventClick: function(calEvent, jsEvent, view) {   
+    			 var moment = jQuery("#calendar").fullCalendar("getDate");
+    			 var date = moment.format("YYYY/MM/DD");
+    			 location.href="orderCurrentListView.do?date="+date;
+    		}
      	});
     });
+
+
 </script>
 
 <style type="text/css">
@@ -45,15 +69,15 @@
 }
 
 #orderTitle{
-	font-size:25px;
-	font-weight: bold;
+	font-size:25px;	
 	margin-top:50px;
-	margin-left:72px;;
+	margin-left:72px;
 }
 
 #calendar{	
 	margin:auto;
 	margin-top:20px;
+	color:#565656;
 }
 
 button{
@@ -66,6 +90,8 @@ button{
 		<div id="orderTitle">발주 현황</div>
    	 <div id="calendar"></div>
 	</div>
+	
+	<div id="mySchedule"></div>
 </div>
 </body>
 </html>
