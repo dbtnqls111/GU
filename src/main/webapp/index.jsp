@@ -14,34 +14,8 @@
 <title>GU</title>
 
 
+<script type="text/javascript" src="script/list_function.js"></script>
 <script type="text/javascript" src="script/indexScript.js"></script>
-
-
-<script type="text/javascript">
-
-	function encode(type1, type2) {
-		location.href = "item/list.do?type1=" + encodeURI(type1, "UTF-8") + "&type2=" + encodeURI(type2, "UTF-8");
-	}
-
-	$(document).ready(function(){
-		// ----------------------------------- buttonMenu -----------------------------------
-		$.ajaxSetup({
-			cache : false
-		});
-
-		$(".buttonMenu").hover(function(){
-			var id = "#type2_category" + $(this).index();
-
-			$(this).css("background-color", "#2e4ea5");
-			$("#boxDiv").load("item/ajax/type2.html " + id, function(){
-				$(id).css("color", "red");
-			});
-		}, function(){
-			$(this).css("background-color", "#013282");
-		});
-	});
-		
-</script>
 
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
@@ -139,8 +113,9 @@
 				</p>
 			</div>
 			<div id="btn">
-				<button>장바구니</button> &nbsp;
+				<button id="basket">장바구니</button> &nbsp;
 				<button>발주</button>
+				<span id="hiddenInfo" memId=<%= session.getAttribute("memId") %>></span>
 			</div>
 		</div>
 	</div>

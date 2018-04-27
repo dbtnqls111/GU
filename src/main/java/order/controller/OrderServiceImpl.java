@@ -19,6 +19,10 @@ public class OrderServiceImpl implements OrderService{
 		return (ArrayList<OrderDTO>)orderDAO.orderList(branchCode);
 	}
 
+	public int put(String itemCode, int quantity, String memId) {
+		return orderDAO.put(itemCode, quantity, memId);
+	}
+	
 	@Override
 	public int deleteOrder(int seq) {
 		return orderDAO.deleteOrder(seq);

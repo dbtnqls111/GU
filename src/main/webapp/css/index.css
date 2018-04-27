@@ -131,10 +131,10 @@ a {
 	overflow:hidden;
 }
 
-#best #img{ width:100%; float:left; margin-bottom:0px; }
-#best #name{ width:100%; float:left; text-align:left; margin-left:25px; font-size:13px; }
-#best #price{ width:100%; float:left; text-align:left; margin:0px 0px 10px 25px; }
-#best #price > span{ font-size:20px; }
+#best .img{ width:100%; float:left; margin-bottom:0px; }
+#best .name{ width:100%; float:left; text-align:left; margin-left:25px; font-size:13px; }
+#best .price{ width:100%; float:left; text-align:left; margin:0px 0px 10px 25px; }
+#best .price > span{ font-size:20px; }
 /* -------------------------------------------------------------------------------- */
 
 /* 상세보기 */

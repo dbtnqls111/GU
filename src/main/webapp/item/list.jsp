@@ -16,9 +16,34 @@
 	
     <link rel="stylesheet" href="/GU/css/normalize.css"> <!-- http://webdir.tistory.com/455 참고 -->
     
+    <script type="text/javascript" src="/GU/script/list_function.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="/GU/script/list.js" charset="UTF-8"></script>
 	<script type="text/javascript">
 		$(function(){
+			//																		◆ hot ◆
+			// -------------------------------------------------------------------------------------------------------------
+			var type1 = '${ type1 }';
+			$.get("ajax/getNewItemList.jsp", { 'type1':type1 }, function(data){
+				$(data).find("item").each(function(){
+					var code = $(this).find("code").text();
+					
+					var realName = $(this).find("name").text();
+					var name = realName;
+					if(realName.length > 8){ name = realName.substring(0, 8) + "..."; }
+					
+					var price = $(this).find("price").text();
+
+					$("#b_item" + $(this).index()).attr("code", code);
+					$("#b_item" + $(this).index()).append("<div class='b_itemImg'><img src='../img/item/" + code + ".PNG' class='img' width='100%' height='90%'></div>" +
+																		"<div class='b_itemDescription'>" +
+																			"<div class='name'><span realName='" + realName + "' style='font-size:14px;'>" + name + "</span></div>" +
+																			"<p class='price'><span style='font-size:18px; font-weight:bold;'>" + price + "원</span></p>" +
+																		"<div>");
+				});
+			});
+			// -------------------------------------------------------------------------------------------------------------
+			
+			
 			// 																		◆ type2 ◆
 			// -------------------------------------------------------------------------------------------------------------
 			var target = "." + '${ type1 }' + " a";
@@ -68,44 +93,16 @@
 			<img id="left" width="100%" height="100%">
 			<div id="right">
 				<div id="title">간편식사 Best 상품</div>
-				<div id="iist">
+				<div id="list">
 					<ul>
-						<li id="b_item0">
-							<div class="b_itemImg"><img src="../img/best1.jpg" width="100%" height="100%"></div>
-							<div class="b_itemDescription">
-								<div style="font-size:14px;">맛있는 아이스크림...</div>
-								<p style="fone-size:21px; font-weight:bold;">1200원</p>
-							</div>
-						</li>
-						
-						<li id="b_item1">
-							<div class="b_itemImg"><img src="../img/best1.jpg" width="100%" height="100%"></div>
-							<div class="b_itemDescription">
-								<div style="font-size:14px;">맛있는 아이스크림...</div>
-								<p style="fone-size:21px; font-weight:bold;">1200원</p>
-							</div>
-						</li>
-						
-						<li id="b_item2">
-							<div class="b_itemImg"><img src="../img/best1.jpg" width="100%" height="100%"></div>
-							<div class="b_itemDescription">
-								<div style="font-size:14px;">맛있는 아이스크림...</div>
-								<p style="fone-size:21px; font-weight:bold;">1200원</p>
-							</div>
-						</li>
-						
-						<li id="b_item3">
-							<div class="b_itemImg"><img src="../img/best1.jpg" width="100%" height="100%"></div>
-							<div class="b_itemDescription">
-								<div style="font-size:14px;">맛있는 아이스크림...</div>
-								<p style="fone-size:21px; font-weight:bold;">1200원</p>
-							</div>
-						</li>
+						<li id="b_item0"></li>
+						<li id="b_item1"></li>
+						<li id="b_item2"></li>
+						<li id="b_item3"></li>
 					</ul>
 				</div>
 			</div>
 		</div>
-		
 		<div id="underline"><img src="../img/hot/hot_underline.png" width="100%"></div>
 		
 		<!-- ================================================================ -->
@@ -193,8 +190,9 @@
 				</p>
 			</div>
 			<div id="btn">
-				<button>장바구니</button> &nbsp;
+				<button id="basket">장바구니</button> &nbsp;
 				<button>발주</button>
+				<span id="hiddenInfo" memId=<%= session.getAttribute("memId") %>></span>
 			</div>
 		</div>
 	</div>
