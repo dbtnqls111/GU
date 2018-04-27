@@ -78,34 +78,66 @@
 		$(".paging").parents(".content").load("searchedItemList_admin.do?keyword=" + encodeURI($(".keyword").val()) + "&page=" + page);
 	}
 </script>
+<style type="text/css">
+.paging div {
+	display: inline-block;
+	border: 1px solid red;
+	width: auto;
+	height: 20px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.paging a {
+	width: 100%;
+	height: 100%;
+	padding: 2px;
+}
+
+.paging a img {
+	width: 100%;
+	height: 100%;
+}
+</style>
 </head>
 <body>
 	<div class="topMenu">
 		<p>☆ 품목 목록</p>
 		<div>
 			<form class="searchForm" action="searchedItemList_admin.do" method="post">
-				<input type="text" class="keyword" value="${keyword}">
-				<input type="submit" value="검색">
+				<input type="text" class="keyword" value="${keyword}"> <input type="submit" value="검색">
 			</form>
 		</div>
 	</div>
 	<div class="paging">
-		[<a class="otherPage" href="#" onclick="paging(1)">처음으로</a>]
+		<div>
+			<a class="otherPage" href="#" onclick="paging(1)"><img src="../img/start_page.png"></a>
+		</div>
 		<c:if test="${startPage > 10}">
-			[<a href="#" class="otherPage" onclick="paging(${startPage - 1})">이전</a>]
+			<div>
+				<a href="#" class="otherPage" onclick="paging(${startPage - 1})"><img src="../img/pre_arrow.png"></a>
+			</div>
 		</c:if>
 		<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1">
 			<c:if test="${i == page}">
-				[<a href="#" class="currentPage" onclick="paging(${i})">${i}</a>]
+				<div>
+					<a href="#" class="currentPage" onclick="paging(${i})">${i}</a>
+				</div>
 			</c:if>
 			<c:if test="${i != page}">
-				[<a href="#" class="otherPage" onclick="paging(${i})">${i}</a>]
+				<div>
+					<a href="#" class="otherPage" onclick="paging(${i})">${i}</a>
+				</div>
 			</c:if>
 		</c:forEach>
 		<c:if test="${endPage < maxPage}">
-			[<a href="#" class="otherPage" onclick="paging(${endPage + 1})">다음</a>]
+			<div>
+				<a href="#" class="otherPage" onclick="paging(${endPage + 1})"><img src="../img/after_arrow.png"></a>
+			</div>
 		</c:if>
-		[<a class="otherPage" href="#" onclick="paging(${maxPage})">끝으로</a>]
+		<div>
+			<a class="otherPage" href="#" onclick="paging(${maxPage})"><img src="../img/end_page.png"></a>
+		</div>
 	</div>
 	<div class="dataList">
 		<form class="tableForm" action="itemDelete_admin.do" method="post">
@@ -146,9 +178,7 @@
 		</form>
 	</div>
 	<div class="bottomMenu">
-		<input type="button" value="신규입력" class="insert">
-		<input type="button" value="Excel입력" class="excelInsert">
-		<input type="button" value="선택삭제" class="delete">
+		<input type="button" value="신규입력" class="insert"> <input type="button" value="Excel입력" class="excelInsert"> <input type="button" value="선택삭제" class="delete">
 	</div>
 </body>
 </html>
