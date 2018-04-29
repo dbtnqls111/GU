@@ -46,8 +46,72 @@ public class ItemController {
 	@RequestMapping(value = "/item/search.do")
 	public ModelAndView getSearchedItemList(HttpServletRequest req) {
 		ModelAndView modelAndView = new ModelAndView();
-
+		
 		String keyword = req.getParameter("keyword");
+
+		if(keyword.trim().isEmpty()){ keyword = " "; }
+
+		ArrayList<ItemDTO> itemList = itemService.getSearchedItemList(keyword);
+		
+		ArrayList<ItemDTO> convenience = new ArrayList<>(); // 간편식사
+		ArrayList<ItemDTO> instant = new ArrayList<>(); // 즉석조리
+		ArrayList<ItemDTO> snack = new ArrayList<>(); // 과자류
+		ArrayList<ItemDTO> icecream = new ArrayList<>(); // 아이스크림
+		ArrayList<ItemDTO> food = new ArrayList<>(); // 식품
+		ArrayList<ItemDTO> drink = new ArrayList<>(); // 음료
+		ArrayList<ItemDTO> life = new ArrayList<>(); // 생활용품
+		
+		for(ItemDTO tmp : itemList) {
+			switch(tmp.getType1()) {
+				case "간편식사":
+					convenience.add(tmp);
+					break;
+				case "즉석조리":
+					instant.add(tmp);
+					break;
+				case "과자류":
+					snack.add(tmp);
+					break;
+				case "아이스크림":
+					icecream.add(tmp);
+					break;
+				case "식품":
+					food.add(tmp);
+					break;
+				case "음료":
+					drink.add(tmp);
+					break;
+				case "생활용품":
+					life.add(tmp);
+					break;
+			}
+		}
+		
+		ArrayList<ArrayList<ItemDTO>> searchedResult = new ArrayList<>();
+		searchedResult.add(convenience);
+		searchedResult.add(instant);
+		searchedResult.add(snack);
+		searchedResult.add(icecream);
+		searchedResult.add(food);
+		searchedResult.add(drink);
+		searchedResult.add(life);
+		
+		int notEmpty_count = 0;
+		for(ArrayList<ItemDTO> tmp : searchedResult) {
+			if(!tmp.isEmpty()) {
+				notEmpty_count++;
+				break;
+			}
+		}
+		
+		if(notEmpty_count > 0) {
+			modelAndView.addObject("searchedResult", searchedResult);
+		}else {
+			modelAndView.addObject("searchedResult", null);
+		}
+		
+		modelAndView.addObject("keyword", keyword);
+		modelAndView.setViewName("/item/searchedResult.jsp");
 
 		return modelAndView;
 	}
