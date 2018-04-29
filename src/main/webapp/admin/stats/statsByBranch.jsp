@@ -35,7 +35,7 @@
 	function detail(branchName) {
 		var year = $(".year option:selected").val();
 		var month = $(".month option:selected").val();
-		$(".statsResult").parents(".content").load("statsByBranch_itemType1.do?year=" + year + "&month=" + month + "&branchName=" + encodeURI(branchName));
+		$(".statsResult").parents(".content").load("statsByBranch_itemType.do?year=" + year + "&month=" + month + "&branchName=" + encodeURI(branchName));
 	}
 </script>
 </head>
@@ -72,7 +72,7 @@
 			<tr class="trLabel">
 				<th width="10%">순위</th>
 				<th width="40%">지점명</th>
-				<th width="25%">매출액</th>
+				<th width="25%">판매액</th>
 				<th width="25%">점유율</th>
 			</tr>
 			<c:forEach var="statsByBranchDTO" items="${statsByBranchList}">

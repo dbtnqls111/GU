@@ -47,7 +47,7 @@
 	position: absolute;
 	bottom: 0;
 	left: -50%;
-	margin-left: 2px;
+	margin-left: 3px;
 	margin-bottom: 6px;
 	border-width: 8px;
 	border-style: solid;

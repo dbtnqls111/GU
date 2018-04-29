@@ -21,9 +21,8 @@ public class StatsByBranch {
 
 		ArrayList<StatsByBranchDTO> result = new ArrayList<>();
 
-		TreeSet<String> branchNameSet = new TreeSet<>();
-
 		// 지점명 SET
+		TreeSet<String> branchNameSet = new TreeSet<>();
 		for (HashMap<String, Object> map : statsList) {
 			if (branchNameSet.isEmpty()) {
 				branchNameSet.add((String) map.get("branchName"));
@@ -34,25 +33,27 @@ public class StatsByBranch {
 			}
 		}
 
-		// 지점별 매출액 합산
+		// 지점별 판매액 합산
 		for (String branchName : branchNameSet) {
-			StatsByBranchDTO statsByBranch_monthDTO = new StatsByBranchDTO();
-			statsByBranch_monthDTO.setBranchName(branchName);
+			StatsByBranchDTO statsByBranchDTO = new StatsByBranchDTO();
+			statsByBranchDTO.setBranchName(branchName);
 			int salesPrice = 0;
+
 			for (HashMap<String, Object> map : statsList) {
 				if (branchName.equals((String) map.get("branchName"))) {
 					salesPrice += (int) map.get("salesPrice");
 				}
 			}
+
 			totalSalesPrice += salesPrice;
-			statsByBranch_monthDTO.setSalesPrice(salesPrice);
-			result.add(statsByBranch_monthDTO);
+			statsByBranchDTO.setSalesPrice(salesPrice);
+			result.add(statsByBranchDTO);
 		}
 
-		// 매출액 순위별 정렬
+		// 지점별 판매액 순위로 정렬
 		Collections.sort(result);
 
-		// 순위 및 점유율 입력
+		// 지점별 순위 및 점유율 입력
 		for (int i = 0; i < result.size(); i++) {
 			result.get(i).setRank(i + 1);
 			double ratio = Math.round(((result.get(i).getSalesPrice() / (double) totalSalesPrice) * 10000d)) / 100d;

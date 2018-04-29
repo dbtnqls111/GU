@@ -78,27 +78,6 @@
 		$(".paging").parents(".content").load("searchedItemList_admin.do?keyword=" + encodeURI($(".keyword").val()) + "&page=" + page);
 	}
 </script>
-<style type="text/css">
-.paging div {
-	display: inline-block;
-	border: 1px solid red;
-	width: auto;
-	height: 20px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-.paging a {
-	width: 100%;
-	height: 100%;
-	padding: 2px;
-}
-
-.paging a img {
-	width: 100%;
-	height: 100%;
-}
-</style>
 </head>
 <body>
 	<div class="topMenu">

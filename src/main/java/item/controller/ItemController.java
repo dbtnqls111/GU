@@ -41,19 +41,17 @@ public class ItemController {
 
 		return modelAndView;
 	}
-	
+
 	// search
 	@RequestMapping(value = "/item/search.do")
 	public ModelAndView getSearchedItemList(HttpServletRequest req) {
 		ModelAndView modelAndView = new ModelAndView();
 
 		String keyword = req.getParameter("keyword");
-		
-		
 
 		return modelAndView;
 	}
-	
+
 	// ------------------------------------------------------------
 
 	@RequestMapping(value = "getItem.do")
@@ -203,27 +201,37 @@ public class ItemController {
 			Sheet sheet = workbook.getSheetAt(0);
 			rows = sheet.getPhysicalNumberOfRows();
 
-			for (int i = 1; i < rows; i++) {
-				String code = sheet.getRow(i).getCell(0).getStringCellValue();
-				String type1 = sheet.getRow(i).getCell(1).getStringCellValue();
-				String type2 = sheet.getRow(i).getCell(2).getStringCellValue();
-				String brand = sheet.getRow(i).getCell(3).getStringCellValue();
-				String name = sheet.getRow(i).getCell(4).getStringCellValue();
-				int wup = (int) sheet.getRow(i).getCell(5).getNumericCellValue();
-				int uup = (int) sheet.getRow(i).getCell(6).getNumericCellValue();
+			String column1 = sheet.getRow(0).getCell(0).getStringCellValue();
+			String column2 = sheet.getRow(0).getCell(1).getStringCellValue();
+			String column3 = sheet.getRow(0).getCell(2).getStringCellValue();
+			String column4 = sheet.getRow(0).getCell(3).getStringCellValue();
+			String column5 = sheet.getRow(0).getCell(4).getStringCellValue();
+			String column6 = sheet.getRow(0).getCell(5).getStringCellValue();
+			String column7 = sheet.getRow(0).getCell(6).getStringCellValue();
 
-				ItemDTO itemDTO = new ItemDTO();
-				itemDTO.setCode(code);
-				itemDTO.setType1(type1);
-				itemDTO.setType2(type2);
-				itemDTO.setBrand(brand);
-				itemDTO.setName(name);
-				itemDTO.setWup(wup);
-				itemDTO.setUup(uup);
+			if (column1.equals("code") && column2.equals("type1") && column3.equals("type2") && column4.equals("brand")
+					&& column5.equals("name") && column6.equals("wup") && column7.equals("uup")) {
+				for (int i = 1; i < rows; i++) {
+					String code = sheet.getRow(i).getCell(0).getStringCellValue();
+					String type1 = sheet.getRow(i).getCell(1).getStringCellValue();
+					String type2 = sheet.getRow(i).getCell(2).getStringCellValue();
+					String brand = sheet.getRow(i).getCell(3).getStringCellValue();
+					String name = sheet.getRow(i).getCell(4).getStringCellValue();
+					int wup = (int) sheet.getRow(i).getCell(5).getNumericCellValue();
+					int uup = (int) sheet.getRow(i).getCell(6).getNumericCellValue();
 
-				result += itemService.insertItem(itemDTO);
+					ItemDTO itemDTO = new ItemDTO();
+					itemDTO.setCode(code);
+					itemDTO.setType1(type1);
+					itemDTO.setType2(type2);
+					itemDTO.setBrand(brand);
+					itemDTO.setName(name);
+					itemDTO.setWup(wup);
+					itemDTO.setUup(uup);
+
+					result += itemService.insertItem(itemDTO);
+				}
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
