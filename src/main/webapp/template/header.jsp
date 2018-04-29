@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -12,7 +13,26 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript" src="/GU/script/header.js"></script>
 <script type="text/javascript">
+function search(keyword){
+	// http://mwultong.blogspot.com/2006/05/javascript-tools-decodeencode-uri.html 참고
+	location.href = "/GU/item/search.do?keyword=" + encodeURIComponent(keyword);
+}
+
 $(function(){
+	// 검색 처리
+	$("#searchField > #searchIcon").click(function(){
+		var keyword = $("#searchField > #search").val();
+		search(keyword);
+	});
+	
+	$("#searchField #search").keyup(function(event){
+		if(event.keyCode == 13){ // 13 == enter
+			$("#searchField > #searchIcon").click();
+		}
+	});
+	
+	// ---------------------------------------------------------------------------------
+	
 	var session = "${memName}";
 	
 	if(session!=""){
@@ -47,13 +67,6 @@ $(function(){
 		}else{
 			location.href="orderCurrent.do";
 		}
-	});
-	
-	
-	// 검색 처리
-	$("#searchField > #searchIcon").click(function(){
-		var keyword = $("#searchField > #search").val();
-		location.href = "/GU/item/search.do?keyword=" + keyword;
 	});
 });
 

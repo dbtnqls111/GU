@@ -24,9 +24,9 @@
 		});
 	});
 </script>
-
 <link rel="stylesheet" type="text/css" href="/GU/css/footer.css">
 
+<div id="copyright"><span>Copyright ⓒ</span></div>
 <div id="footer">
 	<fieldset id="footerField">
 		<ul id="footerUl">

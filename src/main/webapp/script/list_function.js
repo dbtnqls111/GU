@@ -118,15 +118,15 @@ function content_revalidate(url, param){
 			$(data).find("divide" + i + " > .item").each(function(){
 				var code = $(this).find("code").text();
 				
-				var img_name = $(this).find("name").text();
-				var item_name = img_name;
-				if(img_name.length > 14){ item_name = img_name.substring(0, 14) + "..."; }
+				var realName = $(this).find("name").text();
+				var convertedName = realName;
+				if(realName.length > 14){ convertedName = realName.substring(0, 14) + "..."; }
 				
 				var price = $(this).find("price").text();
 
 				$("#itemBox" + i).append("<li code='" + code + "'>" +
 														"<p class='img'><img src='/GU/img/item/" + code + ".PNG' width='100%' height='230px'></p>" +
-														"<p class='name'><span realName='" + img_name + "'>" + item_name + "</span></p>" +
+														"<p class='name'><span realName='" + realName + "'>" + convertedName + "</span></p>" +
 														"<p class='price'><span>" + price + "</span>원</p>" +
 												  "</li>");
 			});
@@ -136,10 +136,10 @@ function content_revalidate(url, param){
 		
 		view_level = 1; // view_level 초기화
 		
-		// 첫 번째 덩어리만 출력
+		// 첫 번째 itemBox만 출력
 		$(".itemBoxes").not("#itemBox0").hide();
 
-		// itemBox1이 존재한다는 것은 덩어리가 2개 이상이라는 의미이므로 '더 보기'를 출력
+		// itemBox1이 존재한다는 것은 itemBox가 2개 이상이라는 의미이므로 viewMore를 출력
 		if($("#itemBox1").attr("class") != undefined){
 			$("#viewMore").show();
 		}else{
