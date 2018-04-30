@@ -1,3 +1,5 @@
+<%@page import="java.util.Set"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="item.bean.ItemDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -5,17 +7,15 @@
 <!DOCTYPE html>
 
 <%
-	ArrayList<ArrayList<ItemDTO>> searchedResult = (ArrayList<ArrayList<ItemDTO>>)request.getAttribute("searchedResult");
+	HashMap<String, HashMap<String, ArrayList<ItemDTO>>> searchedResult = (HashMap<String, HashMap<String, ArrayList<ItemDTO>>>)request.getAttribute("searchedResult");
+	String[] type1_name_list = { "간편식사", "즉석조리", "과자류", "아이스크림", "식품", "음료", "생활용품" };
 	String disableTarget = "";
 	
 	if(searchedResult != null){
-		int tabIndex = 0;
-		for(ArrayList<ItemDTO> tmp : searchedResult){
-			if(tmp.size() == 0){
-				disableTarget += tabIndex + ",";
+		for(int i = 0; i < type1_name_list.length; i++){
+			if(searchedResult.get(type1_name_list[i]).size() == 0){
+				disableTarget += i + ",";
 			}
-			
-			tabIndex++;
 		}
 	}
 %>
@@ -40,35 +40,42 @@
 	        %>
 	        		$("#tabs").tabs({ disabled:[<%= disableTarget %>] });
 	        <%
-		        	int i = 0;
-		        	int itemBox_index;
-		        	for(ArrayList<ItemDTO> tmp : searchedResult){
-		        		itemBox_index = -1;
-		        		System.out.println(i + "번 tab : " + tmp.size() + "개");
-		        		for(int j = 0; j < tmp.size(); j++){
-		        			if(j % 12 == 0){
-		        				++itemBox_index;
-			%>
-		        				$("#tabs-<%= i %> > ul").append("<span id='itemBox<%= itemBox_index %>' class='itemBoxes'></span>");
-			<%
-		        			}
-		        			String code = tmp.get(j).getCode();
-		        			String realName = tmp.get(j).getName();
-		        			String convertedName = realName;
-		        			if(realName.length() > 14){ convertedName = realName.substring(0, 14) + "..."; }
+		        	for(int i = 0; i < type1_name_list.length; i++){
+		        		int itemBox_index = -1;
+		        		int count = 0;
+		        		
+		        		HashMap<String, ArrayList<ItemDTO>> type2_list = searchedResult.get(type1_name_list[i]);
+		        		Set<String> type2_keyList = type2_list.keySet();
+		        		
+		        		for(String type2_name : type2_keyList){
+		        			ArrayList<ItemDTO> itemList = type2_list.get(type2_name);
 		        			
-		        			int price = tmp.get(j).getUup();
+		        			for(ItemDTO itemDTO : itemList){
+				        		if(count % 12 == 0){
+				        			itemBox_index++;
 			%>
-							$("#tabs-<%= i %> > ul #itemBox<%= itemBox_index %>").append("<li code='<%= code %>'>" +
-																	"<p class='img'><img src='/GU/img/item/<%= code %>.PNG' width='100%' height='230px'></p>" +
-																	"<p class='name'><span realName='<%= realName %>'><%= convertedName %></span></p>" +
-																	"<p class='price'><span><%= price %></span>원</p>" +
-															  "</li>");
-							
+									$("#tabs-<%= i %> > ul").append("<span id='itemBox<%= itemBox_index %>' class='itemBoxes'></span>");
 			<%
-			        	}
+				        		}
+		        				String code = itemDTO.getCode();
+		        				
+			        			String realName = itemDTO.getName();
+			        			String convertedName = realName;
+			        			if(realName.length() > 14){ convertedName = realName.substring(0, 14) + "..."; }
+			        			
+			        			int price = itemDTO.getUup();
 			%>
-						// 'viewMore 생성'
+								$("#tabs-<%= i %> > ul #itemBox<%= itemBox_index %>").append("<li code='<%= code %>'>" +
+										"<p class='img'><img src='/GU/img/item/<%= code %>.PNG' width='100%' height='230px'></p>" +
+										"<p class='name'><span realName='<%= realName %>'><%= convertedName %></span></p>" +
+										"<p class='price'><span><%= price %></span>원</p>" +
+								  "</li>");
+			<%
+		        				count++;
+		        			}
+		        		}
+			%>
+		        		// 'viewMore 생성'
 						$("#tabs-<%= i %> > ul").append("<div id='viewMore<%= i %>' class='viewMore'>더 보기</div>");
 						
 						// -------------------------------------------------------------------------------------------
@@ -115,8 +122,7 @@
 							view_level++;
 						});
 			<%
-						i++;
-		        	}
+		        	} // 전체 for문의 끝
 			%>
 					// 활성화 상태인 탭들 중 첫 번째 탭을 선택
 		    		$("#tabs > ul > li").each(function(){
@@ -128,12 +134,12 @@
 		    		});
 			<%
 	        	}else{
-	        %>
+			%>
 	        		$("#tabs").hide();
 	        		$("#not_searchedResult").show();
-	        <%
+			<%
 	        	}
-	        %>
+			%>
 	    });
 	</script>
 </head>
@@ -167,6 +173,50 @@
 				<div><img src="../img/not_searchedResult.png"></div>
 				<div><span style="font-size:40px; font-weight:bold; color:#616161;">검색 결과가 존재하지 않습니다.</span></div>
 			</div>
+			
+			<!-- 
+				<div id="type2">
+					<ul id="간편식사">
+						<li id="도시락"></li>
+						<li id="샌드위치/햄버거"></li>
+						<li id="주먹밥/김밥"></li>
+					</ul>
+					
+					<ul id="즉석조리">
+						<li id="튀김"></li>
+						<li id="베이커리"></li>
+						<li id="즉석커피"></li>
+					</ul>
+					
+					<ul id="과자류">
+						<li id="스낵"></li>
+						<li id="빵"></li>
+						<li id="껌/캔디"></li>
+					</ul>
+					
+					<ul id="아이스크림">
+						<li id="아이스크림"></li>
+					</ul>
+					
+					<ul id="식품">
+						<li id="가공식사"></li>
+						<li id="안주"></li>
+						<li id="식재료"></li>
+					</ul>
+					
+					<ul id="음료">
+						<li id="일반음료"></li>
+						<li id="아이스드링크"></li>
+						<li id="유제품"></li>
+					</ul>
+					
+					<ul id="생활용품">
+						<li id="취미/레저"></li>
+						<li id="의약외품"></li>
+						<li id="잡화"></li>
+					</ul>
+				</div>
+			 -->
 		</div>
 		
 		<div id="w_right">
