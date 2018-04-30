@@ -15,64 +15,29 @@
 			cache : false
 		});
 
-		// 선택된 년도와 월 표시
-		$(".year option[value='" + "${year}" + "']").prop("selected", true);
-		$(".month option[value='" + "${month}" + "']").prop("selected", true);
-
-		// 년도와 월 정보가 있어야만 통계자료 보임
-		if ("${year}" != "" && "${month}" != "") {
+		// 년도와 월, 지점명 정보가 있어야만 통계자료 보임
+		if ("${year}" != "" && "${month}" != "" && "${branchName}" != "") {
 			$(".statsResult").css("visibility", "visible");
 		}
-
-		$(".statsOption").submit(function() {
-			var year = $(".year option:selected").val();
-			var month = $(".month option:selected").val();
-			$(this).parents(".content").load("statsByItem.do?year=" + year + "&month=" + month);
-
-			return false;
-		});
 	});
 
-	function detail(itemType1) {
-		var year = $(".year option:selected").val();
-		var month = $(".month option:selected").val();
-		$(".statsResult").parents(".content").load("statsByItemToBranch.do?year=" + year + "&month=" + month + "&itemType1=" + encodeURI(itemType1));
+	function back() {
+		var year = "${year}";
+		var month = "${month}";
+		$(".statsResult").parents(".content").load("statsByBranch.do?year=" + year + "&month=" + month);
 	}
 </script>
 </head>
 <body>
 	<div class="topMenu">
-		<p>☆ 품목별 통계</p>
+		<p>☆ 지점별 상세 통계</p>
 		<div>
-			<form class="statsOption" action="statsByItem.do" method="post">
-				<select class="year">
-					<option value="2018" selected>2018</option>
-					<option value="2019">2019</option>
-					<option value="2020">2020</option>
-				</select>
-				년
-				<select class="month">
-					<option value="01" selected>01</option>
-					<option value="02">02</option>
-					<option value="03">03</option>
-					<option value="04">04</option>
-					<option value="05">05</option>
-					<option value="06">06</option>
-					<option value="07">07</option>
-					<option value="08">08</option>
-					<option value="09">09</option>
-					<option value="10">10</option>
-					<option value="11">11</option>
-					<option value="12">12</option>
-				</select>
-				월
-				<input type="submit" value="확인">
-			</form>
+			<input type="button" value="뒤로" onclick="back()">
 		</div>
 	</div>
 	<div class="statsResult">
-		<p class="statsP">${year}년&nbsp;${month}월&nbsp;판매&nbsp;통계</p>
-		<table class="statsTable">
+		<p class="statsDetailP">${year}년&nbsp;${month}월&nbsp;판매&nbsp;상세&nbsp;통계&nbsp;-&nbsp;${branchName}</p>
+		<table class="statsDetailTable">
 			<tr class="trLabel">
 				<th width="10%">순위</th>
 				<th width="25%">품목 타입</th>
@@ -87,9 +52,7 @@
 					<tr class="trData">
 						<c:if test="${rowspan}">
 							<td rowspan="${fn:length(statsByItemDTO.detailList) + 1}">${statsByItemDTO.rank}</td>
-							<td rowspan="${fn:length(statsByItemDTO.detailList) + 1}">
-								<a href="#" onclick="detail('${statsByItemDTO.itemType1}')">${statsByItemDTO.itemType1}</a>
-							</td>
+							<td rowspan="${fn:length(statsByItemDTO.detailList) + 1}">${statsByItemDTO.itemType1}</td>
 							<c:set var="rowspan" value="false" />
 						</c:if>
 						<td>${statsByItemDetailDTO.rank}</td>

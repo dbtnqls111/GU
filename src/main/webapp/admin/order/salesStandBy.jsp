@@ -94,13 +94,7 @@
 						</tr>
 					</c:forEach>
 					<tr class="trData">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<th colspan="7"></th>
 						<th>
 							<fmt:formatNumber value="${totalSalesPrice}" />
 						</th>

@@ -78,7 +78,7 @@
 	border-collapse: collapse;
 }
 
-.dataList table.boardTable {
+.dataList table.noticeTable {
 	width: 650px;
 }
 
@@ -175,4 +175,5 @@ input[type='submit'], input[type='button'] {
 input[type='submit']:hover, input[type='button']:hover {
 	background-color: #66aaff;
 	color: white;
+	cursor: pointer;
 }

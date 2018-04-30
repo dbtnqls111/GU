@@ -20,6 +20,7 @@
 
 		// 년도와 월 정보가 있어야만 통계자료 보임
 		if ("${year}" != "" && "${month}" != "") {
+			$(".emptyMessage").css("visibility", "hidden");
 			$(".statsResult").css("visibility", "visible");
 		}
 
@@ -35,9 +36,47 @@
 	function detail(branchName) {
 		var year = $(".year option:selected").val();
 		var month = $(".month option:selected").val();
-		$(".statsResult").parents(".content").load("statsByBranch_itemType.do?year=" + year + "&month=" + month + "&branchName=" + encodeURI(branchName));
+		$(".statsResult").parents(".content").load("statsByBranchToItem.do?year=" + year + "&month=" + month + "&branchName=" + encodeURI(branchName));
 	}
 </script>
+<style type="text/css">
+.tab {
+	list-style: none;
+	width: 650px;
+	display: inline-block;
+	padding: 0;
+	margin: 10px 0 0 0;
+	border-bottom: 1px solid #aaaaaa;
+}
+
+.tab li {
+	width: 100px;
+	height: 30px;
+	float: left;
+	line-height: 2;
+}
+
+.tab li a {
+	background-color: #c9e1ff;
+	display: block;
+	color: black;
+	text-align: center;
+	text-decoration: none;
+	width: 100%;
+	height: 100%;
+	border-top: 1px solid #aaaaaa;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-left: 1px solid #aaaaaa;
+	border-right: 1px solid #aaaaaa;
+	box-sizing: border-box;
+}
+
+.tab li a:hover {
+	background-color: #66aaff;
+	color: white;
+}
+</style>
 </head>
 <body>
 	<div class="topMenu">
@@ -49,6 +88,7 @@
 					<option value="2019">2019</option>
 					<option value="2020">2020</option>
 				</select>
+				년
 				<select class="month">
 					<option value="01" selected>01</option>
 					<option value="02">02</option>
@@ -63,11 +103,22 @@
 					<option value="11">11</option>
 					<option value="12">12</option>
 				</select>
+				월
 				<input type="submit" value="확인">
 			</form>
 		</div>
 	</div>
 	<div class="statsResult">
+		<ul class="tab">
+			<li>
+				<a href="#" class="selected">표</a>
+			</li>
+			<li>
+				<a href="#">그래프</a>
+			</li>
+		</ul>
+		<br>
+		<p class="statsP">${year}년&nbsp;${month}월&nbsp;판매&nbsp;통계</p>
 		<table class="statsTable">
 			<tr class="trLabel">
 				<th width="10%">순위</th>
@@ -88,12 +139,11 @@
 				</tr>
 			</c:forEach>
 			<tr class="trData">
-				<td></td>
-				<td></td>
-				<td>
-					<b><fmt:formatNumber value="${totalSalesPrice}" /></b>
-				</td>
-				<td></td>
+				<th colspan="2">합계</th>
+				<th>
+					<fmt:formatNumber value="${totalSalesPrice}" />
+				</th>
+				<th></th>
 			</tr>
 		</table>
 	</div>

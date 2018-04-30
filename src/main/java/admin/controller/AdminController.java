@@ -15,10 +15,10 @@ public class AdminController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/admin/notice.do")
-	public ModelAndView notice() {
+	@RequestMapping(value = "/admin/board.do")
+	public ModelAndView board() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("notice/notice.jsp");
+		modelAndView.setViewName("board/board.jsp");
 
 		return modelAndView;
 	}

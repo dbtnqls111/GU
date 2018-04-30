@@ -51,7 +51,7 @@
 <body>
 	<ul>
 		<li>
-			<a href="notice.do" class="notice">공지 사항</a>
+			<a href="board.do" class="board">게시판</a>
 		</li>
 		<li>
 			<a href="register.do" class="register">기초 등록</a>

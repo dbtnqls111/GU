@@ -15,13 +15,18 @@ public class StatsServiceImpl implements StatsService {
 	private StatsDAO statsDAO;
 
 	@Override
-	public ArrayList<HashMap<String, Object>> getStatsByBranchList(String date) {
-		return (ArrayList<HashMap<String, Object>>) statsDAO.getStatsByBranchList(date);
+	public ArrayList<HashMap<String, Object>> getStatsList(String date) {
+		return (ArrayList<HashMap<String, Object>>) statsDAO.getStatsList(date);
 	}
 
 	@Override
-	public ArrayList<HashMap<String, Object>> getStatsByBranchList_branchName(String date, String branchName) {
-		return (ArrayList<HashMap<String, Object>>) statsDAO.getStatsByBranchList_branchName(date, branchName);
+	public ArrayList<HashMap<String, Object>> getStatsListByBranchName(String date, String branchName) {
+		return (ArrayList<HashMap<String, Object>>) statsDAO.getStatsListByBranchName(date, branchName);
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> getStatsListByItemType1(String date, String itemType1) {
+		return (ArrayList<HashMap<String, Object>>) statsDAO.getStatsListByItemType1(date, itemType1);
 	}
 
 }

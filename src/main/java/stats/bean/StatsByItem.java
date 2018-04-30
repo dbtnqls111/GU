@@ -5,21 +5,21 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.TreeSet;
 
-public class StatsByBranch_itemType {
+public class StatsByItem {
 
 	private ArrayList<HashMap<String, Object>> statsList = null;
 	private int totalSalesPrice = 0;
 
-	public StatsByBranch_itemType(ArrayList<HashMap<String, Object>> statsList) {
+	public StatsByItem(ArrayList<HashMap<String, Object>> statsList) {
 		this.statsList = statsList;
 	}
 
-	public ArrayList<StatsByBranch_itemType1DTO> getStatsByBranchList_itemType() {
+	public ArrayList<StatsByItemDTO> getStatsByItemList() {
 		if (statsList == null && statsList.size() == 0) {
 			return null;
 		}
 
-		ArrayList<StatsByBranch_itemType1DTO> result = new ArrayList<>();
+		ArrayList<StatsByItemDTO> result = new ArrayList<>();
 
 		// 품목 타입1 SET
 		TreeSet<String> itemType1Set = new TreeSet<>();
@@ -34,16 +34,14 @@ public class StatsByBranch_itemType {
 			}
 		}
 
-		// System.out.println("itemType1Set : " + itemType1Set);
-
 		// 품목 타입1별 판매액 합산
 		for (String itemType1 : itemType1Set) {
-			StatsByBranch_itemType1DTO statsByBranch_itemType1DTO = new StatsByBranch_itemType1DTO();
-			statsByBranch_itemType1DTO.setItemType1(itemType1);
+			StatsByItemDTO statsByItemDTO = new StatsByItemDTO();
+			statsByItemDTO.setItemType1(itemType1);
 			int salesPrice = 0;
 			// 품목 타입2 SET
 			TreeSet<String> itemType2Set = new TreeSet<>();
-			ArrayList<StatsByBranch_itemType2DTO> result2 = new ArrayList<>();
+			ArrayList<StatsByItemDetailDTO> result2 = new ArrayList<>();
 
 			for (HashMap<String, Object> map : statsList) {
 				if (itemType1.equals((String) map.get("itemType1"))) {
@@ -58,11 +56,11 @@ public class StatsByBranch_itemType {
 					}
 				}
 			}
-			// System.out.println("itemType2Set : " + itemType2Set);
+
 			// 품목 타입2별 판매액 합산
 			for (String itemType2 : itemType2Set) {
-				StatsByBranch_itemType2DTO statsByBranch_itemType2DTO = new StatsByBranch_itemType2DTO();
-				statsByBranch_itemType2DTO.setItemType2(itemType2);
+				StatsByItemDetailDTO statsByItemDetailDTO = new StatsByItemDetailDTO();
+				statsByItemDetailDTO.setItemType2(itemType2);
 				int salesPrice2 = 0;
 
 				for (HashMap<String, Object> map : statsList) {
@@ -72,8 +70,8 @@ public class StatsByBranch_itemType {
 					}
 				}
 
-				statsByBranch_itemType2DTO.setSalesPrice(salesPrice2);
-				result2.add(statsByBranch_itemType2DTO);
+				statsByItemDetailDTO.setSalesPrice(salesPrice2);
+				result2.add(statsByItemDetailDTO);
 			}
 
 			// 품목 타입2별 판매액 순위로 정렬
@@ -82,16 +80,14 @@ public class StatsByBranch_itemType {
 			// 품목 타입2별 순위 및 점유율 입력
 			for (int i = 0; i < result2.size(); i++) {
 				result2.get(i).setRank(i + 1);
-				// 타입2별 점유율을 전체 기준? 혹은 타입1 기준? 정해야됨 salesPrice <-> totalSalesPrice
-				// 전체 기준으로 정해서 totalSalesPrice를 쓸 경우 해당 for문 위치 totalSalesPrice += salesPrice; 아래로 바꿔야됨
 				double ratio = Math.round(((result2.get(i).getSalesPrice() / (double) salesPrice) * 10000d)) / 100d;
 				result2.get(i).setRatio(ratio);
 			}
 
 			totalSalesPrice += salesPrice;
-			statsByBranch_itemType1DTO.setSalesPrice(salesPrice);
-			statsByBranch_itemType1DTO.setDetailList(result2);
-			result.add(statsByBranch_itemType1DTO);
+			statsByItemDTO.setSalesPrice(salesPrice);
+			statsByItemDTO.setDetailList(result2);
+			result.add(statsByItemDTO);
 		}
 
 		// 품목 타입1별 판매액 순위로 정렬

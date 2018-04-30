@@ -125,18 +125,25 @@
 		<result javaType="String" column="branchName" property="branchName" />
 	</resultMap>
 	
-	<select id="getStatsByBranchList" parameterType="String" resultMap="stats">
+	<select id="getStatsList" parameterType="String" resultMap="stats">
 		select sales.code salesCode, sales.quantity salesQuantity, sales.price salesPrice, 
 		item.type1 itemType1, item.type2 itemType2, item.brand itemBrand, item.name itemName, branch.name branchName 
 		from sales, item, branch where sales.code like #{date} || '%' and sales.salesDate is not null 
 		and sales.itemCode = item.code and sales.branchCode = branch.code
 	</select>
 	
-	<select id="getStatsByBranchList_branchName" parameterType="java.util.Map" resultMap="stats">
+	<select id="getStatsListByBranchName" parameterType="java.util.Map" resultMap="stats">
 		select sales.code salesCode, sales.quantity salesQuantity, sales.price salesPrice, 
 		item.type1 itemType1, item.type2 itemType2, item.brand itemBrand, item.name itemName, branch.name branchName 
 		from sales, item, branch where sales.code like #{date} || '%' and sales.salesDate is not null 
 		and sales.itemCode = item.code and sales.branchCode = branch.code and branch.name = #{branchName}
+	</select>
+	
+	<select id="getStatsListByItemType1" parameterType="java.util.Map" resultMap="stats">
+		select sales.code salesCode, sales.quantity salesQuantity, sales.price salesPrice, 
+		item.type1 itemType1, item.type2 itemType2, item.brand itemBrand, item.name itemName, branch.name branchName 
+		from sales, item, branch where sales.code like #{date} || '%' and sales.salesDate is not null 
+		and sales.itemCode = item.code and sales.branchCode = branch.code and item.type1 = #{itemType1}
 	</select>
 
 </mapper>

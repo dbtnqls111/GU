@@ -1,14 +1,11 @@
 package stats.bean;
 
-import java.util.ArrayList;
-
-public class StatsByBranch_itemType1DTO implements Comparable<StatsByBranch_itemType1DTO> {
+public class StatsByItemDetailDTO implements Comparable<StatsByItemDetailDTO> {
 
 	private int rank;
-	private String itemType1;
+	private String itemType2;
 	private int salesPrice;
 	private double ratio;
-	private ArrayList<StatsByBranch_itemType2DTO> detailList;
 
 	public int getRank() {
 		return rank;
@@ -18,12 +15,12 @@ public class StatsByBranch_itemType1DTO implements Comparable<StatsByBranch_item
 		this.rank = rank;
 	}
 
-	public String getItemType1() {
-		return itemType1;
+	public String getItemType2() {
+		return itemType2;
 	}
 
-	public void setItemType1(String itemType1) {
-		this.itemType1 = itemType1;
+	public void setItemType2(String itemType2) {
+		this.itemType2 = itemType2;
 	}
 
 	public int getSalesPrice() {
@@ -42,16 +39,8 @@ public class StatsByBranch_itemType1DTO implements Comparable<StatsByBranch_item
 		this.ratio = ratio;
 	}
 
-	public ArrayList<StatsByBranch_itemType2DTO> getDetailList() {
-		return detailList;
-	}
-
-	public void setDetailList(ArrayList<StatsByBranch_itemType2DTO> detailList) {
-		this.detailList = detailList;
-	}
-
 	@Override
-	public int compareTo(StatsByBranch_itemType1DTO o) {
+	public int compareTo(StatsByItemDetailDTO o) {
 		if (this.salesPrice > o.salesPrice) {
 			return -1;
 		} else if (this.salesPrice < o.salesPrice) {
