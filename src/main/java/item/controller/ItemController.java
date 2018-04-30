@@ -53,54 +53,61 @@ public class ItemController {
 
 		ArrayList<ItemDTO> itemList = itemService.getSearchedItemList(keyword);
 		
-		ArrayList<ItemDTO> convenience = new ArrayList<>(); // 간편식사
-		ArrayList<ItemDTO> instant = new ArrayList<>(); // 즉석조리
-		ArrayList<ItemDTO> snack = new ArrayList<>(); // 과자류
-		ArrayList<ItemDTO> icecream = new ArrayList<>(); // 아이스크림
-		ArrayList<ItemDTO> food = new ArrayList<>(); // 식품
-		ArrayList<ItemDTO> drink = new ArrayList<>(); // 음료
-		ArrayList<ItemDTO> life = new ArrayList<>(); // 생활용품
+		// -----------------------------------------------------------------------------------------------
+		HashMap<String, HashMap<String, ArrayList<ItemDTO>>> searchedResult = new HashMap<>();
 		
-		for(ItemDTO tmp : itemList) {
-			switch(tmp.getType1()) {
-				case "간편식사":
-					convenience.add(tmp);
+		HashMap<String, String[]> name_list = new HashMap<>();
+		name_list.put("간편식사", new String[]{"도시락", "샌드위치/햄버거", "주먹밥/김밥"});
+		name_list.put("즉석조리", new String[]{"튀김", "베이커리", "즉석커피"});
+		name_list.put("과자류", new String[]{"스낵", "빵", "껌/캔디"});
+		name_list.put("아이스크림", new String[]{"아이스크림"});
+		name_list.put("식품", new String[]{"가공식사", "안주", "식재료"});
+		name_list.put("음료", new String[]{"일반음료", "아이스드링크", "유제품"});
+		name_list.put("생활용품", new String[]{"취미/레저", "의약외품", "잡화"});
+		
+		String[] type1_name_list = { "간편식사", "즉석조리", "과자류", "아이스크림", "식품", "음료", "생활용품" };
+		
+		HashMap<String, ArrayList<ItemDTO>> type2_list = null;
+		for(int i = 0; i < type1_name_list.length; i++) {
+			type2_list = new HashMap<>();
+			String[] type2_name_list = name_list.get(type1_name_list[i]);
+			
+			for(int j = 0; j < type2_name_list.length; j++) {
+				type2_list.put(type2_name_list[j], new ArrayList<ItemDTO>());
+			}
+			searchedResult.put(type1_name_list[i], type2_list);
+		}
+		// -----------------------------------------------------------------------------------------------
+		
+		for(ItemDTO itemDTO : itemList) {
+			for(int i = 0; i < type1_name_list.length; i++) {
+				if(itemDTO.getType1().equals(type1_name_list[i])) {
+					type2_list = searchedResult.get(type1_name_list[i]);
+					String[] type2_name_list = name_list.get(type1_name_list[i]);
+					
+					for(int j = 0; j < type2_name_list.length; j++) {
+						if(itemDTO.getType2().equals(type2_name_list[j])) {
+							type2_list.get(type2_name_list[j]).add(itemDTO);
+							break;
+						}
+					}
 					break;
-				case "즉석조리":
-					instant.add(tmp);
-					break;
-				case "과자류":
-					snack.add(tmp);
-					break;
-				case "아이스크림":
-					icecream.add(tmp);
-					break;
-				case "식품":
-					food.add(tmp);
-					break;
-				case "음료":
-					drink.add(tmp);
-					break;
-				case "생활용품":
-					life.add(tmp);
-					break;
+				}
 			}
 		}
 		
-		ArrayList<ArrayList<ItemDTO>> searchedResult = new ArrayList<>();
-		searchedResult.add(convenience);
-		searchedResult.add(instant);
-		searchedResult.add(snack);
-		searchedResult.add(icecream);
-		searchedResult.add(food);
-		searchedResult.add(drink);
-		searchedResult.add(life);
+		// -----------------------------------------------------------------------------------------------
 		
 		int notEmpty_count = 0;
-		for(ArrayList<ItemDTO> tmp : searchedResult) {
-			if(!tmp.isEmpty()) {
-				notEmpty_count++;
-				break;
+		
+		for(int i = 0; i < type1_name_list.length; i++) {
+			type2_list = searchedResult.get(type1_name_list[i]);
+			String[] type2_name_list = name_list.get(type1_name_list[i]);
+			for(int j = 0; j < type2_name_list.length; j++) {
+				if(!(type2_list.get(type2_name_list[j]).isEmpty())) {
+					notEmpty_count++;
+					break;
+				}
 			}
 		}
 		
@@ -112,12 +119,13 @@ public class ItemController {
 		
 		modelAndView.addObject("keyword", keyword);
 		modelAndView.setViewName("/item/searchedResult.jsp");
-
+	
 		return modelAndView;
+		
 	}
 
-	// ------------------------------------------------------------
-
+	// =======================================================================
+	
 	@RequestMapping(value = "getItem.do")
 	public ModelAndView getItem(HttpServletRequest req) {
 		ModelAndView modelAndView = new ModelAndView();

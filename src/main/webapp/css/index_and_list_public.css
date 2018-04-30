@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+/* ----------------------------------------------------------------------------------- */
+#detail{ width:100%; overflow:hidden; }
+#detail_left{ width:30%; float:left; margin-right:40px; }
+#detail_right{ width:60%; float:left; }
+#detail > .btn{ width:100%; float:left; }
+#detail > .btn{ text-align:center; }
+/* ----------------------------------------------------------------------------------- */
+
+
+/* ----------------------------------------------------------------------------------- */
+#basket_alert_dialog{ text-align:center; }
+#basket_alert_dialog > .text{ margin-bottom:20px; }
+#basket_alert_dialog > .text > span{ line-height:30px; }
+#basket_alert_dialog #moveBtn{ color:white; background:#2196F3; border-color:#1976D2; }
+/* ----------------------------------------------------------------------------------- */
