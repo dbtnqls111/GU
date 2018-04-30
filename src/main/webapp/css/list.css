@@ -125,15 +125,6 @@ div{ box-sizing:border-box; }
 
 
 /* ---------------------------------------------------------------------- */
-#detail{ width:100%; overflow:hidden; }
-#detail_left{ width:30%; float:left; margin-right:40px; }
-#detail_right{ width:60%; float:left; }
-#detail > #btn{ width:100%; float:left; }
-#detail > #btn{ text-align:center; }
-/* ---------------------------------------------------------------------- */
-
-
-/* ---------------------------------------------------------------------- */
 #moving_banner{
 	width:10%; height:70%;
 	position:absolute;

@@ -120,11 +120,13 @@ $(function(){
 	});
 	
 	
-	// 상세보기
-	$("#bestItem > li").click(function(){
-		make_dialog($(this));
+	$(function(){
+		// 상세보기
+		$("#bestItem > li").click(function(){
+			detail_make_dialog($(this));
+		});
 	});
-
+	
 	
 	// 메뉴 이벤트
 	$(".buttonMenu").mouseenter(function(){
@@ -144,14 +146,4 @@ $(function(){
 		$("#boxDiv2").hide();
 		$("#boxDiv").show();
 	})
-	
-	
-	// dialog 버튼 이벤트 처리
-	$("#dialog #basket").click(function(){
-		shoppingBasket_request();
-	});
-	
-	$("#dialog #order").click(function(){
-		order_request();
-	});
 });

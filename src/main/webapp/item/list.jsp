@@ -83,6 +83,7 @@
 		});
 	</script>
 	<link rel="stylesheet" type="text/css" href="/GU/css/list.css" />
+	<link rel="stylesheet" type="text/css" href="/GU/css/index_and_list_public.css" />
 </head>
 <body>
 	<div id="wrapper" type1="${ type1 }">
@@ -170,7 +171,9 @@
 		<div id="moving_banner"></div>
 	</div>
 	
-	<div id="dialog" title="상세보기" style="display:none;">
+	
+	<!-- 상세보기 창 -->
+	<div id="detail_dialog" title="상세보기" style="display:none;">
 		<div id="detail">
 			<div id="detail_left">
 				<img src="" width="100%" height="100%">
@@ -183,12 +186,13 @@
 				<div id="d_itemDescription">
 					<strong>설명</strong> : <span style="font-family:-webkit-body;"></span>
 				</div><br>
-				<div id="d_itemQuantity"><strong>수량</strong> :
+				<div id="d_itemQuantity">
+					<strong>수량</strong> :
 					<input type="text" size="3" maxlength="3" onpaste="javascript:return false" onfocusout="removeChar(event)"
 							  onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)" style="ime-mode:disabled">
 				</div><br>
 			</div>
-			<div id="btn">
+			<div class="btn">
 				<button id="basket">장바구니</button> &nbsp;
 				<button id="order">발주</button>
 				<span id="hiddenInfo" memId=<%= session.getAttribute("memId") %>></span>
@@ -196,7 +200,25 @@
 		</div>
 	</div>
 	
+	
+	<!-- 장바구니 알림창 -->
+	<div id="basket_alert_dialog" title="장바구니" style="display:none;">
+		<div class="text">
+			<span>
+				해당 상품이 정상적으로 장바구니에 담겼습니다.<br>
+				장바구니로 이동하시겠습니까?
+			</span>
+		</div>
+		
+		<div class="btn">
+			<button id="moveBtn">장바구니 이동</button> &nbsp;
+			<button id="continueBtn">쇼핑 계속</button>
+		</div>
+	</div>
+	
+	
 	<div id="loader_background"></div>
+	
 	
 	<img id="loader" src="../img/loader.gif" />
 </body>
