@@ -23,22 +23,22 @@ $(function(){
 		i= i + 1;
 		$("#orderTbody").append($('<tr><td class="td_border" id="${orderDTO.seq}">' + "${orderDTO.itemCode}" + '</td>'
 				+ '<td class="td_border">' + "${orderDTO.name}" + '</td>'
-				+ '<td class="td_border" align="right">' + "${orderDTO.uup}" + '</td>'
+				+ '<td class="td_border" align="right">' + comma("${orderDTO.uup}") + '</td>'
 				+ '<td class="td_border" id="table_center">'+"${orderDTO.quantity}"+'</td>'
-				+ '<td class="td_border" id="allPrice_'+i+'" align="right">' + "${orderDTO.uup * orderDTO.quantity}" + '</td>'
+				+ '<td class="td_border" id="allPrice_'+i+'" align="right">' + comma("${orderDTO.uup * orderDTO.quantity}") + '</td>'
 				+ '</tr>'
 			));
-		count = count + parseInt($("#allPrice_"+i).text());
+		count = count + parseInt(uncomma($("#allPrice_"+i).text()));
 		
 		var orderObj = new Object(); // 객체 생성
 		orderObj.seq=$("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(0)").attr("id");
  		orderObj.itemCode=$("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(0)").text();
  		orderObj.quantity=$("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(3)").text();
- 		orderObj.price=$("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(4)").text();
+ 		orderObj.price=uncomma($("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(4)").text());
  		orderObj.branchCode="${branchCode}";
  		orderArray.push(orderObj);
 	</c:forEach>
-	$("#allPrice").html(count+"원");
+	$("#allPrice").html(comma(count)+"원");
 	
 	totalOrderList.order = orderArray;
     stringJsonOrder = JSON.stringify(totalOrderList);
@@ -62,6 +62,18 @@ $(function(){
 		location.href = "${pageContext.request.contextPath}/index.jsp";
 	});
 });
+
+//콤마찍기
+function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+
+//콤마풀기
+function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, '');
+}
 </script>
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/orderList.css">
