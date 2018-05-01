@@ -46,6 +46,25 @@ a {
 	cursor:pointer;
 }
 
+#boxDiv2, #boxDiv2 *{ box-sizing:border-box; }
+
+#boxDiv2{
+	overflow:hidden;
+	border-bottom:1px solid #999999;
+	border-right:1px solid #999999;
+}
+
+#boxDiv2 > #box2_left{
+	width:60%; height:100%;
+	float:left;
+}
+
+#boxDiv2 > #box2_right{
+	width:40%; height:100%;
+	float:left;
+	border:1px solid black;
+}
+
 #right, #left{	
 	width: 7%;
     position: absolute; 
@@ -112,7 +131,7 @@ a {
 /* Best �긽�뭹 */
 /* -------------------------------------------------------------------------------- */
 #best *{ box-sizing:border-box; }
-#best{ width:1100px; margin:50px 0px 100px 250px; }
+#best{ width:1010px; margin:50px 0px 100px 250px; }
 #title{ width:100%; overflow:hidden; }
 #title *{ float:left; }
 #title_text{ margin:15px 0px 0px 5px; }
@@ -122,7 +141,7 @@ a {
 #best li{ 
 	/* �꼫鍮꾩� �넂�씠瑜� 吏��젙�빐二쇱뼱�빞留� box-sizing �냽�꽦�씠 �쟻�슜�맂�떎. */
 	width:24%;
-	height:325px;
+	height:300px;
 	margin:0px 10px 10px 0px;
 	float:left;
 	text-align:center;
@@ -131,8 +150,16 @@ a {
 	overflow:hidden;
 }
 
-#best .img{ width:100%; float:left; margin-bottom:0px; }
-#best .name{ width:100%; float:left; text-align:left; margin-left:25px; font-size:13px; }
+#best .img{ width:100%; float:left; margin:0px; }
+
+#best .name{
+	width:100%; 
+	float:left;
+	text-align:left;
+	margin:0px 0px 7px 25px;
+	font-size:13px;
+}
+
 #best .price{ width:100%; float:left; text-align:left; margin:0px 0px 10px 25px; }
 #best .price > span{ font-size:20px; }
 /* -------------------------------------------------------------------------------- */
@@ -142,6 +169,6 @@ a {
 #detail{ width:100%; overflow:hidden; }
 #detail_left{ width:30%; float:left; margin-right:40px; }
 #detail_right{ width:60%; float:left; }
-#detail > #btn{ width:100%; float:left; }
-#detail > #btn{ text-align:center; }
+#detail > .btn{ width:100%; float:left; }
+#detail > .btn{ text-align:center; }
 /* ------------------------------------------------ */

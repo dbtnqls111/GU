@@ -14,22 +14,22 @@
 		});
 		
 		$(".searchForm").submit(function() {
-			$(this).parents(".content").load("searchedBoardList_admin.do?keyword=" + encodeURI($(".keyword").val()) + "&page=1");
+			$(this).parents(".content").load("searchedNoticeList_admin.do?keyword=" + encodeURI($(".keyword").val()) + "&page=1");
 
 			return false;
 		});
 
 		$(".insert").click(function() {
-			$(".paging").parents(".content").load("boardInsertForm_admin.do");
+			$(".paging").parents(".content").load("noticeInsertForm_admin.do");
 		});
 	});
 
 	function boardView(seq) {
-		$(".paging").parents(".content").load("boardView_admin.do?seq=" + seq);
+		$(".paging").parents(".content").load("noticeView_admin.do?seq=" + seq);
 	}
 	
 	function paging(page) {
-		$(".paging").parents(".content").load("searchedBoardList_admin.do?keyword=" + encodeURI($(".keyword").val()) + "&page=" + page);
+		$(".paging").parents(".content").load("searchedNoticeList_admin.do?keyword=" + encodeURI($(".keyword").val()) + "&page=" + page);
 	}
 </script>
 </head>
@@ -37,7 +37,7 @@
 	<div class="topMenu">
 		<p>☆ 공지 사항</p>
 		<div>
-			<form class="searchForm" action="searchedBoardList_admin.do" method="post">
+			<form class="searchForm" action="searchedNoticeList_admin.do" method="post">
 				<input type="text" class="keyword" value="${keyword}">
 				<input type="submit" value="검색">
 			</form>
@@ -98,7 +98,7 @@
 		</c:if>
 	</div>
 	<div class="dataList">
-		<table class="boardTable">
+		<table class="noticeTable">
 			<tr class="trLabel">
 				<th width="10%">번호</th>
 				<th width="50%">제목</th>

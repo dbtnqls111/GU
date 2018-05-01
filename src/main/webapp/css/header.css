@@ -126,6 +126,7 @@ a {
 	border-top: 3px solid #e0e1e2;
 	border-bottom: 3px solid #013282;
 	box-sizing: border-box;
+	margin: 0;
 	padding: 0;	
 }
 

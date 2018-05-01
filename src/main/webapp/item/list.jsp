@@ -33,11 +33,12 @@
 					
 					var price = $(this).find("price").text();
 
+					$("#hot #title").html("오늘의 " + type1 + " 추천 상품");
 					$("#b_item" + $(this).index()).attr("code", code);
 					$("#b_item" + $(this).index()).append("<div class='b_itemImg'><img src='../img/item/" + code + ".PNG' class='img' width='100%' height='90%'></div>" +
 																		"<div class='b_itemDescription'>" +
-																			"<div class='name'><span realName='" + realName + "' style='font-size:14px;'>" + name + "</span></div>" +
-																			"<p class='price'><span style='font-size:18px; font-weight:bold;'>" + price + "원</span></p>" +
+																			"<div class='name'><span realName='" + realName + "' style='font-size:14px;'>" + name + "</span></div><br>" +
+																			"<div class='price' style='font-size:18px; font-weight:bold;'><span>" + price + "</span>원</div>" +
 																		"<div>");
 				});
 			});
@@ -82,6 +83,7 @@
 		});
 	</script>
 	<link rel="stylesheet" type="text/css" href="/GU/css/list.css" />
+	<link rel="stylesheet" type="text/css" href="/GU/css/index_and_list_public.css" />
 </head>
 <body>
 	<div id="wrapper" type1="${ type1 }">
@@ -92,7 +94,7 @@
 		<div id="hot">
 			<img id="left" width="100%" height="100%">
 			<div id="right">
-				<div id="title">간편식사 Best 상품</div>
+				<div id="title"></div>
 				<div id="list">
 					<ul>
 						<li id="b_item0"></li>
@@ -161,12 +163,6 @@
 		<!-- ================================================================ -->
 		
 		<div id="viewMore">더 보기</div>
-		 
-		 <!-- ================================================================ -->
-		 
-		<div id="list_footer">Copyright ⓒ</div>
-		
-		<!-- ================================================================ -->
 		
 		<jsp:include page="../template/footer.jsp" />
 		
@@ -175,29 +171,54 @@
 		<div id="moving_banner"></div>
 	</div>
 	
-	<div id="dialog" title="상세보기" style="display:none;">
+	
+	<!-- 상세보기 창 -->
+	<div id="detail_dialog" title="상세보기" style="display:none;">
 		<div id="detail">
 			<div id="detail_left">
 				<img src="" width="100%" height="100%">
 			</div>
 			<div id="detail_right">
 				<h2 id="d_itemName"></h2>
-				<p id="d_itemPrice"></p>
-				<p id="d_itemDescription"></p>
-				<p id="d_itemQuantity">수량 :
+				<div id="d_itemPrice">
+					<strong>가격</strong> : <span style="font-family:-webkit-body;"></span>
+				</div><br>
+				<div id="d_itemDescription">
+					<strong>설명</strong> : <span style="font-family:-webkit-body;"></span>
+				</div><br>
+				<div id="d_itemQuantity">
+					<strong>수량</strong> :
 					<input type="text" size="3" maxlength="3" onpaste="javascript:return false" onfocusout="removeChar(event)"
 							  onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)" style="ime-mode:disabled">
-				</p>
+				</div><br>
 			</div>
-			<div id="btn">
+			<div class="btn">
 				<button id="basket">장바구니</button> &nbsp;
-				<button>발주</button>
+				<button id="order">발주</button>
 				<span id="hiddenInfo" memId=<%= session.getAttribute("memId") %>></span>
 			</div>
 		</div>
 	</div>
 	
+	
+	<!-- 장바구니 알림창 -->
+	<div id="basket_alert_dialog" title="장바구니" style="display:none;">
+		<div class="text">
+			<span>
+				해당 상품이 정상적으로 장바구니에 담겼습니다.<br>
+				장바구니로 이동하시겠습니까?
+			</span>
+		</div>
+		
+		<div class="btn">
+			<button id="moveBtn">장바구니 이동</button> &nbsp;
+			<button id="continueBtn">쇼핑 계속</button>
+		</div>
+	</div>
+	
+	
 	<div id="loader_background"></div>
+	
 	
 	<img id="loader" src="../img/loader.gif" />
 </body>

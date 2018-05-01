@@ -15,12 +15,20 @@ public class OrderServiceImpl implements OrderService{
 	private OrderDAO orderDAO;
 
 	@Override
-	public ArrayList<OrderDTO> orderList(String branchCode) {		
-		return (ArrayList<OrderDTO>)orderDAO.orderList(branchCode);
-	}
-
 	public int put(String itemCode, int quantity, String memId) {
 		return orderDAO.put(itemCode, quantity, memId);
+	}
+	
+	@Override
+	public int getMaxSeq() {
+		return orderDAO.getMaxSeq();
+	}
+	
+	// --------------------------------------------------------------
+	
+	@Override
+	public ArrayList<OrderDTO> orderList(String branchCode) {		
+		return (ArrayList<OrderDTO>)orderDAO.orderList(branchCode);
 	}
 	
 	@Override

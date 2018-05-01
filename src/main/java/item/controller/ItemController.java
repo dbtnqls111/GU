@@ -30,6 +30,7 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 
+	// list
 	@RequestMapping(value = "/item/list.do")
 	public ModelAndView getItemList(HttpServletRequest req) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -41,6 +42,85 @@ public class ItemController {
 		return modelAndView;
 	}
 
+	// search
+	@RequestMapping(value = "/item/search.do")
+	public ModelAndView getSearchedItemList(HttpServletRequest req) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		String keyword = req.getParameter("keyword");
+		if(keyword.trim().isEmpty()){ keyword = " "; }
+
+		ArrayList<ItemDTO> itemList = itemService.getSearchedItemList(keyword);
+		
+		// -----------------------------------------------------------------------------------------------
+		
+		HashMap<String, HashMap<String, ArrayList<ItemDTO>>> searchedResult = new HashMap<>();
+		
+		HashMap<String, String[]> name_list = new HashMap<>();
+		name_list.put("간편식사", new String[]{"도시락", "샌드위치/햄버거", "주먹밥/김밥"});
+		name_list.put("즉석조리", new String[]{"튀김", "베이커리", "즉석커피"});
+		name_list.put("과자류", new String[]{"스낵", "빵", "껌/캔디"});
+		name_list.put("아이스크림", new String[]{"아이스크림"});
+		name_list.put("식품", new String[]{"가공식사", "안주", "식재료"});
+		name_list.put("음료", new String[]{"일반음료", "아이스드링크", "유제품"});
+		name_list.put("생활용품", new String[]{"취미/레저", "의약외품", "잡화"});
+		
+		String[] type1_name_list = { "간편식사", "즉석조리", "과자류", "아이스크림", "식품", "음료", "생활용품" };
+		String[] type2_name_list = null;
+		
+		for(int i = 0; i < type1_name_list.length; i++) {
+			searchedResult.put(type1_name_list[i], new HashMap<>());
+		}
+		
+		for(ItemDTO itemDTO : itemList) {
+			for(int i = 0; i < type1_name_list.length; i++) {
+				if(itemDTO.getType1().equals(type1_name_list[i])) {
+					HashMap<String, ArrayList<ItemDTO>> type2_list = searchedResult.get(type1_name_list[i]);
+					type2_name_list = name_list.get(type1_name_list[i]);
+					
+					for(int j = 0; j < type2_name_list.length; j++) {
+						if(itemDTO.getType2().equals(type2_name_list[j])) {
+							if(type2_list.containsKey(type2_name_list[j])) {
+								type2_list.get(type2_name_list[j]).add(itemDTO);
+							}else {
+								type2_list.put(type2_name_list[j], new ArrayList<>());
+								type2_list.get(type2_name_list[j]).add(itemDTO);
+							}
+							break;
+						}
+					}
+					break;
+				}
+			}
+		}
+		
+		// -----------------------------------------------------------------------------------------------
+		
+		int notEmpty_count = 0;
+		for(int i = 0; i < type1_name_list.length; i++) {
+			HashMap<String, ArrayList<ItemDTO>> type2_list = searchedResult.get(type1_name_list[i]);
+			if(type2_list.size() > 0) {
+				notEmpty_count++;
+				break;
+			}
+		}
+		
+		if(notEmpty_count > 0) {
+			modelAndView.addObject("searchedResult", searchedResult);
+		}else {
+			modelAndView.addObject("searchedResult", null);
+		}
+		
+		modelAndView.addObject("keyword", keyword);
+		modelAndView.setViewName("/item/searchedResult.jsp");
+	
+		return modelAndView;
+	}
+
+	
+	// =======================================================================
+	
+	
 	@RequestMapping(value = "getItem.do")
 	public ModelAndView getItem(HttpServletRequest req) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -188,27 +268,37 @@ public class ItemController {
 			Sheet sheet = workbook.getSheetAt(0);
 			rows = sheet.getPhysicalNumberOfRows();
 
-			for (int i = 1; i < rows; i++) {
-				String code = sheet.getRow(i).getCell(0).getStringCellValue();
-				String type1 = sheet.getRow(i).getCell(1).getStringCellValue();
-				String type2 = sheet.getRow(i).getCell(2).getStringCellValue();
-				String brand = sheet.getRow(i).getCell(3).getStringCellValue();
-				String name = sheet.getRow(i).getCell(4).getStringCellValue();
-				int wup = (int) sheet.getRow(i).getCell(5).getNumericCellValue();
-				int uup = (int) sheet.getRow(i).getCell(6).getNumericCellValue();
+			String column1 = sheet.getRow(0).getCell(0).getStringCellValue();
+			String column2 = sheet.getRow(0).getCell(1).getStringCellValue();
+			String column3 = sheet.getRow(0).getCell(2).getStringCellValue();
+			String column4 = sheet.getRow(0).getCell(3).getStringCellValue();
+			String column5 = sheet.getRow(0).getCell(4).getStringCellValue();
+			String column6 = sheet.getRow(0).getCell(5).getStringCellValue();
+			String column7 = sheet.getRow(0).getCell(6).getStringCellValue();
 
-				ItemDTO itemDTO = new ItemDTO();
-				itemDTO.setCode(code);
-				itemDTO.setType1(type1);
-				itemDTO.setType2(type2);
-				itemDTO.setBrand(brand);
-				itemDTO.setName(name);
-				itemDTO.setWup(wup);
-				itemDTO.setUup(uup);
+			if (column1.equals("code") && column2.equals("type1") && column3.equals("type2") && column4.equals("brand")
+					&& column5.equals("name") && column6.equals("wup") && column7.equals("uup")) {
+				for (int i = 1; i < rows; i++) {
+					String code = sheet.getRow(i).getCell(0).getStringCellValue();
+					String type1 = sheet.getRow(i).getCell(1).getStringCellValue();
+					String type2 = sheet.getRow(i).getCell(2).getStringCellValue();
+					String brand = sheet.getRow(i).getCell(3).getStringCellValue();
+					String name = sheet.getRow(i).getCell(4).getStringCellValue();
+					int wup = (int) sheet.getRow(i).getCell(5).getNumericCellValue();
+					int uup = (int) sheet.getRow(i).getCell(6).getNumericCellValue();
 
-				result += itemService.insertItem(itemDTO);
+					ItemDTO itemDTO = new ItemDTO();
+					itemDTO.setCode(code);
+					itemDTO.setType1(type1);
+					itemDTO.setType2(type2);
+					itemDTO.setBrand(brand);
+					itemDTO.setName(name);
+					itemDTO.setWup(wup);
+					itemDTO.setUup(uup);
+
+					result += itemService.insertItem(itemDTO);
+				}
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -282,6 +372,25 @@ public class ItemController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("result", result);
 		modelAndView.setViewName("register/itemUpdate.jsp");
+
+		return modelAndView;
+	}
+
+	// 품목 코드 중복 체크
+	@RequestMapping(value = "/admin/itemCodeCheck_admin.do")
+	public ModelAndView itemCodeCheck_admin(HttpServletRequest request) {
+		String code = request.getParameter("code");
+		boolean isExist = false;
+
+		ItemDTO itemDTO = itemService.getItem(code);
+		if (itemDTO != null) {
+			isExist = true;
+		}
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("isExist", isExist);
+		modelAndView.addObject("code", code);
+		modelAndView.setViewName("register/itemCodeCheck.jsp");
 
 		return modelAndView;
 	}

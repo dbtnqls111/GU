@@ -51,7 +51,7 @@
 <body>
 	<ul>
 		<li>
-			<a href="notice.do" class="notice">공지 사항</a>
+			<a href="board.do" class="board">게시판</a>
 		</li>
 		<li>
 			<a href="register.do" class="register">기초 등록</a>
@@ -60,10 +60,7 @@
 			<a href="order.do" class="order">발주 관리</a>
 		</li>
 		<li>
-			<a href="statsByBranch.do" class="statsByBranch">지점별 통계</a>
-		</li>
-		<li>
-			<a href="statsByItem.do" class="statsByItem">품목별 통계</a>
+			<a href="stats.do" class="stats">판매 통계</a>
 		</li>
 	</ul>
 </body>

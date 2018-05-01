@@ -15,14 +15,6 @@ public class ItemDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public SqlSessionTemplate getSqlSession() {
-		return sqlSession;
-	}
-
-	public void setSqlSession(SqlSessionTemplate sqlSession) {
-		this.sqlSession = sqlSession;
-	}
-
 	public int insertItem(ItemDTO itemDTO) {
 		return sqlSession.insert("mybatis.itemMapper.insertItem", itemDTO);
 	}
@@ -38,7 +30,46 @@ public class ItemDAO {
 	public ItemDTO getItem(String code) {
 		return sqlSession.selectOne("mybatis.itemMapper.getItem", code);
 	}
+
+	public List<ItemDTO> getItemList_admin(int startNum, int endNum) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+
+		return sqlSession.selectList("mybatis.itemMapper.getItemList_admin", map);
+	}
+
+	public List<ItemDTO> getSearchedItemList(String keyword, int startNum, int endNum) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("keyword", (String) keyword);
+		map.put("startNum", (Integer) startNum);
+		map.put("endNum", (Integer) endNum);
+
+		return sqlSession.selectList("mybatis.itemMapper.getSearchedItemList", map);
+	}
+
+	public int getSearchedItemListCount(String keyword) {
+		return sqlSession.selectOne("mybatis.itemMapper.getSearchedItemListCount", keyword);
+	}
 	
+	// --------------------------------------------------------------------------------------
+	
+	public SqlSessionTemplate getSqlSession() {
+		return sqlSession;
+	}
+
+	public void setSqlSession(SqlSessionTemplate sqlSession) {
+		this.sqlSession = sqlSession;
+	}
+	
+	public int getItemListCount() {
+		return sqlSession.selectOne("mybatis.itemMapper.getItemListCount");
+	}
+	
+	public int getItemListCount(String type1) {
+		return sqlSession.selectOne("mybatis.itemMapper.getItemListCount02", type1);
+	}
+
 	public List<ItemDTO> getItemList(String type1, String keyword, String type2, int lowest_price, int highest_price) {
 		Map<String, Object> param = new HashMap<>();
 		param.put("type1", type1);
@@ -62,34 +93,8 @@ public class ItemDAO {
 		
 		return sqlSession.selectList("mybatis.itemMapper.getItemList02", param);
 	}
-
-	public List<ItemDTO> getItemList_admin(int startNum, int endNum) {
-		Map<String, Integer> map = new HashMap<>();
-		map.put("startNum", startNum);
-		map.put("endNum", endNum);
-
-		return sqlSession.selectList("mybatis.itemMapper.getItemList_admin", map);
-	}
-
-	public List<ItemDTO> getSearchedItemList(String keyword, int startNum, int endNum) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("keyword", (String) keyword);
-		map.put("startNum", (Integer) startNum);
-		map.put("endNum", (Integer) endNum);
-
-		return sqlSession.selectList("mybatis.itemMapper.getSearchedItemList", map);
-	}
-
-	public int getItemListCount() {
-		return sqlSession.selectOne("mybatis.itemMapper.getItemListCount");
-	}
 	
-	public int getItemListCount(String type1) {
-		return sqlSession.selectOne("mybatis.itemMapper.getItemListCount02", type1);
+	public List<ItemDTO> getSearchedItemList(String keyword){
+		return sqlSession.selectList("mybatis.itemMapper.getSearchedItemList02", keyword);
 	}
-
-	public int getSearchedItemListCount(String keyword) {
-		return sqlSession.selectOne("mybatis.itemMapper.getSearchedItemListCount", keyword);
-	}
-
 }

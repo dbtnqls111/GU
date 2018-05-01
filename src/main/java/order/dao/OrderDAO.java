@@ -15,10 +15,6 @@ public class OrderDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public List<OrderDTO> orderList(String branchCode){
-		return sqlSession.selectList("mybatis.orderMapper.orderList", branchCode);
-	}
-
 	public int put(String itemCode, int quantity, String memId) {
 		Map<String, Object> param = new HashMap<>();
 		param.put("itemCode", itemCode);
@@ -28,6 +24,15 @@ public class OrderDAO {
 		return sqlSession.insert("mybatis.orderMapper.put", param);
 	}
 	
+	public int getMaxSeq() {
+		return sqlSession.selectOne("mybatis.orderMapper.getMaxSeq");
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	public List<OrderDTO> orderList(String branchCode){
+		return sqlSession.selectList("mybatis.orderMapper.orderList", branchCode);
+	}
 	
 	public int deleteOrder(int seq) {
 		return sqlSession.delete("mybatis.orderMapper.deleteOrder", seq);

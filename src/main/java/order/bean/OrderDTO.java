@@ -2,13 +2,14 @@ package order.bean;
 
 public class OrderDTO {
 	private int seq;
-	private String itemCode;
+	private String itemCode; 
 	private String name;
 	private String branchCode;
 	private int quantity;
 	private int uup;
 	private int price;
 	private String orderDate;
+	
 	public int getSeq() {
 		return seq;
 	}

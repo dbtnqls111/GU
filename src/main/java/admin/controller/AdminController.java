@@ -15,10 +15,10 @@ public class AdminController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/admin/notice.do")
-	public ModelAndView notice() {
+	@RequestMapping(value = "/admin/board.do")
+	public ModelAndView board() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("notice/notice.jsp");
+		modelAndView.setViewName("board/board.jsp");
 
 		return modelAndView;
 	}
@@ -39,18 +39,10 @@ public class AdminController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/admin/statsByBranch.do")
+	@RequestMapping(value = "/admin/stats.do")
 	public ModelAndView statsByBranch() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("statsByBranch/statsByBranch.jsp");
-
-		return modelAndView;
-	}
-
-	@RequestMapping(value = "/admin/statsByItem.do")
-	public ModelAndView statsByItem() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("statsByItem/statsByItem.jsp");
+		modelAndView.setViewName("stats/stats.jsp");
 
 		return modelAndView;
 	}

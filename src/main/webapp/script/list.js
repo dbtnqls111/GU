@@ -14,7 +14,7 @@ $(function(){
 	});
 	
 	$("#hot").on("click", ".img, .name", function(){
-		make_dialog($(this).parents("li"));
+		detail_make_dialog($(this).parents("li"));
 	});
 	// ---------------------------------------------------------------------------------------------------------------
 	
@@ -113,24 +113,6 @@ $(function(){
 	});
 	// ---------------------------------------------------------------------------------------------------------------	
 	
-	
-	//	 																		    ◆ dialog ◆
-	// ---------------------------------------------------------------------------------------------------------------
-	$("#dialog #basket").click(function(){
-		var memId = $("#dialog #hiddenInfo").attr("memId");
-		if(memId == "null"){
-			alert("로그인 후 이용해주세요.");
-			location.replace("/GU/member/loginForm.do");
-		}else{
-			var itemCode = $("#dialog #hiddenInfo").attr("itemCode");
-			var quantity = $("#dialog #d_itemQuantity > input").val();
-				
-			location.replace("/GU/shoppingBasket.do?itemCode=" + itemCode + "&quantity=" + quantity + "&memId=" + memId);
-		}
-	});
-	// ---------------------------------------------------------------------------------------------------------------
-	
-	
 	//																		 ◆ moving_banner ◆
 	// ---------------------------------------------------------------------------------------------------------------
 	var navigator_top = $("#hot").offset().top; // http://cofs.tistory.com/197 참고
@@ -143,7 +125,7 @@ $(function(){
 	// ---------------------------------------------------------------------------------------------------------------
 	
 	
-	//																		 ◆ fixed_bar ◆
+	//																		       ◆ fixed_bar ◆
 	// ---------------------------------------------------------------------------------------------------------------
 	$("#fixed_bar").hover(function(){
 		$("#fixed_bar").css("cursor", "pointer")

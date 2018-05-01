@@ -46,9 +46,9 @@ public class BoardController {
 
 		int total = boardService.getTotal();
 
-		int totalPage = (total+14)/15;		
-		
-		int startPage = (pg-1)/10*10+1;
+		int totalPage = (total + 14) / 15;
+
+		int startPage = (pg - 1) / 10 * 10 + 1;
 		int endPage = startPage + 9;
 
 		if (totalPage < endPage)
@@ -65,8 +65,8 @@ public class BoardController {
 	}
 
 	// 관리자 : 공지 사항 목록 요청
-	@RequestMapping(value = "/admin/boardList_admin.do")
-	public ModelAndView boardList_admin(HttpServletRequest request) {
+	@RequestMapping(value = "/admin/noticeList_admin.do")
+	public ModelAndView noticeList_admin(HttpServletRequest request) {
 		int page = Integer.parseInt(request.getParameter("page"));
 
 		int limit = 10;
@@ -89,14 +89,14 @@ public class BoardController {
 		modelAndView.addObject("maxPage", maxPage);
 		modelAndView.addObject("startPage", startPage);
 		modelAndView.addObject("endPage", endPage);
-		modelAndView.setViewName("notice/boardList.jsp");
+		modelAndView.setViewName("board/noticeList.jsp");
 
 		return modelAndView;
 	}
 
 	// 관리자 : 검색된 공지 사항 목록 요청
-	@RequestMapping(value = "/admin/searchedBoardList_admin.do")
-	public ModelAndView searchedBoardList_admin(HttpServletRequest request) {
+	@RequestMapping(value = "/admin/searchedNoticeList_admin.do")
+	public ModelAndView searchedNoticeList_admin(HttpServletRequest request) {
 		String keyword = request.getParameter("keyword");
 		int page = Integer.parseInt(request.getParameter("page"));
 
@@ -116,22 +116,29 @@ public class BoardController {
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("boardList", boardList);
+		modelAndView.addObject("keyword", keyword);
 		modelAndView.addObject("page", page);
 		modelAndView.addObject("maxPage", maxPage);
 		modelAndView.addObject("startPage", startPage);
 		modelAndView.addObject("endPage", endPage);
-		modelAndView.setViewName("notice/boardList.jsp");
+		modelAndView.setViewName("board/noticeList.jsp");
 
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/admin/boardInsertForm_admin.do")
-	public ModelAndView boardInsertForm_admin(HttpServletRequest request) {
+	@RequestMapping(value = "/admin/noticeInsertForm_admin.do")
+	public ModelAndView noticeInsertForm_admin(HttpServletRequest request) {
 		return null;
 	}
 
-	@RequestMapping(value = "/admin/boardView_admin.do")
-	public ModelAndView boardView_admin(HttpServletRequest request) {
+	@RequestMapping(value = "/admin/noticeView_admin.do")
+	public ModelAndView noticeView_admin(HttpServletRequest request) {
+		return null;
+	}
+
+	// 관리자 : 건의 사항 목록 요청
+	@RequestMapping(value = "/admin/boardList_admin.do")
+	public ModelAndView boardList_admin(HttpServletRequest request) {
 		return null;
 	}
 }

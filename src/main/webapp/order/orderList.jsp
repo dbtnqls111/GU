@@ -109,6 +109,8 @@
 	          form.submit();
 	          
 		});
+		
+		$("#allSelect").trigger("click"); // 처음에 전체선택 버튼이 선택되어 있도록 설정
 	});
 	
 	function up(number){

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지 사항</title>
+<title>게시판</title>
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
@@ -21,15 +21,15 @@
 
 		var menuIndex = sessionStorage.getItem("menuIndex");
 
-		$(".notice_menu:eq(" + menuIndex + ") a").addClass("selected");
-		$(".content").load($(".notice_menu:eq(" + menuIndex + ") a").attr("href"));
+		$(".board_menu:eq(" + menuIndex + ") a").addClass("selected");
+		$(".content").load($(".board_menu:eq(" + menuIndex + ") a").attr("href"));
 
-		$(".notice_menu a").click(function() {
+		$(".board_menu a").click(function() {
 			$(this).addClass("selected");
 			// 현재 페이지의 메뉴 인덱스 저장(새로고침 시 메뉴가 초기화되지 않도록)
-			sessionStorage.setItem("menuIndex", $(this).parent(".notice_menu").index());
+			sessionStorage.setItem("menuIndex", $(this).parent(".board_menu").index());
 
-			$(".notice_menu a").not(this).removeClass("selected");
+			$(".board_menu a").not(this).removeClass("selected");
 
 			$(".content").load($(this).attr("href"));
 
@@ -50,8 +50,11 @@
 		<div class="body">
 			<div class="menu">
 				<ul>
-					<li class="notice_menu">
-						<a href="boardList_admin.do?page=1">공지 사항</a>
+					<li class="board_menu">
+						<a href="noticeList_admin.do?page=1">공지 사항</a>
+					</li>
+					<li class="board_menu">
+						<a href="boardList_admin.do?page=1">건의 사항</a>
 					</li>
 				</ul>
 			</div>
