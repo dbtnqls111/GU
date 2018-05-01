@@ -93,8 +93,7 @@ public class OrderController {
 			str =  "{\"result\":\""+"성공"+"\"}";
 			return str;
 		}else {
-			str = "{\"result\":\""+"실패"+"\"}";
-			return str;
+			return null;
 		}
 	}
 	

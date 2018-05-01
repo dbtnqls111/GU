@@ -46,9 +46,12 @@
 		});
 		
 		$("#deleteOrder").click(function(){
+			var count = 0;
+			var countTemp = 0;
 			if (confirm("선택하신 상품을 삭제하시겠습니까?") == true){
-				for(var i=$('input:checkbox').length-1; i>=0; i--){
-				 	if($('input:checkbox:eq('+i+')').prop("checked")){	 		
+				for(var i=$('input:checkbox').length-1; i>0; i--){
+				 	if($('input:checkbox:eq('+i+')').prop("checked")){
+				 		countTemp=countTemp+1;
 				 		var seq = $('input:checkbox:eq('+i+')').attr('id').split("_")[1];
 				 		$.ajax({
 				 	        url:"deleteOrder.do",
@@ -56,7 +59,10 @@
 				 	        data:{"seq":seq},
 				 	        dataType:"json",
 				 	        success:function(data){
-				 	          	alert("정상적으로 상품이 삭제되었습니다.");
+				 	        	count = count+1;
+				 	        	if(count==countTemp){
+						 			alert("정상적으로 삭제되었습니다.");
+				 	        	}
 				 	        },
 				 	        error:function(jqXHR, textStatus, errorThrown){
 				 	        	alert("상품 삭제 실패");
@@ -65,7 +71,7 @@
 				 		var all =  parseInt(uncomma($("#allPrice").text()));
 				 		all = all - parseInt(uncomma($("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(4)").text()));
 				 		$("#allPrice").html(comma(all)+"원");
-				 		$('#orderTable > tbody > tr:eq('+(i-1)+')').remove();				 			 		
+				 		$('#orderTable > tbody > tr:eq('+(i-1)+')').remove();				 		
 					}
 				 }
 			}else{ 
@@ -95,18 +101,27 @@
 	          totalOrderList.order = orderArray ;
 	          stringJsonOrder = JSON.stringify(totalOrderList);
 	          
-	          var form = document.createElement('form');
+	          if(stringJsonOrder!='{"order":[]}'){
+	          	var form = document.createElement('form');
 	          
-	          var objs = document.createElement('input');
-	          objs.setAttribute('type', 'hidden');
-	          objs.setAttribute('name', 'orderList');
-	          objs.setAttribute('value', stringJsonOrder);
-	          form.appendChild(objs);
+	         	var objs = document.createElement('input');
+	          	objs.setAttribute('type', 'hidden');
+	          	objs.setAttribute('name', 'orderList');
+	         	objs.setAttribute('value', stringJsonOrder);
+	         	form.appendChild(objs);
 	          
-	          form.setAttribute('method', 'post');
-	          form.setAttribute('action', 'order.do');
-	          document.body.appendChild(form);
-	          form.submit();
+	            form.setAttribute('method', 'post');
+	            form.setAttribute('action', 'order.do');
+	         	document.body.appendChild(form);
+	          	form.submit();
+	          }else{
+	        	  var all =  parseInt(uncomma($("#allPrice").text()));
+	        	  if(all==0){
+	        		  alert("발주하실 상품이 없습니다.");
+	        	  }else{
+	        		  alert("발주하실 상품을 선택해주세요.");
+	        	  }
+	          }
 	          
 		});
 		
