@@ -9,6 +9,9 @@ public class SalesDTO {
 	private int quantity;
 	private int price;
 	private String salesDate; // 본사가 발주 처리 완료한 날짜(비어있으면 발주 대기 상태)
+	
+	private String name;
+	private int uup;
 
 	public int getSeq() {
 		return seq;
@@ -66,4 +69,19 @@ public class SalesDTO {
 		this.salesDate = salesDate;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getUup() {
+		return uup;
+	}
+
+	public void setUup(int uup) {
+		this.uup = uup;
+	}
 }

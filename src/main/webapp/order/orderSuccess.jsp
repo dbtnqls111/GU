@@ -19,6 +19,10 @@ $(function(){
 		location.href = "${pageContext.request.contextPath}/index.jsp";
 	});
 	
+	$("#orderCurrent").click(function(){
+		location.href = "orderCurrent.do";
+	});
+	
 });
 
 </script>
@@ -39,6 +43,7 @@ $(function(){
 			<div id="box_top">성공적으로 발주가 완료되었습니다</div>
 			<div id="buttonDiv">
 				<input type="button" id="homeButton" value="메인화면으로">				
+				<input type="button" id="orderCurrent" value="발주현황보기">				
 			</div>
 		</div>
 	</div>

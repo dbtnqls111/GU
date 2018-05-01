@@ -93,8 +93,7 @@ public class OrderController {
 			str =  "{\"result\":\""+"성공"+"\"}";
 			return str;
 		}else {
-			str = "{\"result\":\""+"실패"+"\"}";
-			return str;
+			return null;
 		}
 	}
 	
@@ -188,12 +187,4 @@ public class OrderController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/order/orderCurrentListView.do")
-	public ModelAndView orderCurrentListView(HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView();
-		System.out.println(request.getParameter("date"));
-		modelAndView.addObject("date",request.getParameter("date"));
-		modelAndView.setViewName("orderCurrentListView.jsp");
-		return modelAndView;
-	}
 }
