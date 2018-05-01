@@ -25,6 +25,7 @@
 	width: 100%;
 	height: calc(100% - 60px);
 	padding-left: 10px;
+	border: 1px solid red;
 	box-sizing: border-box;
 	overflow: auto;
 	margin: 0;

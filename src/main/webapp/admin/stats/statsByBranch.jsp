@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="css/stats.css">
 <script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 	$(function() {
 		// 새로고침시 캐시 사용 안함
@@ -40,42 +41,6 @@
 	}
 </script>
 <style type="text/css">
-.tab {
-	list-style: none;
-	width: 650px;
-	display: inline-block;
-	padding: 0;
-	margin: 10px 0 0 0;
-	border-bottom: 1px solid #aaaaaa;
-}
-
-.tab li {
-	width: 100px;
-	height: 30px;
-	float: left;
-	line-height: 2;
-}
-
-.tab li a {
-	background-color: #c9e1ff;
-	display: block;
-	color: black;
-	text-align: center;
-	text-decoration: none;
-	width: 100%;
-	height: 100%;
-	border-top: 1px solid #aaaaaa;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	border-left: 1px solid #aaaaaa;
-	border-right: 1px solid #aaaaaa;
-	box-sizing: border-box;
-}
-
-.tab li a:hover {
-	background-color: #66aaff;
-	color: white;
-}
 </style>
 </head>
 <body>
@@ -109,15 +74,6 @@
 		</div>
 	</div>
 	<div class="statsResult">
-		<ul class="tab">
-			<li>
-				<a href="#" class="selected">표</a>
-			</li>
-			<li>
-				<a href="#">그래프</a>
-			</li>
-		</ul>
-		<br>
 		<p class="statsP">${year}년&nbsp;${month}월&nbsp;판매&nbsp;통계</p>
 		<table class="statsTable">
 			<tr class="trLabel">
@@ -146,6 +102,7 @@
 				<th></th>
 			</tr>
 		</table>
+		<div class="chart"></div>
 	</div>
 </body>
 </html>
