@@ -40,5 +40,8 @@ public interface SalesService {
 	int getSearchedSalesCompleteListCount(String keyword);
 
 	ArrayList<String> getCodeList(String today);
+	
+	ArrayList<SalesDTO> getsalesCurrentList(String branchCode);
 
+	ArrayList<SalesDTO> getsalesCurrentListView(String branchCode, String code);
 }

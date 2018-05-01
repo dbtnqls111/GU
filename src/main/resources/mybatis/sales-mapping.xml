@@ -114,5 +114,11 @@
 		select distinct code from sales where code like #{today} || '%' and salesDate is null order by code desc
 	</select>
 
-	<select id=""></select>
+	<select id="getsalesCurrentList" parameterType="String" resultType="salesDTO">
+		select * from sales where branchCode=#{branchCode} and salesDate is null order by seq asc
+	</select>
+	
+	<select id="getSalesCurrentListView" parameterType="java.util.Map" resultType="salesDTO">
+		select sales.code, sales.itemCode, sales.quantity, sales.price, item.name, item.uup from sales, item  where sales.branchCode=#{branchCode} and sales.code=#{code} and sales.itemCode = item.code order by sales.itemCode asc
+	</select>
 </mapper>

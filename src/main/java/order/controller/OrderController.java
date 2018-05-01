@@ -160,12 +160,4 @@ public class OrderController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/order/orderCurrentListView.do")
-	public ModelAndView orderCurrentListView(HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView();
-		System.out.println(request.getParameter("date"));
-		modelAndView.addObject("date",request.getParameter("date"));
-		modelAndView.setViewName("orderCurrentListView.jsp");
-		return modelAndView;
-	}
 }

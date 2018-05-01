@@ -7,7 +7,7 @@ a {
 }
 
 #bannerWrapper{
-	width:1000px;
+	width:1030px;
 	overflow:hidden;
 	margin-left:250px;
 }
@@ -107,9 +107,9 @@ a {
 
 
 
-/* ============================= 김민진 ============================= */
+/* ============================= 源�誘쇱쭊 ============================= */
 
-/* Best 상품 */
+/* Best �긽�뭹 */
 /* -------------------------------------------------------------------------------- */
 #best *{ box-sizing:border-box; }
 #best{ width:1100px; margin:50px 0px 100px 250px; }
@@ -120,7 +120,7 @@ a {
 #best ul{ margin:0px; padding:0px; overflow:hidden; }
 
 #best li{ 
-	/* 너비와 높이를 지정해주어야만 box-sizing 속성이 적용된다. */
+	/* �꼫鍮꾩� �넂�씠瑜� 吏��젙�빐二쇱뼱�빞留� box-sizing �냽�꽦�씠 �쟻�슜�맂�떎. */
 	width:24%;
 	height:325px;
 	margin:0px 10px 10px 0px;
@@ -137,7 +137,7 @@ a {
 #best .price > span{ font-size:20px; }
 /* -------------------------------------------------------------------------------- */
 
-/* 상세보기 */
+/* �긽�꽭蹂닿린 */
 /* ------------------------------------------------ */
 #detail{ width:100%; overflow:hidden; }
 #detail_left{ width:30%; float:left; margin-right:40px; }
