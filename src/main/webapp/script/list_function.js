@@ -39,6 +39,7 @@ function shoppingBasket_request(){
 		});
 		
 		$("#basket_alert_dialog #continueBtn").click(function(){
+			// 데이터 전송 처리 구현 중...
 			$("#detail_dialog, #basket_alert_dialog").dialog("close");
 		});
 	}
