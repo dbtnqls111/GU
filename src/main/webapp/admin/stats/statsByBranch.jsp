@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="css/stats.css">
 <script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 	$(function() {
 		// 새로고침시 캐시 사용 안함
@@ -20,8 +21,8 @@
 
 		// 년도와 월 정보가 있어야만 통계자료 보임
 		if ("${year}" != "" && "${month}" != "") {
-			$(".emptyMessage").css("visibility", "hidden");
-			$(".statsResult").css("visibility", "visible");
+			$(".statsResultTable").css("display", "block");
+			$(".tab").css("display", "block");
 		}
 
 		$(".statsOption").submit(function() {
@@ -31,50 +32,119 @@
 
 			return false;
 		});
+
+		$(".tab ul li").click(function() {
+			$(".tab ul li").not(this).removeClass("selected");
+			$(this).addClass("selected");
+
+			if ($(this).is(".tab ul li:eq(0)")) {
+				$(".statsResultTable").css("display", "block");
+				$(".statsResultGraph").css("display", "none");
+			} else {
+				$(".statsResultTable").css("display", "none");
+				$(".statsResultGraph").css("display", "block");
+			}
+		});
 	});
 
 	function detail(branchName) {
 		var year = $(".year option:selected").val();
 		var month = $(".month option:selected").val();
-		$(".statsResult").parents(".content").load("statsByBranchToItem.do?year=" + year + "&month=" + month + "&branchName=" + encodeURI(branchName));
+		$(".statsResultTable").parents(".content").load("statsByBranchToItem.do?year=" + year + "&month=" + month + "&branchName=" + encodeURI(branchName));
+	}
+
+	//////////////// 여기부터는 그래프 관련 ////////////////
+
+	// 년월 가감 계산
+	function dateCalc(year, month, incDec) {
+		var date = new Date(year + "/" + month + "/01");
+
+		date.setMonth(date.getMonth()+ incDec);
+		
+		var monthString = (date.getMonth() + 1).toString();
+		var month = "";
+		
+		for (var i = 0; i < 2 - monthString.length; i++) {
+			month += "0";
+		}
+		month += monthString;
+
+		return date.getFullYear() + "/" + month;
+	}
+
+	google.charts.load("current", {
+		packages : [ "corechart" ]
+	});
+
+	google.charts.setOnLoadCallback(drawChart);
+
+	function drawChart() {
+		// 차트 데이터 설정
+		var listItem = new Array();
+		listItem.push("Month");
+		<c:forEach var="statsByBranchListForGraph" items="${statsByBranchListForGraph[5]}">
+			listItem.push("${statsByBranchListForGraph.branchName}");
+		</c:forEach>
+		
+		var data = google.visualization.arrayToDataTable([ 
+			listItem, 
+			[ dateCalc("${year}", "${month}", -5), 0, 0, 0, 0, 0 ], 
+			[ dateCalc("${year}", "${month}", -4), 0, 0, 0, 0, 0 ], 
+			[ dateCalc("${year}", "${month}", -3), 0, 0, 0, 0, 0 ], 
+			[ dateCalc("${year}", "${month}", -2), 0, 0, 0, 0, 0 ], 
+			[ dateCalc("${year}", "${month}", -1), ${statsByBranchListForGraph[4][0].salesPrice}, ${statsByBranchListForGraph[4][1].salesPrice}, ${statsByBranchListForGraph[4][2].salesPrice}, ${statsByBranchListForGraph[4][3].salesPrice}, ${statsByBranchListForGraph[4][4].salesPrice} ], 
+			[ dateCalc("${year}", "${month}", 0), ${statsByBranchListForGraph[5][0].salesPrice}, ${statsByBranchListForGraph[5][1].salesPrice}, ${statsByBranchListForGraph[5][2].salesPrice}, ${statsByBranchListForGraph[5][3].salesPrice}, ${statsByBranchListForGraph[5][4].salesPrice} ] 
+		]);
+
+		// 그래프 옵션
+		var options = {
+			title : "${year}" + "년 " + "${month}" + "월 판매 추이",
+			width : 800, 
+			height : 500, 
+			vAxis : { title : "판매액" },
+			hAxis : { title : "년월" },
+			seriesType : "bars",
+			bar : { groupWidth : "50%" },
+			legend : { position : "right" }
+		};
+
+		var chart = new google.visualization.ComboChart(document.getElementById("graph"));
+		chart.draw(data, options);
 	}
 </script>
 <style type="text/css">
-.tab {
+.tab ul {
 	list-style: none;
 	width: 650px;
 	display: inline-block;
 	padding: 0;
-	margin: 10px 0 0 0;
-	border-bottom: 1px solid #aaaaaa;
-}
-
-.tab li {
-	width: 100px;
-	height: 30px;
-	float: left;
-	line-height: 2;
-}
-
-.tab li a {
-	background-color: #c9e1ff;
-	display: block;
-	color: black;
+	margin: 0;
 	text-align: center;
-	text-decoration: none;
-	width: 100%;
-	height: 100%;
-	border-top: 1px solid #aaaaaa;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	border-left: 1px solid #aaaaaa;
-	border-right: 1px solid #aaaaaa;
-	box-sizing: border-box;
+	z-index: 100;
 }
 
-.tab li a:hover {
-	background-color: #66aaff;
-	color: white;
+.tab ul li {
+	width: 100px;
+	height: 25px;
+	float: left;
+	line-height: 1.5;
+	background: linear-gradient(to top, #66aaff, #c9e1ff 50%, #dbebff, white);
+	border: 1px solid #aaaaaa;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	box-sizing: border-box;
+	margin-left: 5px;
+	border: 1px solid #aaaaaa;
+}
+
+.tab ul li:hover {
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.tab ul li.selected {
+	border-top: none;
+	font-weight: bold;
 }
 </style>
 </head>
@@ -108,16 +178,7 @@
 			</form>
 		</div>
 	</div>
-	<div class="statsResult">
-		<ul class="tab">
-			<li>
-				<a href="#" class="selected">표</a>
-			</li>
-			<li>
-				<a href="#">그래프</a>
-			</li>
-		</ul>
-		<br>
+	<div class="statsResultTable">
 		<p class="statsP">${year}년&nbsp;${month}월&nbsp;판매&nbsp;통계</p>
 		<table class="statsTable">
 			<tr class="trLabel">
@@ -126,7 +187,7 @@
 				<th width="25%">판매액</th>
 				<th width="25%">점유율</th>
 			</tr>
-			<c:forEach var="statsByBranchDTO" items="${statsByBranchList}">
+			<c:forEach var="statsByBranchDTO" items="${statsByBranchListForTable}">
 				<tr class="trData">
 					<td>${statsByBranchDTO.rank}</td>
 					<td>
@@ -146,6 +207,16 @@
 				<th></th>
 			</tr>
 		</table>
+	</div>
+	<div class="statsResultGraph">
+		<p class="statsP">${year}년&nbsp;${month}월&nbsp;판매&nbsp;통계</p>
+		<div id="graph"></div>
+	</div>
+	<div class="tab">
+		<ul>
+			<li class="selected">표</li>
+			<li>그래프</li>
+		</ul>
 	</div>
 </body>
 </html>

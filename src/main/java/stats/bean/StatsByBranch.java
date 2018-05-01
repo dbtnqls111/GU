@@ -14,7 +14,9 @@ public class StatsByBranch {
 		this.statsList = statsList;
 	}
 
-	public ArrayList<StatsByBranchDTO> getStatsByBranchList() {
+	// orderBySalesPrice : true - salesPrice 오름차순 정렬
+	// false - 디폴트로 branchName 오름차순 정렬
+	public ArrayList<StatsByBranchDTO> getStatsByBranchList(boolean orderBySalesPrice) {
 		if (statsList == null && statsList.size() == 0) {
 			return null;
 		}
@@ -50,8 +52,10 @@ public class StatsByBranch {
 			result.add(statsByBranchDTO);
 		}
 
-		// 지점별 판매액 순위로 정렬
-		Collections.sort(result);
+		if (orderBySalesPrice) {
+			// 지점별 판매액 순위로 정렬
+			Collections.sort(result);
+		}
 
 		// 지점별 순위 및 점유율 입력
 		for (int i = 0; i < result.size(); i++) {
