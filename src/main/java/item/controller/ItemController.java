@@ -48,12 +48,12 @@ public class ItemController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		String keyword = req.getParameter("keyword");
-
 		if(keyword.trim().isEmpty()){ keyword = " "; }
 
 		ArrayList<ItemDTO> itemList = itemService.getSearchedItemList(keyword);
 		
 		// -----------------------------------------------------------------------------------------------
+		
 		HashMap<String, HashMap<String, ArrayList<ItemDTO>>> searchedResult = new HashMap<>();
 		
 		HashMap<String, String[]> name_list = new HashMap<>();
@@ -66,28 +66,26 @@ public class ItemController {
 		name_list.put("생활용품", new String[]{"취미/레저", "의약외품", "잡화"});
 		
 		String[] type1_name_list = { "간편식사", "즉석조리", "과자류", "아이스크림", "식품", "음료", "생활용품" };
+		String[] type2_name_list = null;
 		
-		HashMap<String, ArrayList<ItemDTO>> type2_list = null;
 		for(int i = 0; i < type1_name_list.length; i++) {
-			type2_list = new HashMap<>();
-			String[] type2_name_list = name_list.get(type1_name_list[i]);
-			
-			for(int j = 0; j < type2_name_list.length; j++) {
-				type2_list.put(type2_name_list[j], new ArrayList<ItemDTO>());
-			}
-			searchedResult.put(type1_name_list[i], type2_list);
+			searchedResult.put(type1_name_list[i], new HashMap<>());
 		}
-		// -----------------------------------------------------------------------------------------------
 		
 		for(ItemDTO itemDTO : itemList) {
 			for(int i = 0; i < type1_name_list.length; i++) {
 				if(itemDTO.getType1().equals(type1_name_list[i])) {
-					type2_list = searchedResult.get(type1_name_list[i]);
-					String[] type2_name_list = name_list.get(type1_name_list[i]);
+					HashMap<String, ArrayList<ItemDTO>> type2_list = searchedResult.get(type1_name_list[i]);
+					type2_name_list = name_list.get(type1_name_list[i]);
 					
 					for(int j = 0; j < type2_name_list.length; j++) {
 						if(itemDTO.getType2().equals(type2_name_list[j])) {
-							type2_list.get(type2_name_list[j]).add(itemDTO);
+							if(type2_list.containsKey(type2_name_list[j])) {
+								type2_list.get(type2_name_list[j]).add(itemDTO);
+							}else {
+								type2_list.put(type2_name_list[j], new ArrayList<>());
+								type2_list.get(type2_name_list[j]).add(itemDTO);
+							}
 							break;
 						}
 					}
@@ -99,15 +97,11 @@ public class ItemController {
 		// -----------------------------------------------------------------------------------------------
 		
 		int notEmpty_count = 0;
-		
 		for(int i = 0; i < type1_name_list.length; i++) {
-			type2_list = searchedResult.get(type1_name_list[i]);
-			String[] type2_name_list = name_list.get(type1_name_list[i]);
-			for(int j = 0; j < type2_name_list.length; j++) {
-				if(!(type2_list.get(type2_name_list[j]).isEmpty())) {
-					notEmpty_count++;
-					break;
-				}
+			HashMap<String, ArrayList<ItemDTO>> type2_list = searchedResult.get(type1_name_list[i]);
+			if(type2_list.size() > 0) {
+				notEmpty_count++;
+				break;
 			}
 		}
 		
@@ -121,10 +115,11 @@ public class ItemController {
 		modelAndView.setViewName("/item/searchedResult.jsp");
 	
 		return modelAndView;
-		
 	}
 
+	
 	// =======================================================================
+	
 	
 	@RequestMapping(value = "getItem.do")
 	public ModelAndView getItem(HttpServletRequest req) {

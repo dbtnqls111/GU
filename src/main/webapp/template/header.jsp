@@ -11,7 +11,6 @@
 <title>GU</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-<script type="text/javascript" src="/GU/script/header.js"></script>
 <script type="text/javascript">
 function search(keyword){
 	// http://mwultong.blogspot.com/2006/05/javascript-tools-decodeencode-uri.html 참고
@@ -68,6 +67,16 @@ $(function(){
 			location.href="orderCurrent.do";
 		}
 	});
+	
+	document.getElementById("path_login").value = location.pathname + location.search;
+	document.getElementById("path_logout").value = location.pathname + location.search;
+	$("#login").click(function(){
+		document.loginForm.submit();
+	});
+	
+	$("#logout").click(function(){
+		document.logoutForm.submit();
+	});
 });
 
 </script>
@@ -95,15 +104,24 @@ $(function(){
 
 				<ul id="memberUl">
 					<li id="userLi"><a href="#"><img alt="user" src="${pageContext.request.contextPath}/img/user.png" id = "userIcon"><br>${memName}님</a></li>
-					<li id="loginLi"><a href="/GU/member/loginForm.do" id="login"><img alt="login" src="${pageContext.request.contextPath}/img/login.png" id="loginIcon" title="로그인"></a></li>
-					<li id="logoutLi"><a href="/GU/logout.do" id="logout"><img alt="logout" src="${pageContext.request.contextPath}/img/logout.png" id="logoutIcon"></a></li>
+					<li id="loginLi">
+						<form action="/GU/member/loginForm.do" name="loginForm" method="post">
+							<a href="#" id="login"><img alt="login" src="${pageContext.request.contextPath}/img/login.png" id="loginIcon" title="로그인"></a>
+							<input type="hidden" name="path" id="path_login" />
+						</form>
+					</li>
+					<li id="logoutLi">
+						<form action="/GU/logout.do" name="logoutForm" method="post">
+							<a href="#" id="logout"><img alt="logout" src="${pageContext.request.contextPath}/img/logout.png" id="logoutIcon"></a>
+							<input type="hidden" name="path" id="path_logout" />
+						</form>
+					</li>					
 					<li id="joinLi"><a href="member/joinForm.do" id="join"><img alt="join" src="${pageContext.request.contextPath}/img/join.png" id="joinIcon" title="회원가입"></a></li>
 					<li><a href="#" id="orderCurrent"><img alt="orderCurrent" src="${pageContext.request.contextPath}/img/orderCurrent.png" id="orderCurrentIcon" title="발주현황"></a></li>
 					<li><a href="#" id="order"><img alt="order" src="${pageContext.request.contextPath}/img/order.png" id="orderIcon" title="발주대기목록"></a></li>				
 				</ul>
 			</fieldset>
 		</div>
-		
 </div>
 </body>
 </html>

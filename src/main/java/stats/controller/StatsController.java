@@ -1,6 +1,11 @@
 package stats.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,20 +41,58 @@ public class StatsController {
 		String year = request.getParameter("year");
 		String month = request.getParameter("month");
 		String date = year + "/" + month;
+		// 그래프를 위한 지난 여섯 달의 날짜
+		ArrayList<String> last6MonthDates = new ArrayList<>();
 
-		// 선택한 월에 대한 판매 정보를 모두 가져옴
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		try {
+			Date date2 = sdf.parse(date + "/01");
+
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date2);
+
+			last6MonthDates.add(date);
+			for (int i = 0; i < 5; i++) {
+				calendar.add(Calendar.MONTH, -1);
+				last6MonthDates.add(sdf.format(calendar.getTime()).substring(0, 7));
+			}
+			Collections.reverse(last6MonthDates);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		// 선택한 월에 대한 판매 정보를 모두 가져옴(표)
 		ArrayList<HashMap<String, Object>> statsList = statsService.getStatsList(date);
 
-		// 지점별로 판매액에 관한 통계
+		// 지점별로 판매액에 관한 통계(표)
 		StatsByBranch statsByBranch = new StatsByBranch(statsList);
-		ArrayList<StatsByBranchDTO> statsByBranchList = statsByBranch.getStatsByBranchList();
+		ArrayList<StatsByBranchDTO> statsByBranchListForTable = statsByBranch.getStatsByBranchList(true);
 		int totalSalesPrice = statsByBranch.getTotalSalesPrice();
+
+		// 그래프를 위한 지난 여섯 달에 대한 데이터
+		ArrayList<ArrayList<StatsByBranchDTO>> statsByBranchListForGraph = new ArrayList<>();
+		for (String lastDate : last6MonthDates) {
+			ArrayList<HashMap<String, Object>> lastStatsList = statsService.getStatsList(lastDate);
+
+			StatsByBranch lastStatsByBranch = new StatsByBranch(lastStatsList);
+
+			statsByBranchListForGraph.add(lastStatsByBranch.getStatsByBranchList(false));
+		}
+
+		for (int i = 0; i < statsByBranchListForGraph.size(); i++) {
+			System.out.println("=======================");
+			for (StatsByBranchDTO dto : statsByBranchListForGraph.get(i)) {
+				System.out.println(dto.getBranchName() + " : " + dto.getSalesPrice());
+			}
+			System.out.println("=======================");
+		}
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("year", year);
 		modelAndView.addObject("month", month);
-		modelAndView.addObject("statsByBranchList", statsByBranchList);
+		modelAndView.addObject("statsByBranchListForTable", statsByBranchListForTable);
 		modelAndView.addObject("totalSalesPrice", totalSalesPrice);
+		modelAndView.addObject("statsByBranchListForGraph", statsByBranchListForGraph);
 		modelAndView.setViewName("stats/statsByBranch.jsp");
 
 		return modelAndView;
@@ -68,7 +111,7 @@ public class StatsController {
 
 		// 선택한 지점에 대한 상세(품목별) 통계
 		StatsByItem statsByItem = new StatsByItem(statsList);
-		ArrayList<StatsByItemDTO> statsByItemList = statsByItem.getStatsByItemList();
+		ArrayList<StatsByItemDTO> statsByItemList = statsByItem.getStatsByItemList(true);
 		int totalSalesPrice = statsByItem.getTotalSalesPrice();
 
 		ModelAndView modelAndView = new ModelAndView();
@@ -103,7 +146,7 @@ public class StatsController {
 
 		// 품목별로 판매액에 관한 통계
 		StatsByItem statsByItem = new StatsByItem(statsList);
-		ArrayList<StatsByItemDTO> statsByItemList = statsByItem.getStatsByItemList();
+		ArrayList<StatsByItemDTO> statsByItemList = statsByItem.getStatsByItemList(true);
 		int totalSalesPrice = statsByItem.getTotalSalesPrice();
 
 		ModelAndView modelAndView = new ModelAndView();
@@ -129,7 +172,7 @@ public class StatsController {
 
 		// 선택한 품목에 대한 상세(지점별) 통계
 		StatsByBranch statsByBranch = new StatsByBranch(statsList);
-		ArrayList<StatsByBranchDTO> statsByBranchList = statsByBranch.getStatsByBranchList();
+		ArrayList<StatsByBranchDTO> statsByBranchList = statsByBranch.getStatsByBranchList(true);
 		int totalSalesPrice = statsByBranch.getTotalSalesPrice();
 
 		ModelAndView modelAndView = new ModelAndView();

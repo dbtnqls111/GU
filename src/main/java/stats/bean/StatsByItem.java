@@ -14,7 +14,9 @@ public class StatsByItem {
 		this.statsList = statsList;
 	}
 
-	public ArrayList<StatsByItemDTO> getStatsByItemList() {
+	// orderBySalesPrice : true - salesPrice 오름차순 정렬
+	// false - 디폴트로 itemType1 오름차순 정렬
+	public ArrayList<StatsByItemDTO> getStatsByItemList(boolean orderBySalesPrice) {
 		if (statsList == null && statsList.size() == 0) {
 			return null;
 		}
@@ -74,8 +76,10 @@ public class StatsByItem {
 				result2.add(statsByItemDetailDTO);
 			}
 
-			// 품목 타입2별 판매액 순위로 정렬
-			Collections.sort(result2);
+			if (orderBySalesPrice) {
+				// 품목 타입2별 판매액 순위로 정렬
+				Collections.sort(result2);
+			}
 
 			// 품목 타입2별 순위 및 점유율 입력
 			for (int i = 0; i < result2.size(); i++) {
@@ -90,8 +94,10 @@ public class StatsByItem {
 			result.add(statsByItemDTO);
 		}
 
-		// 품목 타입1별 판매액 순위로 정렬
-		Collections.sort(result);
+		if (orderBySalesPrice) {
+			// 품목 타입1별 판매액 순위로 정렬
+			Collections.sort(result);
+		}
 
 		// 품목 타입1별 순위 및 점유율 입력
 		for (int i = 0; i < result.size(); i++) {

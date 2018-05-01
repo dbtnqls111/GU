@@ -109,5 +109,16 @@ public class SalesDAO {
 	public List<String> getCodeList(String today) {
 		return sqlSession.selectList("mybatis.salesMapper.getCodeList", today);
 	}
+	
+	public List<SalesDTO> getsalesCurrentList(String branchCode){
+		return sqlSession.selectList("mybatis.salesMapper.getsalesCurrentList", branchCode);
+	}
+	
+	public List<SalesDTO> getsalesCurrentListView(String branchCode, String code){
+		Map<String, Object> map = new HashMap<>();
+		map.put("branchCode", branchCode);
+		map.put("code", code);
+		return sqlSession.selectList("mybatis.salesMapper.getSalesCurrentListView", map);
+	}
 
 }

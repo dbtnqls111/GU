@@ -18,8 +18,11 @@ public class MemberController {
 	private MemberService memberService;
 
 	@RequestMapping(value = "/member/loginForm.do")
-	public ModelAndView loginForm() {
+	public ModelAndView loginForm(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
+
+		String path = request.getParameter("path");
+		modelAndView.addObject("path", path);
 		modelAndView.setViewName("/member/loginForm.jsp");
 
 		return modelAndView;
@@ -38,7 +41,9 @@ public class MemberController {
 	public ModelAndView login(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
-
+		String path = request.getParameter("path");
+		String[] path_real = path.split("/GU/");
+		
 		MemberDTO memberDTO = memberService.login(id, pw);
 
 		ModelAndView modelAndView = new ModelAndView();
@@ -51,7 +56,7 @@ public class MemberController {
 			if (memberDTO.getBranchCode() == null) {
 				modelAndView.setViewName("redirect:/admin/main.do");
 			} else {
-				modelAndView.setViewName("redirect:../index.jsp");
+				modelAndView.setViewName("redirect:../"+path_real[1]);
 			}
 		} else {
 			modelAndView.setViewName("/member/loginFail.jsp");
@@ -67,8 +72,11 @@ public class MemberController {
 		session.removeAttribute("memId");
 		session.invalidate();
 
+		String path = request.getParameter("path");
+		String[] path_real = path.split("/GU/");
+
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:index.jsp");
+		modelAndView.setViewName("redirect:"+path_real[1]);
 		return modelAndView;
 	}
 	

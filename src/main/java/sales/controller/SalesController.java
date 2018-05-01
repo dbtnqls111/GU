@@ -8,9 +8,13 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import branch.controller.BranchService;
@@ -382,9 +386,50 @@ public class SalesController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/order/getsalesCurrentList.do")
-	public void getsalesCurrentList(HttpServletRequest request) {
+	@RequestMapping(value = "getsalesCurrentList.do")
+	public @ResponseBody String getsalesCurrentList(HttpServletRequest request) {
+		String branchCode = request.getParameter("branchCode");		
+		ArrayList<SalesDTO> currentList = salesService.getsalesCurrentList(branchCode);
+		
+		JSONObject obj = new JSONObject();
+		String temp = "aaa";
+		try {
+			JSONArray jArray = new JSONArray();
+			
+			for(SalesDTO current : currentList) {
+				JSONObject sObject = new JSONObject();												
+				String compare = current.getCode();
+				if(!temp.equals(compare)) {
+					sObject.put("title", current.getCode());
+					String[] split = current.getCode().split(" ");
+					String date = split[0].replace("/", "-");
+					sObject.put("start", date);
+					jArray.add(sObject);
+				}
+				
+				temp = current.getCode();
+			}
+			
+			obj.put("events", jArray);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 }
+		
+		return obj.toString();
+	}
+	
+
+	@RequestMapping(value = "getsalesCurrentListView.do")
+	public ModelAndView orderCurrentListView(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView();
+		String code = request.getParameter("title");
 		String branchCode = request.getParameter("branchCode");
 		
+		ArrayList<SalesDTO> currentList = salesService.getsalesCurrentListView(branchCode, code);
+		
+		modelAndView.addObject("title", code);
+		modelAndView.addObject("currentList", currentList);
+		modelAndView.setViewName("/order/orderCurrentListView.jsp");
+		return modelAndView;
 	}
 }

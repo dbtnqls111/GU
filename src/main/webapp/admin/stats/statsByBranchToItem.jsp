@@ -17,14 +17,14 @@
 
 		// 년도와 월, 지점명 정보가 있어야만 통계자료 보임
 		if ("${year}" != "" && "${month}" != "" && "${branchName}" != "") {
-			$(".statsResult").css("visibility", "visible");
+			$(".statsResultTable").css("display", "block");
 		}
 	});
 
 	function back() {
 		var year = "${year}";
 		var month = "${month}";
-		$(".statsResult").parents(".content").load("statsByBranch.do?year=" + year + "&month=" + month);
+		$(".statsResultTable").parents(".content").load("statsByBranch.do?year=" + year + "&month=" + month);
 	}
 </script>
 </head>
@@ -35,7 +35,7 @@
 			<input type="button" value="뒤로" onclick="back()">
 		</div>
 	</div>
-	<div class="statsResult">
+	<div class="statsResultTable">
 		<p class="statsDetailP">${year}년&nbsp;${month}월&nbsp;판매&nbsp;상세&nbsp;통계&nbsp;-&nbsp;${branchName}</p>
 		<table class="statsDetailTable">
 			<tr class="trLabel">
