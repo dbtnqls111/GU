@@ -20,6 +20,7 @@ function shoppingBasket_request(){
 			open:function(){
 				$(this).parents(".ui-dialog").attr("tabindex", -1)[0].focus(); // 다이얼로그 창이 열렸을 때 X 버튼에 포커싱이 되는 현상을 해결
 				$(this).parents(".ui-dialog").find(".ui-dialog-title").css({ "width":"100%", "display":"block", "text-align":"center" }); // title 가운데 정렬
+				$(this).parents(".ui-dialog").css("z-index", "300");
 			},
 			
 			width:440,
@@ -39,7 +40,10 @@ function shoppingBasket_request(){
 		});
 		
 		$("#basket_alert_dialog #continueBtn").click(function(){
-			// 데이터 전송 처리 구현 중...
+			var url = "/GU/item/ajax/shoppingBasket_request.jsp";
+			var param = { "itemCode":itemCode, "quantity":quantity, "memId":memId };
+			$.get(url, param);
+			
 			$("#detail_dialog, #basket_alert_dialog").dialog("close");
 		});
 	}
@@ -69,7 +73,7 @@ function order_request(){
 
 
 // 상세보기창 콘텐츠 구성
-function detail_make_dialog(target){
+function make_detail_dialog(target){
 	$("#d_itemQuantity > input").val(""); // 수량 입력란 초기화
 	
 	var itemCode = $(target).attr("code");
@@ -98,6 +102,7 @@ function detail_make_dialog(target){
 			open:function(){
 				$(this).parents(".ui-dialog").attr("tabindex", -1)[0].focus(); // 다이얼로그 창이 열렸을 때 X 버튼에 포커싱이 되는 현상을 해결
 				$(this).parents(".ui-dialog").find(".ui-dialog-title").css({ "width":"100%", "display":"block", "text-align":"center" }); // title 가운데 정렬
+				$(this).parents(".ui-dialog").css("z-index", "300");
 			},
 			
 			width:750,
@@ -198,7 +203,7 @@ function content_revalidate(url, param){
 		
 		// 상세보기
 		$("#content li").click(function(){
-			detail_make_dialog($(this));
+			make_detail_dialog($(this));
 		});
 	}).always(function(){
 		$("#loader_background").fadeOut();

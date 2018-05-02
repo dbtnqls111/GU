@@ -71,5 +71,17 @@
 		brand like '%' || #{ keyword } || '%' or
 		name like '%' || #{ keyword } || '%'
 	</select>
+	
+	<select id="getSearchedItemList03" parameterType="java.util.Map" resultType="itemDTO">
+		select * from
+		(
+			select * from item where
+			type1 like '%' || #{ keyword } || '%' or
+			type2 like '%' || #{ keyword } || '%' or
+			brand like '%' || #{ keyword } || '%' or
+			name like '%' || #{ keyword } || '%'
+		)
+		where type1 = #{ type1 } and type2 like #{ type2 }
+	</select>
 		
 </mapper>

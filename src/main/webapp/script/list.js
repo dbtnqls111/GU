@@ -14,7 +14,7 @@ $(function(){
 	});
 	
 	$("#hot").on("click", ".img, .name", function(){
-		detail_make_dialog($(this).parents("li"));
+		make_detail_dialog($(this).parents("li"));
 	});
 	// ---------------------------------------------------------------------------------------------------------------
 	

@@ -24,16 +24,16 @@ public class OrderDAO {
 		return sqlSession.insert("mybatis.orderMapper.put", param);
 	}
 	
-	public int getMaxSeq() {
-		return sqlSession.selectOne("mybatis.orderMapper.getMaxSeq");
-	}
+	// ========================================================
 	
-	// ------------------------------------------------------------------------
+	public void setSqlSession(SqlSessionTemplate sqlSession) {
+		this.sqlSession = sqlSession;
+	}
 	
 	public List<OrderDTO> orderList(String branchCode){
 		return sqlSession.selectList("mybatis.orderMapper.orderList", branchCode);
 	}
-	
+
 	public int deleteOrder(int seq) {
 		return sqlSession.delete("mybatis.orderMapper.deleteOrder", seq);
 	}

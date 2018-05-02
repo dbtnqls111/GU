@@ -54,42 +54,43 @@ public class ItemController {
 		
 		// -----------------------------------------------------------------------------------------------
 		
-		HashMap<String, HashMap<String, ArrayList<ItemDTO>>> searchedResult = new HashMap<>();
-		
-		HashMap<String, String[]> name_list = new HashMap<>();
-		name_list.put("간편식사", new String[]{"도시락", "샌드위치/햄버거", "주먹밥/김밥"});
-		name_list.put("즉석조리", new String[]{"튀김", "베이커리", "즉석커피"});
-		name_list.put("과자류", new String[]{"스낵", "빵", "껌/캔디"});
-		name_list.put("아이스크림", new String[]{"아이스크림"});
-		name_list.put("식품", new String[]{"가공식사", "안주", "식재료"});
-		name_list.put("음료", new String[]{"일반음료", "아이스드링크", "유제품"});
-		name_list.put("생활용품", new String[]{"취미/레저", "의약외품", "잡화"});
+		HashMap<String, ArrayList<String>> searchedResult = new HashMap<>();
 		
 		String[] type1_name_list = { "간편식사", "즉석조리", "과자류", "아이스크림", "식품", "음료", "생활용품" };
-		String[] type2_name_list = null;
+		
+		HashMap<String, String[]> type2_name_list = new HashMap<>();
+		type2_name_list.put("간편식사", new String[]{"도시락", "샌드위치/햄버거", "주먹밥/김밥"});
+		type2_name_list.put("즉석조리", new String[]{"튀김", "베이커리", "즉석커피"});
+		type2_name_list.put("과자류", new String[]{"스낵", "빵", "껌/캔디"});
+		type2_name_list.put("아이스크림", new String[]{"아이스크림"});
+		type2_name_list.put("식품", new String[]{"가공식사", "안주", "식재료"});
+		type2_name_list.put("음료", new String[]{"일반음료", "아이스드링크", "유제품"});
+		type2_name_list.put("생활용품", new String[]{"취미/레저", "의약외품", "잡화"});
 		
 		for(int i = 0; i < type1_name_list.length; i++) {
-			searchedResult.put(type1_name_list[i], new HashMap<>());
+			searchedResult.put(type1_name_list[i], new ArrayList<String>());
 		}
 		
-		for(ItemDTO itemDTO : itemList) {
-			for(int i = 0; i < type1_name_list.length; i++) {
-				if(itemDTO.getType1().equals(type1_name_list[i])) {
-					HashMap<String, ArrayList<ItemDTO>> type2_list = searchedResult.get(type1_name_list[i]);
-					type2_name_list = name_list.get(type1_name_list[i]);
+		for(int i = 0; i < type1_name_list.length; i++) {
+			String type1_name = type1_name_list[i];
+			
+			for(ItemDTO itemDTO : itemList) {
+				if(itemDTO.getType1().equals(type1_name)) {
+					ArrayList<String> list = searchedResult.get(type1_name);
+					int count = 0;
 					
-					for(int j = 0; j < type2_name_list.length; j++) {
-						if(itemDTO.getType2().equals(type2_name_list[j])) {
-							if(type2_list.containsKey(type2_name_list[j])) {
-								type2_list.get(type2_name_list[j]).add(itemDTO);
-							}else {
-								type2_list.put(type2_name_list[j], new ArrayList<>());
-								type2_list.get(type2_name_list[j]).add(itemDTO);
-							}
+					if(list.size() == type2_name_list.get(type1_name).length) {
+						break;
+					}
+					
+					for(String type2_name : list) {
+						if(itemDTO.getType2().equals(type2_name)){ 
+							count++;
 							break;
 						}
 					}
-					break;
+					
+					if(count == 0){ list.add(itemDTO.getType2()); }
 				}
 			}
 		}
@@ -98,8 +99,7 @@ public class ItemController {
 		
 		int notEmpty_count = 0;
 		for(int i = 0; i < type1_name_list.length; i++) {
-			HashMap<String, ArrayList<ItemDTO>> type2_list = searchedResult.get(type1_name_list[i]);
-			if(type2_list.size() > 0) {
+			if(searchedResult.get(type1_name_list[i]).size() > 0) {
 				notEmpty_count++;
 				break;
 			}
@@ -113,7 +113,7 @@ public class ItemController {
 		
 		modelAndView.addObject("keyword", keyword);
 		modelAndView.setViewName("/item/searchedResult.jsp");
-	
+		
 		return modelAndView;
 	}
 
