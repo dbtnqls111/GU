@@ -15,11 +15,8 @@ public class StatsByBranch {
 	}
 
 	// orderBySalesPrice : true - salesPrice 오름차순 정렬
-	// false - 디폴트로 branchName 오름차순 정렬
+	// false - branchName 오름차순 정렬
 	public ArrayList<StatsByBranchDTO> getStatsByBranchList(boolean orderBySalesPrice) {
-		if (statsList == null && statsList.size() == 0) {
-			return null;
-		}
 
 		ArrayList<StatsByBranchDTO> result = new ArrayList<>();
 

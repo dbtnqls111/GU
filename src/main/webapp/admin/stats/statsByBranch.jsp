@@ -82,18 +82,26 @@
 		// 차트 데이터 설정
 		var listItem = new Array();
 		listItem.push("Month");
-		<c:forEach var="statsByBranchListForGraph" items="${statsByBranchListForGraph[5]}">
-			listItem.push("${statsByBranchListForGraph.branchName}");
+		<c:forEach var="branchName" items="${branchNameListForGraph}">
+			listItem.push("${branchName}");
 		</c:forEach>
 		
+		var list0 = new Array();
+		list0.push(dateCalc("${year}", "${month}", -5));
+		<c:forEach var="statsByBranchDTO" items="${statsByBranchListForGraph6[0]}">
+			list0.push("${statsByBranchDTO.salesPrice}");
+		</c:forEach>
+			
+		console.log(listItem);
+		console.log(list0);
+		
 		var data = google.visualization.arrayToDataTable([ 
-			listItem, 
-			[ dateCalc("${year}", "${month}", -5), 0, 0, 0, 0, 0 ], 
+			listItem, list0, 
 			[ dateCalc("${year}", "${month}", -4), 0, 0, 0, 0, 0 ], 
 			[ dateCalc("${year}", "${month}", -3), 0, 0, 0, 0, 0 ], 
 			[ dateCalc("${year}", "${month}", -2), 0, 0, 0, 0, 0 ], 
-			[ dateCalc("${year}", "${month}", -1), ${statsByBranchListForGraph[4][0].salesPrice}, ${statsByBranchListForGraph[4][1].salesPrice}, ${statsByBranchListForGraph[4][2].salesPrice}, ${statsByBranchListForGraph[4][3].salesPrice}, ${statsByBranchListForGraph[4][4].salesPrice} ], 
-			[ dateCalc("${year}", "${month}", 0), ${statsByBranchListForGraph[5][0].salesPrice}, ${statsByBranchListForGraph[5][1].salesPrice}, ${statsByBranchListForGraph[5][2].salesPrice}, ${statsByBranchListForGraph[5][3].salesPrice}, ${statsByBranchListForGraph[5][4].salesPrice} ] 
+			[ dateCalc("${year}", "${month}", -1), ${statsByBranchListForGraph6[4][0].salesPrice}, ${statsByBranchListForGraph6[4][1].salesPrice}, ${statsByBranchListForGraph6[4][2].salesPrice}, ${statsByBranchListForGraph6[4][3].salesPrice}, ${statsByBranchListForGraph6[4][4].salesPrice} ], 
+			[ dateCalc("${year}", "${month}", 0), ${statsByBranchListForGraph6[5][0].salesPrice}, ${statsByBranchListForGraph6[5][1].salesPrice}, ${statsByBranchListForGraph6[5][2].salesPrice}, ${statsByBranchListForGraph6[5][3].salesPrice}, ${statsByBranchListForGraph6[5][4].salesPrice} ] 
 		]);
 
 		// 그래프 옵션

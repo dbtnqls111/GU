@@ -17,9 +17,6 @@ public class StatsByItem {
 	// orderBySalesPrice : true - salesPrice 오름차순 정렬
 	// false - 디폴트로 itemType1 오름차순 정렬
 	public ArrayList<StatsByItemDTO> getStatsByItemList(boolean orderBySalesPrice) {
-		if (statsList == null && statsList.size() == 0) {
-			return null;
-		}
 
 		ArrayList<StatsByItemDTO> result = new ArrayList<>();
 

@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,6 +27,30 @@ public class StatsController {
 	@Autowired
 	private StatsService statsService;
 
+	public ArrayList<String> getLast6MonthDates(String yyyyDD) {
+		// 그래프를 위한 지난 여섯 달의 날짜
+		ArrayList<String> last6MonthDates = new ArrayList<>();
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		try {
+			Date date2 = sdf.parse(yyyyDD + "/01");
+
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date2);
+
+			last6MonthDates.add(yyyyDD);
+			for (int i = 0; i < 5; i++) {
+				calendar.add(Calendar.MONTH, -1);
+				last6MonthDates.add(sdf.format(calendar.getTime()).substring(0, 7));
+			}
+			Collections.reverse(last6MonthDates);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		return last6MonthDates;
+	}
+
 	// 지점별 통계 요청
 	@RequestMapping(value = "/admin/statsByBranch_main.do")
 	public ModelAndView salesStandByList_admin(HttpServletRequest request) {
@@ -41,25 +66,6 @@ public class StatsController {
 		String year = request.getParameter("year");
 		String month = request.getParameter("month");
 		String date = year + "/" + month;
-		// 그래프를 위한 지난 여섯 달의 날짜
-		ArrayList<String> last6MonthDates = new ArrayList<>();
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		try {
-			Date date2 = sdf.parse(date + "/01");
-
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(date2);
-
-			last6MonthDates.add(date);
-			for (int i = 0; i < 5; i++) {
-				calendar.add(Calendar.MONTH, -1);
-				last6MonthDates.add(sdf.format(calendar.getTime()).substring(0, 7));
-			}
-			Collections.reverse(last6MonthDates);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
 
 		// 선택한 월에 대한 판매 정보를 모두 가져옴(표)
 		ArrayList<HashMap<String, Object>> statsList = statsService.getStatsList(date);
@@ -69,22 +75,58 @@ public class StatsController {
 		ArrayList<StatsByBranchDTO> statsByBranchListForTable = statsByBranch.getStatsByBranchList(true);
 		int totalSalesPrice = statsByBranch.getTotalSalesPrice();
 
-		// 그래프를 위한 지난 여섯 달에 대한 데이터
-		ArrayList<ArrayList<StatsByBranchDTO>> statsByBranchListForGraph = new ArrayList<>();
+		// 선택한 월과 그 이전 5달까지의 목록(yyyy/DD 포맷)
+		ArrayList<String> last6MonthDates = getLast6MonthDates(date);
+
+		// 선택한 월과 해당 월 기준 지난 다섯 달에 대한 판매 정보를 모두 가져옴(그래프)
+		ArrayList<ArrayList<StatsByBranchDTO>> statsByBranchListForGraph6 = new ArrayList<>();
 		for (String lastDate : last6MonthDates) {
 			ArrayList<HashMap<String, Object>> lastStatsList = statsService.getStatsList(lastDate);
 
 			StatsByBranch lastStatsByBranch = new StatsByBranch(lastStatsList);
+			ArrayList<StatsByBranchDTO> statsByBranchListForGraph = lastStatsByBranch.getStatsByBranchList(false);
 
-			statsByBranchListForGraph.add(lastStatsByBranch.getStatsByBranchList(false));
+			statsByBranchListForGraph6.add(statsByBranchListForGraph);
 		}
 
-		for (int i = 0; i < statsByBranchListForGraph.size(); i++) {
-			System.out.println("=======================");
-			for (StatsByBranchDTO dto : statsByBranchListForGraph.get(i)) {
-				System.out.println(dto.getBranchName() + " : " + dto.getSalesPrice());
+		// 여섯 달에 대한 모든 판매 정보에 포함된 지점명 SET
+		TreeSet<String> branchNameSet = new TreeSet<>();
+		for (ArrayList<StatsByBranchDTO> statsByBranchListForGraph : statsByBranchListForGraph6) {
+			for (StatsByBranchDTO statsByBranchDTO : statsByBranchListForGraph) {
+				if (branchNameSet.isEmpty()) {
+					branchNameSet.add(statsByBranchDTO.getBranchName());
+				} else {
+					if (!branchNameSet.contains(statsByBranchDTO.getBranchName())) {
+						branchNameSet.add(statsByBranchDTO.getBranchName());
+					}
+				}
 			}
-			System.out.println("=======================");
+		}
+		
+		ArrayList<String> branchNameListForGraph = new ArrayList<>();
+		for (String branchName : branchNameSet) {
+			branchNameListForGraph.add(branchName);
+		}
+		
+		for (ArrayList<StatsByBranchDTO> statsByBranchListForGraph : statsByBranchListForGraph6) {
+			int remainSize = statsByBranchListForGraph.size();
+			for (int i = 0; i < branchNameListForGraph.size(); i++) {
+				if (remainSize > 0) {
+					if (branchNameListForGraph.get(i).equals(statsByBranchListForGraph.get(i).getBranchName())) {
+						remainSize--;
+					} else {
+						StatsByBranchDTO statsByBranchDTO = new StatsByBranchDTO();
+						statsByBranchDTO.setBranchName(branchNameListForGraph.get(i));
+						statsByBranchDTO.setSalesPrice(0);
+						statsByBranchListForGraph.add(i, statsByBranchDTO);
+					}
+				} else {
+					StatsByBranchDTO statsByBranchDTO = new StatsByBranchDTO();
+					statsByBranchDTO.setBranchName(branchNameListForGraph.get(i));
+					statsByBranchDTO.setSalesPrice(0);
+					statsByBranchListForGraph.add(statsByBranchDTO);
+				}
+			}
 		}
 
 		ModelAndView modelAndView = new ModelAndView();
@@ -92,7 +134,9 @@ public class StatsController {
 		modelAndView.addObject("month", month);
 		modelAndView.addObject("statsByBranchListForTable", statsByBranchListForTable);
 		modelAndView.addObject("totalSalesPrice", totalSalesPrice);
-		modelAndView.addObject("statsByBranchListForGraph", statsByBranchListForGraph);
+		modelAndView.addObject("branchNameListForGraph", branchNameListForGraph);
+		modelAndView.addObject("branchNameSetSize", branchNameListForGraph.size());
+		modelAndView.addObject("statsByBranchListForGraph6", statsByBranchListForGraph6);
 		modelAndView.setViewName("stats/statsByBranch.jsp");
 
 		return modelAndView;
