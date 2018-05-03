@@ -4,17 +4,23 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import branch.controller.BranchService;
 import item.bean.ItemDTO;
 import item.controller.ItemService;
+import order.bean.OrderDTO;
 import sales.bean.SalesDTO;
 
 @Controller
@@ -333,4 +339,97 @@ public class SalesController {
 		return modelAndView;
 	}
 
+	// 발주 대기 입력 요청
+	@RequestMapping(value = "/admin/salesInsert_admin.do")
+	public ModelAndView salesInsert_admin(HttpServletRequest request) {
+		@SuppressWarnings("unchecked")
+		ArrayList<OrderDTO> orderList = (ArrayList<OrderDTO>) request.getAttribute("orderList");
+		int i=0;
+		Map<Integer, Integer> orderSeq = new HashMap<>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		Date currentTime = new Date();
+		String today = sdf.format(currentTime);
+
+		ArrayList<String> codes = salesService.getCodeList(today);
+		String code = null;
+		int total = 0;
+
+		if (!codes.isEmpty()) {
+			int index = codes.get(0).indexOf("-");
+			String lastNumber = codes.get(0).substring(index + 1).trim();
+			code = today + " - " + (Integer.parseInt(lastNumber) + 1);
+			total = codes.size();
+		} else {
+			code = today + " - 1";
+		}
+
+		int result = 0;
+		for (OrderDTO orderDTO : orderList) {
+			SalesDTO salesDTO = new SalesDTO();
+			salesDTO.setCode(code);
+			salesDTO.setItemCode(orderDTO.getItemCode());
+			salesDTO.setBranchCode(orderDTO.getBranchCode());
+			salesDTO.setQuantity(orderDTO.getQuantity());
+			salesDTO.setPrice(orderDTO.getPrice());
+			salesDTO.setSalesDate("");
+			
+			orderSeq.put(i, orderDTO.getSeq());
+			i++;
+			
+			result += salesService.insertSales(salesDTO);
+		}
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("orderSeq", orderSeq);
+		modelAndView.setViewName("../orderSuccess.do");
+
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "getsalesCurrentList.do")
+	public @ResponseBody String getsalesCurrentList(HttpServletRequest request) {
+		String branchCode = request.getParameter("branchCode");		
+		ArrayList<SalesDTO> currentList = salesService.getsalesCurrentList(branchCode);
+		
+		JSONObject obj = new JSONObject();
+		String temp = "aaa";
+		try {
+			JSONArray jArray = new JSONArray();
+			
+			for(SalesDTO current : currentList) {
+				JSONObject sObject = new JSONObject();												
+				String compare = current.getCode();
+				if(!temp.equals(compare)) {
+					sObject.put("title", current.getCode());
+					String[] split = current.getCode().split(" ");
+					String date = split[0].replace("/", "-");
+					sObject.put("start", date);
+					jArray.add(sObject);
+				}
+				
+				temp = current.getCode();
+			}
+			
+			obj.put("events", jArray);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 }
+		
+		return obj.toString();
+	}
+	
+
+	@RequestMapping(value = "getsalesCurrentListView.do")
+	public ModelAndView orderCurrentListView(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView();
+		String code = request.getParameter("title");
+		String branchCode = request.getParameter("branchCode");
+		
+		ArrayList<SalesDTO> currentList = salesService.getsalesCurrentListView(branchCode, code);
+		
+		modelAndView.addObject("title", code);
+		modelAndView.addObject("currentList", currentList);
+		modelAndView.setViewName("/order/orderCurrentListView.jsp");
+		return modelAndView;
+	}
 }

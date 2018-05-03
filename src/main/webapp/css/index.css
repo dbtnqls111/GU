@@ -7,13 +7,13 @@ a {
 }
 
 #bannerWrapper{
-	width:1500px;	
+	width:1029px;
+	overflow:hidden;
+	margin-left:250px;
 }
 
 .buttonMenu {
-	margin-left: 250px;
 	padding-left: 25px;
-	width: 202px;
 	height: 60px;
 	line-height: 50px;
 	font-weight: bold;
@@ -32,17 +32,37 @@ a {
 }
 
 #buttonMenu {
+	width:22%;
 	float: left;
 	margin-top: 2px;
 }
 
-#boxDiv {
+#boxDiv, #boxDiv2 {
 	float: left;
 	margin-top: 3px;
-	width: 800px;
+	width: 78%;
 	height: 425px;
 	position:relative;
-	cursor:pointer;	
+	cursor:pointer;
+}
+
+#boxDiv2, #boxDiv2 *{ box-sizing:border-box; }
+
+#boxDiv2{
+	overflow:hidden;
+	border-bottom:1px solid #999999;
+	border-right:1px solid #999999;
+}
+
+#boxDiv2 > #box2_left{
+	width:60%; height:100%;
+	float:left;
+}
+
+#boxDiv2 > #box2_right{
+	width:40%; height:100%;
+	float:left;
+	border:1px solid black;
 }
 
 #right, #left{	
@@ -50,7 +70,7 @@ a {
     position: absolute; 
     top:0; 
     bottom: 0;
-    padding-top:180px;  
+    padding-top:180px; 
 }
 
 #right{	   
@@ -104,33 +124,42 @@ a {
 	display: none;
 }
 
-#best{	
-	padding:0;
-	margin:0;
-	padding-top:15px;
-	clear: both;
-	margin-left: 250px;
-	width:1200px;
-}
 
-#BestTitle{
-	font-size:20px;
-	font-weight:bold;
-}
 
-.best{
-	width:250px;
-	height:250px;
-	border:1px solid #d4d5d6;
-}
+/* ============================= 源�誘쇱쭊 ============================= */
 
-#BestImg{
-	padding:0;
-	margin:0;
-	padding-top:15px;
-}
+/* Best �긽�뭹 */
+/* -------------------------------------------------------------------------------- */
+#best *{ box-sizing:border-box; }
+#best{ width:1038px; margin:50px 0px 100px 250px; }
+#title{ width:100%; overflow:hidden; }
+#title *{ float:left; }
+#title_text{ margin:15px 0px 0px 5px; }
+#title_text > span{ font-size:25px; font-weight:bold; }
+#best ul{ margin:0px; padding:0px; overflow:hidden; }
 
-#best ul li{
+#best li{ 
+	/* �꼫鍮꾩� �넂�씠瑜� 吏��젙�빐二쇱뼱�빞留� box-sizing �냽�꽦�씠 �쟻�슜�맂�떎. */
+	width:24%;
+	height:300px;
+	margin:0px 10px 10px 0px;
+	float:left;
+	text-align:center;
+	border:1px solid #999999;
 	list-style:none;
-	display:inline;	
+	overflow:hidden;
 }
+
+#best .img{ width:100%; float:left; margin:0px; }
+
+#best .name{
+	width:100%; 
+	float:left;
+	text-align:left;
+	margin:0px 0px 7px 25px;
+	font-size:13px;
+}
+
+#best .price{ width:100%; float:left; text-align:left; margin:0px 0px 10px 25px; }
+#best .price > span{ font-size:20px; }
+/* -------------------------------------------------------------------------------- */

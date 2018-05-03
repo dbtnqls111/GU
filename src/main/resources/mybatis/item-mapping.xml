@@ -21,12 +21,6 @@
 		select * from item where code = #{ code }
 	</select>
 	
-	<select id="getItemList" parameterType="java.util.Map" resultType="itemDTO">
-		<!-- || : 문자열 연결 연산자 -->
-		select * from item where type1 = #{ type1 } and name like #{ keyword } || '%' and type2 like #{ type2 } and
-		(uup >= #{ lowest_price } and uup <![CDATA[ <= ]]> #{ highest_price }) order by code asc
-	</select>
-	
 	<select id="getItemListAll" resultType="itemDTO">
 		select * from item order by code asc
 	</select>
@@ -45,13 +39,49 @@
 		where rn >= #{startNum} and rn <= #{endNum}]]>
 	</select>
 	
-	<select id="getItemListCount" resultType="int">
-		select count(*) from item
-	</select>
-	
 	<select id="getSearchedItemListCount"  parameterType="String" resultType="int">
 		select count(*) from item where code like '%' || #{keyword} || '%' or type1 like '%' || #{keyword} || '%' 
 		or type2 like '%' || #{keyword} || '%' or brand like '%' ||  #{keyword} || '%' or name like '%' ||  #{keyword} || '%'
 	</select>
 	
+	<!-- ========================================================================================================= -->
+	
+	<select id="getItemListCount" resultType="int">
+		select count(*) from item
+	</select>
+	
+	<select id="getItemListCount02" parameterType="String" resultType="int">
+		select count(*) from item where type1 = #{ type1 }
+	</select>
+	
+	<select id="getItemList" parameterType="java.util.Map" resultType="itemDTO">
+		<!-- || : 문자열 연결 연산자 -->
+		<![CDATA[ select * from item where type1 = #{ type1 } and name like #{ keyword } || '%' and type2 like #{ type2 } and
+		(uup >= #{ lowest_price } and uup <= #{ highest_price }) order by code asc ]]>
+	</select>
+	
+	<select id="getItemList02" parameterType="java.util.Map" resultType="itemDTO">
+		<![CDATA[ select * from (select rownum as rn, item.* from item where type1 = #{ type1 }) where rn >= #{ start } and rn < #{ end } ]]>
+	</select>
+	
+	<select id="getSearchedItemList02" parameterType="String" resultType="itemDTO">
+		select * from item where
+		type1 like '%' || #{ keyword } || '%' or
+		type2 like '%' || #{ keyword } || '%' or
+		brand like '%' || #{ keyword } || '%' or
+		name like '%' || #{ keyword } || '%'
+	</select>
+	
+	<select id="getSearchedItemList03" parameterType="java.util.Map" resultType="itemDTO">
+		select * from
+		(
+			select * from item where
+			type1 like '%' || #{ keyword } || '%' or
+			type2 like '%' || #{ keyword } || '%' or
+			brand like '%' || #{ keyword } || '%' or
+			name like '%' || #{ keyword } || '%'
+		)
+		where type1 = #{ type1 } and type2 like #{ type2 }
+	</select>
+		
 </mapper>

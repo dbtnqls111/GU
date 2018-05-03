@@ -14,9 +14,12 @@
 		var count = 0;
 		<c:forEach var="orderDTO" items="${orderList}">
 			i= i + 1;
-			$("#orderTbody").append($('<tr><td class="td_border">' + "${orderDTO.itemCode}" + '</td>'
-					+ '<td class="td_border">' + "${orderDTO.itemName}" + '</td>'
-					+ '<td class="td_border" id="price_'+i+'" align="right">' + "${orderDTO.price}" + '</td>'
+			var commaPrice = comma("${orderDTO.uup}");
+			var allPrice = "${orderDTO.uup * orderDTO.quantity}";
+			var commaAllPrice = comma(allPrice);
+			$("#orderTbody").append($('<tr><td class="td_border" id="${orderDTO.seq}">' + "${orderDTO.itemCode}" + '</td>'
+					+ '<td class="td_border">' + "${orderDTO.name}" + '</td>'
+					+ '<td class="td_border" id="price_'+i+'" align="right">' + commaPrice + '</td>'
 					+ '<td class="td_border" id="table_center">'				
 					+ '<table id="countTable"><tr><td id="countTd"><input type="text" class="countText" id="countText_' + i + '" onkeydown="javascript:onlyNumber(this)" value="${orderDTO.quantity}"></td>'
 					+ '<td id="countButton">'
@@ -24,12 +27,14 @@
 					+ '<div class="buttonImg"><img src="${pageContext.request.contextPath}/img/downButton.png" class="countButton" id="down_"'+i+' onclick="javascript:down('+i+')"></div>'
 					+ '</td></tr></table>'
 					+ '</td>'
-					+ '<td class="td_border" id="allPrice_'+i+'" align="right">' + "${orderDTO.price * orderDTO.quantity}" + '</td>'
-					+ '<td align="center"><input type="checkbox"></td></tr>'
+					+ '<td class="td_border" id="allPrice_'+i+'" align="right">' + commaAllPrice + '</td>'
+					+ '<td align="center"><input type="checkbox" id="check_${orderDTO.seq}"></td></tr>'
 				));
-			count = count + parseInt($("#allPrice_"+i).text());
+			count = count + parseInt(allPrice);
 		</c:forEach>
-		$("#allPrice").html(count+"원");
+		
+		var commaCount = comma(count);
+		$("#allPrice").html(commaCount+"원");
 		
 		$("#home").click(function() {
 			location.href = "${pageContext.request.contextPath}/index.jsp";
@@ -40,39 +45,128 @@
 			$("input[type='checkbox']").prop("checked", check);
 		});
 		
-		$("#orderButton").click(function(){
-			var session = "${branchCode}";
-			alert(session);
+		$("#deleteOrder").click(function(){
+			var count = 0;
+			var countTemp = 0;
+			if (confirm("선택하신 상품을 삭제하시겠습니까?") == true){
+				for(var i=$('input:checkbox').length-1; i>0; i--){
+				 	if($('input:checkbox:eq('+i+')').prop("checked")){
+				 		countTemp=countTemp+1;
+				 		var seq = $('input:checkbox:eq('+i+')').attr('id').split("_")[1];
+				 		$.ajax({
+				 	        url:"deleteOrder.do",
+				 	        type:"post",
+				 	        data:{"seq":seq},
+				 	        dataType:"json",
+				 	        success:function(data){
+				 	        	count = count+1;
+				 	        	if(count==countTemp){
+						 			alert("정상적으로 삭제되었습니다.");
+				 	        	}
+				 	        },
+				 	        error:function(jqXHR, textStatus, errorThrown){
+				 	        	alert("상품 삭제 실패");
+				 	        }
+				 	    });
+				 		var all =  parseInt(uncomma($("#allPrice").text()));
+				 		all = all - parseInt(uncomma($("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(4)").text()));
+				 		$("#allPrice").html(comma(all)+"원");
+				 		$('#orderTable > tbody > tr:eq('+(i-1)+')').remove();				 		
+					}
+				 }
+			}else{ 
+			    return;
+			}		 
 		});
+		
+		$("#orderButton").click(function(){
+			  var orderArray = new Array(); // 배열 생성
+	         
+	          var totalOrderList = new Object(); // 배열을 담을 객체
+	          var stringJsonOrder;  // 스트링형태로 바꾼 배열 저장
+	          for(var i=1; i<$('input:checkbox').length; i++){				
+				 	if($('input:checkbox:eq('+i+')').prop("checked")){
+				 		var orderObj = new Object(); // 객체 생성
+				 		orderObj.seq=$("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(0)").attr("id");
+				 		orderObj.itemCode=$("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(0)").text();
+				 		orderObj.name=$("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(1)").text();
+				 		orderObj.uup=uncomma($("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(2)").text());
+				 		orderObj.quantity=$(".countText:eq("+(i-1)+")").val();
+				 		orderObj.price=uncomma($("#orderTable > tbody > tr:eq("+(i-1)+") > td:eq(4)").text());
+				 		
+				 		orderArray.push(orderObj);
+				 	}
+	          }
+	          
+	          totalOrderList.order = orderArray ;
+	          stringJsonOrder = JSON.stringify(totalOrderList);
+	          
+	          if(stringJsonOrder!='{"order":[]}'){
+	          	var form = document.createElement('form');
+	          
+	         	var objs = document.createElement('input');
+	          	objs.setAttribute('type', 'hidden');
+	          	objs.setAttribute('name', 'orderList');
+	         	objs.setAttribute('value', stringJsonOrder);
+	         	form.appendChild(objs);
+	          
+	            form.setAttribute('method', 'post');
+	            form.setAttribute('action', 'order.do');
+	         	document.body.appendChild(form);
+	          	form.submit();
+	          }else{
+	        	  var all =  parseInt(uncomma($("#allPrice").text()));
+	        	  if(all==0){
+	        		  alert("발주하실 상품이 없습니다.");
+	        	  }else{
+	        		  alert("발주하실 상품을 선택해주세요.");
+	        	  }
+	          }
+	          
+		});
+		
+		$("#allSelect").trigger("click"); // 처음에 전체선택 버튼이 선택되어 있도록 설정
 	});
 	
 	function up(number){
-		var all =  parseInt($("#allPrice").text());
+		var all =  parseInt(uncomma($("#allPrice").text()));
 		var count = parseInt($("#countText_"+number).val())+1;
 		$("#countText_"+number).val(count);		
-		var allprice = parseInt($("#price_"+number).text())*count;
-		all = all - parseInt($("#allPrice_"+number).text()) + allprice;
-		$("#allPrice_"+number).html(allprice);
-		$("#allPrice").html(all+"원");
+		var allprice = parseInt(uncomma($("#price_"+number).text()))*count;
+		all = all - parseInt(uncomma($("#allPrice_"+number).text())) + allprice;
+		$("#allPrice_"+number).html(comma(allprice));
+		$("#allPrice").html(comma(all)+"원");
 	}
 	
 	function down(number){
-		var all =  parseInt($("#allPrice").text());		
+		var all =  parseInt(uncomma($("#allPrice").text()));		
 		var count = parseInt($("#countText_"+number).val())-1;
 		if(count<0){
 			count=0;
 		}
 		$("#countText_"+number).val(count);
-		var allprice = parseInt($("#price_"+number).text())*count;
-		all = all - parseInt($("#allPrice_"+number).text()) + allprice;
-		$("#allPrice_"+number).html(allprice);
-		$("#allPrice").html(all+"원");
+		var allprice = parseInt(uncomma($("#price_"+number).text()))*count;
+		all = all - parseInt(uncomma($("#allPrice_"+number).text())) + allprice;
+		$("#allPrice_"+number).html(comma(allprice));
+		$("#allPrice").html(comma(all)+"원");
 	}
 	
 	function onlyNumber(obj){
 		$(obj).keyup(function(){
 	         $(this).val($(this).val().replace(/[^0-9]/g,""));
 	    }); 
+	}
+	
+	//콤마찍기
+	function comma(str) {
+	    str = String(str);
+	    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+	}
+	
+	//콤마풀기
+	function uncomma(str) {
+	    str = String(str);
+	    return str.replace(/[^\d]+/g, '');
 	}
 	
 </script>
@@ -83,7 +177,7 @@
 <body>
 <div id="orderWrap">
 	<div id="top">
-		<div id="top_head"><span id="home">GU</span></div>
+		<div id="top_head"><div id="home">GU</div></div>
 		<div id="top_body"><img src="${pageContext.request.contextPath}/img/top_body.png" id="top_bodyImg"></div>
 	</div>
 	
@@ -104,6 +198,12 @@
 			
 			<tbody id="orderTbody">
 			</tbody>
+			
+			<tfoot>
+				<tr id="deleteOrderTr">
+					<td colspan="6" id="deleteOrderTd"><input type="button" value="삭제" id="deleteOrder"></td>
+				</tr>
+			</tfoot>
 		</table>
 	</div>
 	

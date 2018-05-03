@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,8 @@
 		$(".header_left a:eq(0)").click(function(){
 			$(".category").toggle();
 		});	
+		
+		document.getElementById("path").value = "${path}";		
 	});
 </script>
 <link rel="stylesheet" type="text/css" href="../css/loginForm.css"/>
@@ -116,7 +119,8 @@
 		<div class="menu">
 			<p><a href="find_id.jsp">아이디찾기</a>&nbsp;｜&nbsp;<a href="find_pw.jsp">비밀번호찾기</a>&nbsp;｜&nbsp;<a href="joinForm.do">회원가입</a>
 		</div>
-	</div>
+	</div>	
+	<input type="hidden" name="path" id="path" />
 </form>
 	<div class="bannerBox">
 		<a href="#"><img src="../img/banner1.JPG" id="banner"></a>

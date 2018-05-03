@@ -13,48 +13,15 @@
 
 <title>GU</title>
 
-<script type="text/javascript" src="/GU/js/jquery-3.3.1.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
+<script type="text/javascript" src="script/list_function.js"></script>
 <script type="text/javascript" src="script/indexScript.js"></script>
 
-<script type="text/javascript">
-
-	function encode(type1, type2) {
-		location.href = "item/list.do?type1=" + encodeURI(type1, "UTF-8") + "&type2=" + encodeURI(type2, "UTF-8");
-	}
-
-	$(document).ready(function() {		
-
-	function encode(type1, type2){
-		location.href = "item/list.do?type1=" + encodeURI(type1, "UTF-8");
-	}
-	
-
-		// ----------------------------------- buttonMenu -----------------------------------
-		$.ajaxSetup({
-			cache : false
-		});
-
-		$(".buttonMenu").hover(function() {
-			var id = "#type2_category" + $(this).index();
-
-
-			$(this).css("background-color", "#2e4ea5");
-			$("#boxDiv").load("item/category/type2.html " + id, function() {
-	
-			$(this).css("background-color", "blue");
-			$("#boxDiv").load("item/ajax/type2.html " + id, function(){
-				$(id).css("color", "red");
-			});
-		}, function() {
-			$(this).css("background-color", "#013282");
-		}
-		});
-	});
-</script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
 
 <link rel="stylesheet" type="text/css" href="css/index.css">
+<link rel="stylesheet" type="text/css" href="css/index_and_list_public.css">
 
 </head>
 
@@ -84,7 +51,7 @@
 					<img alt="생활용품" src="img/daily.png" id="dailyIcon">생활용퓸
 				</div>
 			</div>
-
+			
 			<div id="boxDiv">
 				<div id="left">
 					<img alt="leftButton" src="img/bannerLeftButton.png"
@@ -108,29 +75,73 @@
 				</div>
 
 			</div>
-
+			
+			<div id="boxDiv2" hidden="hidden">
+				<div id="box2_left"></div>
+				<div id="box2_right"></div>
+			</div>
 		</div>
 
 		<div id="best">
-			<div id="BestTitle">Best 상품</div>
-			<ul id="BestImg">
-				<li><a href="getItem.do?code=best1"><img alt="베스트 상품1"
-						src="img/best1.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best2"><img alt="베스트 상품2"
-						src="img/best2.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best3"><img alt="베스트 상품3"
-						src="img/best3.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best4"><img alt="베스트 상품4"
-						src="img/best4.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best5"><img alt="베스트 상품5"
-						src="img/best5.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best6"><img alt="베스트 상품6"
-						src="img/best6.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best7"><img alt="베스트 상품7"
-						src="img/best7.jpg" class="best"></a></li>
-				<li><a href="getItem.do?code=best8"><img alt="베스트 상품8"
-						src="img/best8.jpg" class="best"></a></li>
+			<div id="title">
+				<div><img src="img/hot.gif" width="70px" height="70px"></div>
+				<div id="title_text"><span>Best 상품</span></div>
+			</div>
+			<ul id="bestItem">
+				<li id="bestItem0"></li>
+				<li id="bestItem1"></li>
+				<li id="bestItem2"></li>
+				<li id="bestItem3"></li>
+				<li id="bestItem4"></li>
+				<li id="bestItem5"></li>
+				<li id="bestItem6"></li>
+				<li id="bestItem7"></li>
 			</ul>
+		</div>
+	</div>
+
+	
+	<!-- 상세보기 창 -->
+	<div id="detail_dialog" title="상세보기" style="display:none;">
+		<div id="detail">
+			<div id="detail_left">
+				<img src="" width="100%" height="100%">
+			</div>
+			<div id="detail_right">
+				<h2 id="d_itemName"></h2>
+				<div id="d_itemPrice">
+					<strong>가격</strong> : <span style="font-family:-webkit-body;"></span>
+				</div><br>
+				<div id="d_itemDescription">
+					<strong>설명</strong> : <span style="font-family:-webkit-body;"></span>
+				</div><br>
+				<div id="d_itemQuantity">
+					<strong>수량</strong> :
+					<input type="text" size="3" maxlength="3" onpaste="javascript:return false" onfocusout="removeChar(event)"
+							  onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)" style="ime-mode:disabled">
+				</div><br>
+			</div>
+			<div class="btn">
+				<button id="basket">장바구니</button> &nbsp;
+				<button id="order">발주</button>
+				<span id="hiddenInfo" memId=<%= session.getAttribute("memId") %>></span>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- 장바구니 알림창 -->
+	<div id="basket_alert_dialog" title="장바구니" style="display:none;">
+		<div class="text">
+			<span>
+				해당 상품이 정상적으로 장바구니에 담겼습니다.<br>
+				장바구니로 이동하시겠습니까?
+			</span>
+		</div>
+		
+		<div class="btn">
+			<button id="moveBtn">장바구니 이동</button> &nbsp;
+			<button id="continueBtn">쇼핑 계속</button>
 		</div>
 	</div>
 </body>

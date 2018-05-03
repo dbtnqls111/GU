@@ -42,11 +42,13 @@ th, td {
 .tdLabel {
 	background-color: #c4c4c4;
 	font-weight: bold;
+	width: 30%;
 }
 
 .tdData {
 	background-color: white;
 	padding: 0;
+	width: 70%;
 }
 
 .tdData input {
@@ -54,7 +56,20 @@ th, td {
 	margin-left: 5px;
 	margin-right: 5px;
 	box-sizing: border-box;
-	/* border-radius: 5px; */
+}
+
+.tdData input.code {
+	width: calc(80% - 10px);
+	margin-left: 5px;
+	margin-right: 0;
+	box-sizing: border-box;
+}
+
+.tdData input.duplCheck {
+	width: calc(20% - 5px);
+	margin-left: 0;
+	margin-right: 5px;
+	box-sizing: border-box;
 }
 
 .footer {
@@ -63,4 +78,35 @@ th, td {
 	border-top: 1px solid #aaaaaa;
 	box-sizing: border-box;
 	padding: 2px 5px;
+}
+
+input[type='text'], input[type='number'], input[type='file'] {
+	border: 1px solid #aaaaaa;
+	border-radius: 5px;
+}
+
+input[type='text']:hover, input[type='number']:hover, input[type='file']:hover
+	{
+	border: 2px solid #66aaff;
+	box-sizing: border-box;
+}
+
+input[type='text']:focus, input[type='number']:focus, input[type='file']:focus
+	{
+	border: 2px solid #66aaff;
+	box-sizing: border-box;
+}
+
+input[type='submit'], input[type='button'] {
+	border: 1px solid #aaaaaa;
+	border-radius: 5px;
+	padding: 2px 10px;
+	background-color: #c9e1ff;
+	height: 24px;
+}
+
+input[type='submit']:hover, input[type='button']:hover {
+	background-color: #66aaff;
+	color: white;
+	cursor: pointer;
 }

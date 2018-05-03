@@ -109,5 +109,48 @@
 		or item.type2 like '%' || #{keyword} || '%' or item.name like '%' || #{keyword} || '%' 
 		or item.brand like '%' || #{keyword} || '%' or branch.name like '%' || #{keyword} || '%')))
 	</select>
+	
+	<select id="getCodeList" parameterType="String" resultType="String">
+		select distinct code from sales where code like #{today} || '%' and salesDate is null order by code desc
+	</select>
+	
+	<resultMap type="java.util.Map" id="stats">
+		<result javaType="String" column="salesCode" property="salesCode" />
+		<result javaType="int" column="salesQuantity" property="salesQuantity" />
+		<result javaType="int" column="salesPrice" property="salesPrice" />
+		<result javaType="String" column="itemType1" property="itemType1" />
+		<result javaType="String" column="itemType2" property="itemType2" />
+		<result javaType="String" column="itemBrand" property="itemBrand" />
+		<result javaType="String" column="itemName" property="itemName" />
+		<result javaType="String" column="branchName" property="branchName" />
+	</resultMap>
+	
+	<select id="getStatsList" parameterType="String" resultMap="stats">
+		select sales.code salesCode, sales.quantity salesQuantity, sales.price salesPrice, 
+		item.type1 itemType1, item.type2 itemType2, item.brand itemBrand, item.name itemName, branch.name branchName 
+		from sales, item, branch where sales.code like #{date} || '%' and sales.salesDate is not null 
+		and sales.itemCode = item.code and sales.branchCode = branch.code
+	</select>
+	
+	<select id="getStatsListByBranchName" parameterType="java.util.Map" resultMap="stats">
+		select sales.code salesCode, sales.quantity salesQuantity, sales.price salesPrice, 
+		item.type1 itemType1, item.type2 itemType2, item.brand itemBrand, item.name itemName, branch.name branchName 
+		from sales, item, branch where sales.code like #{date} || '%' and sales.salesDate is not null 
+		and sales.itemCode = item.code and sales.branchCode = branch.code and branch.name = #{branchName}
+	</select>
+	
+	<select id="getStatsListByItemType1" parameterType="java.util.Map" resultMap="stats">
+		select sales.code salesCode, sales.quantity salesQuantity, sales.price salesPrice, 
+		item.type1 itemType1, item.type2 itemType2, item.brand itemBrand, item.name itemName, branch.name branchName 
+		from sales, item, branch where sales.code like #{date} || '%' and sales.salesDate is not null 
+		and sales.itemCode = item.code and sales.branchCode = branch.code and item.type1 = #{itemType1}
+	</select>
 
+	<select id="getsalesCurrentList" parameterType="String" resultType="salesDTO">
+		select * from sales where branchCode=#{branchCode} and salesDate is null order by seq asc
+	</select>
+	
+	<select id="getSalesCurrentListView" parameterType="java.util.Map" resultType="salesDTO">
+		select sales.code, sales.itemCode, sales.quantity, sales.price, item.name, item.uup from sales, item  where sales.branchCode=#{branchCode} and sales.code=#{code} and sales.itemCode = item.code order by sales.itemCode asc
+	</select>
 </mapper>

@@ -1,117 +1,60 @@
-﻿$.getScript("http://code.jquery.com/ui/1.10.2/jquery-ui.js"); // jQuery UI JavaScript file load
+﻿var view_level; // 더 보기 level
 
-
-function onlyNumber(event){
-	event = event || window.event;
-	var keyID = (event.which) ? event.which : event.keyCode;
-	if((keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39){
-		return;
-	}else{
-		return false;
-	}
-}
-
-function removeChar(event) {
-	event = event || window.event;
-	var keyID = (event.which) ? event.which : event.keyCode;
-	if(keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39){
-		return;
-	}else{
-		event.target.value = event.target.value.replace(/[^0-9]/g, "");
-	}
-}
-
-function content_revalidate(url, param){
-	$("html").css("overflow", "hidden"); // 콘텐츠가 전부 채워질 때까지 페이지 스크롤을 못하게 금지(제거)
+$(function(){
+	//																		     ◆ hot ◆ 
+	// ---------------------------------------------------------------------------------------------------------------
+	$("#hot").on("mouseenter", ".img", function(){
+		$(this).css("cursor", "pointer");
+	});
 	
-	$("#loader_background").fadeIn();
-	$("#loader").fadeIn();
+	$("#hot").on("mouseenter", ".name", function(){
+		$(this).css({ "cursor":"pointer", "text-decoration":"underline" });
+	}).on("mouseleave", ".name", function(){
+		$(this).css("text-decoration", "none");
+	});
 	
-	$.get(url, param, function(data){
-		$("#content > ul > *").remove();
+	$("#hot").on("click", ".img, .name", function(){
+		make_detail_dialog($(this).parents("li"));
+	});
+	// ---------------------------------------------------------------------------------------------------------------
+	
+	
+	//																		 ◆ viewMore ◆ 
+	// ---------------------------------------------------------------------------------------------------------------	
+	$("#viewMore").hover(function(){
+		$("#viewMore").css({
+			"cursor":"pointer",
+			"text-decoration":"underline"
+		});
+	}, function(){
+		$("#viewMore").css("text-decoration", "none");
+	});
+	
+	
+	$("#viewMore").click(function(){
+		var cur_itemBox = "#itemBox" + view_level;
+		var next_itemBox = "#itemBox" + (view_level + 1);
 		
-		var itemBox_count = parseInt($(data).find("itemBox_count").text());
-
-		for(var i = 0; i < itemBox_count; i++){
-			$("#content > ul").append("<span id='itemBox" + i +"' class='itemBoxes'>");
-			
-			$(data).find("divide" + i + " > .item").each(function(){
-				var code = $(this).find("code").text();
-				
-				var img_name = $(this).find("name").text();
-				var item_name = img_name;
-				if(img_name.length > 14){ item_name = img_name.substring(0, 14) + "..."; }
-				
-				var price = $(this).find("price").text();
-
-				$("#itemBox" + i).append("<li code='" + code + "'>" +
-														"<p id='img'><img src='../img/item/" + code + ".jpg' width='100%'></p>" +
-														"<p id='name'><span realName='" + img_name + "'>" + item_name + "</span></p>" +
-														"<p id='price'><span>" + price + "</span>원</p>" +
-												  "</li>");
-			});
-			
-			$("#content > ul").append("</span>");
-		}
+		$(cur_itemBox).show();
 		
-		// 첫 번째 덩어리만 출력
-		$(".itemBoxes").not("#itemBox0").hide();
-
-		// itemBox1이 존재한다는 것은 덩어리가 2개 이상이라는 의미이므로 '더 보기'를 출력
-		if($("#itemBox1").attr("class") != undefined){
-			$("#viewMore").show();
-		}else{
+		if($(next_itemBox).attr("id") == undefined){
 			$("#viewMore").hide();
 		}
 		
-		// mouseenter 이벤트 처리
-		$(".itemBoxes > li").mouseenter(function(){
-			$(this).css({ "border":"2px solid black", "cursor":"pointer" });
-		}).mouseleave(function(){
-			$(this).css("border", "1px solid #999999");
-		});
-		
-		// 상세보기
-		$("#content li").click(function(){
-			// 다이얼로그 콘텐츠 구성
-			var itemCode = $(this).attr("code");
-			var itemName = $(this).find("#name > span").attr("realName");
-			var itemPrice = $(this).find("#price > span").html();
-			
-			// 상품 설명 불러오기
-			$("#d_itemDescription").load("../item/ajax/item_description.html #" + itemCode, function(){
-				$("#detail_left img").attr("src", "../img/item/" + itemCode + ".jpg");
-				$("#d_itemName").html(itemName);
-				$("#d_itemPrice").html("가격 : " + itemPrice);
-				
-				// 다이얼로그 구성
-				$("#detail #btn > button").button();
-				
-				$("#dialog").dialog({
-					open:function(){
-						$(this).parents(".ui-dialog").attr("tabindex", -1)[0].focus(); // 다이얼로그 창이 열렸을 때 X 버튼에 포커싱이 되는 현상을 해결
-						$(this).parents(".ui-dialog").find(".ui-dialog-title").css({ "width":"100%", "display":"block", "text-align":"center" }); // title 가운데 정렬
-					},
-					
-					width:750,
-					height:400,
-					
-	                modal:true,
-	                resizable:false,
-				});
-			});
-		});
-	}).always(function(){
-		$("#loader_background").fadeOut();
-		$("#loader").fadeOut();
-		
-		$("html").css("overflow", "auto"); // 페이지 스크롤 원상복구
+		view_level++;
 	});
-}
-
-
-$(function(){
-	//																		 ◆ content ◆ 
+	// ---------------------------------------------------------------------------------------------------------------
+	
+	
+	//																		 ◆ type2 ◆
+	// ---------------------------------------------------------------------------------------------------------------
+	$(document).on("mouseenter", ".type2", function(){
+		$(this).css("cursor", "pointer");
+	});
+	// ---------------------------------------------------------------------------------------------------------------
+	
+	
+	//																		 ◆ search ◆
 	// ---------------------------------------------------------------------------------------------------------------
 	// 'type2 메뉴 클릭' 및 '검색 시'
 	$(document).on("click", ".type2, #mj_btn_area > img", function(){
@@ -140,47 +83,8 @@ $(function(){
 		
 		return false;
 	});
-	// ---------------------------------------------------------------------------------------------------------------
 	
 	
-	//																		 ◆ viewMore ◆ 
-	// ---------------------------------------------------------------------------------------------------------------	
-	$("#viewMore").hover(function(){
-		$("#viewMore").css({
-			"cursor":"pointer",
-			"text-decoration":"underline"
-		});
-	}, function(){
-		$("#viewMore").css("text-decoration", "none");
-	});
-	
-	
-	var view_level = 1;
-	$("#viewMore").click(function(){
-		var cur_itemBox = "#itemBox" + view_level;
-		var next_itemBox = "#itemBox" + (view_level + 1);
-		
-		$(cur_itemBox).show();
-		
-		if($(next_itemBox).attr("id") == undefined){
-			$("#viewMore").hide();
-		}
-		
-		view_level++;
-	});
-	// ---------------------------------------------------------------------------------------------------------------
-	
-	
-	//																		 ◆ type2 ◆
-	// ---------------------------------------------------------------------------------------------------------------
-	$(document).on("mouseenter", ".type2", function(){
-		$(this).css("cursor", "pointer");
-	});
-	// ---------------------------------------------------------------------------------------------------------------
-	
-	
-	//																		 ◆ search ◆
-	// ---------------------------------------------------------------------------------------------------------------	
 	// 라디오 버튼 이벤트 처리
 	$(document).on("change", "input[name='price_range']", function(){
 		var price_range = $(this).attr("id");
@@ -209,7 +113,6 @@ $(function(){
 	});
 	// ---------------------------------------------------------------------------------------------------------------	
 	
-
 	//																		 ◆ moving_banner ◆
 	// ---------------------------------------------------------------------------------------------------------------
 	var navigator_top = $("#hot").offset().top; // http://cofs.tistory.com/197 참고
@@ -222,7 +125,7 @@ $(function(){
 	// ---------------------------------------------------------------------------------------------------------------
 	
 	
-	//																		 ◆ fixed_bar ◆
+	//																		       ◆ fixed_bar ◆
 	// ---------------------------------------------------------------------------------------------------------------
 	$("#fixed_bar").hover(function(){
 		$("#fixed_bar").css("cursor", "pointer")

@@ -2,6 +2,7 @@ html, body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
+	font-family: "돋움", dotum, "굴림", gulim, arial, helvetica, sans-serif;
 }
 
 .header {

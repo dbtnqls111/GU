@@ -95,4 +95,18 @@ public class SalesServiceImpl implements SalesService {
 		return salesDAO.getSearchedSalesCompleteListCount(keyword);
 	}
 
+	@Override
+	public ArrayList<String> getCodeList(String today) {
+		return (ArrayList<String>) salesDAO.getCodeList(today);
+	}
+
+	@Override
+	public ArrayList<SalesDTO> getsalesCurrentList(String branchCode) {
+		return (ArrayList<SalesDTO>)salesDAO.getsalesCurrentList(branchCode);
+	}
+
+	@Override
+	public ArrayList<SalesDTO> getsalesCurrentListView(String branchCode, String code) {
+		return (ArrayList<SalesDTO>)salesDAO.getsalesCurrentListView(branchCode, code);
+	}
 }

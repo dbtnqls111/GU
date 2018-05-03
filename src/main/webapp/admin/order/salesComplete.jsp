@@ -66,8 +66,8 @@
 						<th>
 							<input type="checkbox" class="check_all">
 						</th>
-						<th width="12%">품목 타입1</th>
-						<th width="12%">품목 타입2</th>
+						<th width="12%">품목 타입</th>
+						<th width="12%">세부 타입</th>
 						<th width="12%">품목 브랜드</th>
 						<th width="20%">품목명</th>
 						<th width="10%">수량</th>
@@ -96,17 +96,11 @@
 						</tr>
 					</c:forEach>
 					<tr class="trData">
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<th colspan="7"></th>
 						<th>
 							<fmt:formatNumber value="${totalSalesPrice}" />
 						</th>
-						<td></td>
+						<th></th>
 					</tr>
 				</table>
 			</form>
