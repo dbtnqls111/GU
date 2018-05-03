@@ -123,7 +123,7 @@ $(function(){
 	$(function(){
 		// 상세보기
 		$("#bestItem > li").click(function(){
-			detail_make_dialog($(this));
+			make_detail_dialog($(this));
 		});
 	});
 	

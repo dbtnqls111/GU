@@ -2,11 +2,11 @@
 
 div{ box-sizing:border-box; }
 
-#wrapper{ width:70%; margin:auto; }
+#wrapper{ width:70%; margin:auto; overflow:hidden; }
 
 #wrapper > #show_keyword{
 	width:100%; height:100px;
-	margin:40px 0px 40px 0px;
+	margin:40px 0px 80px 0px;
 	text-align:center; line-height:100px;
 	border:1px solid #aed0ea; border-radius:30px;
 	background:#deedf7;
@@ -15,58 +15,108 @@ div{ box-sizing:border-box; }
 
 #not_searchedResult{ width:100%; text-align:center; }
 
-.viewMore{
-	width:100%; height:40px;
-	float:left;
-	display:none;
-	text-align:center; line-height:40px;
-	border:1px solid black;
-	font-size:20px;
-	
+/* ---------------------------------------------------------------------------------------------------------- */
+
+#wrapper ul{ padding:0px; text-align:center; list-style:none; }
+
+#wrapper li{
+	line-height:40px;
+	font-size:100%; font-weight:bold;
 }
 
-#copyright{ float:left; border:1px solid black; }
+.active{
+	background:#3baae3 url(/GU/css/searchedResult/images/ui-bg_glass_50_3baae3_1x400.png) 50% 50% repeat-x;
+	border:1px solid #2694e8;
+	cursor:pointer;
+	font-size:100%; font-weight:bold;
+	color:#ffffff;
+}
 
+.disabled{ 
+	pointer-events:none; /* 마우스 이벤트 비활성화 */
+	border:1px solid #E0E0E0;
+	background:#EEEEEE;
+	color:#BDBDBD;
+}
 
-/* tab content */
-.content *{ box-sizing:border-box; }
-.content{ width:100%; padding:0px display:none; }
-.content ul{ margin:0px; padding:0px; overflow:hidden; }
+#menu{
+	position:absolute;
+	overflow:hidden;
+	margin:0px 0px 0px 40px; padding:0px;
+	z-index:200;
+}
 
-.content li{ 
+.type1{
+	width:130px; 
+	float:left; 
+	border-top-left-radius:10px; border-top-right-radius:10px;
+	margin-right:5px; 
+}
+
+.type1 > span{
+	display:block;
+	border-top-left-radius:10px; border-top-right-radius:10px;
+}
+
+.type2 > li{ width:98.4%; float:left; }
+
+/* ---------------------------------------------------------------------------------------------------------- */
+
+#content{
+	width:952px;
+	position:absolute;
+	top:369px; left:264px;
+	z-index:100;
+}
+
+#content:after{
+	position: absolute;
+    content: "";
+    bottom: -40px;
+    height: 40px;
+    width: 1px;
+}
+		
+#content > #menu_area{
+	height:50px;
+	background:#deedf7 url("/GU/css/searchedResult/images/ui-bg_highlight-soft_100_deedf7_1x100.png") 50% 50% repeat-x;
+	border:1px solid #aed0ea;
+	border-radius:10px;
+}
+
+#content > #content_area{
+	border:1px solid #aed0ea;
+	border-radius:10px;
+	background:#f2f5f7 url("/GU/css/searchedResult/images/ui-bg_highlight-hard_100_f2f5f7_1x100.png") 50% top repeat-x
+}
+
+#content *{ box-sizing:border-box; }
+#content ul{ margin:10px 0px 0px 10px; padding:0px; overflow:hidden; }
+
+#content li{
 	/* 너비와 높이를 지정해주어야만 box-sizing 속성이 적용된다. */
 	width:24%;
 	height:325px;
 	
 	float:left;
-	margin:0px 10px 10px 0px;
+	margin:0px 9px 9px 0px;
 	text-align:center;
 	list-style:none;
 	overflow:hidden;
 	border:1px solid #999999;
 }
 
-.content .img{ width:100%; float:left; margin-bottom:0px; }
-.content .name{ width:100%; float:left; text-align:left; margin-left:25px; font-size:13px; }
-.content .price{ width:100%; float:left; text-align:left; margin:0px 0px 10px 25px; }
-.content .price > span{ font-size:20px; }
+#content .img{ width:100%; float:left; margin-bottom:0px; }
+#content .name{ width:100%; float:left; text-align:left; margin-left:25px; font-size:13px; }
+#content .price{ width:100%; float:left; text-align:left; margin:0px 0px 10px 25px; }
+#content .price > span{ font-size:20px; }
 
+#viewMore{
+	width:99%; height:40px;
+	float:left;
+	margin-bottom:10px;
+	text-align:center; line-height:37px;
+	border:1px solid black;
+	font-size:20px;
+}
 /* ----------------------------------------------------------------------------------- */
-
-#type2 ul{
-	width:130px;
-	position:absolute;
-	display:none; 
-	padding:0px;
-	text-align:center;
-	list-style:none;
-	background:#3baae3 url(/GU/img/ui-bg_glass_50_3baae3_1x400.png) 50% 50% repeat-x;
-}
-		
-#type2 li{
-	border:1px solid #2694e8;
-	line-height:40px;
-	cursor:pointer;
-	font-size:100%; font-weight:bold;
-	color:#ffffff;
-}

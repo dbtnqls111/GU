@@ -131,7 +131,7 @@ a {
 /* Best �긽�뭹 */
 /* -------------------------------------------------------------------------------- */
 #best *{ box-sizing:border-box; }
-#best{ width:1010px; margin:50px 0px 100px 250px; }
+#best{ width:1038px; margin:50px 0px 100px 250px; }
 #title{ width:100%; overflow:hidden; }
 #title *{ float:left; }
 #title_text{ margin:15px 0px 0px 5px; }
@@ -163,12 +163,3 @@ a {
 #best .price{ width:100%; float:left; text-align:left; margin:0px 0px 10px 25px; }
 #best .price > span{ font-size:20px; }
 /* -------------------------------------------------------------------------------- */
-
-/* �긽�꽭蹂닿린 */
-/* ------------------------------------------------ */
-#detail{ width:100%; overflow:hidden; }
-#detail_left{ width:30%; float:left; margin-right:40px; }
-#detail_right{ width:60%; float:left; }
-#detail > .btn{ width:100%; float:left; }
-#detail > .btn{ text-align:center; }
-/* ------------------------------------------------ */

@@ -19,12 +19,7 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.put(itemCode, quantity, memId);
 	}
 	
-	@Override
-	public int getMaxSeq() {
-		return orderDAO.getMaxSeq();
-	}
-	
-	// --------------------------------------------------------------
+	// ================================================
 	
 	@Override
 	public ArrayList<OrderDTO> orderList(String branchCode) {		

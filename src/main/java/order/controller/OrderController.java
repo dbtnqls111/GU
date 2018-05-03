@@ -44,7 +44,6 @@ public class OrderController {
 	public ModelAndView orderRequest(HttpServletRequest req) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		// int seq = orderService.getMaxSeq() + 1;
 		String code = req.getParameter("code");
 		String name = req.getParameter("name");
 		int quantity = Integer.parseInt(req.getParameter("quantity"));
@@ -52,7 +51,6 @@ public class OrderController {
 		
 		OrderDTO orderDTO = new OrderDTO();
 		orderDTO.setItemCode(code);
-		// orderDTO.setSeq(seq);
 		orderDTO.setName(name);
 		orderDTO.setQuantity(quantity);
 		orderDTO.setUup(price);
@@ -66,7 +64,7 @@ public class OrderController {
 		return modelAndView; 
 	}
 	
-	// ------------------------------------------------------------------------
+	// ========================================================
 	
 	@RequestMapping(value = "orderList.do")
 	public ModelAndView getOrderList(HttpServletRequest request) {

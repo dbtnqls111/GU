@@ -53,21 +53,9 @@ public class ItemDAO {
 	}
 	
 	// --------------------------------------------------------------------------------------
-	
-	public SqlSessionTemplate getSqlSession() {
-		return sqlSession;
-	}
 
 	public void setSqlSession(SqlSessionTemplate sqlSession) {
 		this.sqlSession = sqlSession;
-	}
-	
-	public int getItemListCount() {
-		return sqlSession.selectOne("mybatis.itemMapper.getItemListCount");
-	}
-	
-	public int getItemListCount(String type1) {
-		return sqlSession.selectOne("mybatis.itemMapper.getItemListCount02", type1);
 	}
 
 	public List<ItemDTO> getItemList(String type1, String keyword, String type2, int lowest_price, int highest_price) {
@@ -96,5 +84,22 @@ public class ItemDAO {
 	
 	public List<ItemDTO> getSearchedItemList(String keyword){
 		return sqlSession.selectList("mybatis.itemMapper.getSearchedItemList02", keyword);
+	}
+	
+	public List<ItemDTO> getSearchedItemList(String keyword, String type1, String type2){
+		Map<String, Object> param = new HashMap<>();
+		param.put("keyword", keyword);
+		param.put("type1", type1);
+		param.put("type2", type2);
+		
+		return sqlSession.selectList("mybatis.itemMapper.getSearchedItemList03", param);
+	}
+	
+	public int getItemListCount() {
+		return sqlSession.selectOne("mybatis.itemMapper.getItemListCount");
+	}
+	
+	public int getItemListCount(String type1) {
+		return sqlSession.selectOne("mybatis.itemMapper.getItemListCount02", type1);
 	}
 }
