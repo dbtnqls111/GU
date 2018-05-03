@@ -25,18 +25,15 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
-	// 장바구니 요청 처리
-	@RequestMapping(value = "/order/shoppingBasket.do")
-	public String shoppingBasket(HttpServletRequest req) {
+	@RequestMapping(value = "/order/basketRequest.do")
+	public @ResponseBody String basketRequest(HttpServletRequest req) { // @ResponseBody :
 		String itemCode = req.getParameter("itemCode");
 		int quantity = Integer.parseInt(req.getParameter("quantity"));
 		String memId = req.getParameter("memId");
-		
-		int result = orderService.put(itemCode, quantity, memId);
-		if(result > 0){ System.out.println("장바구니 담기 성공!"); }
-		else{ System.out.println("장바구니 담기 실패..."); }
-		
-		return "redirect:" + "/orderList.do";
+
+		orderService.put(itemCode, quantity, memId);
+
+		return "Test!";
 	}
 	
 	// 발주 요청 처리

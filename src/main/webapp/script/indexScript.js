@@ -82,9 +82,9 @@ $(document).ready(function() {
 
 
 
-// ====================================== 김민진 ======================================
+// =================================================== 김민진 ===================================================
 function encode(type1, type2_num){
-	location.href = "item/list.do?type1=" + encodeURI(type1, "UTF-8") + "&type2=" + type2_num;
+	location.href = "item/list.do?type1=" + encodeURIComponent(type1) + "&type2=" + type2_num;
 }
 
 $(function(){
@@ -114,7 +114,7 @@ $(function(){
 	// mouseenter 이벤트 처리
 	$("#bestItem > li").mouseenter(function(){
 		$(this).css("cursor", "pointer");
-		$(this).css({ "border":"2px solid black", "cursor":"pointer" });
+		$(this).css({ "border":"solid 2px #757575", "cursor":"pointer" });
 	}).mouseleave(function(){
 		$(this).css("border", "1px solid #999999");
 	});
@@ -135,9 +135,7 @@ $(function(){
 		var id = "#type2_category" + $(this).index();
 
 		$(this).css("background-color", "#2e4ea5");
-		$("#boxDiv2 #box2_left").load("/GU/item/ajax/type2.html " + id, function(){
-			$(id).css("color", "red");
-		});
+		$("#boxDiv2 #box2_left").load("/GU/item/ajax/type2.html " + id);
 	}).mouseleave(function(){
 		$(this).css("background-color", "#013282");
 	});
