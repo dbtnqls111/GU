@@ -23,6 +23,8 @@ public interface SalesService {
 
 	ArrayList<SalesDTO> getSalesComplete(String code);
 
+	ArrayList<HashMap<String, String>> getSalesStandByNews(String today);
+
 	ArrayList<HashMap<String, String>> getSalesStandByList(int startNum, int endNum);
 
 	ArrayList<HashMap<String, String>> getSalesCompleteList(int startNum, int endNum);
@@ -40,7 +42,7 @@ public interface SalesService {
 	int getSearchedSalesCompleteListCount(String keyword);
 
 	ArrayList<String> getCodeList(String today);
-	
+
 	ArrayList<SalesDTO> getsalesCurrentList(String branchCode);
 
 	ArrayList<SalesDTO> getsalesCurrentListView(String branchCode, String code);

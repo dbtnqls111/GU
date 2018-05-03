@@ -4,7 +4,6 @@ function shoppingBasket_request(){
 	
 	if(memId == "null"){
 		alert("로그인 후 이용해주세요.");
-
 		location.href = "/GU/member/loginForm.do?path=" + location.pathname + encodeURIComponent(location.search);
 	}else{
 		var itemCode = $("#detail_dialog #hiddenInfo").attr("itemCode");

@@ -5,18 +5,16 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.TreeSet;
 
-public class StatsByBranch {
+public class StatsByBranchForTable {
 
 	private ArrayList<HashMap<String, Object>> statsList = null;
 	private int totalSalesPrice = 0;
 
-	public StatsByBranch(ArrayList<HashMap<String, Object>> statsList) {
+	public StatsByBranchForTable(ArrayList<HashMap<String, Object>> statsList) {
 		this.statsList = statsList;
 	}
 
-	// orderBySalesPrice : true - salesPrice 오름차순 정렬
-	// false - branchName 오름차순 정렬
-	public ArrayList<StatsByBranchDTO> getStatsByBranchList(boolean orderBySalesPrice) {
+	public ArrayList<StatsByBranchDTO> getStatsByBranchList() {
 
 		ArrayList<StatsByBranchDTO> result = new ArrayList<>();
 
@@ -49,10 +47,8 @@ public class StatsByBranch {
 			result.add(statsByBranchDTO);
 		}
 
-		if (orderBySalesPrice) {
-			// 지점별 판매액 순위로 정렬
-			Collections.sort(result);
-		}
+		// 지점별 판매액 순위로 정렬
+		Collections.sort(result);
 
 		// 지점별 순위 및 점유율 입력
 		for (int i = 0; i < result.size(); i++) {
