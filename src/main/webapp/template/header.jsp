@@ -104,6 +104,7 @@ $(function(){
 
 				<ul id="memberUl">
 					<li id="userLi"><a href="#"><img alt="user" src="${pageContext.request.contextPath}/img/user.png" id = "userIcon"><br>${memName}님</a></li>
+
 					<li id="loginLi">
 						<form action="/GU/member/loginForm.do" name="loginForm" method="post">
 							<a href="#" id="login"><img alt="login" src="${pageContext.request.contextPath}/img/login.png" id="loginIcon" title="로그인"></a>

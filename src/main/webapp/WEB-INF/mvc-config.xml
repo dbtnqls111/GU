@@ -14,6 +14,8 @@
 	<context:component-scan base-package="sales" />
 	<context:component-scan base-package="board" />
 	<context:component-scan base-package="order" />
+
+	<context:component-scan base-package="sms"/>
 	<context:component-scan base-package="stats" />
 
 	<mvc:annotation-driven />

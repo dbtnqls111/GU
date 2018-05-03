@@ -36,6 +36,11 @@ public class MemberServiceImpl implements MemberService {
 	public boolean isExistId(String id) {
 		return memberDAO.isExistId(id);
 	}
+	
+	@Override
+	public boolean isExistEmail(String email) {
+		return memberDAO.isExistEmail(email);
+	}
 
 	@Override
 	public String findId_phone(String name, String phone) {
@@ -45,5 +50,20 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String findId_email(String name, String email) {
 		return memberDAO.findId_email(name, email);
+	}
+	
+	@Override
+	public String findPw_email(String name, String email) {
+		return memberDAO.findPw_email(name, email);
+	}
+
+	@Override
+	public int updateBranch(MemberDTO memberDTO) {
+		return memberDAO.updateBranch(memberDTO);
+	}
+
+	@Override
+	public boolean certifiMemCheck(String name, String phone) {
+		return memberDAO.certifiMemCheck(name, phone);
 	}
 }

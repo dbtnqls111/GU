@@ -261,6 +261,75 @@ public class BranchController {
 
 		return modelAndView;
 	}
+	
+	
+	// ------------------------------------------- 지점 ----------------------------------------------------
+	
+	// 회원가입 화면에서 지점찾기 클릭시 지점 목록 출력
+		@RequestMapping(value = "/member/branchList.do")
+		public ModelAndView branchList(HttpServletRequest request) {
+			int page = Integer.parseInt(request.getParameter("page"));
+
+			int limit = 20;
+			int endNum = page * limit;
+			int startNum = endNum - (limit - 1);
+
+			ArrayList<BranchDTO> branchList = branchService.getBranchList_member(startNum, endNum);
+
+			int listCountAll = branchService.getBranchListCount();
+			int listCount_notNull = branchService.getBranchListCount_member();
+			int maxPage = ((listCountAll-listCount_notNull) + (limit - 1)) / limit;
+			int startPage = (page - 1) / 5 * 5 + 1;
+			int endPage = startPage + 4;
+			if (maxPage < endPage) {
+				endPage = maxPage;
+			}
+
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject("branchList", branchList);
+			modelAndView.addObject("page", page);
+			modelAndView.addObject("maxPage", maxPage);
+			modelAndView.addObject("startPage", startPage);
+			modelAndView.addObject("endPage", endPage);
+			modelAndView.addObject("type", "branchList");
+			modelAndView.setViewName("branchList.jsp");
+
+			return modelAndView;
+		}
+		
+		// 검색된 지점 목록 요청
+		@RequestMapping(value = "/member/searchedBranchList.do")
+		public ModelAndView searchedBranchList(HttpServletRequest request) {
+			String keyword = request.getParameter("keyword");
+			int page = Integer.parseInt(request.getParameter("page"));
+
+			int limit = 20;
+			int endNum = page * limit;
+			int startNum = endNum - (limit - 1);
+
+			ArrayList<BranchDTO> branchList = branchService.getSearchedBranchList_member(keyword, startNum, endNum);
+			
+			int listCountAll = branchService.getSearchedBranchListCount(keyword);			
+			int listCount_notNull = branchService.getSearchedBranchListCount_member(keyword);
+			int maxPage = ((listCountAll-listCount_notNull) + (limit-1)) / limit;
+			int startPage = (page - 1) / 5 * 5 + 1;
+			int endPage = startPage + 4;
+			if (maxPage < endPage) {
+				endPage = maxPage;
+			}
+
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject("branchList", branchList);
+			modelAndView.addObject("keyword", keyword);
+			modelAndView.addObject("page", page);
+			modelAndView.addObject("maxPage", maxPage);
+			modelAndView.addObject("startPage", startPage);
+			modelAndView.addObject("endPage", endPage);
+			modelAndView.addObject("type", "searchedBranchList");
+			modelAndView.setViewName("branchList.jsp");
+
+			return modelAndView;
+		}
 
 	// 지점 코드 중복 체크
 	@RequestMapping(value = "/admin/branchCodeCheck_admin.do")

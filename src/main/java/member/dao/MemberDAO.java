@@ -43,12 +43,33 @@ public class MemberDAO {
 		}
 	}
 	
+	public boolean isExistEmail(String email) {
+		if (sqlSession.selectOne("mybatis.memberMapper.isExistEmail", email) == null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean certifiMemCheck(String name, String phone) {
+		Map<String, String> map = new HashMap<>();
+		map.put("name", name);
+		map.put("phone", phone);
+		
+		if(sqlSession.selectOne("mybatis.memberMapper.certifiMemCheck", map) == null) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
 	public String findId_phone(String name, String phone) {
 		Map<String, String> map  = new HashMap<>();
 		map.put("name", name);
 		map.put("phone", phone);
 		
 		String id = sqlSession.selectOne("mybatis.memberMapper.findId_phone", map);
+		
 		if (id == null) {
 			return null;
 		} else {
@@ -67,5 +88,22 @@ public class MemberDAO {
 		} else {
 			return id;
 		}
+	}
+	
+	public String findPw_email(String name, String email) {
+		Map<String, String> map  = new HashMap<>();
+		map.put("name", name);
+		map.put("email", email);
+		
+		String pw = sqlSession.selectOne("mybatis.memberMapper.findPw_email", map);
+		if (pw == null) {
+			return null;
+		} else {
+			return pw;
+		}
+	}
+	
+	public int updateBranch(MemberDTO memberDTO) {
+		return sqlSession.update("mybatis.memberMapper.updateBranch", memberDTO);
 	}
 }

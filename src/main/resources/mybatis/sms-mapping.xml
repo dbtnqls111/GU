@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mybatis.smsMapper">
+
+	<insert id="insertCertificationKey" parameterType="HashMap">
+		insert into sms (phone , tempKey) VALUES (#{phone}, #{tempKey})
+	</insert>
+	<select id="getTempKey" parameterType="String" resultType="String">
+		select tempKey from sms where tempKey = #{tempKey}
+	</select>
+	<delete id="deleteTempKey" parameterType="String">
+		delete from sms where tempKey = #{tempKey}
+	</delete>
+
+
+</mapper>
