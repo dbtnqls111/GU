@@ -53,6 +53,7 @@ public class MemberController {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		String path = request.getParameter("path");
+		System.out.println(path);
 		String[] path_real = path.split("/GU/");
 		
 		MemberDTO memberDTO = memberService.login(id, pw);
@@ -79,16 +80,22 @@ public class MemberController {
 	/*로그아웃*/
 	@RequestMapping(value = "logout.do")
 	public ModelAndView logout(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView();
 		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("memId");
 		session.removeAttribute("memName");
 		session.removeAttribute("memId");
 		session.invalidate();
 
-		String path = request.getParameter("path");
-		String[] path_real = path.split("/GU/");
+		if(id.equals("admin")) {
+			modelAndView.setViewName("redirect:/index.jsp");
+		}else {
+			String path = request.getParameter("path");
+			String[] path_real = path.split("/GU/");
 
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("redirect:"+path_real[1]);
+			modelAndView.setViewName("redirect:"+path_real[1]);
+		}
+
 		return modelAndView;
 	}
 

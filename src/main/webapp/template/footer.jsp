@@ -22,6 +22,17 @@
 		$("#searchBarIcon").click(function(){
 			$("#search").focus();
 		});
+		
+		var session = "${memName}";
+		
+		$("#orderBar").click(function(){
+			if(session==""){
+				alert("로그인 먼저 해주세요.");
+				location.href="${pageContext.request.contextPath}/index.jsp";
+			}else{
+				location.href="${pageContext.request.contextPath}/orderList.do";
+			}
+		});
 	});
 </script>
 <link rel="stylesheet" type="text/css" href="/GU/css/footer.css">
@@ -32,7 +43,7 @@
 			<li id="foldingLi"><a href="#"><img alt="접기" src="${pageContext.request.contextPath}/img/folding.png" id="foldingIcon"></a></li>
 			<li id="mainBar"><a href="${pageContext.request.contextPath}/index.jsp"><img alt="main" src="${pageContext.request.contextPath}/img/home.png" id="homeIcon"></a></li>
 			<li><a href="#"><img alt="검색" src="${pageContext.request.contextPath}/img/searchBar.png" id="searchBarIcon"></a></li>
-			<li><a href="${pageContext.request.contextPath}/orderList.do"><img alt="발주대기목록" src="${pageContext.request.contextPath}/img/orderBar.png" id="orderBarIcon"></a></li>
+			<li><a href="#" id="orderBar"><img alt="발주대기목록" src="${pageContext.request.contextPath}/img/orderBar.png" id="orderBarIcon"></a></li>
 			<li id="topBar"><a href="#"><img alt="맨위로" src="${pageContext.request.contextPath}/img/top.png" id="topIcon"></a></li>
 		</ul>
 		
