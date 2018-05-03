@@ -145,7 +145,6 @@ div{ box-sizing:border-box; }
 	
 	/* 불투명도 조절 */
 	opacity:0.6; /* 값 범위 : 0 ~ 1 */
-	filter:alpha(opacity=60); /* For IE8 and earlier */
 }
 
 #loader{ display:none; position:fixed; left:50%; top:50%; }

@@ -132,16 +132,39 @@ $(function(){
 	$(".buttonMenu").mouseenter(function(){
 		$("#boxDiv").hide();
 		$("#boxDiv2").show();
-		var id = "#type2_category" + $(this).index();
+		var id = "#category" + $(this).index();
 
 		$(this).css("background-color", "#2e4ea5");
-		$("#boxDiv2 #box2_left").load("/GU/item/ajax/type2.html " + id);
+		$("#boxDiv2 #box2_left").load("/GU/item/ajax/type2.html " + id, function(){
+			var type1 = $(id).attr("type1");
+			
+			$(id).find(".type2").each(function(){
+				var type2 = $(this).attr("type2");
+				$(this).css({
+							  "background":"url(/GU/img/category/" + type2 + ".png)",
+							  "background-repeat":"no-repeat",
+							  "background-size":"100% 80%",
+							  "opacity":"0.6",
+							  "line-height":"590px",
+							  "font-weight":"bold"
+						  });
+			});
+			
+			$("#boxDiv2 #box2_right > img").attr("src", "/GU/img/category/" + type1 + ".png");
+			
+			// 마우스 이벤트
+			$(id).find(".type2").mouseenter(function(){
+				$(this).css("opacity", "1");
+			}).mouseleave(function(){
+				$(this).css("opacity", "0.6");
+			});
+		});
 	}).mouseleave(function(){
 		$(this).css("background-color", "#013282");
 	});
 	
-	$("#bannerWrapper").mouseleave(function(){
+	/*$("#bannerWrapper").mouseleave(function(){
 		$("#boxDiv2").hide();
 		$("#boxDiv").show();
-	})
+	})*/
 });

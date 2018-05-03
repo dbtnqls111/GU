@@ -78,7 +78,7 @@
 			
 			<div id="boxDiv2" hidden="hidden">
 				<div id="box2_left"></div>
-				<div id="box2_right"></div>
+				<div id="box2_right"><img src="" width="100%" height="100%"></div>
 			</div>
 		</div>
 
