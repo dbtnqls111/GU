@@ -140,9 +140,9 @@
 					<th>
 						<input type="checkbox" class="check_all">
 					</th>
-					<th width="20%">발주 코드</th>
-					<th width="60%">발주 내용</th>
-					<th width="20%">지점명</th>
+					<th width="25%">발주 코드</th>
+					<th width="50%">발주 내용</th>
+					<th width="25%">지점명</th>
 				</tr>
 				<c:forEach var="salesStandBy" items="${salesStandByList}">
 					<tr class="trData">

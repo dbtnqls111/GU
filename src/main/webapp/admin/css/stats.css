@@ -58,7 +58,7 @@
 	width: 650px;
 }
 
-.statsResultTable p.statsDetailP {
+.statsResultTable p.statsDetailP, .statsResultGraph p.statsDetailP {
 	width: 800px;
 }
 
@@ -124,6 +124,40 @@ th, td {
 	height: 25px;
 	padding: 0;
 	position: fixed;
+}
+
+.tab ul {
+	list-style: none;
+	width: 650px;
+	display: inline-block;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+	z-index: 100;
+}
+
+.tab ul li {
+	width: 100px;
+	height: 25px;
+	float: left;
+	line-height: 1.5;
+	background: linear-gradient(to top, #66aaff, #c9e1ff 50%, #dbebff, white);
+	border: 1px solid #aaaaaa;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	box-sizing: border-box;
+	margin-left: 5px;
+	border: 1px solid #aaaaaa;
+}
+
+.tab ul li:hover {
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.tab ul li.selected {
+	border-top: none;
+	font-weight: bold;
 }
 
 select {

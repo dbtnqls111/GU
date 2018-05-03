@@ -5,24 +5,21 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.TreeSet;
 
-public class StatsByItem {
+public class StatsByItemForTable {
 
 	private ArrayList<HashMap<String, Object>> statsList = null;
 	private int totalSalesPrice = 0;
 
-	public StatsByItem(ArrayList<HashMap<String, Object>> statsList) {
+	public StatsByItemForTable(ArrayList<HashMap<String, Object>> statsList) {
 		this.statsList = statsList;
 	}
 
-	// orderBySalesPrice : true - salesPrice 오름차순 정렬
-	// false - 디폴트로 itemType1 오름차순 정렬
-	public ArrayList<StatsByItemDTO> getStatsByItemList(boolean orderBySalesPrice) {
+	public ArrayList<StatsByItemDTO> getStatsByItemList() {
 
 		ArrayList<StatsByItemDTO> result = new ArrayList<>();
 
 		// 품목 타입1 SET
 		TreeSet<String> itemType1Set = new TreeSet<>();
-
 		for (HashMap<String, Object> map : statsList) {
 			if (itemType1Set.isEmpty()) {
 				itemType1Set.add((String) map.get("itemType1"));
@@ -73,10 +70,8 @@ public class StatsByItem {
 				result2.add(statsByItemDetailDTO);
 			}
 
-			if (orderBySalesPrice) {
-				// 품목 타입2별 판매액 순위로 정렬
-				Collections.sort(result2);
-			}
+			// 품목 타입2별 판매액 순위로 정렬
+			Collections.sort(result2);
 
 			// 품목 타입2별 순위 및 점유율 입력
 			for (int i = 0; i < result2.size(); i++) {
@@ -91,10 +86,8 @@ public class StatsByItem {
 			result.add(statsByItemDTO);
 		}
 
-		if (orderBySalesPrice) {
-			// 품목 타입1별 판매액 순위로 정렬
-			Collections.sort(result);
-		}
+		// 품목 타입1별 판매액 순위로 정렬
+		Collections.sort(result);
 
 		// 품목 타입1별 순위 및 점유율 입력
 		for (int i = 0; i < result.size(); i++) {

@@ -149,6 +149,7 @@
 		});
 
 		$(".img_logo").click(function() {
+			sessionStorage.setItem("menuIndex", 0);
 			location.href = "main.do";
 		});
 

@@ -42,6 +42,13 @@
 		<result javaType="String" column="branchName" property="branchName" />
 	</resultMap>
 	
+	<select id="getSalesStandByNews" parameterType="String" resultMap="sales">
+		select distinct salesCode, branchName from 
+		(select sales.code salesCode, item.name itemName, branch.name branchName 
+		from sales, item, branch where sales.salesDate is null and sales.itemCode = item.code and sales.branchCode = branch.code 
+		and sales.code like #{today} || '%') order by salesCode asc
+	</select>
+	
 	<select id="getSalesStandByList" parameterType="java.util.Map" resultMap="sales">
 		<![CDATA[select * from (select rownum rn, tt.* from 
 		(select distinct salesCode, branchName from 
