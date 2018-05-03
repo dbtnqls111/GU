@@ -23,15 +23,23 @@ pageEncoding="UTF-8"%>
 			$(".category").toggle();
 		});
 		
+		var count = 0;
+		
 		$("#next").click(function(){
 			$("input[name=agree]:checkbox").each(function(){
-				if(!$(this).is(":checked")){
-					alert("GU 회원가입을 위해 필수 동의항목에 모두 동의해주시기 바랍니다.");
-					return false;
-				}else{
-					location.href="joinForm.jsp";
+				if($(this).is(":checked")){
+					count = count+1;
 				}
 			});
+			
+
+			if(count!=3){
+				alert("GU 회원가입을 위해 필수 동의항목에 모두 동의해주시기 바랍니다.");		
+				count=0;		
+			}else{
+				
+				location.href="joinForm.do";
+			}
 		});
 	});
 </script>
@@ -108,13 +116,13 @@ pageEncoding="UTF-8"%>
 		background-color:#FAFAFA;
 		font-size:10px;
 		width:100%;
-		min-width:1300px;
+		min-width:1200px;
 	}
 	.header_right{
 		float:right;
 		padding:10px;
 		width:220px;
-		margin-right:230px;
+		margin-right:220px;
 	}
 	.header_left{
 		float:right;
@@ -196,7 +204,7 @@ pageEncoding="UTF-8"%>
 	div#next input[type=button]{
 		font-size:13px;
 		text-align:center;
-		margin-left:70px;
+		margin-left:50px;
 		width:120px;
 		height:40px;
 		background-color:#82c4ff;
@@ -208,55 +216,53 @@ pageEncoding="UTF-8"%>
 	div.btn a:link{color:black; text-decoration:none;}
 	div.btn a:visited{color:black; text-decoration:none;}
 	
+	a:link{color:black; text-decoration:none;}
+	a:visited{color:black; text-decoration:none;}
+	a:hover {color:blue; text-decoration:underline;}
+	
 	/* footer css */
 
 	.footer{
-		width:100%;
-		margin:100px auto 0 auto;
-		min-width:1300px;
+		width:900px;
+		margin:0 auto;
 	}
 	.footer_top{
 		border-top:1px solid #D8D8D8;
 		border-bottom:1px solid #D8D8D8;
 		height:50px;
 		width:100%;
-		margin:0 auto;
-		background-color:white;
+		margin-top:150px;
 	}
 	.footer_bottom{
-		background-color:#F2F2F2;
+		background-color:#f7f8f9;
 		height:180px;
-		width:100%;
-		margin:0 auto;
 	}
 	.footer_bottom p{
 		line-height:30px;
 		margin-left:10px;
-		font-size:12px;
+		font-size:10px;
 	}
 	.footer_bottom1 a{
 		font-weight:bold;
 	}
 	.footer_bottom1{
 		float:left;
-		margin-left:160px;
-		margin-top:20px;
-		width:500px;
+		margin-left:30px;
+		margin-top:35px;
+		width:410px;
 	}
 	.footer_bottom2{
 		border-left:2px solid #D8D8D8;
 		float:left;
 		margin-top:30px;
-		margin-left:160px;
-		padding-left:100px;
-		width:300px;
+		margin-left:50px;
+		padding-left:50px;
 	}
 	.footer_bottom3{
-		width:95px;
+		width:90px;
+		margin-top:35px;
+		margin-left:40px;
 		float:left;
-		position:relative;
-		top:35px;
-		left:80px;
 	}
 	.footer_bottom1 .sns_div a{
 		margin-left:9px;
@@ -331,7 +337,7 @@ pageEncoding="UTF-8"%>
 <div class="header">
 	<div class="header_right">
 		<p>
-			<a href="#">로그인</a>&nbsp;｜&nbsp;
+			<a href="loginForm.do">로그인</a>&nbsp;｜&nbsp;
 			<a href="#">회원가입</a>&nbsp;｜&nbsp;
 			<a href="#">장바구니</a>&nbsp;｜&nbsp;
 			<a href="#">고객센터</a>
@@ -380,43 +386,6 @@ pageEncoding="UTF-8"%>
 		<div id="next"><input type="button" value="동의하고 다음으로"></div>
 	</div>
 </div>
-<div class="footer">
-	<div class="footer_top">
-		<ul>
-			<li><img src=""></li>
-			<li><img src=""></li>
-			<li><img src=""></li>
-			<li><img src=""></li>
-		</ul>
-	</div>
-	<div class="footer_bottom">
-		<div class="footer_bottom1">
-			<p>
-				<a href="#">STAFF 구인구직</a>&nbsp;｜&nbsp;
-				<a href="#">거래상담</a>&nbsp;｜&nbsp;
-				<a href="#">발주 및 배송데이터</a>&nbsp;｜&nbsp;
-				<a href="#">전자세금계산서</a>&nbsp;｜&nbsp;
-				<a href="#">개인정보처리방침</a>
-			</p>
-			<p>서울시 강남구 테헤란로 000동(ㅁㄴㅇ)&nbsp;｜&nbsp;TEL : 1234-1234</p>
-			<p style="line-height:2px;">COPYRIGHT © BGFretail ALL RIGHT RESERVED.</p>
-			<div class="sns_div">
-				<a href="http://blog.bgfcu.com/"><img src="../img/footer_blog.gif"></a>
-				<a href="https://www.facebook.com/CU.BGFretail.cvs/"><img src="../img/footer_facebook.gif"></a>
-				<a href="https://twitter.com/BGFretail"><img src="../img/footer_twitter.gif"></a>
-			</div>
-		</div>
-		<div class="footer_bottom2">
-			<p class="footer_bottom2_p" style="color:green; font-size:20px;">고객센터</p>
-			<p class="footer_bottom2_p" style="line-height:30px; font-size:30px;">1324-1234</p>
-			<p class="footer_bottom2_p" style="line-height:50px; color:#848484; font-size:15px;">365일 24시간 연중무휴</p>
-		</div>
-		<div class="footer_bottom3">
-				<a href="#"><img src="../img/footer_faq.gif" title="자주묻는질문"></a>
-				<a href="#"><img src="../img/footer_1x1.gif" title="1:1문의"></a>
-				<a href="#"><img src="../img/footer_notice.gif" title="공지사항"></a>
-		</div>
-	</div>
-</div>
+<%@ include file="/template/footerMember.jsp" %>
 </body>
 </html>

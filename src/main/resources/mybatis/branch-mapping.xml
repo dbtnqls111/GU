@@ -25,7 +25,7 @@
 		<![CDATA[select * from (select rownum rn, tt.* from 
 		(select * from branch order by code asc) tt) where rn >= #{startNum} and rn <= #{endNum}]]>
 	</select>
-	
+
 	<select id="getSearchedBranchList" parameterType="java.util.Map" resultType="branchDTO">
 		<![CDATA[select * from (select rownum rn, tt.* from 
 		(select * from branch where code like '%' || #{keyword} || '%' or name like '%' || #{keyword} || '%' 
@@ -41,5 +41,27 @@
 		select count(*) from branch where code like '%' || #{keyword} || '%' or name like '%' || #{keyword} || '%' 
 		or address like '%' || #{keyword} || '%' or ownerId like '%' || #{keyword} || '%'
 	</select>
-
+	
+	<!-- 지점  -->
+	
+	<select id="getBranchList_member" parameterType="java.util.Map" resultType="branchDTO">
+		<![CDATA[select * from (select rownum rn, tt.* from 
+		(select * from branch where ownerId Is Null order by code asc) tt) where rn >= #{startNum} and rn <= #{endNum}]]>
+	</select>
+	
+	<select id="getBranchListCount_member" resultType="int">
+		select count(ownerId) from branch
+	</select>
+	
+	<select id="getSearchedBranchList_member" parameterType="java.util.Map" resultType="branchDTO">
+		<![CDATA[select * from (select rownum rn, tt.* from
+		(select * from (select * from branch where ownerId Is Null) where code like '%' || #{keyword} || '%' or name like '%' || #{keyword} || '%' 
+		or address like '%' || #{keyword} || '%' or ownerId like '%' || #{keyword} || '%' order by code asc) tt)
+		where rn >= #{startNum} and rn <= #{endNum}]]>
+	</select>
+	
+	<select id="getSearchedBranchListCount_member"  parameterType="String" resultType="int">
+		select count(ownerId) from branch where code like '%' || #{keyword} || '%' or name like '%' || #{keyword} || '%' 
+		or address like '%' || #{keyword} || '%' or ownerId like '%' || #{keyword} || '%'
+	</select>
 </mapper>

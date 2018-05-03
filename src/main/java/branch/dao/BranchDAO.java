@@ -56,5 +56,34 @@ public class BranchDAO {
 	public int getSearchedBranchListCount(String keyword) {
 		return sqlSession.selectOne("mybatis.branchMapper.getSearchedBranchListCount", keyword);
 	}
+	
+	
+	
+	/*------------------------- 지점 ----------------------------------*/
+	
+	public List<BranchDTO> getBranchList_member(int startNum, int endNum) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+
+		return sqlSession.selectList("mybatis.branchMapper.getBranchList_member", map);
+	}
+	
+	public int getBranchListCount_member() {
+		return sqlSession.selectOne("mybatis.branchMapper.getBranchListCount_member");
+	}
+	
+	public List<BranchDTO> getSearchedBranchList_member(String keyword, int startNum, int endNum) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("keyword", (String) keyword);
+		map.put("startNum", (Integer) startNum);
+		map.put("endNum", (Integer) endNum);
+
+		return sqlSession.selectList("mybatis.branchMapper.getSearchedBranchList_member", map);
+	}
+	
+	public int getSearchedBranchListCount_member(String keyword) {
+		return sqlSession.selectOne("mybatis.branchMapper.getSearchedBranchListCount_member", keyword);
+	}
 
 }
