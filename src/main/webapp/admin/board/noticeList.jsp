@@ -25,7 +25,7 @@
 	});
 
 	function boardView(seq) {
-		$(".paging").parents(".content").load("noticeView_admin.do?seq=" + seq);
+		$(".paging").parents(".content").load("noticeView_admin.do?seq=" + seq + "&page=${page}");
 	}
 	
 	function paging(page) {

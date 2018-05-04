@@ -68,7 +68,8 @@
 					<tr>
 						<td class="tdLabel">지점주 ID</td>
 						<td class="tdData">
-							<input type="text" name="ownerId" value="${branchDTO.ownerId}">
+							<input type="text" name="ownerId" value="${branchDTO.ownerId}" disabled="disabled">
+							<input type="hidden" name="ownerId" value="${branchDTO.ownerId}">
 						</td>
 					</tr>
 				</table>

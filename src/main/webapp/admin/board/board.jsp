@@ -16,8 +16,8 @@
 			cache : false
 		});
 
-		$(".navigator ul li a.notice").css("background-color", "#66aaff");
-		$(".navigator ul li a.notice").css("color", "white");
+		$(".navigator ul li a.board").css("background-color", "#66aaff");
+		$(".navigator ul li a.board").css("color", "white");
 
 		var menuIndex = sessionStorage.getItem("menuIndex");
 
