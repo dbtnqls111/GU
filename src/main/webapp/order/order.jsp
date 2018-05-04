@@ -53,7 +53,7 @@ $(function(){
         form.appendChild(objs);
         
         form.setAttribute('method', 'post');
-        form.setAttribute('action', 'ordering.do');
+        form.setAttribute('action', '/GU/ordering.do');
         document.body.appendChild(form);
         form.submit();
     });

@@ -82,9 +82,9 @@ $(document).ready(function() {
 
 
 
-// ====================================== 김민진 ======================================
+// =================================================== 김민진 ===================================================
 function encode(type1, type2_num){
-	location.href = "item/list.do?type1=" + encodeURI(type1, "UTF-8") + "&type2=" + type2_num;
+	location.href = "item/list.do?type1=" + encodeURIComponent(type1) + "&type2=" + type2_num;
 }
 
 $(function(){
@@ -114,7 +114,7 @@ $(function(){
 	// mouseenter 이벤트 처리
 	$("#bestItem > li").mouseenter(function(){
 		$(this).css("cursor", "pointer");
-		$(this).css({ "border":"2px solid black", "cursor":"pointer" });
+		$(this).css({ "border":"solid 2px #757575", "cursor":"pointer" });
 	}).mouseleave(function(){
 		$(this).css("border", "1px solid #999999");
 	});
@@ -132,18 +132,60 @@ $(function(){
 	$(".buttonMenu").mouseenter(function(){
 		$("#boxDiv").hide();
 		$("#boxDiv2").show();
-		var id = "#type2_category" + $(this).index();
+		var id = "#category" + $(this).index();
 
 		$(this).css("background-color", "#2e4ea5");
 		$("#boxDiv2 #box2_left").load("/GU/item/ajax/type2.html " + id, function(){
-			$(id).css("color", "red");
+			var type1 = $(id).attr("type1");
+			
+			$(id).find(".type2").each(function(){
+				var type2 = $(this).attr("type2");
+				$(this).css({
+							  "background":"url(/GU/img/category/" + type2 + ".png)",
+							  "background-repeat":"no-repeat",
+							  "background-size":"100% 80%",
+							  "opacity":"0.6",
+							  "line-height":"590px",
+							  "font-weight":"bold"
+						  });
+				
+				
+				$(this).click(function(){
+					encode(type1, $(this).index());
+				});
+			});
+			
+			$("#boxDiv2 #box2_right > img").attr("src", "/GU/img/category/" + type1 + ".png");
+			
+			
+			// typ2_area의 type2들 마우스 이벤트
+			$(id).find(".type2").mouseenter(function(){
+				$(this).css("opacity", "1");
+			}).mouseleave(function(){
+				$(this).css("opacity", "0.6");
+			});
 		});
 	}).mouseleave(function(){
 		$(this).css("background-color", "#013282");
 	});
 	
+	
+	// 범위 벗어나면 다시 광고가 나오도록 처리
 	$("#bannerWrapper").mouseleave(function(){
 		$("#boxDiv2").hide();
 		$("#boxDiv").show();
-	})
+	});
+	
+	
+	// "Best 상품!" 반짝임 효과
+	var flag = 0;
+	window.setInterval(function(){
+		if(flag == 0){
+			$("#title_text > span").css("color", "black");
+			flag = 1;
+		}else if(flag == 1){
+			$("#title_text > span").css("color", "red");
+			flag = 0;
+		}
+	}, 250);
 });
