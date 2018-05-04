@@ -148,11 +148,17 @@ $(function(){
 							  "line-height":"590px",
 							  "font-weight":"bold"
 						  });
+				
+				
+				$(this).click(function(){
+					encode(type1, $(this).index());
+				});
 			});
 			
 			$("#boxDiv2 #box2_right > img").attr("src", "/GU/img/category/" + type1 + ".png");
 			
-			// 마우스 이벤트
+			
+			// typ2_area의 type2들 마우스 이벤트
 			$(id).find(".type2").mouseenter(function(){
 				$(this).css("opacity", "1");
 			}).mouseleave(function(){
@@ -163,8 +169,23 @@ $(function(){
 		$(this).css("background-color", "#013282");
 	});
 	
-	/*$("#bannerWrapper").mouseleave(function(){
+	
+	// 범위 벗어나면 다시 광고가 나오도록 처리
+	$("#bannerWrapper").mouseleave(function(){
 		$("#boxDiv2").hide();
 		$("#boxDiv").show();
-	})*/
+	});
+	
+	
+	// "Best 상품!" 반짝임 효과
+	var flag = 0;
+	window.setInterval(function(){
+		if(flag == 0){
+			$("#title_text > span").css("color", "black");
+			flag = 1;
+		}else if(flag == 1){
+			$("#title_text > span").css("color", "red");
+			flag = 0;
+		}
+	}, 250);
 });

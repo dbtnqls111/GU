@@ -94,7 +94,7 @@
 	</div>
 </div>
 <div class="logo_div">
-	<input type="image" src="../img/logo.PNG">
+	<input type="image" src="../img/logo.PNG" onclick="javascript:location.href=/GU/">
 </div>
 <div class="location_div">
 	<a href="../index.jsp">홈</a> &gt; <strong>로그인</strong>

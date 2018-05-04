@@ -88,11 +88,14 @@ function make_detail_dialog(target){
 	var itemPrice = $(target).find(".price > span").html();
 	
 	// 상품 설명 불러오기
-	$("#d_itemDescription > span").load("/GU/item/ajax/item_description.html #" + itemCode, function(){
+	/*
+		$("#d_itemDescription > span").load("/GU/item/ajax/item_description.html #" + itemCode, function(){
 		if($("#d_itemDescription > span").html() == ""){
-			$("#d_itemDescription > span").html("...");
+			$("#d_itemDescription > span").html("맛있다.");
 		}
+	*/
 		
+		$("#d_itemDescription > span").html("맛있다.");
 		$("#detail_left img").attr("src", "/GU/img/item/" + itemCode + ".PNG");
 		$("#d_itemName").html(itemName);
 		$("#d_itemPrice > span").html(itemPrice);
@@ -130,7 +133,7 @@ function make_detail_dialog(target){
 		$("#detail_dialog #order").click(function(){
 			order_request();
 		});
-	});
+//	});
 }
 
 
