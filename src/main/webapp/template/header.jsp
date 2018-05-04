@@ -12,6 +12,14 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
+
+var id = "${memId}"
+	
+if(id=="admin"){
+	location.href="admin/main.do";
+}
+	
+	
 function search(keyword){
 	// http://mwultong.blogspot.com/2006/05/javascript-tools-decodeencode-uri.html 참고
 	location.href = "/GU/item/search.do?keyword=" + encodeURIComponent(keyword);
@@ -33,6 +41,7 @@ $(function(){
 	// ---------------------------------------------------------------------------------
 	
 	var session = "${memName}";
+	
 	
 	if(session!=""){
 		$("#loginLi").css("display", "none");
