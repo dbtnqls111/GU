@@ -18,7 +18,7 @@
 			}
 			var cw = screen.availWidth;
 			var ml = (cw - 600) / 2 + 600;
-			window.open("branchCodeCheck_admin.do?code=" + $(".code").val(), "", "width=250,height=100,left=" + ml);
+			window.open("branchCodeCheck_admin.do?code=" + $(".code").val(), "", "width=300,height=120,left=" + ml);
 		});
 
 		$(".code").change(function() {

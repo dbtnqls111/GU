@@ -59,7 +59,7 @@ th, td {
 }
 
 .tdData input.code {
-	width: calc(80% - 10px);
+	width: calc(79% - 10px);
 	margin-left: 5px;
 	margin-right: 0;
 	box-sizing: border-box;

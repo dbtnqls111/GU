@@ -145,12 +145,6 @@
 
 		var chart = new google.visualization.ComboChart(document.getElementById("graph"));
 		chart.draw(data, options);
-		
-		google.visualization.events.addListener(chart, "click", clickHandler);
-		
-		function clickHandler() {
-			alert("Click!");
-		};
 	}
 </script>
 </head>

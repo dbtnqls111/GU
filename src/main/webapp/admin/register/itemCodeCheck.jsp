@@ -23,10 +23,10 @@
 </head>
 <body>
 	<c:if test="${isExist == true}">
-		${code}는 사용 중입니다.
+		${code}은(는) 사용 중입니다.
 	</c:if>
 	<c:if test="${isExist == false}">
-		${code}는 사용 가능합니다.
+		${code}은(는) 사용 가능합니다.
 	</c:if>
 	<form action="itemCodeCheck_admin.do" method="post">
 		<input type="text" name="code" value="${code}">
