@@ -34,6 +34,12 @@
 
 			$(".noticeInsertForm").submit();
 		});
+		
+		$(".reset").click(function() {
+			$(".noticeInsertForm").each(function() {
+				this.reset();
+			})
+		});
 
 		$(".list").click(function() {
 			$(".insertForm").parents(".content").load("noticeList_admin.do?page=1");
@@ -70,6 +76,7 @@
 	</div>
 	<div class="bottomMenu">
 		<input type="button" value="등록" class="submit">
+		<input type="button" value="다시작성" class="reset">
 		<input type="button" value="목록으로" class="list">
 	</div>
 </body>
