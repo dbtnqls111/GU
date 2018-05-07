@@ -23,8 +23,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int deleteMember(String id) {
-		return memberDAO.deleteMember(id);
+	public int deleteMember(String id, String pw) {
+		return memberDAO.deleteMember(id, pw);
 	}
 
 	@Override
@@ -56,14 +56,44 @@ public class MemberServiceImpl implements MemberService {
 	public String findPw_email(String name, String email) {
 		return memberDAO.findPw_email(name, email);
 	}
+	
+	@Override
+	public String findPw_phone(String name, String phone) {
+		return memberDAO.findPw_phone(name, phone);
+	}
 
 	@Override
 	public int updateBranch(MemberDTO memberDTO) {
 		return memberDAO.updateBranch(memberDTO);
 	}
+	
+	@Override
+	public int deleteBranch(String id) {
+		return memberDAO.deleteBranch(id);
+	}
 
 	@Override
 	public boolean certifiMemCheck(String name, String phone) {
 		return memberDAO.certifiMemCheck(name, phone);
+	}
+
+	@Override
+	public MemberDTO myInfo(String id) {
+		return memberDAO.myInfo(id);
+	}
+
+	@Override
+	public int modifyPw(String id, String pw, String newPw1) {
+		return memberDAO.modifyPw(id, pw, newPw1);
+	}
+
+	@Override
+	public int modifyPhone(String id, String phone) {
+		return memberDAO.modifyPhone(id, phone);
+	}
+
+	@Override
+	public int modifyEmail(String id, String email) {
+		return memberDAO.modifyEmail(id, email);
 	}
 }

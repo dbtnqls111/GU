@@ -7,6 +7,8 @@
 <title>로그인폼</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
+	var cookie_id = getCookie("login_id");
+	
 	$(function(){
 		var num = Math.ceil(Math.random()*3);
 		
@@ -16,8 +18,62 @@
 			$(".category").toggle();
 		});	
 		
-		document.getElementById("path").value = "${path}";		
+		document.getElementById("path").value = "${path}";
+		
+		if(cookie_id){
+			$("#saveId").prop("checked", true);
+			$("#id_input").val(cookie_id);
+		}else{
+			
+		}
+		
+		$("#loginbt").click(function(){
+			var id = $("#id_input").val();
+			var pw = $("#pw_input").val();
+			
+			if(id==""){
+				alert("아이디를 입력해주세요.");
+				$("#id_input").focus();
+			}else if(pw==""){
+				alert("비밀번호를 입력해주세요.");
+				$("#pw_input").focus();
+			}else if(id!="" && pw!=""){
+				$("#loginF").submit();
+				if($("#saveId").prop("checked")){
+					setCookie("login_id", id, 5);
+				}else{
+					deleteCookie("login_id");
+				}
+			}
+		});
+		
 	});
+	function setCookie(cookieName, value, exdays){
+		   var exdate = new Date();
+		   exdate.setDate(exdate.getDate() + exdays);
+		   var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+		   document.cookie = cookieName + "=" + cookieValue;
+		}
+
+		function deleteCookie(cookieName){
+		   var expireDate = new Date();
+		   expireDate.setDate(expireDate.getDate() - 1);
+		   document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+		}
+
+		function getCookie(cookieName) {
+		   cookieName = cookieName + '=';
+		   var cookieData = document.cookie;
+		   var start = cookieData.indexOf(cookieName);
+		   var cookieValue = '';
+		   if(start != -1){
+		      start += cookieName.length;
+		      var end = cookieData.indexOf(';', start);
+		      if(end == -1)end = cookieData.length;
+		      cookieValue = cookieData.substring(start, end);
+		   }
+		   return unescape(cookieValue);
+		}
 </script>
 <link rel="stylesheet" type="text/css" href="../css/loginForm.css"/>
 </head>
@@ -93,7 +149,7 @@
 	</div>
 </div>
 <div class="logo_div">
-	<input type="image" src="../img/logo.PNG">
+	<input type="image" src="../img/GU로고1.jpg" style="height:70px;">
 </div>
 <div class="location_div">
 	<a href="../index.jsp">홈</a> &gt; <strong>로그인</strong>
@@ -102,18 +158,18 @@
 	<input type="image" src="../img/login_logo.PNG">
 </div>
 <div class="body">
-<form method="post" action="login.do">
+<form method="post" action="login.do" id="loginF">
 	<div class="loginBox">
 		<div class="login_div">
 			<label for="id"><img src="../img/id.PNG"></label><input type="text" name="id" id="id_input" style="width:153px;"><br>
 			<label for="pwd"><img src="../img/pw.PNG"></label><input type="password" name="pw" id="pw_input" size="18px">
 		</div>
 		<div class="loginbt_div">
-			<input type="image" src="../img/loginbt.PNG" id="loginbt" title="로그인">
+			<img src="../img/loginbt.PNG" id="loginbt" title="로그인" style="cursor:pointer;">
 		</div>
 		<div class="option">
 			<label for="saveid">
-            	<input type="checkbox" class="checkbox" id="saveid" name="saveid" />아이디 저장
+            	<input type="checkbox" class="checkbox" id="saveId" name="saveId" />아이디 저장
 			</label>
 		</div>
 		<div class="menu">

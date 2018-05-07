@@ -22,11 +22,11 @@
 		$("div.input input").focus(function(){
 			var select = $(this).attr("id");
 			if(select=='phone'){
-				$("label[for="+select+"]").hide();
+				/* $("label[for="+select+"]").hide(); */
 				$("div#phone_div span").html("&nbsp;&nbsp;-");
 				$("input#phone").css("width", "70px");
 			}else if(select=='email1' || select=='email2'){
-				$("label[for=email]").hide();
+				/* $("label[for=email]").hide(); */
 				$(this).css("width", "120px");
 			}else{
 				ph = $(this).attr("placeholder");
@@ -207,10 +207,10 @@
 			if(pw==""){
 				$(".pw1_p").html();
 			}else if(!reg_pw.test(pw)){
-				$(".pw1_p").html("8~15자, 특수문자를 사용하세요").css("color", "red");
+				$(".pw1_p").html("8~15자, 숫자, 특수문자 1개이상이 조합되어야합니다").css("color", "red");
 				pwChk1 = 0;
 			}else{
-				$(".pw1_p").html("사용가능").css("color", "blue");
+				$(".pw1_p").html("사용가능합니다").css("color", "blue");
 				pwChk1 = 1;
 			}
 			
@@ -338,14 +338,76 @@
 		margin-right:230px;
 	}
 	.header_left{
-		float:right;
+		float:left;
 		padding:8px;
-		margin-right:600px;
+		margin-left:350px;
 		width:100px;
 	}
-	.header a:link{color:black; text-decoration:none;}
-	.header a:visited{color:black; text-decoration:none;}
-	.header a:hover {color:blue; text-decoration:underline;}
+	a:link{color:black; text-decoration:none;}
+	a:visited{color:black; text-decoration:none;}
+	a:hover {color:blue; text-decoration:underline;}
+		/* footer css */
+	a{
+		text-decoration:none;
+	}
+	li{
+		list-style:none;
+		display:inline;
+	}
+	.footer{
+		width:900px;
+		margin:0 auto;
+	}
+	.footer_top{
+		border-top:1px solid #D8D8D8;
+		border-bottom:1px solid #D8D8D8;
+		height:50px;
+		width:100%;
+		margin-top:100px;
+	}
+	.footer_bottom{
+		background-color:#f7f8f9;
+		height:180px;
+	}
+	.footer_bottom p{
+		line-height:30px;
+		margin-left:10px;
+		font-size:10px;
+	}
+	.footer_bottom1 a{
+		font-weight:bold;
+	}
+	.footer_bottom1{
+		float:left;
+		margin-left:30px;
+		margin-top:35px;
+		width:410px;
+	}
+	.footer_bottom2{
+		border-left:2px solid #D8D8D8;
+		float:left;
+		margin-top:30px;
+		margin-left:50px;
+		padding-left:50px;
+	}
+	.footer_bottom3{
+		width:90px;
+		margin-top:35px;
+		margin-left:40px;
+		float:left;
+	}
+	.footer_bottom1 .sns_div a{
+		margin-left:9px;
+	}
+	.footer_bottom2_p{
+		font-weight:bold;
+	}
+	.sns_div{
+		margin-top:22px;
+		width:300px;
+	}
+	#footer_top_wrap{width:900px; margin:0 auto;}
+	.footer_top img{margin-left:40px; margin-top:10px;}
 
 </style>
 </head>
@@ -399,6 +461,7 @@
 				</li>
 				<li>
 					<div id="phone_div" class="input">
+						<label for="phone">휴대폰번호 입력</label>
 						<select name="phone1">
 							<option value="010" selected="selected">010
 							<option value="011">011
@@ -406,7 +469,6 @@
 							<option value="017">017
 							<option value="018">018
 						</select>
-						<label for="phone">휴대폰번호 입력</label>
 						<input type="number" id="phone" name="phone2" maxlength="4" oninput="maxLengthCheck1(this)"><span></span>
 						<input type="number" id="phone" name="phone3" maxlength="4" oninput="maxLengthCheck2(this)">
 						<p class="phone_p"></p>
@@ -428,8 +490,8 @@
 				<li>
 					<div id="branch_div" class="input_branch" style="border-bottom:1px solid #cbccd6;">
 						<label for="branch">지점선택</label>
-						<input type="button" value="지점찾기" onclick="window.open('branchList.do?page=1', '지점 목록', 'width=500, height=500, location=no, status=no, scrollbars=yes');">
 						<span id="branchSel"></span><input type="hidden" name="branch">
+						<input type="button" value="지점찾기" onclick="window.open('branchList.do?page=1', '지점 목록', 'width=550, height=550, location=no, status=no, scrollbars=no');">
 						<p class="branch_p"></p>
 					</div>
 				</li>
@@ -439,5 +501,6 @@
 	<div id="button"><input type="button" value="처음으로" style="margin-right:10px;"
 						onclick="location.href='../index.jsp'"><input type="button" value="가입하기" id="join"></div>
 </div>
+<%@ include file="/template/footerMember.jsp" %>
 </body>
 </html>

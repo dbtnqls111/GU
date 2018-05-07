@@ -29,7 +29,6 @@
 <p>아이디 : ${id}</p>
 <input type="button" value="로그인하기" onclick="login()">
 <input type="button" value="닫기" onclick="window.close()">
-<p id="p">전체 아이디를 확인하시려면 휴대폰 인증을 해주세요.</p>
 </div>
 </body>
 </html>
