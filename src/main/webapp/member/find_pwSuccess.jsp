@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디 찾기 성공 화면</title>
+<title>비밀번호 찾기 성공 화면</title>
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
+	$(function(){
+	
+	});
 	function login(){
 		window.open("loginForm.do");
 		opener.close();
@@ -26,7 +29,7 @@
 </head>
 <body>
 <div class="wrap" id="wrap">
-<p>아이디 : ${id}</p>
+<p>비밀번호 : ${pw}</p>
 <input type="button" value="로그인하기" onclick="login()">
 <input type="button" value="닫기" onclick="window.close()">
 <p id="p">전체 아이디를 확인하시려면 휴대폰 인증을 해주세요.</p>

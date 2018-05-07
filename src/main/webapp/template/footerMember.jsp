@@ -9,12 +9,17 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 <div class="footer_top">
+	<div id="footer_top_wrap">
 		<ul>
-			<li><img src=""></li>
-			<li><img src=""></li>
-			<li><img src=""></li>
-			<li><img src=""></li>
+			<li><img src="../img/footer_rel_00.gif"></li>
+			<li><img src="../img/footer_rel_01.gif"></li>
+			<li><img src="../img/footer_rel_02.gif"></li>
+			<li><img src="../img/footer_rel_04.gif"></li>
+			<li><img src="../img/footer_rel_06.gif"></li>
+			<li><img src="../img/footer_rel_08.gif"></li>
+			<li><img src="../img/footer_rel_07.gif"></li>
 		</ul>
+	</div>
 </div>
 <div class="footer">
 	<div class="footer_bottom">

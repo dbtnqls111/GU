@@ -95,7 +95,7 @@ $(function(){
 <div id="wrap">
 		<div id="top">
 			<h1 id="mainLogo">
-				<a href="${pageContext.request.contextPath}/index.jsp">GU</a>
+				<a href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/img/GU로고1.jpg" id="GU_logo"></a>
 			</h1>
 			<fieldset id="searchField">
 				<input type="text" id="search" />
@@ -112,7 +112,7 @@ $(function(){
 				</ul>
 
 				<ul id="memberUl">
-					<li id="userLi"><a href="#"><img alt="user" src="${pageContext.request.contextPath}/img/user.png" id = "userIcon"><br>${memName}님</a></li>
+					<li id="userLi"><a href="member/myInfo.do"><img alt="user" src="${pageContext.request.contextPath}/img/user.png" id = "userIcon"><br>${memName}님</a></li>
 
 					<li id="loginLi">
 						<form action="/GU/member/loginForm.do" name="loginForm" method="post">
@@ -126,7 +126,7 @@ $(function(){
 							<input type="hidden" name="path" id="path_logout" />
 						</form>
 					</li>					
-					<li id="joinLi"><a href="member/joinForm.do" id="join"><img alt="join" src="${pageContext.request.contextPath}/img/join.png" id="joinIcon" title="회원가입"></a></li>
+					<li id="joinLi"><a href="member/agreeForm.do" id="join"><img alt="join" src="${pageContext.request.contextPath}/img/join.png" id="joinIcon" title="회원가입"></a></li>
 					<li><a href="#" id="orderCurrent"><img alt="orderCurrent" src="${pageContext.request.contextPath}/img/orderCurrent.png" id="orderCurrentIcon" title="발주현황"></a></li>
 					<li><a href="#" id="order"><img alt="order" src="${pageContext.request.contextPath}/img/order.png" id="orderIcon" title="발주대기목록"></a></li>				
 				</ul>

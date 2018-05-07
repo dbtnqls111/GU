@@ -3,6 +3,7 @@ package member.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.util.SystemOutLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -99,13 +100,14 @@ public class MemberController {
 		return modelAndView;
 	}
 
-	/* 아이디 찾기(아이디 일부분) */
-	@RequestMapping(value = "/member/findId.do")
-	public ModelAndView findId(HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView();
+	/*아이디 찾기(아이디 일부분)*/
+	@RequestMapping(value="/member/findId.do")
+	public @ResponseBody String findId(HttpServletRequest request) {
+
 		String id = null;
 		String subString = null;
 		String result = null;
+		String str = "";
 
 		String type = request.getParameter("type");
 
@@ -116,11 +118,11 @@ public class MemberController {
 			if (result != null) {
 				subString = result.substring(0, result.length() - 3);
 				id = subString + "***";
+				
+				str = "{\"result\":\""+id+"\"}";
+			}else {
+				str = "{\"result\":\"fail\"}";
 
-				modelAndView.addObject("id", id);
-				modelAndView.setViewName("find_idSuccess.jsp");
-			} else {
-				modelAndView.setViewName("find_Fail.jsp");
 			}
 		} else if (type.equals("email")) {
 			String name = request.getParameter("name");
@@ -132,15 +134,13 @@ public class MemberController {
 				subString = result.substring(0, result.length() - 3);
 				id = subString + "***";
 
-				modelAndView.addObject("id", id);
-				modelAndView.addObject("result", "success");
-				modelAndView.setViewName("find_idSuccess.jsp");
-			} else {
-				modelAndView.setViewName("find_Fail.jsp");
+				str = "{\"result\":\""+id+"\"}";
+			}else {
+				str = "{\"result\":\"fail\"}";
 			}
 		}
 
-		return modelAndView;
+		return str;
 	}
 
 	/* 아이디 찾기(sms인증) */
@@ -155,21 +155,25 @@ public class MemberController {
 		id = memberService.findId_phone(name, phone);
 		if (id != null) {
 			modelAndView.addObject("id", id);
-			modelAndView.setViewName("find_idSuccess.jsp");
-		} else {
+
+			modelAndView.setViewName("find_idSuccessAll.jsp");
+		}else {
+
 			modelAndView.setViewName("find_Fail.jsp");
 		}
 
 		return modelAndView;
 	}
 
-	/* 비밀번호 찾기(비밀번호 일부분) */
-	@RequestMapping(value = "/member/findPw.do")
-	public ModelAndView findPw(HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView();
+
+	/*비밀번호 찾기(비밀번호 일부분)*/
+	@RequestMapping(value="/member/findPw.do")
+	public @ResponseBody String findPw(HttpServletRequest request) {
+
 		String pw = null;
 		String subString = null;
 		String result = null;
+		String str = "";
 
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
@@ -180,13 +184,11 @@ public class MemberController {
 			subString = result.substring(0, result.length() - 5);
 			pw = subString + "*****";
 
-			modelAndView.addObject("pw", pw);
-			modelAndView.setViewName("find_idSuccess.jsp");
-		} else {
-			modelAndView.setViewName("find_Fail.jsp");
+			str = "{\"result\":\""+pw+"\"}";
+		}else {
+			str = "{\"result\":\"fail\"}";
 		}
-
-		return modelAndView;
+		return str;
 	}
 
 	/* 비밀번호 찾기(sms인증) */
@@ -202,8 +204,10 @@ public class MemberController {
 
 		if (pw != null) {
 			modelAndView.addObject("pw", pw);
-			modelAndView.setViewName("find_pwSuccess.jsp");
-		} else {
+
+			modelAndView.setViewName("find_pwSuccessAll.jsp");
+		}else {
+
 			modelAndView.setViewName("find_Fail.jsp");
 		}
 
@@ -281,6 +285,127 @@ public class MemberController {
 			str = "{\"result\":\"false\"}";
 		}
 		return str;
+	}
+	
+	/*내정보 불러오기*/
+	@RequestMapping(value = "/member/myInfo.do")
+	public ModelAndView myInfo(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView();
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("memId");
+		
+		if(id != null) {
+			MemberDTO memberDTO = memberService.myInfo(id);
+			
+			modelAndView.addObject("memberDTO", memberDTO);
+			modelAndView.setViewName("myInfo.jsp");
+		}else {
+			
+		}
+		return modelAndView;
+	}
+	
+	/*비밀번호 변경*/
+	@RequestMapping(value = "/member/modifyPw.do")
+	public @ResponseBody String modifyPw(HttpServletRequest request) {
+		
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw");
+		String newPw1 = request.getParameter("newPw1");
+		String str = "";
+		int result = 0;
+		
+		result = memberService.modifyPw(id, pw, newPw1);
+		System.out.println(result);
+
+		str="{\"result\":\""+result+"\"}";
+		
+		return str;
+	}
+	
+	/*휴대폰 번호 변경*/
+	@RequestMapping(value = "/member/modifyPhone.do")
+	public @ResponseBody String modifyPhone(HttpServletRequest request) {
+		
+		String id = request.getParameter("id");
+		String phone = request.getParameter("phone");
+		String str = "";
+		int result = 0;
+		
+		result = memberService.modifyPhone(id, phone);
+
+		str="{\"result\":\""+result+"\"}";
+		
+		return str;
+	}
+	
+	/*이메일 변경*/
+	@RequestMapping(value = "/member/modifyEmail.do")
+	public @ResponseBody String modifyEmail(HttpServletRequest request) {
+		
+		String id = request.getParameter("id");
+		String email = request.getParameter("email");
+		String str = "";
+		int result = 0;
+		
+		result = memberService.modifyEmail(id, email);
+
+		str="{\"result\":\""+result+"\"}";
+		
+		return str;
+	}
+	
+	/*회원탈퇴*/
+	@RequestMapping(value = "/member/deleteMember.do")
+	public @ResponseBody String deleteMember(HttpServletRequest request) {
+		
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw");
+		String str = "";
+		int result = 0;
+		int branchResult = 0;
+		
+		result = memberService.deleteMember(id, pw);
+		
+		if(result > 0) {
+			branchResult = memberService.deleteBranch(id);
+			if(branchResult > 0) {
+				HttpSession session = request.getSession();
+				session.removeAttribute("memName");
+				session.removeAttribute("memId");
+				session.invalidate();
+				str="{\"result\":\""+result+"\"}";
+			}else {
+				
+			}
+		}else {
+			
+		}
+		return str;
+	}
+	
+	@RequestMapping(value = "/member/find_idSuccess.do")
+	public ModelAndView idSuccess(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		String id = request.getParameter("id");
+		
+		modelAndView.addObject("id", id);
+		modelAndView.setViewName("find_idSuccess.jsp");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/member/find_pwSuccess.do")
+	public ModelAndView pwSuccess(HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		String pw = request.getParameter("pw");
+		
+		modelAndView.addObject("pw", pw);
+		modelAndView.setViewName("find_pwSuccess.jsp");
+		
+		return modelAndView;
 	}
 
 }

@@ -122,12 +122,12 @@ pageEncoding="UTF-8"%>
 		float:right;
 		padding:10px;
 		width:220px;
-		margin-right:220px;
+		margin-right:230px;
 	}
 	.header_left{
-		float:right;
+		float:left;
 		padding:8px;
-		margin-right:600px;
+		margin-left:350px;
 		width:100px;
 	}
 	.header a:link{color:black; text-decoration:none;}
@@ -221,6 +221,11 @@ pageEncoding="UTF-8"%>
 	a:hover {color:blue; text-decoration:underline;}
 	
 	/* footer css */
+	
+	#footer_top_wrap ul li{
+		list-style:none;
+		display:inline;
+	}
 
 	.footer{
 		width:900px;
@@ -274,6 +279,8 @@ pageEncoding="UTF-8"%>
 		margin-top:22px;
 		width:300px;
 	}
+	#footer_top_wrap{width:900px; margin:0 auto;}
+	.footer_top img{margin-left:40px; margin-top:10px;}
 </style>
 </head>
 <body>

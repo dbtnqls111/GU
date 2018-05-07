@@ -61,13 +61,14 @@ var selectValue = "phone";
 				url : "certifiMemCheck.do",
 				success : function(data){
 					if(data.result=="true"){
+						certifi = 0;
 						alert("인증번호가 발송 되었습니다.");
+						$("#code_confirm").attr("value", "인증");
+						$("#code_confirm").removeAttr("disabled");
 						$("#a").show();
 						$.ajax({
 							type : "post",
-							data : {"phone1" : phone1, 
-									"phone2" : phone2, 
-									"phone3" : phone3},
+							data : {"phone" : phone},
 							dataType : "json",
 							url : "certifi_request.do",
 							success : function(data){
@@ -113,6 +114,8 @@ var selectValue = "phone";
 						if(data.result=="success"){
 							alert("인증에 성공했습니다.");
 							certifi = 1;
+							$("#code_confirm").attr({"value" : "인증성공", "disabled" : "true"});
+							$("#code").attr("value", "재전송");
 						}else{
 							alert("인증에 실패했습니다.");
 							certifi = 0;
@@ -146,7 +149,25 @@ var selectValue = "phone";
 				phone = tel1 + "-" + $("#tel2").val() + "-" + $("#tel3").val();
 				
 				if($("#tel2").val()!="" && $("#tel3").val()!="" && name!="" && reg_name.test(name)){
-					window.open("findId.do?type="+type+"&name="+name+"&phone="+phone, "", "width=300, height=200, location=no, status=no, scrollbars=no, left="+popupX+", top="+popupY+", screenX="+popupX+", screenY="+popupY);
+					$.ajax({
+						type : "post",
+						data : {"type" : type,
+								"name" : name,
+								"phone" : phone},
+						dataType : "json",
+						url : "findId.do",
+						success : function(data){
+							var id = data.result;
+							if(data.result!="fail"){
+								window.open("find_idSuccess.do?id="+id, "", "width=300, height=200, location=no, status=no, scrollbars=no, left="+popupX+", top="+popupY+", screenX="+popupX+", screenY="+popupY);
+							}else{
+								alert("일치하는 정보가 없습니다.");
+							}	
+						},error : function(){
+							alert("error");
+						}
+					});
+					
 				}else if(name=="" || !reg_name.test(name)){
 					alert("이름을 제대로 입력해주세요.");
 					$("#phone_name").focus();
@@ -164,7 +185,24 @@ var selectValue = "phone";
 				email = $("#email").val();
 				
 				if(name!="" && email!="" && reg_mail.test(email) && reg_name.test(name)){
-					window.open("findId.do?type="+type+"&name="+name+"&email="+email, "", "width=300, height=200, location=no, status=no, scrollbars=no, left="+popupX+", top="+popupY+", screenX="+popupX+", screenY="+popupY);
+					$.ajax({
+						type : "post",
+						data : {"type" : type,
+								"name" : name,
+								"email" : email},
+						dataType : "json",
+						url : "findId.do",
+						success : function(data){
+							var id = data.result;
+							if(data.result!="fail"){
+								window.open("find_idSuccess.do?id="+id, "", "width=300, height=200, location=no, status=no, scrollbars=no, left="+popupX+", top="+popupY+", screenX="+popupX+", screenY="+popupY);
+							}else{
+								alert("일치하는 정보가 없습니다.");
+							}	
+						},error : function(){
+							alert("error");
+						}
+					});
 				}else if(name=="" || !reg_name.test(name)){
 					alert("이름을 제대로 입력해주세요.");
 					$("#email_name").focus();
