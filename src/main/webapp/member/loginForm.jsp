@@ -20,7 +20,6 @@
 		});	
 		
 		document.getElementById("path").value = "${path}";
-<<<<<<< HEAD
 		
 		if(cookie_id){
 			$("#saveId").prop("checked", true);
@@ -48,9 +47,6 @@
 				}
 			}
 		});
-		
-=======
->>>>>>> 1e7bf234b1484aca0005aaf82020dd3f54246d49
 	});
 	function setCookie(cookieName, value, exdays){
 		   var exdate = new Date();
