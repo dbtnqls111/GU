@@ -58,7 +58,7 @@ $(function(){
 	// ---------------------------------------------------------------------------------------------------------------
 	// 'type2 메뉴 클릭' 및 '검색 시'
 	$(document).on("click", ".type2, #mj_btn_area > img", function(){
-		if($(this).attr("class") == "type2"){ // class 속성값이 type2이면 type2 메뉴 중 하나를 클릭한 것이니 클릭된 메뉴의 css를 처리
+		if($(this).attr("class") == "type2"){ // 검색이 아닌 type2 메뉴를 클릭한 경우
 			$(".type2").not(this).removeClass("selected");
 			$(".type2").not(this).css("border", "1px solid #999999");
 			

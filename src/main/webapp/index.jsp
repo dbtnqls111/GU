@@ -78,14 +78,14 @@
 			
 			<div id="boxDiv2" hidden="hidden">
 				<div id="box2_left"></div>
-				<div id="box2_right"></div>
+				<div id="box2_right"><img src="" width="100%" height="100%"></div>
 			</div>
 		</div>
 
 		<div id="best">
 			<div id="title">
 				<div><img src="img/hot.gif" width="70px" height="70px"></div>
-				<div id="title_text"><span>Best 상품</span></div>
+				<div id="title_text"><span>Best 상품!</span></div>
 			</div>
 			<ul id="bestItem">
 				<li id="bestItem0"></li>

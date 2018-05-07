@@ -4,7 +4,7 @@ function shoppingBasket_request(){
 	
 	if(memId == "null"){
 		alert("로그인 후 이용해주세요.");
-		location.replace("/GU/member/loginForm.do");
+		location.href = "/GU/member/loginForm.do?path=" + location.pathname + encodeURIComponent(location.search);
 	}else{
 		var itemCode = $("#detail_dialog #hiddenInfo").attr("itemCode");
 		var quantity = $("#detail_dialog #d_itemQuantity > input").val();
@@ -13,7 +13,16 @@ function shoppingBasket_request(){
 			$("#detail_dialog #d_itemQuantity > input").focus();
 			return;
 		}
+		
+		// 장바구니에 담기(데이터베이스에 데이터 전송)
+		var url = "/GU/order/basketRequest.do";
+		var param = { "itemCode":itemCode, "quantity":quantity, "memId":memId };
+		$.get(url, param, function(data){
+			console.log(data); // 웹 브라우저에서 F12를 눌러보면 결과 확인 가능
+		});
 
+		
+		// 장바구니 알림창 구성
 		$("#basket_alert_dialog > .btn > button").button();
 		
 		$("#basket_alert_dialog").dialog({
@@ -31,19 +40,17 @@ function shoppingBasket_request(){
             position:{ of:"#detail_dialog" }
 		});
 		
-		// 버튼 이벤트 처리
-		$("#basket_alert_dialog #moveBtn").off("click"); // 기존 이벤트 제거
+		// 기존 이벤트 제거
+		$("#basket_alert_dialog #moveBtn").off("click");
 		$("#detail_dialog, #basket_alert_dialog").off("click");
 		
+		// '장바구니 이동' 버튼
 		$("#basket_alert_dialog #moveBtn").click(function(){
-			location.replace("/GU/order/shoppingBasket.do?itemCode=" + itemCode + "&quantity=" + quantity + "&memId=" + memId);
+			location.replace("/GU/orderList.do");
 		});
 		
+		// '계속' 버튼
 		$("#basket_alert_dialog #continueBtn").click(function(){
-			var url = "/GU/item/ajax/shoppingBasket_request.jsp";
-			var param = { "itemCode":itemCode, "quantity":quantity, "memId":memId };
-			$.get(url, param);
-			
 			$("#detail_dialog, #basket_alert_dialog").dialog("close");
 		});
 	}
@@ -55,7 +62,7 @@ function order_request(){
 	var memId = $("#detail_dialog #hiddenInfo").attr("memId");
 	if(memId == "null"){
 		alert("로그인 후 이용해주세요.");
-		location.replace("/GU/member/loginForm.do");
+		location.href = "/GU/member/loginForm.do?path=" + location.pathname + encodeURIComponent(location.search);
 	}else{
 		var code = $("#detail_dialog #hiddenInfo").attr("itemCode");
 		var name = $("#detail_dialog #d_itemName").text();
@@ -81,11 +88,14 @@ function make_detail_dialog(target){
 	var itemPrice = $(target).find(".price > span").html();
 	
 	// 상품 설명 불러오기
-	$("#d_itemDescription > span").load("/GU/item/ajax/item_description.html #" + itemCode, function(){
+	/*
+		$("#d_itemDescription > span").load("/GU/item/ajax/item_description.html #" + itemCode, function(){
 		if($("#d_itemDescription > span").html() == ""){
-			$("#d_itemDescription > span").html("...");
+			$("#d_itemDescription > span").html("맛있다.");
 		}
+	*/
 		
+		$("#d_itemDescription > span").html("맛있다.");
 		$("#detail_left img").attr("src", "/GU/img/item/" + itemCode + ".PNG");
 		$("#d_itemName").html(itemName);
 		$("#d_itemPrice > span").html(itemPrice);
@@ -123,7 +133,7 @@ function make_detail_dialog(target){
 		$("#detail_dialog #order").click(function(){
 			order_request();
 		});
-	});
+//	});
 }
 
 

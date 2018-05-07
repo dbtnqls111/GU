@@ -11,7 +11,8 @@ div{ box-sizing:border-box; }
 #hot > #left{ width:35%; height:100%; float:left; }
 #hot > #right{ width:65%; height:100%; float:left; }
 
-#hot #title{ width:100%; height:10%; margin:15px 0px -7px 15px; font-size:20px; font-weight:bold; }
+@font-face{ font-family:"NiceFont"; src:url("/GU/css/font/Typo_PororoM.ttf"); } /* http://kdarkdev.tistory.com/196 참고 */
+#hot #title{ width:100%; height:10%; margin:15px 0px -7px 15px; font-family:"NiceFont"; font-size:25px; font-weight:bold; }
 #hot #list{ width:100%; height:90%; }
 #hot ul{ width:100%; height:100%; margin:0px; padding:0px; overflow:hidden; }
 #hot ul > li{ float:left; width:50%; height:50%; }
@@ -130,7 +131,7 @@ div{ box-sizing:border-box; }
 	position:absolute;
 	right:70px;
 	padding-top:30px;
-	border:1px solid red;
+	border:1px solid black;
 	background:#EEEEEE;
 }
 /* ---------------------------------------------------------------------- */
@@ -145,7 +146,6 @@ div{ box-sizing:border-box; }
 	
 	/* 불투명도 조절 */
 	opacity:0.6; /* 값 범위 : 0 ~ 1 */
-	filter:alpha(opacity=60); /* For IE8 and earlier */
 }
 
 #loader{ display:none; position:fixed; left:50%; top:50%; }

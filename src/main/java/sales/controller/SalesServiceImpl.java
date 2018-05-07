@@ -56,6 +56,11 @@ public class SalesServiceImpl implements SalesService {
 	}
 
 	@Override
+	public ArrayList<HashMap<String, String>> getSalesStandByNews(String today) {
+		return (ArrayList<HashMap<String, String>>) salesDAO.getSalesStandByNews(today);
+	}
+
+	@Override
 	public ArrayList<HashMap<String, String>> getSalesStandByList(int startNum, int endNum) {
 		return (ArrayList<HashMap<String, String>>) salesDAO.getSalesStandByList(startNum, endNum);
 	}
@@ -102,11 +107,12 @@ public class SalesServiceImpl implements SalesService {
 
 	@Override
 	public ArrayList<SalesDTO> getsalesCurrentList(String branchCode) {
-		return (ArrayList<SalesDTO>)salesDAO.getsalesCurrentList(branchCode);
+		return (ArrayList<SalesDTO>) salesDAO.getsalesCurrentList(branchCode);
 	}
 
 	@Override
 	public ArrayList<SalesDTO> getsalesCurrentListView(String branchCode, String code) {
-		return (ArrayList<SalesDTO>)salesDAO.getsalesCurrentListView(branchCode, code);
+		return (ArrayList<SalesDTO>) salesDAO.getsalesCurrentListView(branchCode, code);
 	}
+
 }

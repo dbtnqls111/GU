@@ -26,10 +26,10 @@ pageEncoding="UTF-8"%>
 		$("#hit").text("${boardDTO.hit}");
 		
 		$.ajax({
-		     url: '${pageContext.request.contextPath}/img/${boardDTO.seq}_board.jpg',
+		     url: '${pageContext.request.contextPath}/img/${boardDTO.img}',
 		     type: 'HEAD',
 		     success: function () {
-		    	$("#contentImg").append($('<img id="boardImg" src="${pageContext.request.contextPath}/img/${boardDTO.seq}_board.jpg" onload="javascript:check()">'));
+		    	$("#contentImg").append($('<img id="boardImg" src="${pageContext.request.contextPath}/img/${boardDTO.img}" onload="javascript:check()">'));
 		    			    	
 		    	var width = check();
 		    	
@@ -41,8 +41,6 @@ pageEncoding="UTF-8"%>
 		     error: function () {
 		     }
 		});
-		
-		$("#content").append("${boardDTO.content}");
 	}
 
 	$(function(){
@@ -76,8 +74,8 @@ pageEncoding="UTF-8"%>
 		<tbody>
 			<tr>
 				<td id="contentTd" colspan="4" align="center">
-					<span id="contentImg"></span>					
-					<div id="contentDiv"><span id="content"></span></div>					
+					<div id="contentDiv"><pre id="content">${boardDTO.content}</pre></div>
+					<span id="contentImg"></span>								
 				</td>
 			</tr>
 		</tbody>

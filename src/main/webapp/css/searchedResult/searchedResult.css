@@ -42,7 +42,7 @@ div{ box-sizing:border-box; }
 #menu{
 	position:absolute;
 	overflow:hidden;
-	margin:0px 0px 0px 40px; padding:0px;
+	margin:0px 0px 0px 80px; padding:0px;
 	z-index:200;
 }
 
@@ -65,7 +65,7 @@ div{ box-sizing:border-box; }
 #content{
 	width:952px;
 	position:absolute;
-	top:369px; left:264px;
+	top:369px; left:317px;
 	z-index:100;
 }
 
@@ -107,8 +107,8 @@ div{ box-sizing:border-box; }
 }
 
 #content .img{ width:100%; float:left; margin-bottom:0px; }
-#content .name{ width:100%; float:left; text-align:left; margin-left:25px; font-size:13px; }
-#content .price{ width:100%; float:left; text-align:left; margin:0px 0px 10px 25px; }
+#content .name{ width:100%; float:left; text-align:left; margin-bottom:7px; margin-left:25px; font-size:13px; }
+#content .price{ width:100%; float:left; text-align:left; margin:0px 0px 0px 25px; }
 #content .price > span{ font-size:20px; }
 
 #viewMore{

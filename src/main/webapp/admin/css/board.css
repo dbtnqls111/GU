@@ -1,0 +1,112 @@
+.topMenu {
+	width: 850px;
+	height: 30px;
+	background-color: #c4c4c4;
+	border-bottom: 1px solid #aaaaaa;
+	border-right: 1px solid #aaaaaa;
+	box-sizing: border-box;
+}
+
+.topMenu p {
+	display: inline;
+	height: 100%;
+	padding: 2px 5px;
+	line-height: 2;
+	font-weight: bold;
+}
+
+.insertForm, .noticeView, .updateForm {
+	width: 100%;
+	height: calc(100% - 60px);
+	padding-left: 10px;
+	box-sizing: border-box;
+	overflow: auto;
+	margin: 10px 0;
+}
+
+.insertForm table, .noticeView table, .updateForm table {
+	width: 650px;
+	margin-left: 0;
+	margin-bottom: 50px;
+	border: 1px solid #aaaaaa;
+	border-collapse: collapse;
+}
+
+th, td {
+	border: 1px solid #aaaaaa;
+	padding: 5px;
+	text-align: center;
+}
+
+.tdLabel {
+	background-color: #c4c4c4;
+	font-weight: bold;
+	width: 20%;
+}
+
+.tdData {
+	background-color: white;
+	padding: 0;
+	width: 80%;
+}
+
+.tdData input, .tdData textarea {
+	width: calc(100% - 10px);
+	margin-left: 5px;
+	margin-right: 5px;
+	box-sizing: border-box;
+}
+
+.tdData textarea {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.tdData pre {
+	width: calc(100% - 10px);
+	margin: 5px;
+	box-sizing: border-box;
+	text-align: left;
+}
+
+.bottomMenu {
+	position: fixed;
+	background-color: #c4c4c4;
+	border-top: 1px solid #aaaaaa;
+	border-right: 1px solid #aaaaaa;
+	border-bottom: 1px solid #aaaaaa;
+	box-sizing: border-box;
+	bottom: 10px;
+	width: 850px;
+	height: 30px;
+	padding: 2px 5px;
+}
+
+input[type='text'], input[type='file'], textarea {
+	border: 1px solid #aaaaaa;
+	border-radius: 5px;
+}
+
+input[type='text']:hover, input[type='file']:hover, textarea:hover {
+	border: 2px solid #66aaff;
+	box-sizing: border-box;
+}
+
+input[type='text']:focus, input[type='file']:focus, textarea:focus {
+	border: 2px solid #66aaff;
+	box-sizing: border-box;
+}
+
+input[type='submit'], input[type='button'] {
+	border: 1px solid #aaaaaa;
+	border-radius: 5px;
+	padding: 2px 10px;
+	background-color: #c9e1ff;
+	height: 24px;
+}
+
+input[type='submit']:hover, input[type='button']:hover {
+	background-color: #66aaff;
+	color: white;
+	cursor: pointer;
+}

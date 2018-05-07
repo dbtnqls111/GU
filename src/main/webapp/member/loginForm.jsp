@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -19,6 +20,7 @@
 		});	
 		
 		document.getElementById("path").value = "${path}";
+<<<<<<< HEAD
 		
 		if(cookie_id){
 			$("#saveId").prop("checked", true);
@@ -47,6 +49,8 @@
 			}
 		});
 		
+=======
+>>>>>>> 1e7bf234b1484aca0005aaf82020dd3f54246d49
 	});
 	function setCookie(cookieName, value, exdays){
 		   var exdate = new Date();
@@ -149,7 +153,7 @@
 	</div>
 </div>
 <div class="logo_div">
-	<input type="image" src="../img/GU로고1.jpg" style="height:70px;">
+	<input type="image" src="../img/GU로고1.jpg" style="height:70px;" onclick="javascript:location.href=/GU/">
 </div>
 <div class="location_div">
 	<a href="../index.jsp">홈</a> &gt; <strong>로그인</strong>

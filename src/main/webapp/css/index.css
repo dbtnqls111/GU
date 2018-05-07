@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 #wrap_index{
 	width: 100%;
 }
@@ -37,32 +39,13 @@ a {
 	margin-top: 2px;
 }
 
-#boxDiv, #boxDiv2 {
+#boxDiv {
 	float: left;
 	margin-top: 3px;
 	width: 78%;
 	height: 425px;
 	position:relative;
 	cursor:pointer;
-}
-
-#boxDiv2, #boxDiv2 *{ box-sizing:border-box; }
-
-#boxDiv2{
-	overflow:hidden;
-	border-bottom:1px solid #999999;
-	border-right:1px solid #999999;
-}
-
-#boxDiv2 > #box2_left{
-	width:60%; height:100%;
-	float:left;
-}
-
-#boxDiv2 > #box2_right{
-	width:40%; height:100%;
-	float:left;
-	border:1px solid black;
 }
 
 #right, #left{	
@@ -126,22 +109,48 @@ a {
 
 
 
-/* ============================= 源�誘쇱쭊 ============================= */
+/* =========================================== 김민진 =========================================== */
+#boxDiv2{
+	float:left;
+	margin-top:3px;
+	width:78%;
+	height:425px;
+	position:relative;
+	cursor:pointer;
+}
 
-/* Best �긽�뭹 */
-/* -------------------------------------------------------------------------------- */
+#boxDiv2, #boxDiv2 *{ box-sizing:border-box; }
+
+#boxDiv2{
+	overflow:hidden;
+	border-bottom:1px solid #999999;
+	border-right:1px solid #999999;
+}
+
+#boxDiv2 > #box2_left{
+	width:60%; height:100%;
+	float:left;
+	text-align:center;
+}
+
+#boxDiv2 > #box2_right{
+	width:40%; height:100%;
+	float:left;
+}
+
+/* --------------------------------------------------------------------------------------------------------------------- */
+
 #best *{ box-sizing:border-box; }
-#best{ width:1038px; margin:50px 0px 100px 250px; }
+#best{ width:1038px; margin:50px 0px 0px 250px; }
 #title{ width:100%; overflow:hidden; }
 #title *{ float:left; }
-#title_text{ margin:15px 0px 0px 5px; }
-#title_text > span{ font-size:25px; font-weight:bold; }
+#title_text{ margin:18px 0px 0px 5px; }
+@font-face{ font-family:"NiceFont"; src:url("/GU/css/font/Typo_PororoM.ttf"); }
+#title_text > span{ font-family:"NiceFont"; font-size:27px; font-weight:bold; }
 #best ul{ margin:0px; padding:0px; overflow:hidden; }
 
 #best li{ 
-	/* �꼫鍮꾩� �넂�씠瑜� 吏��젙�빐二쇱뼱�빞留� box-sizing �냽�꽦�씠 �쟻�슜�맂�떎. */
-	width:24%;
-	height:300px;
+	width:24%; height:300px; /* 당연한 이야기이지만 element의 크기(width, height)를 지정해주어야만 box-sizing 속성이 적용된다. */
 	margin:0px 10px 10px 0px;
 	float:left;
 	text-align:center;
@@ -162,4 +171,28 @@ a {
 
 #best .price{ width:100%; float:left; text-align:left; margin:0px 0px 10px 25px; }
 #best .price > span{ font-size:20px; }
-/* -------------------------------------------------------------------------------- */
+
+
+/* ------------------------------------------------ type2.html css ------------------------------------------------ */
+@font-face{
+	font-family:"GoodFont";
+	src:url("/GU/css/font/DXPOPi-KSCpc-EUC-H.ttf");
+}
+
+.category{ width:100%; height:100%; }
+
+.type1_area{
+	width:100%; height:20%;
+	padding:10px;
+	line-height:70px;
+	font-family:"GoodFont"; font-size:40px;
+}
+
+.type2_area{ width:100%; height:80%; padding-left:10px; padding-bottom:10px; }
+
+.type2{
+	width:32.3333333333%; height:100%;
+	float:left;
+	border:1px solid #999999;
+	border-radius:40px;
+}

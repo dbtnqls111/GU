@@ -59,11 +59,11 @@
 	function dateCalc(year, month, incDec) {
 		var date = new Date(year + "/" + month + "/01");
 
-		date.setMonth(date.getMonth()+ incDec);
-		
+		date.setMonth(date.getMonth() + incDec);
+
 		var monthString = (date.getMonth() + 1).toString();
 		var month = "";
-		
+
 		for (var i = 0; i < 2 - monthString.length; i++) {
 			month += "0";
 		}
@@ -83,78 +83,70 @@
 		var listItem = new Array();
 		listItem.push("Month");
 		<c:forEach var="branchName" items="${branchNameListForGraph}">
-			listItem.push("${branchName}");
+		listItem.push("${branchName}");
 		</c:forEach>
-		
+
 		var list0 = new Array();
 		list0.push(dateCalc("${year}", "${month}", -5));
 		<c:forEach var="statsByBranchDTO" items="${statsByBranchListForGraph6[0]}">
-			list0.push("${statsByBranchDTO.salesPrice}");
+		list0.push(Number("${statsByBranchDTO.salesPrice}"));
 		</c:forEach>
-			
-		console.log(listItem);
-		console.log(list0);
-		
-		var data = google.visualization.arrayToDataTable([ 
-			listItem, list0, 
-			[ dateCalc("${year}", "${month}", -4), 0, 0, 0, 0, 0 ], 
-			[ dateCalc("${year}", "${month}", -3), 0, 0, 0, 0, 0 ], 
-			[ dateCalc("${year}", "${month}", -2), 0, 0, 0, 0, 0 ], 
-			[ dateCalc("${year}", "${month}", -1), ${statsByBranchListForGraph6[4][0].salesPrice}, ${statsByBranchListForGraph6[4][1].salesPrice}, ${statsByBranchListForGraph6[4][2].salesPrice}, ${statsByBranchListForGraph6[4][3].salesPrice}, ${statsByBranchListForGraph6[4][4].salesPrice} ], 
-			[ dateCalc("${year}", "${month}", 0), ${statsByBranchListForGraph6[5][0].salesPrice}, ${statsByBranchListForGraph6[5][1].salesPrice}, ${statsByBranchListForGraph6[5][2].salesPrice}, ${statsByBranchListForGraph6[5][3].salesPrice}, ${statsByBranchListForGraph6[5][4].salesPrice} ] 
-		]);
+
+		var list1 = new Array();
+		list1.push(dateCalc("${year}", "${month}", -4));
+		<c:forEach var="statsByBranchDTO" items="${statsByBranchListForGraph6[1]}">
+		list1.push(Number("${statsByBranchDTO.salesPrice}"));
+		</c:forEach>
+
+		var list2 = new Array();
+		list2.push(dateCalc("${year}", "${month}", -3));
+		<c:forEach var="statsByBranchDTO" items="${statsByBranchListForGraph6[2]}">
+		list2.push(Number("${statsByBranchDTO.salesPrice}"));
+		</c:forEach>
+
+		var list3 = new Array();
+		list3.push(dateCalc("${year}", "${month}", -2));
+		<c:forEach var="statsByBranchDTO" items="${statsByBranchListForGraph6[3]}">
+		list3.push(Number("${statsByBranchDTO.salesPrice}"));
+		</c:forEach>
+
+		var list4 = new Array();
+		list4.push(dateCalc("${year}", "${month}", -1));
+		<c:forEach var="statsByBranchDTO" items="${statsByBranchListForGraph6[4]}">
+		list4.push(Number("${statsByBranchDTO.salesPrice}"));
+		</c:forEach>
+
+		var list5 = new Array();
+		list5.push(dateCalc("${year}", "${month}", 0));
+		<c:forEach var="statsByBranchDTO" items="${statsByBranchListForGraph6[5]}">
+		list5.push(Number("${statsByBranchDTO.salesPrice}"));
+		</c:forEach>
+
+		var data = google.visualization.arrayToDataTable([ listItem, list0, list1, list2, list3, list4, list5 ]);
 
 		// 그래프 옵션
 		var options = {
-			title : "${year}" + "년 " + "${month}" + "월 판매 추이",
-			width : 800, 
-			height : 500, 
-			vAxis : { title : "판매액" },
-			hAxis : { title : "년월" },
+			width : 1000,
+			height : 500,
+			vAxis : {
+				title : "판매액"
+			},
+			hAxis : {
+				title : "년월"
+			},
 			seriesType : "bars",
-			bar : { groupWidth : "50%" },
-			legend : { position : "right" }
+			bar : {
+				groupWidth : "50%"
+			},
+			legend : {
+				position : "right"
+			}
 		};
 
 		var chart = new google.visualization.ComboChart(document.getElementById("graph"));
 		chart.draw(data, options);
 	}
 </script>
-<style type="text/css">
-.tab ul {
-	list-style: none;
-	width: 650px;
-	display: inline-block;
-	padding: 0;
-	margin: 0;
-	text-align: center;
-	z-index: 100;
-}
-
-.tab ul li {
-	width: 100px;
-	height: 25px;
-	float: left;
-	line-height: 1.5;
-	background: linear-gradient(to top, #66aaff, #c9e1ff 50%, #dbebff, white);
-	border: 1px solid #aaaaaa;
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
-	box-sizing: border-box;
-	margin-left: 5px;
-	border: 1px solid #aaaaaa;
-}
-
-.tab ul li:hover {
-	cursor: pointer;
-	font-weight: bold;
-}
-
-.tab ul li.selected {
-	border-top: none;
-	font-weight: bold;
-}
-</style>
 </head>
 <body>
 	<div class="topMenu">
@@ -215,7 +207,6 @@
 				<th></th>
 			</tr>
 		</table>
-		<div class="chart"></div>
 	</div>
 	<div class="statsResultGraph">
 		<p class="statsP">${year}년&nbsp;${month}월&nbsp;판매&nbsp;통계</p>

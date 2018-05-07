@@ -33,13 +33,25 @@
 					
 					var price = $(this).find("price").text();
 
-					$("#hot #title").html("오늘의 " + type1 + " 추천 상품");
+					$("#hot #title").html("오늘의 " + type1 + " 추천 상품!");
 					$("#b_item" + $(this).index()).attr("code", code);
 					$("#b_item" + $(this).index()).append("<div class='b_itemImg'><img src='../img/item/" + code + ".PNG' class='img' width='100%' height='90%'></div>" +
 																		"<div class='b_itemDescription'>" +
 																			"<div class='name'><span realName='" + realName + "' style='font-size:14px;'>" + name + "</span></div><br>" +
 																			"<div class='price' style='font-size:18px; font-weight:bold;'><span>" + price + "</span>원</div>" +
 																		"<div>");
+					
+					// "오늘의 ~ 추천 상품!" 반짝임 효과
+					var flag = 0;
+					window.setInterval(function(){
+						if(flag == 0){
+							$("#hot #title").css("color", "black");
+							flag = 1;
+						}else if(flag == 1){
+							$("#hot #title").css("color", "red");
+							flag = 0;
+						}
+					}, 250);
 				});
 			});
 			// -------------------------------------------------------------------------------------------------------------
@@ -47,7 +59,8 @@
 			
 			// 																		◆ type2 ◆
 			// -------------------------------------------------------------------------------------------------------------
-			var target = "." + '${ type1 }' + " a";
+			var target = "div[type1='${ type1 }'] .type2";
+
 			$.ajax({
 				url:"ajax/type2.html",
 				type:"get",
@@ -57,6 +70,12 @@
 				
 				success:function(data){
 					var index = 1;
+					/* 
+						type2.html 파일을 보면 html 기본 태그들(html, body)을 주석 처리 해놓은 것을 볼 수가 있는데,
+						그 이유는 type2.html의 내용을 ajax를 통해서 불러올 때는 html 기본 태그들(html, body 등)을 포함하여 있는 그대로를 불러오긴 하지만
+						$(data)  ←  이와 같이 'jQuery 객체로 변환하는 과정'에서 문제가 발생하기 때문이다.(jQuery는 'html' 기본 태그들을 걷어낸다.')
+						※실제로 ($(data))를 출력해보면 undefined가 출력된다.
+					*/ 
 					
 					$(data).find(target).each(function(){
 						var type2 = $(this).html();
