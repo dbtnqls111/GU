@@ -1,13 +1,13 @@
 #copyright{
-	width:100%; height:150px;
-	text-align:center;
+	width:100%; height:170px;
 	margin-top:90px;
-	border-top:1px solid black;
+	border-top:1px solid #999999;
 }
 
-#copyright > span{
-	line-height:150px;
-}
+@font-face{ font-family:"copyrightFont"; src:url("/GU/css/font/KBIZ한마음명조 M.ttf"); }
+#copyright > pre{ font-family:"copyrightFont"; font-size:20px; font-weight:bold; }
+
+
 
 #footer{
 	width: 1560px;
