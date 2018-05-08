@@ -142,10 +142,10 @@
 <script type="text/javascript">
 	$(function() {
 		$(".img_logo").hover(function() {
-			$(this).attr("src", "img/home_active.png");
+			$(this).attr("src", "img/GU로고2.jpg");
 			$(this).css("cursor", "pointer");
 		}, function() {
-			$(this).attr("src", "img/home_inactive.png");
+			$(this).attr("src", "img/GU로고1.jpg");
 		});
 
 		$(".img_logo").click(function() {
@@ -179,7 +179,7 @@
 	<div class="header_wrapper">
 		<div class="leftMenu">
 			<span class="logo">
-				<img src="img/home_inactive.png" class="img_logo">
+				<img src="img/GU로고1.jpg" class="img_logo">
 				<span class="tooltip_logo">홈</span>
 			</span>
 		</div>
