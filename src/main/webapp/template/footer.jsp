@@ -58,4 +58,9 @@
 	</fieldset>
 </div>
 
-<div id="copyright"><span>Copyright ⓒ</span></div>
+<div id="copyright">
+	<pre>
+													   Copyright(C)2018. All rights reserved by GU<br>
+													   서울특별시 종로구 돈화문로 26 단성사빌딩 | TEL : 1633-1541
+	</pre>
+</div>

@@ -116,7 +116,7 @@ div{ box-sizing:border-box; }
 	float:left;
 	margin-bottom:10px;
 	text-align:center; line-height:37px;
-	border:1px solid black;
+	border:1px solid #999999;
 	font-size:20px;
 }
 /* ----------------------------------------------------------------------------------- */

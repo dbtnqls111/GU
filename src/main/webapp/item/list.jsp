@@ -16,6 +16,10 @@
 	
     <link rel="stylesheet" href="/GU/css/normalize.css"> <!-- http://webdir.tistory.com/455 참고 -->
     
+    <!-- Swiper Slider Plugins -->
+    <script src="/GU/js//swiper.min.js"></script>
+    <link rel="stylesheet" href="/GU/css/swiper.min.css">
+    
     <script type="text/javascript" src="/GU/script/list_function.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="/GU/script/list.js" charset="UTF-8"></script>
 	<script type="text/javascript">
@@ -99,6 +103,37 @@
 			// -------------------------------------------------------------------------------------------------------------
 			$("#hot > #left").attr("src", "../img/hot/" + "${ type1 }" + ".jpg");
 			// -------------------------------------------------------------------------------------------------------------
+		});
+	</script>
+	<script>
+		$(function(){
+			var swiper = new Swiper(".swiper-container", {
+				pagination:{ el:".swiper-pagination", clickable:true }
+			});
+			
+			
+			var index = 0;
+			$(".swiper-pagination-bullet").each(function(){
+				$(this).addClass("bullet" + index);
+				index++;
+			});
+			index = index - 1; // 마지막 슬라이드의 index
+			
+			
+			// 자동 슬라이드 기능
+			window.setInterval(function(){
+				$(".swiper-pagination-bullet").each(function(){
+					if($(this).hasClass("swiper-pagination-bullet-active")){
+						var cur_index = $(this).index();
+						if(cur_index == index){ // 마지막 슬라이드라면 처음으로 다시 이동
+							$(".bullet" + 0).trigger("click");
+						}else{
+							$(".bullet" + (cur_index + 1)).trigger("click");
+						}
+						return false;
+					}
+				});
+			}, 3000);
 		});
 	</script>
 	<link rel="stylesheet" type="text/css" href="/GU/css/list.css" />
@@ -187,7 +222,15 @@
 		
 		<!-- ================================================================ -->
 		
-		<div id="moving_banner"></div>
+		<!-- swiper로 시작되는 class들은 이름이 정해져 있는 것이므로 이름을 변경하면 안 된다. -->
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide"><img src="/GU/img/slider/img01.png" style="width:100%; height:100%;"></div>
+				<div class="swiper-slide"><img src="/GU/img/slider/img02.png" style="width:100%; height:100%;"></div>
+				<div class="swiper-slide"><img src="/GU/img/slider/img03.png" style="width:100%; height:100%;"></div>
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
 	</div>
 	
 	

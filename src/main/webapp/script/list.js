@@ -116,23 +116,11 @@ $(function(){
 	//																		 ◆ moving_banner ◆
 	// ---------------------------------------------------------------------------------------------------------------
 	var navigator_top = $("#hot").offset().top; // http://cofs.tistory.com/197 참고
-	$("#moving_banner").css("top", navigator_top);
+	$(".swiper-container").css("top", navigator_top);
 	
 	$(window).scroll(function( ){  // scroll 이벤트
 		var position = $(document).scrollTop() + 150; // scrollTop : scroll 상단 위치
-		$("#moving_banner").animate({ top:position + "px" }, 30);
-	});
-	// ---------------------------------------------------------------------------------------------------------------
-	
-	
-	//																		       ◆ fixed_bar ◆
-	// ---------------------------------------------------------------------------------------------------------------
-	$("#fixed_bar").hover(function(){
-		$("#fixed_bar").css("cursor", "pointer")
-	});
-	
-	$("#fixed_bar").click(function(){
-		window.scrollTo(0, 0);
+		$(".swiper-container").animate({ top:position + "px" }, 30);
 	});
 	// ---------------------------------------------------------------------------------------------------------------
 });

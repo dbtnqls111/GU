@@ -119,20 +119,28 @@ div{ box-sizing:border-box; }
 	width:65.3%; height:40px;
 	padding-top:8px; margin:auto auto 200px auto;
 	text-align:center;
-	border:1px solid black;
+	border:1px solid #999999;
 	font-size:20px;
 }
 /* ---------------------------------------------------------------------- */
 
 
 /* ---------------------------------------------------------------------- */
-#moving_banner{
-	width:10%; height:70%;
+.swiper-container{
+	width:10%; height:60%;
 	position:absolute;
+	top:0px;
 	right:70px;
-	padding-top:30px;
-	border:1px solid black;
-	background:#EEEEEE;
+	border:1px solid #999999;
+}
+
+.swiper-wrapper{
+	width:100%; height:95%;
+}
+
+.swiper-pagination{
+	width:100%; height:5%;
+	background:#F5F5F5;
 }
 /* ---------------------------------------------------------------------- */
 
